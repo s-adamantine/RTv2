@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 12:30:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/02 17:20:29 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,6 @@ typedef struct	s_img
 	int			size_line_int;
 	int			endian;
 }				t_img;
-
-typedef struct	s_event
-{
-	void		*mlx;
-	void		*win;
-	t_img		*img;
-	char		*scene;
-}				t_event;
 
 typedef struct	s_intensity
 {
@@ -100,6 +92,8 @@ typedef struct	s_scene
 	int			width;
 	int			height;
 	int			amount_d;
+	int			parts;
+	double		grain;
 	double		avg_d;
 	double		ambient;
 	t_source	camera;
@@ -107,22 +101,32 @@ typedef struct	s_scene
 	t_list		*objects;
 }				t_scene;
 
+typedef struct	s_event
+{
+	void		*mlx;
+	void		*win;
+	t_img		*img;
+	char		*scene_name;
+	t_scene		scene;
+}				t_event;
+
+
 void			error(int err);
 void			s_error(const char *s);
-void			set_scene(int fd, t_scene **scene);
+void			set_scene(int fd, t_scene *scene);
 void			set_object(t_list **objects, t_scene *scene, int id, int fd);
 void			update_vector(t_3v *vector, char *line);
 void			get_doubles_from_line(double *vector, char *line, int size);
-void			add_light(t_scene **scene, int fd);
-void			set_render(t_scene **scene, int fd);
-void			set_camera(t_scene **scene, int fd);
+void			add_light(t_scene *scene, int fd);
+void			set_render(t_scene *scene, int fd);
+void			set_camera(t_scene *scene, int fd);
 double			get_s_cylinder(t_object *s, t_3v dir, t_3v r_origin);
 double			get_s_plane(t_object *s, t_3v dir, t_3v src_o);
 double			get_s_sphere(t_object *s, t_3v dir, t_3v src_o);
 double			get_s_cone(t_object *s, t_3v dir, t_3v src_c);
 double			get_nearest_intersection(double a, double b, double d);
 void			raytracer(t_event *event, t_scene *scene);
-t_event			*init_window(t_scene *scene);
+t_event			init_window(t_scene scene);
 t_source		*get_source(int id, t_list *lst);
 t_3v			get_dir(t_3v dir, t_3v rotation);
 void			change_dir(t_3v *dir, t_3v rotation);
@@ -132,9 +136,8 @@ void			rotate_object(t_object *object, t_scene *scene);
 void			init_loop(t_event *event);
 int				key_pressed(int key, void *param);
 int				get_color(double blue, double green, double red);
-void			add_light(t_scene **scene, int fd);
 t_intensity		get_intensity(t_3v point, t_object *obj, t_3v dir,
 		t_source cam);
-void			set_scene(int fd, t_scene **scene);
+int				fill_square(t_img **img, int index, int size, int color);
 
 #endif

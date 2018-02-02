@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 17:10:12 by mpauw             #+#    #+#             */
-/*   Updated: 2018/01/30 17:26:36 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/02 17:03:24 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,22 +32,34 @@ static t_img	*init_image(void *mlx, int width_scr, int height_scr)
 	return (img);
 }
 
+static int		loop_hook(t_event *event)
+{
+	if ((event->scene).grain > 1)
+	{
+		(event->scene).grain = ((event->scene).grain > 2) ? (event->scene).grain / 2 : 1; 
+		raytracer(event, &(event->scene));
+		mlx_put_image_to_window(event->mlx, event->win,
+			(event->img)->img_ptr, 0, 0);
+	}
+	return (1);
+}
+
 void			init_loop(t_event *event)
 {
 	mlx_key_hook(event->win, &key_pressed, event);
+	mlx_loop_hook(event->mlx, &loop_hook, event);
 	mlx_loop(event->mlx);
 }
 
-t_event			*init_window(t_scene *scene)
+t_event			init_window(t_scene scene)
 {
-	t_event	*event;
+	t_event	event;
 
-	if (!(event = (t_event *)malloc(sizeof(t_event))))
-		error(1);
-	event->mlx = mlx_init();
-	event->win = mlx_new_window(event->mlx, scene->width,
-			scene->height, scene->name);
-	event->scene = scene->name;
-	event->img = init_image(event->mlx, scene->width, scene->height);
+	event.mlx = mlx_init();
+	event.win = mlx_new_window(event.mlx, scene.width,
+			scene.height, scene.name);
+	event.scene_name = scene.name;
+	event.scene = scene;
+	event.img = init_image(event.mlx, scene.width, scene.height);
 	return (event);
 }

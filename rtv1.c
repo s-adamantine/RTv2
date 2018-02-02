@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/01/31 12:03:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/02 16:42:31 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,21 +47,19 @@ void	usage(void)
 int		main(int argc, char **argv)
 {
 	int			fd;
-	t_scene		*scene;
-	t_event		*event;
+	t_scene		scene;
+	t_event		event;
 
 	if (argc != 2)
 		usage();
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
 		error(0);
-	if (!(scene = (t_scene *)malloc(sizeof(t_scene))))
-		error(1);
 	set_scene(fd, &scene);
-	if (!(scene->cam_set))
+	if (!(scene.cam_set))
 		error(0);
 	event = init_window(scene);
-	raytracer(event, scene);
-	mlx_put_image_to_window(event->mlx, event->win,
-			(event->img)->img_ptr, 0, 0);
-	init_loop(event);
+	raytracer(&event, &scene);
+	mlx_put_image_to_window(event.mlx, event.win,
+			(event.img)->img_ptr, 0, 0);
+	init_loop(&event);
 }

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:43:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/01/30 17:27:33 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/02 16:35:30 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,13 @@ static void	set_values_camera(t_source *cam, char *s, char *value)
 		update_vector(&(cam->rotation), value);
 }
 
-void		set_camera(t_scene **scene, int fd)
+void		set_camera(t_scene *scene, int fd)
 {
 	char	*line;
 	char	*s;
 	char	*value;
 
-	if ((*scene)->cam_set)
+	if (scene->cam_set)
 		return ;
 	while (get_next_line(fd, &line) == 1)
 	{
@@ -36,11 +36,11 @@ void		set_camera(t_scene **scene, int fd)
 			error(0);
 		if (!(value = ft_brace_content(s, '{', '}')))
 			error(0);
-		set_values_camera(&((*scene)->camera), s, value);
+		set_values_camera(&(scene->camera), s, value);
 		free(s);
 		free(value);
 		free(line);
 	}
 	free(line);
-	(*scene)->cam_set = 1;
+	scene->cam_set = 1;
 }

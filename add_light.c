@@ -6,13 +6,13 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:53:34 by mpauw             #+#    #+#             */
-/*   Updated: 2018/01/30 17:28:54 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/02 16:34:15 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static t_source	init_light(t_scene **scene)
+static t_source	init_light(t_scene *scene)
 {
 	t_source	light;
 	t_intensity	i;
@@ -22,8 +22,8 @@ static t_source	init_light(t_scene **scene)
 	i.diff = 10;
 	i.spec = 10;
 	light.intensity = i;
-	(*scene)->amount_light++;
-	light.id = (*scene)->amount_light;
+	scene->amount_light++;
+	light.id = scene->amount_light;
 	light.type = 1;
 	return (light);
 }
@@ -47,7 +47,7 @@ static void		set_values_source(t_source *src, char *s, char *value)
 	}
 }
 
-void			add_light(t_scene **scene, int fd)
+void			add_light(t_scene *scene, int fd)
 {
 	t_source	light;
 	char		*line;
@@ -69,5 +69,5 @@ void			add_light(t_scene **scene, int fd)
 		free(line);
 	}
 	free(line);
-	ft_lstaddnewr(&((*scene)->lights), &light, sizeof(t_source));
+	ft_lstaddnewr(&(scene->lights), &light, sizeof(t_source));
 }

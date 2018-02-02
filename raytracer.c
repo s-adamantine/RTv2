@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 15:14:48 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/02 15:22:42 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ static void		get_pixel_value(t_scene *scene, t_3v pixel, int *pix_v)
 	tmp = scene->objects;
 	s_value = MAX_S_VALUE;
 	cam = scene->camera;
-
 	change_dir(&pixel, (scene->camera).rotation);
 	obj = get_visible_object(&s_value, pixel, scene->objects);
 	scene->objects = tmp;

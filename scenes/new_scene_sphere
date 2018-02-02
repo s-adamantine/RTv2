@@ -1,0 +1,30 @@
+render {
+		{name, {Scene Sphere}}
+		{dimensions, {1200 900}}
+}
+camera {
+		{origin, {1000.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+light {
+		{origin, {1000.0 200.0 200.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {20 3}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 200.0 200.0}}
+		{rotation, {180.0 0.0 0.0}}
+		{color, {0.0 0.0 1.0}}
+		{radius, {100}}
+		{reflection, {0.0 0.25 0.0 20}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {-800.0 -400.0 -200.0}}
+		{rotation, {180.0 0.0 0.0}}
+		{color, {0.0 1.0 0.0}}
+		{radius, {1000}}
+		{reflection, {0.0 0.1 0.0 10}}
+}

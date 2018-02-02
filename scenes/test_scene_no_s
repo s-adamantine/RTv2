@@ -1,0 +1,61 @@
+render {
+		{name, {Scene La La Land}}
+		{dimensions, {800 800}}
+		{ambient, {.7}}
+}
+camera {
+		{origin, {4000.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+light {
+		{origin, {250.0 50.0 50.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {10 10}}
+}
+light {
+		{origin, {2500.0 -50.0 10.0}}
+		{color, {0.7 0.2 1.0}}
+		{intensity, {10 10}}
+}
+light {
+		{origin, {-500.0 -50.0 50.0}}
+		{color, {1.0 0.0 0.5}}
+		{intensity, {10 10}}
+}
+light {
+		{origin, {900.0 100.0 10.0}}
+		{color, {1.0 0.0 0.5}}
+		{intensity, {10 10}}
+}
+object {
+		{type, {cone}}
+		{origin, {800.0 100.0 10.0}}
+		{rotation, {150.0 0.0 0.0}}
+		{color, {0.0 0.0 0.8}}
+		{radius, {0.4}}
+		{reflection, {0.02 0.15 0.0 10}}
+}
+object {
+		{type, {cylinder}}
+		{origin, {-250.0 40.0 0.0}}
+		{rotation, {45.0 0.0 0.0}}
+		{color, {0.3 0.2 0.5}}
+		{radius, {125}}
+		{reflection, {0.04 0.15 0.0 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {100.0 100.0 100.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{radius, {40}}
+		{color, {0.1 0.4 0.5}}
+		{reflection, {0.8 0.15 0.0 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 200.0 200.0}}
+		{rotation, {180.0 0.0 0.0}}
+		{color, {1.0 0.0 1.0}}
+		{radius, {100}}
+		{reflection, {0.16 0.15 0.0 10}}
+}

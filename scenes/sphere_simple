@@ -3,7 +3,7 @@ render {
 		{dimensions, {1200 900}}
 }
 camera {
-		{origin, {1000.0 0.0 0.0}}
+		{origin, {0.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
 light {
@@ -13,7 +13,7 @@ light {
 }
 object {
 		{type, {sphere}}
-		{origin, {0.0 0.0 0.0}}
+		{origin, {-2000.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 		{color, {0.0 0.0 1.0}}
 		{radius, {100}}

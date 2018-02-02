@@ -1,10 +1,10 @@
 render {
 		{name, {Scene La La Land}}
 		{dimensions, {800 800}}
-		{ambient, {.7}}
+		{ambient, {0.7}}
 }
 camera {
-		{origin, {4000.0 0.0 0.0}}
+		{origin, {1500.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
 light {

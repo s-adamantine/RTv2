@@ -1,6 +1,7 @@
 render {
 		{name, {Scene Sphere}}
 		{dimensions, {1200 900}}
+		{anti_a, {4}}
 }
 camera {
 		{origin, {1000.0 0.0 0.0}}

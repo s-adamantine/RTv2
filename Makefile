@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/02/02 16:57:46 by mpauw            ###   ########.fr        #
+#    Updated: 2018/02/06 12:14:40 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS = 	rtv1.c\
 		raytracer.c\
 		window_init.c\
 		key_control.c\
+		anti_aliasing.c\
 		get_pixel_size.c\
 		get_light_value.c
 OBJ = $(SRCS:%.c=%.o)

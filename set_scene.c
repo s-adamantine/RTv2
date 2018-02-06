@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/06 08:46:08 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/06 16:43:46 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ static void	init_def_scene(t_scene *scene)
 	scene->height = 800;
 	scene->cam_set = 0;
 	scene->ambient = 0.5;
-	scene->grain = 0;
-	scene->anti_a = 1;
+	scene->grain = 4;
+	scene->anti_a = 4;
 	cam.type = 0;
 	cam.id = -1;
 	cam.origin = ft_init_3v(CAM_X, CAM_Y, CAM_Z);

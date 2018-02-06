@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/06 10:25:27 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/06 16:58:37 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,9 @@
 # define CAM_LIGHT_B 1.0
 # define CAM_LIGHT_G 1.0
 # define CAM_LIGHT_R 1.0
+
+# define SPACE 0x31
+# define ESC 0x35
 
 # include "libft.h"
 # include "mlx.h"
@@ -93,7 +96,7 @@ typedef struct	s_scene
 	int			height;
 	int			amount_d;
 	int			grain;
-	double		anti_a;
+	int			anti_a;
 	double		avg_d;
 	double		ambient;
 	t_source	camera;
@@ -134,10 +137,12 @@ int				get_light_value(t_3v point, t_scene *scene,
 		t_list *sources, t_object *obj);
 void			rotate_object(t_object *object, t_scene *scene);
 void			init_loop(t_event *event);
-int				key_pressed(int key, void *param);
+int				key_pressed(int key, t_event *param);
 int				get_color(double blue, double green, double red);
 t_intensity		get_intensity(t_3v point, t_object *obj, t_3v dir,
 		t_source cam);
 int				fill_square(t_img **img, int index, int size, int color);
+t_img			*init_image(void *mlx, int width_scr, int height_scr);
+void			anti_aliasing(t_event *event);
 
 #endif

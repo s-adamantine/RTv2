@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 16:42:31 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/06 09:28:12 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ int		main(int argc, char **argv)
 	if (!(scene.cam_set))
 		error(0);
 	event = init_window(scene);
-	raytracer(&event, &scene);
+	raytracer(&event, &scene, 0);
 	mlx_put_image_to_window(event.mlx, event.win,
 			(event.img)->img_ptr, 0, 0);
 	init_loop(&event);

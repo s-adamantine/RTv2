@@ -1,6 +1,7 @@
 render {
 		{name, {Scene La La Land Large}}
 		{dimensions, {1600 1200}}
+		{grain, {8}}
 }
 camera {
 		{origin, {2000.0 0.0 0.0}}

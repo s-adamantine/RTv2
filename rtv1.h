@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 17:20:29 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/06 10:25:27 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,8 +92,8 @@ typedef struct	s_scene
 	int			width;
 	int			height;
 	int			amount_d;
-	int			parts;
-	double		grain;
+	int			grain;
+	double		anti_a;
 	double		avg_d;
 	double		ambient;
 	t_source	camera;
@@ -125,7 +125,7 @@ double			get_s_plane(t_object *s, t_3v dir, t_3v src_o);
 double			get_s_sphere(t_object *s, t_3v dir, t_3v src_o);
 double			get_s_cone(t_object *s, t_3v dir, t_3v src_c);
 double			get_nearest_intersection(double a, double b, double d);
-void			raytracer(t_event *event, t_scene *scene);
+void			raytracer(t_event *event, t_scene *scene, int it);
 t_event			init_window(t_scene scene);
 t_source		*get_source(int id, t_list *lst);
 t_3v			get_dir(t_3v dir, t_3v rotation);

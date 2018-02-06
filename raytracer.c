@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 17:28:03 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/06 10:32:13 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ static void		get_part_value(t_scene *scene, t_3v pixel, int *part_v)
 		*part_v = (get_light_value(point, scene, scene->lights, obj));
 	}
 }
-
+/*
 static void		get_pixel_value(t_scene *scene, t_3v pixel, int *pix_v)
 {
 	int		i;
@@ -72,13 +72,13 @@ static void		get_pixel_value(t_scene *scene, t_3v pixel, int *pix_v)
 	double	part;
 	t_3v	pix_part;
 
-	part = 1 / scene->parts;
+	part = scene->anti_a;
 	part_v = 0;
 	i = 0;
 	(pix_part.v)[0] = (pixel.v)[0];
 	(pix_part.v)[2] = (pixel.v)[2];
 	*pix_v = 0;
-	while (i < scene->parts)
+	while (i < 1 / scene->anti_a)
 	{
 		part_v = 0;
 		(pix_part.v)[1] = (pixel.v)[1] + part * i;
@@ -86,33 +86,39 @@ static void		get_pixel_value(t_scene *scene, t_3v pixel, int *pix_v)
 		*pix_v += part_v;
 		i++;
 	}
-	*pix_v /= scene->parts;
+	*pix_v *= scene->anti_a;
 }
-
-void			raytracer(t_event *event, t_scene *scene)
+*/
+void			raytracer(t_event *event, t_scene *scene, int it)
 {
 	t_3v		pixel;
 	int			i;
 	int			j;
 	int			pix_val;
-	int			index;
 
 	i = 0;
-	index = 0;
 	while (i < (event->img)->height)
 	{
 		j = 0;
+		if (it)
+			j = scene->grain;
 		while (j < (event->img)->width)
 		{
+			if (i == 98)
+				printf("%d %d %d\n", i, j, scene->grain);
 			pix_val = BG_COLOR;
 			(pixel.v)[0] = -1000.0;
 			(pixel.v)[1] = (double)(j - (event->img)->width / 2.0);
 			(pixel.v)[2] = (double)((event->img)->height / 2.0 - i);
-			get_pixel_value(scene, pixel, &pix_val);
-			index = fill_square(&(event->img), j + i *
-					(event->img)->size_line_int, scene->grain, pix_val);
+			get_part_value(scene, pixel, &pix_val);
+			fill_square(&(event->img), j + i * (event->img)->size_line_int,
+					scene->grain, pix_val);
 			j += scene->grain;
+			if (it)
+				j += scene->grain;
 		}
 		i += scene->grain;
+		if (it)
+			i += scene->grain;
 	}
 }

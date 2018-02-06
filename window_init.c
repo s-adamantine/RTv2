@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 17:10:12 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 17:03:24 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/06 09:28:36 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,10 @@ static t_img	*init_image(void *mlx, int width_scr, int height_scr)
 
 static int		loop_hook(t_event *event)
 {
-	if ((event->scene).grain > 1)
+	if ((event->scene).grain >= 2)
 	{
-		(event->scene).grain = ((event->scene).grain > 2) ? (event->scene).grain / 2 : 1; 
-		raytracer(event, &(event->scene));
+		(event->scene).grain /= 2;
+		raytracer(event, &(event->scene), 1);
 		mlx_put_image_to_window(event->mlx, event->win,
 			(event->img)->img_ptr, 0, 0);
 	}

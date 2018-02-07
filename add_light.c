@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:53:34 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 16:34:15 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 16:05:09 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static t_source	init_light(t_scene *scene)
 
 	light.origin = ft_zero_3v();
 	light.color = ft_zero_3v();
+	light.rotation = ft_zero_3v();
 	i.diff = 10;
 	i.spec = 10;
 	light.intensity = i;

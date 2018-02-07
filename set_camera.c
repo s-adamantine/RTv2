@@ -6,13 +6,13 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:43:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 16:35:30 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 15:58:34 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void	set_values_camera(t_source *cam, char *s, char *value)
+static void	set_values_camera(t_cam *cam, char *s, char *value)
 {
 	if (ft_strncmp(s, "origin", 6) == 0)
 		update_vector(&(cam->origin), value);

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:58:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/07 15:10:20 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 16:54:39 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,15 @@
 
 int		drag_scene(int x, int y, t_event *event)
 {
-	t_scene		scene;
-	t_source	cam;
-
 	if (event->mouse_hold)
 	{
-		scene = event->scene;
-		cam = scene.cam;
-		
+		set_drag_angle(event, x, y);
 		event->x_0 = x;
 		event->y_0 = y;
 		event->cur_grain = (event->scene).grain;
+		raytracer(event, &(event->scene), 0);
+		mlx_put_image_to_window(event->mlx, event->win,
+			(event->img)->img_ptr, 0, 0);
 	}
 	return (1);
 }

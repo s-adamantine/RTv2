@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/01/30 17:27:20 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 15:25:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static void	init_def_object(t_object *object, int id)
 static void	set_det(t_object *object, t_scene *scene)
 {
 	scene->amount_obj++;
-	rotate_object(object, scene);
+	rotate_object(object, scene, 0);
 	if (object->type == 0)
 		object->f = &get_s_plane;
 	else if (object->type == 1)

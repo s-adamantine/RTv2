@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/10 17:46:56 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 12:05:22 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 16:43:14 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,22 +72,31 @@ static void		rotate_sources(t_object *object, t_scene *scene)
 		ft_lstaddnewr(&(object->rel_lights), &source, sizeof(source));
 		lst = lst->next;
 	}
-	object->rel_cam = init_source(&(scene->camera), object, scene);
 }
 
-void			rotate_object(t_object *object, t_scene *scene)
+void			rotate_object(t_object *object, t_scene *scene, int only_cam)
 {
-	int		i;
+	int			i;
+	t_source	rel_cam_src;
+	t_source	o_cam_src;
 
 	i = 0;
 	if (!object || !scene)
 		error(0);
-	if (!(object->rel_lights = ft_lstnew(NULL, 0)))
+	if (!only_cam && !(object->rel_lights = ft_lstnew(NULL, 0)))
 		error(1);
 	while (i < 3)
 	{
 		ft_rotate_3v(&(object->normal), i, ((object->rotation).v)[i], 0);
 		i++;
 	}
-	rotate_sources(object, scene);
+	o_cam_src.origin = (scene->camera).origin;
+	o_cam_src.rotation = (scene->camera).rotation;
+	o_cam_src.id = (scene->camera).id;
+	rel_cam_src = init_source(&o_cam_src, object, scene);
+	(object->rel_cam).origin = rel_cam_src.origin;
+	(object->rel_cam).rotation = rel_cam_src.rotation;
+	(object->rel_cam).id = rel_cam_src.id;
+	if (!only_cam)
+		rotate_sources(object, scene);
 }

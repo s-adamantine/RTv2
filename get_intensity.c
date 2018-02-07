@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:40:06 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 14:05:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 15:59:59 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static t_3v		get_normal(t_object *obj, t_3v point)
 	return (norm_t);
 }
 
-static double	get_s(t_3v point, t_3v n, t_3v dir_a, t_source cam)
+static double	get_s(t_3v point, t_3v n, t_3v dir_a, t_cam cam)
 {
 	double	s;
 	double	tmp;
@@ -75,7 +75,7 @@ static double	get_d(t_3v dir_a, t_3v n, t_object *obj)
 	return (d);
 }
 
-t_intensity		get_intensity(t_3v point, t_object *obj, t_3v dir, t_source cam)
+t_intensity		get_intensity(t_3v point, t_object *obj, t_3v dir, t_cam cam)
 {
 	t_3v		n;
 	t_3v		dir_a;

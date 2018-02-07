@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/02/07 14:47:46 by mpauw            ###   ########.fr        #
+#    Updated: 2018/02/07 16:23:00 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,7 @@ SRCS = 	rtv1.c\
 		anti_aliasing.c\
 		get_pixel_size.c\
 		mouse_event.c\
+		calculate_movement.c\
 		get_light_value.c
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/

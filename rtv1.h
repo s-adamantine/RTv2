@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/07 14:48:06 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 16:50:58 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,7 @@
 # define CAM_X 2000
 # define CAM_Y 0
 # define CAM_Z 0
-# define CAM_LIGHT_B 1.0
-# define CAM_LIGHT_G 1.0
-# define CAM_LIGHT_R 1.0
+# define RAD_TO_DEG 57.2958
 
 # include "libft.h"
 # include "mlx.h"
@@ -64,9 +62,17 @@ typedef struct	s_source
 	t_intensity	intensity;
 	t_3v		origin;
 	t_3v		*origin_o;
-	t_3v		rotation;
 	t_3v		color;
+	t_3v		rotation;
 }				t_source;
+
+typedef struct	s_cam
+{
+	int			id;
+	t_3v		origin;
+	t_3v		*origin_o;
+	t_3v		rotation;
+}				t_cam;
 
 typedef struct	s_object
 {
@@ -83,7 +89,7 @@ typedef struct	s_object
 	t_3v		rotation;
 	t_3v		normal;
 	t_list		*rel_lights;
-	t_source	rel_cam;
+	t_cam		rel_cam;
 }				t_object;
 
 typedef struct	s_scene
@@ -99,7 +105,7 @@ typedef struct	s_scene
 	int			anti_a;
 	double		avg_d;
 	double		ambient;
-	t_source	camera;
+	t_cam		camera;
 	t_list		*lights;
 	t_list		*objects;
 }				t_scene;
@@ -139,17 +145,17 @@ t_3v			get_dir(t_3v dir, t_3v rotation);
 void			change_dir(t_3v *dir, t_3v rotation);
 int				get_light_value(t_3v point, t_scene *scene,
 		t_list *sources, t_object *obj);
-void			rotate_object(t_object *object, t_scene *scene);
+void			rotate_object(t_object *object, t_scene *scene, int cam_only);
 void			init_loop(t_event *event);
 int				key_pressed(int key, t_event *param);
 int				get_color(double blue, double green, double red);
-t_intensity		get_intensity(t_3v point, t_object *obj, t_3v dir,
-		t_source cam);
+t_intensity		get_intensity(t_3v point, t_object *obj, t_3v dir, t_cam cam);
 int				fill_square(t_img **img, int index, int size, int color);
 t_img			*init_image(void *mlx, int width_scr, int height_scr);
 void			anti_aliasing(t_event *event);
 int				drag_scene(int x, int y, t_event *event);
 int				mouse_click(int button, int x, int y, t_event *event);
 int				toggle_button(int button, int x, int y, t_event *event);
+void			set_drag_angle(t_event *event, int x, int y);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/07 12:12:37 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 16:03:30 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static void	init_def_scene(t_scene *scene)
 {
-	t_source	cam;
+	t_cam	cam;
 
 	if (!(scene->objects = ft_lstnew(NULL, 0)) ||
 			!(scene->lights = ft_lstnew(NULL, 0)))
@@ -28,13 +28,9 @@ static void	init_def_scene(t_scene *scene)
 	scene->ambient = 0.5;
 	scene->grain = 4;
 	scene->anti_a = 2;
-	cam.type = 0;
 	cam.id = -1;
 	cam.origin = ft_init_3v(CAM_X, CAM_Y, CAM_Z);
 	cam.rotation = ft_zero_3v();
-	cam.color = ft_init_3v(CAM_LIGHT_B, CAM_LIGHT_G, CAM_LIGHT_R);
-	(cam.intensity).diff = 20;
-	(cam.intensity).spec = 1;
 	scene->camera = cam;
 }
 

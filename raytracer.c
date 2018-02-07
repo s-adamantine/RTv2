@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/07 14:41:32 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 15:58:53 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static t_object	*get_visible_object(double *s_value, t_3v dir,
 static void		get_part_value(t_scene *scene, t_3v pixel, int *part_v)
 {
 	t_list		*tmp;
-	t_source	cam;
+	t_cam		cam;
 	double		s_value;
 	t_object	*obj;
 	t_3v		point;

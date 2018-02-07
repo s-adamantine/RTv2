@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 17:10:12 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/06 15:00:22 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 14:48:29 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 static int		loop_hook(t_event *event)
 {
-	if ((event->scene).grain >= 2)
+	if (event->cur_grain >= 2)
 	{
-		(event->scene).grain /= 2;
+		event->cur_grain /= 2;
 		raytracer(event, &(event->scene), 1);
 		mlx_put_image_to_window(event->mlx, event->win,
 			(event->img)->img_ptr, 0, 0);
@@ -28,6 +28,11 @@ void			init_loop(t_event *event)
 {
 	mlx_key_hook(event->win, &key_pressed, event);
 	mlx_loop_hook(event->mlx, &loop_hook, event);
+	mlx_mouse_hook(event->win, &mouse_click, event);
+	mlx_hook(event->win, MOTION_NOTIFY, POINTER_MOTION_MASK,
+			&drag_scene, event);
+	mlx_hook(event->win, BUTTON_RELEASE, BUTTON_RELEASE_MASK,
+			&toggle_button, event);
 	mlx_loop(event->mlx);
 }
 
@@ -61,5 +66,7 @@ t_event			init_window(t_scene scene)
 	event.scene_name = scene.name;
 	event.scene = scene;
 	event.img = init_image(event.mlx, scene.width, scene.height);
+	event.cur_grain = scene.grain;
+	event.mouse_hold = 0;
 	return (event);
 }

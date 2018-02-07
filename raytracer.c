@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/06 13:18:46 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 14:41:32 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void		get_part_value(t_scene *scene, t_3v pixel, int *part_v)
 	t_object	*obj;
 	t_3v		point;
 
-	(pixel.v)[0] = -1000.0;
+	(pixel.v)[0] = -scene->width;
 	tmp = scene->objects;
 	s_value = MAX_S_VALUE;
 	cam = scene->camera;
@@ -80,17 +80,17 @@ void			raytracer(t_event *event, t_scene *scene, int it)
 		while (j < scene->width)
 		{
 			pix_val = BG_COLOR;
-			if (it == 0 || i % (2 * scene->grain) != 0
-					|| j % (2 * scene->grain) != 0)
+			if (it == 0 || i % (2 * event->cur_grain) != 0
+					|| j % (2 * event->cur_grain) != 0)
 			{
 				(pixel.v)[1] = (double)(j - scene->width / 2.0);
 				(pixel.v)[2] = (double)(scene->height / 2.0 - i);
 				get_part_value(scene, pixel, &pix_val);
 				fill_square(&(event->img), j + i * (event->img)->size_line_int,
-					scene->grain, pix_val);
+					event->cur_grain, pix_val);
 			}
-			j += scene->grain;
+			j += event->cur_grain;
 		}
-		i += scene->grain;
+		i += event->cur_grain;
 	}
 }

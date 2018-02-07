@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/06 16:58:37 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/07 14:48:06 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@
 # define CAM_LIGHT_G 1.0
 # define CAM_LIGHT_R 1.0
 
-# define SPACE 0x31
-# define ESC 0x35
-
 # include "libft.h"
 # include "mlx.h"
+# include "keys.h"
+# include "mlx_constants.h"
+
 # include <stdlib.h>
 # include <math.h>
 # include <unistd.h>
@@ -111,6 +111,10 @@ typedef struct	s_event
 	t_img		*img;
 	char		*scene_name;
 	t_scene		scene;
+	int			cur_grain;
+	int			mouse_hold;
+	int			x_0;
+	int			y_0;
 }				t_event;
 
 
@@ -144,5 +148,8 @@ t_intensity		get_intensity(t_3v point, t_object *obj, t_3v dir,
 int				fill_square(t_img **img, int index, int size, int color);
 t_img			*init_image(void *mlx, int width_scr, int height_scr);
 void			anti_aliasing(t_event *event);
+int				drag_scene(int x, int y, t_event *event);
+int				mouse_click(int button, int x, int y, t_event *event);
+int				toggle_button(int button, int x, int y, t_event *event);
 
 #endif

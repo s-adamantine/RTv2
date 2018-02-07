@@ -1,9 +1,9 @@
 render {
 		{name, {Scene Sphere}}
-		{dimensions, {1200 900}}
+		{dimensions, {500 500}}
 }
 camera {
-		{origin, {0.0 0.0 0.0}}
+		{origin, {600.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
 light {
@@ -13,9 +13,9 @@ light {
 }
 object {
 		{type, {sphere}}
-		{origin, {-2000.0 0.0 0.0}}
+		{origin, {0.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 		{color, {0.0 0.0 1.0}}
-		{radius, {100}}
+		{radius, {250}}
 		{reflection, {0.0 0.25 0.0 20}}
 }

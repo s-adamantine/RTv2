@@ -6,13 +6,13 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/02/06 12:14:40 by mpauw            ###   ########.fr        #
+#    Updated: 2018/02/07 14:47:46 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = RTv1 
 FLAGS = -Wall -Wextra -Werror 
-INCLUDES = rtv1.h
+INCLUDES = rtv1.h keys.h mlx_constants.h
 SRCS = 	rtv1.c\
 		set_scene.c\
 		set_object.c\
@@ -30,6 +30,7 @@ SRCS = 	rtv1.c\
 		key_control.c\
 		anti_aliasing.c\
 		get_pixel_size.c\
+		mouse_event.c\
 		get_light_value.c
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/

@@ -4,8 +4,8 @@ render {
 		{ambient, {0.7}}
 }
 camera {
-		{origin, {1500.0 1500.0 1500.0}}
-		{rotation, {0.0 45.0 45.0}}
+		{origin, {1500.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
 }
 *light {
 		{origin, {250.0 50.0 50.0}}

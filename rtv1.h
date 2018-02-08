@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/08 13:25:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/08 14:09:09 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -157,5 +157,7 @@ int				drag_scene(int x, int y, t_event *event);
 int				mouse_click(int button, int x, int y, t_event *event);
 int				toggle_button(int button, int x, int y, t_event *event);
 void			set_drag_angle(t_event *event, int x, int y);
+void			set_move(t_event *event, int move);
+int				key_hold(int key, t_event *event);
 
 #endif

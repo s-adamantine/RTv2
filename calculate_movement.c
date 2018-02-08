@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 16:15:17 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/08 13:42:35 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/08 14:25:55 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,4 +40,32 @@ void	set_drag_angle(t_event *event, int x, int y)
 	}
 }
 
+void	set_move(t_event *event, int move)
+{
+	int			i;
+	t_3v		dir;
+	t_cam		*cam;
+	t_list		*lst;
+	t_object	*object;
 
+	if (abs(move) == 1)
+		dir = ft_init_3v(1, 0, 0);
+	else
+		dir = ft_init_3v(0, 0.5, 0);
+	cam = &((event->scene).camera);
+	i = 2;
+	while (i >= 0)
+	{
+		ft_rotate_3v(&dir, i, -((cam->rotation).v[i]), 0);
+		i--;
+	}
+	ft_3v_scalar(&dir, move * 20);
+	cam->origin = ft_3v_add(cam->origin, dir);
+	lst = (event->scene).objects;
+	while (lst && lst->content)
+	{
+		object = (t_object *)(lst->content);
+		rotate_object(object, &(event->scene), 1);
+		lst = lst->next;
+	}
+}

@@ -6,44 +6,32 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 16:15:17 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/08 12:13:37 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/08 13:42:35 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static t_3v	get_angle(t_event *event, int x, int y)
-{
-	double	d;
-	t_3v	rotation;
-	t_3v	origin;
-
-	origin = ((event->scene).camera).origin;
-	d = sqrt(origin.v[0] * origin.v[0] + origin.v[1] * origin.v[1] +
-			origin.v[2] * origin.v[2]);
-	rotation.v[0] = 0;
-	rotation.v[1] = DEG * (atan(event->y_0 / d) - atan(y / d));
-	rotation.v[2] = DEG * (atan(event->x_0 / d) - atan(x / d));
-	return (rotation);
-}
-
 void	set_drag_angle(t_event *event, int x, int y)
 {
 	t_cam		*cam;
-	int			dif_y;
-	int			dif_x;
 	t_list		*lst;
 	t_object	*object;
+	double		d;
+	int			z_neg;
 
 	cam = &((event->scene).camera);
-	dif_x = event->x_0 - x;
-	dif_y = event->y_0 - y;
-	printf("%f %f\n", (cam->rotation).v[1], (cam->rotation).v[2]);
-	cam->rotation = ft_3v_add(get_angle(event, x, y), cam->rotation);	
+	d = sqrt((cam->origin).v[0] * (cam->origin).v[0] + (cam->origin).v[1]
+			* (cam->origin).v[1] + (cam->origin).v[2] * (cam->origin).v[2]);
+	z_neg = 1;
+	if (fmod((cam->rotation).v[2], 360) > 90 && fmod((cam->rotation).v[2], 360)
+			< 270)
+		z_neg = -1;
+	(cam->rotation).v[1] += z_neg * DEG * (atan(event->y_0 / d) - atan(y / d));
+	(cam->rotation).v[2] += DEG * (atan(event->x_0 / d) - atan(x / d));
 	(cam->rotation).v[1] = fmod((cam->rotation).v[1], 360);
 	(cam->rotation).v[2] = fmod((cam->rotation).v[2], 360);
 	lst = (event->scene).objects;
-	printf("%f %f\n\n", (cam->rotation).v[1], (cam->rotation).v[2]);
 	while (lst && lst->content)
 	{
 		object = (t_object *)(lst->content);
@@ -51,3 +39,5 @@ void	set_drag_angle(t_event *event, int x, int y)
 		lst = lst->next;
 	}
 }
+
+

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/07 16:50:58 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/08 11:28:41 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # define CAM_X 2000
 # define CAM_Y 0
 # define CAM_Z 0
-# define RAD_TO_DEG 57.2958
+# define DEG 57.2958
 
 # include "libft.h"
 # include "mlx.h"

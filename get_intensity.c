@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:40:06 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/07 15:59:59 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/08 10:33:20 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,6 @@ static double	get_s(t_3v point, t_3v n, t_3v dir_a, t_cam cam)
 		error(6);
 	ft_3v_scalar(&tmp_dir, 1 / s);
 	s = ft_3v_dot_product(dir_v, tmp_dir);
-	if (cos(tmp) >= 0.95 && cos(ft_3v_dot_product(tmp_dir, n)) >= 0.95)
-		return (0);
 	return (s);
 }
 

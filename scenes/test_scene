@@ -4,28 +4,28 @@ render {
 		{ambient, {0.7}}
 }
 camera {
-		{origin, {1500.0 0.0 0.0}}
-		{rotation, {0.0 0.0 0.0}}
+		{origin, {1500.0 1500.0 1500.0}}
+		{rotation, {0.0 45.0 45.0}}
 }
-light {
+*light {
 		{origin, {250.0 50.0 50.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {10 10}}
+		{intensity, {10 1}}
 }
 light {
 		{origin, {2500.0 -50.0 10.0}}
 		{color, {0.7 0.2 1.0}}
-		{intensity, {10 10}}
+		{intensity, {10 1}}
 }
 light {
 		{origin, {-500.0 -50.0 50.0}}
 		{color, {1.0 0.0 0.5}}
-		{intensity, {10 10}}
+		{intensity, {10 1}}
 }
 light {
 		{origin, {900.0 100.0 10.0}}
 		{color, {1.0 0.0 0.5}}
-		{intensity, {10 10}}
+		{intensity, {10 1}}
 }
 object {
 		{type, {cone}}
@@ -33,7 +33,7 @@ object {
 		{rotation, {150.0 0.0 0.0}}
 		{color, {0.0 0.0 0.8}}
 		{radius, {0.4}}
-		{reflection, {0.02 0.15 0.5 10}}
+		{reflection, {0.02 0.15 0.05 20}}
 }
 object {
 		{type, {cylinder}}

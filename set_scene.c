@@ -34,12 +34,20 @@ static void	init_def_scene(t_scene *scene)
 	scene->camera = cam;
 }
 
+int		bleh()
+{
+	ft_putchar('q');
+	return (0);
+}
+
 void		set_scene(int fd, t_scene *scene)
 {
-	char		*line;
+	char	*line;
+	int		gnl;
 
 	init_def_scene(scene);
-	while (get_next_line(fd, &line) == 1)
+	ft_putnbr(fd);
+	while ((gnl = get_next_line(fd, &line)) == 1)
 	{
 		if (ft_strncmp(line, "render {", 8) == 0)
 			set_render(scene, fd);
@@ -52,6 +60,8 @@ void		set_scene(int fd, t_scene *scene)
 					scene->amount_obj, fd);
 		free(line);
 	}
+	if (gnl < 0)
+		error(0);
 	free(line);
 	if (!(scene->grain))
 		scene->grain = (scene->amount_obj && scene->amount_light) ?

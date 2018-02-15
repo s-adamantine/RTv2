@@ -122,5 +122,6 @@ void				ft_rotate_3v(t_3v *v, int axis, double angle, int rad);
 t_3v				ft_zero_3v(void);
 t_3v				ft_init_3v(double a, double b, double c);
 char				*ft_brace_content(char *input, char o, char c);
+void				ft_realloc(void **s, size_t old_size, size_t new_size);
 
 #endif

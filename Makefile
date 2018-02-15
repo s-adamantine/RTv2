@@ -35,8 +35,12 @@ SRCS = 	rtv1.c\
 		get_light_value.c
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/
-LMLXDIR = minilibx_macos/
-#LMLXDIR = mlx_macbook/
+#
+# Use other $LMLXDIR by (un)commenting the following two lines 
+# if the project does not compile. 
+# 
+#LMLXDIR = minilibx_macos/
+LMLXDIR = mlx_macbook/
 LIBFT = libft.a
 LIBMLX = libmlx.a
 FT = ft

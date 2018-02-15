@@ -63,7 +63,7 @@ t_event			init_window(t_scene scene)
 	t_event	event;
 
 	event.mlx = mlx_init();
-	event.win = mlx_new_window(event.mlx, scene.width + 200,
+	event.win = mlx_new_window(event.mlx, scene.width,
 			scene.height, scene.name);
 	event.scene_name = scene.name;
 	event.scene = scene;

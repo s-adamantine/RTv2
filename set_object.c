@@ -95,9 +95,10 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 	char		*s;
 	char		*value;
 	t_object	object;
+	int			gnl;
 
 	init_def_object(&object, id);
-	while (get_next_line(fd, &line) == 1)
+	while ((gnl = get_next_line(fd, &line)) == 1)
 	{
 		if (*(line) == '}')
 			break ;
@@ -110,6 +111,8 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 		free(s);
 		free(value);
 	}
+	if (gnl < 0)
+		error(0);
 	set_det(&object, scene);
 	free(line);
 	ft_lstaddnewr(objects, &object, sizeof(object));

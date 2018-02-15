@@ -67,11 +67,11 @@ $(LMLXDIR)$(LIBMLX):
 
 clean:
 	-@/bin/rm -f $(OBJ)
-	-@$(MAKE) -C $(LFTDIR) clean
-	-@$(MAKE) -C $(LMLXDIR) clean
+#	-@$(MAKE) -C $(LFTDIR) clean
+#	-@$(MAKE) -C $(LMLXDIR) clean
 
 fclean: clean
 	-@/bin/rm -f $(NAME)
-	-@$(MAKE) -C $(LFTDIR) fclean
+#	-@$(MAKE) -C $(LFTDIR) fclean
 
 re: fclean all

@@ -25,10 +25,11 @@ void		set_camera(t_scene *scene, int fd)
 	char	*line;
 	char	*s;
 	char	*value;
+	int		gnl;
 
 	if (scene->cam_set)
 		return ;
-	while (get_next_line(fd, &line) == 1)
+	while ((gnl = get_next_line(fd, &line)) == 1)
 	{
 		if (*(line) == '}')
 			break ;
@@ -41,6 +42,8 @@ void		set_camera(t_scene *scene, int fd)
 		free(value);
 		free(line);
 	}
+	if (gnl < 0)
+		error(0);
 	free(line);
 	scene->cam_set = 1;
 }

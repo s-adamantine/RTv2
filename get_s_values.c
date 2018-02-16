@@ -43,7 +43,6 @@ static t_object	*get_visible_object(double *s_value, t_3v dir,
 static void		get_value(t_scene *scene, t_pixel *p)
 {
 	t_list		*tmp;
-	t_cam		cam;
 	t_3v		coor;
 	t_object	*obj;
 
@@ -52,7 +51,6 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	(p->coor).v[0] = -scene->width;
 	coor = p->coor;
 	tmp = scene->objects;
-	cam = scene->camera;
 	change_dir(&coor, (scene->camera).rotation);
 	p->vis_obj = get_visible_object(&(p->s_value), coor, scene->objects);
 	scene->objects = tmp;

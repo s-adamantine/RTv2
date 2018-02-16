@@ -8,11 +8,11 @@ camera {
 		{rotation, {0.0 1.0 0.0}}
 }
 light {
-		{origin, {250.0 -250.0 -200.0}}
+		{origin, {500.0 0.0 0.0}}
 		{color, {0.0 1.0 1.0}}
 		{intensity, {15 4}}
 }
-light {
+*light {
 		{origin, {250.0 250.0 200.0}}
 		{color, {0.0 1.0 1.0}}
 		{intensity, {15 4}}

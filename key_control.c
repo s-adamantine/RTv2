@@ -30,7 +30,7 @@ int		key_hold(int key, t_event *event)
 		else
 			set_move(event, (key == KEY_A ? -2 : 2));
 		event->cur_grain = (event->scene).grain;
-		raytracer(event, &(event->scene), 0);
+//		raytracer(event, &(event->scene), 0);
 		mlx_put_image_to_window(event->mlx, event->win,
 		(event->img)->img_ptr, 0, 0);
 	}

@@ -36,6 +36,7 @@
 # include <sys/stat.h>
 # include <stdio.h>
 # include <errno.h>
+# include <pthread.h>
 
 typedef struct	s_img
 {
@@ -92,6 +93,15 @@ typedef struct	s_object
 	t_cam		rel_cam;
 }				t_object;
 
+typedef struct	s_pixel
+{
+	int			status;
+	t_3v		coor;
+	double		s_value;
+	t_object	*vis_obj;
+	t_3v		color;
+}				t_pixel;
+
 typedef struct	s_scene
 {
 	char		*name;
@@ -108,6 +118,7 @@ typedef struct	s_scene
 	t_cam		camera;
 	t_list		*lights;
 	t_list		*objects;
+	t_source	cur_src;
 }				t_scene;
 
 typedef struct	s_event
@@ -115,8 +126,9 @@ typedef struct	s_event
 	void		*mlx;
 	void		*win;
 	t_img		*img;
-	char		*scene_name;
 	t_scene		scene;
+	t_pixel		*p_array;
+	char		*scene_name;
 	int			cur_grain;
 	int			mouse_hold;
 	int			x_0;
@@ -138,7 +150,9 @@ double			get_s_plane(t_object *s, t_3v dir, t_3v src_o);
 double			get_s_sphere(t_object *s, t_3v dir, t_3v src_o);
 double			get_s_cone(t_object *s, t_3v dir, t_3v src_c);
 double			get_nearest_intersection(double a, double b, double d);
-void			raytracer(t_event *event, t_scene *scene, int it);
+//void			raytracer(t_event *event, t_scene *scene, int it);
+void			*get_s_values(void *event);
+void			*light_per_light(void *arg);
 t_event			init_window(t_scene scene);
 t_source		*get_source(int id, t_list *lst);
 t_3v			get_dir(t_3v dir, t_3v rotation);
@@ -148,7 +162,9 @@ int				get_light_value(t_3v point, t_scene *scene,
 void			rotate_object(t_object *object, t_scene *scene, int cam_only);
 void			init_loop(t_event *event);
 int				key_pressed(int key, t_event *param);
-int				get_color(double blue, double green, double red);
+int				get_color(t_3v c);
+void			update_color(t_intensity intensity, t_3v *color,
+		t_object *o, t_source l);
 t_intensity		get_intensity(t_3v point, t_object *obj, t_3v dir, t_cam cam);
 int				fill_square(t_img **img, int index, int size, int color);
 t_img			*init_image(void *mlx, int width_scr, int height_scr);

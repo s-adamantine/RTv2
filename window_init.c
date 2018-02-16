@@ -11,9 +11,10 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
+/*
 static int		loop_hook(t_event *event)
 {
+	(void)event;
 	if (event->cur_grain >= 2)
 	{
 		event->cur_grain /= 2;
@@ -23,11 +24,11 @@ static int		loop_hook(t_event *event)
 	}
 	return (1);
 }
-
+*/
 void			init_loop(t_event *event)
 {
 	mlx_key_hook(event->win, &key_pressed, event);
-	mlx_loop_hook(event->mlx, &loop_hook, event);
+/*	mlx_loop_hook(event->mlx, &loop_hook, event);
 	mlx_mouse_hook(event->win, &mouse_click, event);
 	mlx_hook(event->win, MOTION_NOTIFY, POINTER_MOTION_MASK,
 			&drag_scene, event);
@@ -35,6 +36,7 @@ void			init_loop(t_event *event)
 			&toggle_button, event);
 	mlx_hook(event->win, KEY_PRESS, KEY_PRESS_MASK,
 			&key_hold, event);
+*/
 	mlx_loop(event->mlx);
 }
 
@@ -70,5 +72,8 @@ t_event			init_window(t_scene scene)
 	event.img = init_image(event.mlx, scene.width, scene.height);
 	event.cur_grain = scene.grain;
 	event.mouse_hold = 0;
+	if (!(event.p_array = (t_pixel *)malloc(sizeof(t_pixel)
+					* scene.width * scene.height)))
+		error(1);
 	return (event);
 }

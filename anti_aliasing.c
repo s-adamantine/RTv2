@@ -22,9 +22,7 @@ static int		take_average(t_event *event, t_scene scene, int vert, int hor)
 
 	i = -1;
 	index = scene.anti_a * hor + scene.anti_a * vert * scene.width;
-	color.v[0] = 0;
-	color.v[1] = 0;
-	color.v[2] = 0;
+	color = ft_zero_3v();
 	while (++i < scene.anti_a)
 	{
 		j = -1;
@@ -33,14 +31,14 @@ static int		take_average(t_event *event, t_scene scene, int vert, int hor)
 			k = -1;
 			while (++k < 3)
 			{
-				color.v[k] = (color.v[k] * (j * scene.anti_a + i) +
-						((unsigned char *)(event->img)->img_arr)[(index + j +
-						i * scene.width) * 4 + k]) / (j * scene.anti_a + i + 1);
+				color.v[k] = (color.v[k] * (j * scene.anti_a + i) + ((unsigned
+					char *)(event->img)->img_arr)[(index + j + i * scene.width)
+						* 4 + k]) / 255 * (j * scene.anti_a + i + 1);
 			}
 		}
 		i++;
 	}
-	return (get_color(color.v[0] / 255, color.v[1] / 255, color.v[2] / 255));
+	return (get_color(color));
 }
 
 static void		reset(t_scene *scene, t_scene tmp, t_event *event, t_img *img)
@@ -76,7 +74,7 @@ void			anti_aliasing(t_event *event)
 
 	old_img = NULL;
 	tmp = set(&(event->scene), event, &old_img);
-	raytracer(event, &(event->scene), 0);
+//	raytracer(event, &(event->scene), 0);
 	i = 0;
 	while (i < tmp.height)
 	{

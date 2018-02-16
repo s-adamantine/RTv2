@@ -34,19 +34,12 @@ static void	init_def_scene(t_scene *scene)
 	scene->camera = cam;
 }
 
-int		bleh()
-{
-	ft_putchar('q');
-	return (0);
-}
-
 void		set_scene(int fd, t_scene *scene)
 {
 	char	*line;
 	int		gnl;
 
 	init_def_scene(scene);
-	ft_putnbr(fd);
 	while ((gnl = get_next_line(fd, &line)) == 1)
 	{
 		if (ft_strncmp(line, "render {", 8) == 0)

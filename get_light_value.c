@@ -34,30 +34,6 @@ static double		light_reaches(t_3v dir, t_list *objects, int src_id)
 	return (1);
 }
 
-static void			update_color(t_intensity intensity, t_3v *color,
-		t_object *o, t_source l)
-{
-	intensity.diff = intensity.diff * (l.intensity).diff;
-	intensity.spec = intensity.spec * (l.intensity).spec;
-	if (intensity.diff > 1)
-		intensity.diff = 1;
-	if (intensity.spec > 1)
-		intensity.spec = 1;
-	if (((o->color).v)[0] > 1 || ((o->color).v)[1] > 1 || ((o->color).v)[2] > 1
-			|| ((o->color).v)[0] < 0 || ((o->color).v)[1] < 0
-			|| ((o->color).v)[2] < 0 || ((l.color).v)[0] > 1
-			|| ((l.color).v)[1] > 1 || ((l.color).v)[2] > 1
-			|| ((l.color).v)[0] < 0 || ((l.color).v)[1] < 0
-			|| ((l.color).v)[2] < 0)
-		error(4);
-	(color->v)[0] += intensity.diff * ((l.color).v)[0] * ((o->color).v)[0];
-	(color->v)[1] += intensity.diff * ((l.color).v)[1] * ((o->color).v)[1];
-	(color->v)[2] += intensity.diff * ((l.color).v)[2] * ((o->color).v)[2];
-	(color->v)[0] += intensity.spec * ((l.color).v)[0];
-	(color->v)[1] += intensity.spec * ((l.color).v)[1];
-	(color->v)[2] += intensity.spec * ((l.color).v)[2];
-}
-
 int					get_light_value(t_3v point, t_scene *scene, t_list *sources,
 		t_object *obj)
 {
@@ -82,5 +58,5 @@ int					get_light_value(t_3v point, t_scene *scene, t_list *sources,
 		}
 		s_lst = s_lst->next;
 	}
-	return (get_color((color.v)[0], (color.v)[1], (color.v)[2]));
+	return (get_color(color));
 }

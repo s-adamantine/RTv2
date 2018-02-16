@@ -24,12 +24,14 @@ SRCS = 	rtv1.c\
 		get_source.c\
 		get_intensity.c\
 		tools.c\
+		color_tools.c\
 		s_functions.c\
-		raytracer.c\
+		light_per_light.c\
+		get_s_values.c\
 		window_init.c\
 		key_control.c\
 		anti_aliasing.c\
-		get_pixel_size.c\
+		fill_square.c\
 		mouse_event.c\
 		calculate_movement.c\
 		get_light_value.c

@@ -62,28 +62,3 @@ double	get_nearest_intersection(double a, double b, double d)
 	else
 		return ((t_1 < t_2) ? t_1 : t_2);
 }
-
-int		get_color(double blue, double green, double red)
-{
-	int	color;
-	int	int_value;
-
-	if (blue > 1)
-		blue = 1;
-	else if (blue < 0)
-		blue = 0;
-	if (green > 1)
-		green = 1;
-	else if (green < 0)
-		green = 0;
-	if (red > 1)
-		red = 1;
-	else if (red < 0)
-		red = 0;
-	color = blue * 0xff;
-	int_value = green * 0xff;
-	color += int_value * 0x100;
-	int_value = red * 0xff;
-	color += int_value * 0x10000;
-	return (color);
-}

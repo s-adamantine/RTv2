@@ -40,57 +40,54 @@ static t_object	*get_visible_object(double *s_value, t_3v dir,
 	return (visible_object);
 }
 
-static void		get_part_value(t_scene *scene, t_3v pixel, int *part_v)
+static void		get_value(t_scene *scene, t_pixel *p)
 {
 	t_list		*tmp;
 	t_cam		cam;
-	double		s_value;
+	t_3v		coor;
 	t_object	*obj;
-	t_3v		point;
 
-	(pixel.v)[0] = -scene->width;
+	p->color = ft_zero_3v();
+	p->s_value = MAX_S_VALUE;
+	(p->coor).v[0] = -scene->width;
+	coor = p->coor;
 	tmp = scene->objects;
-	s_value = MAX_S_VALUE;
 	cam = scene->camera;
-	change_dir(&pixel, (scene->camera).rotation);
-	obj = get_visible_object(&s_value, pixel, scene->objects);
+	change_dir(&coor, (scene->camera).rotation);
+	p->vis_obj = get_visible_object(&(p->s_value), coor, scene->objects);
 	scene->objects = tmp;
-	if (obj)
-	{
-		point = cam.origin;
-		ft_3v_scalar(&pixel, s_value);
-		(point.v)[0] += (pixel.v)[0];
-		(point.v)[1] += (pixel.v)[1];
-		(point.v)[2] += (pixel.v)[2];
-		*part_v = (get_light_value(point, scene, scene->lights, obj));
-	}
+	if (!p->vis_obj)
+		return ;
+	obj = p->vis_obj;
+	p->color = ft_init_3v(((obj->color).v)[0] * obj->ambient * scene->ambient,
+			((obj->color).v)[1] * obj->ambient * scene->ambient,
+			((obj->color).v)[2] * obj->ambient * scene->ambient);
 }
 
-void			raytracer(t_event *event, t_scene *scene, int it)
+void			*get_s_values(void *event)
 {
-	t_3v		pixel;
+	t_pixel		*pixel;
+	t_scene		scene;
 	int			i;
 	int			j;
-	int			pix_val;
 
 	i = 0;
-	while (i < scene->height)
+	scene = ((t_event *)event)->scene;
+	while (i < scene.height)
 	{
 		j = 0;
-		while (j < scene->width)
+		while (j < scene.width)
 		{
-			pix_val = BG_COLOR;
-			if (it == 0 || i % (2 * event->cur_grain) != 0
-					|| j % (2 * event->cur_grain) != 0)
-			{
-				(pixel.v)[1] = (double)(j - scene->width / 2.0);
-				(pixel.v)[2] = (double)(scene->height / 2.0 - i);
-				get_part_value(scene, pixel, &pix_val);
-				fill_square(&(event->img), j + i * (event->img)->size_line_int,
-					event->cur_grain, pix_val);
-			}
-			j += event->cur_grain;
+			pixel = &((((t_event *)event)->p_array)[j + scene.width * i]);
+			(pixel->coor).v[1] = (double)(j - scene.width / 2.0);
+			(pixel->coor).v[2] = (double)(scene.height / 2.0 - i);
+			get_value(&scene, pixel);
+			((int *)(((t_event *)event)->img)->img_arr)[j + scene.width * i] =
+				get_color(pixel->color);
+			pixel->status = 1;
+			j++;
 		}
-		i += event->cur_grain;
+		i++;
 	}
+	return (NULL);
 }

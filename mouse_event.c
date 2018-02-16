@@ -20,9 +20,9 @@ int		drag_scene(int x, int y, t_event *event)
 		event->x_0 = x;
 		event->y_0 = y;
 		event->cur_grain = (event->scene).grain;
-		raytracer(event, &(event->scene), 0);
-		mlx_put_image_to_window(event->mlx, event->win,
-			(event->img)->img_ptr, 0, 0);
+//		raytracer(event, &(event->scene), 0);
+//		mlx_put_image_to_window(event->mlx, event->win,
+//			(event->img)->img_ptr, 0, 0);
 	}
 	return (1);
 }

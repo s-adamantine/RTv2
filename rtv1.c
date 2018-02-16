@@ -44,6 +44,19 @@ void	usage(void)
 	exit(0);
 }
 
+void	run_threads(t_event *event)
+{
+	pthread_t	s_values;
+	pthread_t	light_values;
+
+	pthread_create(&s_values, NULL, &get_s_values, (void *)event);
+	pthread_join(s_values, NULL);
+	mlx_put_image_to_window(event->mlx, event->win,
+			(event->img)->img_ptr, 0, 0);
+	pthread_create(&light_values, NULL, &light_per_light, (void *)event);
+	init_loop(event);
+}
+
 int		main(int argc, char **argv)
 {
 	int			fd;
@@ -58,8 +71,5 @@ int		main(int argc, char **argv)
 	if (!(scene.cam_set))
 		error(0);
 	event = init_window(scene);
-	raytracer(&event, &scene, 0);
-	mlx_put_image_to_window(event.mlx, event.win,
-			(event.img)->img_ptr, 0, 0);
-	init_loop(&event);
+	run_threads(&event);
 }

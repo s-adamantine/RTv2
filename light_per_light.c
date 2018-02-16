@@ -46,6 +46,7 @@ static void		*get_light_values(void *arg)
 	int			i;
 	int			j;
 	t_3v		point;
+	t_3v		coor;
 	int			pix_color;
 
 	event = (t_event *)arg;
@@ -59,9 +60,10 @@ static void		*get_light_values(void *arg)
 			j++;
 			if (!pixel->vis_obj)
 				continue ;
+			coor = pixel->coor;
 			point = ((event->scene).camera).origin;
-			ft_3v_scalar(&(pixel->coor), pixel->s_value);
-			point = ft_3v_add(point, pixel->coor);
+			ft_3v_scalar(&coor, pixel->s_value);
+			point = ft_3v_add(point, coor);
 			get_pixel_value(point, pixel, event->scene, pixel->vis_obj);
 			pix_color = get_color(pixel->color);
 			((int *)(((t_event *)event)->img)->img_arr)

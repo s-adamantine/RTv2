@@ -16,10 +16,7 @@ static int		light_reaches(t_3v dir, t_list *objects, int src_id)
 		rel_src = get_source(src_id, obj->rel_lights);
 		t_value = obj->f(obj, dir_a, rel_src->origin);
 		if (t_value > 0.001 && t_value < 0.99999)
-		{
-			printf("%f\n", t_value);
 			return (0);
-		}
 		o_lst = o_lst->next;
 	}
 	return (1);

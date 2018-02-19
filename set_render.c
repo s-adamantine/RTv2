@@ -12,6 +12,18 @@
 
 #include "rtv1.h"
 
+static void	set_values_render_2(t_scene *scene, char *s, char *value)
+{
+	if (ft_strncmp(s, "ambient", 7) == 0)
+		scene->ambient = ft_atod(value);
+	else if (ft_strncmp(s, "grain", 5) == 0)
+		scene->grain = ft_atoi(value);
+	else if (ft_strncmp(s, "anti_a", 6) == 0)
+		scene->anti_a = ft_atod(value);
+	else if (ft_strncmp(s, "wait", 4) == 0)
+		scene->wait = ft_atod(value);
+}
+
 static void	set_values_render(t_scene *scene, char *s, char *value)
 {
 	double	*tmp;
@@ -23,12 +35,9 @@ static void	set_values_render(t_scene *scene, char *s, char *value)
 			error(1);
 		ft_strcpy(scene->name, (const char *)value);
 	}
-	else if (ft_strncmp(s, "ambient", 7) == 0)
-		scene->ambient = ft_atod(value);
-	else if (ft_strncmp(s, "grain", 5) == 0)
-		scene->grain = ft_atoi(value);
-	else if (ft_strncmp(s, "anti_a", 8) == 0)
-		scene->anti_a = ft_atod(value);
+	if (ft_strncmp(s, "ambient", 7) == 0 || ft_strncmp(s, "grain", 5) == 0 ||
+			ft_strncmp(s, "anti_a", 6) == 0 || ft_strncmp(s, "wait", 4) == 0)
+		set_values_render_2(scene, s, value);
 	else if (ft_strncmp(s, "dimensions", 10) == 0)
 	{
 		if (!(tmp = (double *)malloc(2 * sizeof(double))))

@@ -48,12 +48,16 @@ void	run_threads(t_event *event)
 {
 	pthread_t	s_values;
 	pthread_t	light_values;
+	pthread_t	turn_on;
 
 	pthread_create(&s_values, NULL, &get_s_values, (void *)event);
 	pthread_join(s_values, NULL);
+	pthread_create(&light_values, NULL, &init_light_values, (void *)event);
+	pthread_join(light_values, NULL);
+	pthread_create(&turn_on, NULL, &turn_on_all, (void *)event);
+	pthread_join(turn_on, NULL);
 	mlx_put_image_to_window(event->mlx, event->win,
 			(event->img)->img_ptr, 0, 0);
-	pthread_create(&light_values, NULL, &light_per_light, (void *)event);
 	init_loop(event);
 }
 

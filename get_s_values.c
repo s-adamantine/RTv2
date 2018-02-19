@@ -62,30 +62,31 @@ static void		get_value(t_scene *scene, t_pixel *p)
 			((obj->color).v)[2] * obj->ambient * scene->ambient);
 }
 
-void			*get_s_values(void *event)
+void			*get_s_values(void *arg)
 {
 	t_pixel		*pixel;
 	t_scene		scene;
 	int			i;
 	int			j;
 
-	i = 0;
-	scene = ((t_event *)event)->scene;
-	while (i < scene.height)
+	i = -1;
+	scene = ((t_event *)arg)->scene;
+	while (++i < scene.height)
 	{
-		j = 0;
-		while (j < scene.width)
+		j = -1;
+		while (++j < scene.width)
 		{
-			pixel = &((((t_event *)event)->p_array)[j + scene.width * i]);
+			pixel = &((((t_event *)arg)->p_array)[j + scene.width * i]);
+			if (!(pixel->c_per_src =
+						(t_3v *)malloc(sizeof(t_3v) * scene.amount_light)))
+				error(1);
+			pixel->color = ft_zero_3v();
 			(pixel->coor).v[1] = (double)(j - scene.width / 2.0);
 			(pixel->coor).v[2] = (double)(scene.height / 2.0 - i);
 			get_value(&scene, pixel);
-			((int *)(((t_event *)event)->img)->img_arr)[j + scene.width * i] =
+			((int *)(((t_event *)arg)->img)->img_arr)[j + scene.width * i] =
 				get_color(pixel->color);
-			pixel->status = 1;
-			j++;
 		}
-		i++;
 	}
 	return (NULL);
 }

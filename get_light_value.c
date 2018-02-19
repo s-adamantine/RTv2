@@ -34,7 +34,7 @@ static double		light_reaches(t_3v dir, t_list *objects, int src_id)
 	return (1);
 }
 
-int					get_light_value(t_3v point, t_scene *scene, t_list *sources,
+static t_3v			get_pixel_value(t_3v point, t_scene *scene, t_list *sources,
 		t_object *obj)
 {
 	t_list		*s_lst;
@@ -58,5 +58,46 @@ int					get_light_value(t_3v point, t_scene *scene, t_list *sources,
 		}
 		s_lst = s_lst->next;
 	}
-	return (get_color(color));
+	return (color);
+}
+
+static t_3v			get_point(t_event *event, t_pixel *pixel)
+{
+	t_3v		point;
+	t_3v		coor;
+
+	coor = pixel->coor;
+	change_dir(&coor, ((event->scene).camera).rotation);
+	point = ((event->scene).camera).origin;
+	ft_3v_scalar(&coor, pixel->s_value);
+	point = ft_3v_add(point, coor);
+	return (point);
+}
+
+void				*get_light_value(void *arg)
+{
+	t_event		*event;
+	t_pixel		*pixel;
+	int			i;
+	int			j;
+
+	event = (t_event *)arg;
+	i = 0;
+	while (i < (event->scene).height)
+	{
+		j = 0;
+		while (j < (event->scene).width)
+		{
+			pixel = &((event->p_array)[j + i * (event->scene).width]);
+			j++;
+			if (!pixel->vis_obj)
+				continue ;
+			pixel->color = get_pixel_value(get_point(event, pixel),
+					&(event->scene), (event->scene).lights, pixel->vis_obj);
+			((int *)(((t_event *)event)->img)->img_arr)
+				[j + (event->scene).width * i] = get_color(pixel->color);
+		}
+		i++;
+	}
+	return (NULL);
 }

@@ -5,7 +5,7 @@ render {
 }
 camera {
 		{origin, {500.0 0.0 0.0}}
-		{rotation, {0.0 1.0 0.0}}
+		{rotation, {0.0 45.0 0.0}}
 }
 light {
 		{origin, {500.0 0.0 0.0}}

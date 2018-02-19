@@ -1,9 +1,5 @@
 #include "rtv1.h"
 
-
-//	t1.tv_sec = floor((event->scene).wait);
-//	t1.tv_nsec = (((long)(event->scene).wait) - t1.tv_sec) * 1000000000L;
-
 void	*turn_on_all(void *arg)
 {
 	int		i;
@@ -11,7 +7,6 @@ void	*turn_on_all(void *arg)
 	int		k;
 	t_event	*event;
 	t_pixel	*pixel;
-	int		color;
 
 	event = (t_event *)arg;
 	i = -1;
@@ -26,7 +21,6 @@ void	*turn_on_all(void *arg)
 				k = -1;
 				while (++k < (event->scene).amount_light)
 					pixel->color = ft_3v_add((pixel->c_per_src)[k], pixel->color);
-				color = get_color(pixel->color);
 			}
 			((int *)(event->img)->img_arr)
 				[j + (event->scene).width * i] = get_color(pixel->color);

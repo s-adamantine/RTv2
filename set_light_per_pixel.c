@@ -22,62 +22,75 @@ static int		light_reaches(t_3v dir, t_list *objects, int src_id)
 	return (1);
 }
 
-static t_3v		get_point(t_event *event, t_pixel *pixel)
+static void		check_values(t_intensity *in, t_object o, t_source l)
 {
-	t_3v		point;
-	t_3v		coor;
-
-	coor = pixel->coor;
-	change_dir(&coor, ((event->scene).camera).rotation);
-	point = ((event->scene).camera).origin;
-	ft_3v_scalar(&coor, pixel->s_value);
-	point = ft_3v_add(point, coor);
-	return (point);
-}
-
-static void		set_light_value(t_intensity intensity, t_pixel *pixel,
-		t_object *o, t_source l)
-{
-	t_3v	*color;
-
-	color = &(pixel->c_per_src[l.id - 1]);
-	intensity.diff = intensity.diff * (l.intensity).diff;
-	intensity.spec = intensity.spec * (l.intensity).spec;
-	if (intensity.diff > 1)
-		intensity.diff = 1;
-	if (intensity.spec > 1)
-		intensity.spec = 1;
-	if (((o->color).v)[0] > 1 || ((o->color).v)[1] > 1 || ((o->color).v)[2] > 1
-			|| ((o->color).v)[0] < 0 || ((o->color).v)[1] < 0
-			|| ((o->color).v)[2] < 0 || ((l.color).v)[0] > 1
+	if (in->diff > 1)
+		in->diff = 1;
+	if (in->spec > 1)
+		in->spec = 1;
+	if (((o.color).v)[0] > 1 || ((o.color).v)[1] > 1 || ((o.color).v)[2] > 1
+			|| ((o.color).v)[0] < 0 || ((o.color).v)[1] < 0
+			|| ((o.color).v)[2] < 0 || ((l.color).v)[0] > 1
 			|| ((l.color).v)[1] > 1 || ((l.color).v)[2] > 1
 			|| ((l.color).v)[0] < 0 || ((l.color).v)[1] < 0
 			|| ((l.color).v)[2] < 0)
 		error(4);
-	(color->v)[0] += intensity.diff * ((l.color).v)[0] * ((o->color).v)[0];
-	(color->v)[1] += intensity.diff * ((l.color).v)[1] * ((o->color).v)[1];
-	(color->v)[2] += intensity.diff * ((l.color).v)[2] * ((o->color).v)[2];
-	(color->v)[0] += intensity.spec * ((l.color).v)[0];
-	(color->v)[1] += intensity.spec * ((l.color).v)[1];
-	(color->v)[2] += intensity.spec * ((l.color).v)[2];
 }
 
-static void		light_intensity(t_source src, t_pixel *pixel, t_event *event,
-		t_object *obj)
+static void		set_light_value(t_intensity in, t_pixel *pixel,
+		t_source l, int i)
 {
-	t_3v		point;
+	t_3v		*c;
+	t_object	o;
+	double		influence;
+
+	o = *((pixel->vis_obj_r)[i]);
+	c = &(pixel->c_per_src[l.id - 1]);
+	influence = 1.0;
+	while (i > 0)
+	{
+		influence *= ((pixel->vis_obj_r)[i - 1])->specular;
+		i--;
+	}
+	in.diff = in.diff * (l.intensity).diff;
+	in.spec = in.spec * (l.intensity).spec;
+	check_values(&in, o, l);
+	(c->v)[0] += influence * (1 - in.spec) * in.diff * ((l.color).v)[0] * ((o.color).v)[0];
+	(c->v)[1] += influence * (1 - in.spec) * in.diff * ((l.color).v)[1] * ((o.color).v)[1];
+	(c->v)[2] += influence * (1 - in.spec) * in.diff * ((l.color).v)[2] * ((o.color).v)[2];
+	(c->v)[0] += in.spec * ((l.color).v)[0];
+	(c->v)[1] += in.spec * ((l.color).v)[1];
+	(c->v)[2] += in.spec * ((l.color).v)[2];
+}
+
+static void		light_intensity(t_source src, t_pixel *pixel, t_event *event)
+{
 	t_3v		dir;
 	t_scene		scene;
-	t_intensity	intensity;
+	t_intensity	in;
+	t_cam		view;
+	int			i;
 
-	point = get_point(event, pixel);
-	dir = ft_3v_subtract(point, (src.origin));
 	scene = event->scene;
-	intensity.diff = 0;
-	intensity.spec = 0;
-	if (light_reaches(dir, scene.objects, src.id) > 0.01)
-		intensity = get_intensity(point, obj, dir, scene.camera);
-	set_light_value(intensity, pixel, obj, src);
+	i = 0;
+	while (i < scene.refl && pixel->vis_obj_r[i])
+	{
+		dir = ft_3v_subtract(pixel->point_r[i], (src.origin));
+		in.diff = 0;
+		in.spec = 0;
+		if (i == 0)
+			view = scene.camera;
+		else
+		{
+			view.origin = pixel->point_r[i - 1];
+			view.rotation = ft_zero_3v();
+		}
+		if (light_reaches(dir, scene.objects, src.id) > 0.01)
+			in = get_intensity(pixel->point_r[i], pixel->vis_obj_r[i],
+					dir, view);
+		set_light_value(in, pixel, src, i);
+		i++;
+	}
 }
 
 void		set_light_per_pixel(t_event *event, t_source src)
@@ -96,7 +109,7 @@ void		set_light_per_pixel(t_event *event, t_source src)
 			j++;
 			if (!pixel->vis_obj)
 				continue ;
-			light_intensity(src, pixel, event, pixel->vis_obj);
+			light_intensity(src, pixel, event);
 		}
 		i++;
 	}

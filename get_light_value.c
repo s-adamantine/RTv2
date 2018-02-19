@@ -61,19 +61,6 @@ static t_3v			get_pixel_value(t_3v point, t_scene *scene, t_list *sources,
 	return (color);
 }
 
-static t_3v			get_point(t_event *event, t_pixel *pixel)
-{
-	t_3v		point;
-	t_3v		coor;
-
-	coor = pixel->coor;
-	change_dir(&coor, ((event->scene).camera).rotation);
-	point = ((event->scene).camera).origin;
-	ft_3v_scalar(&coor, pixel->s_value);
-	point = ft_3v_add(point, coor);
-	return (point);
-}
-
 void				*get_light_value(void *arg)
 {
 	t_event		*event;
@@ -92,7 +79,8 @@ void				*get_light_value(void *arg)
 			j++;
 			if (!pixel->vis_obj)
 				continue ;
-			pixel->color = get_pixel_value(get_point(event, pixel),
+			pixel->color = get_pixel_value(get_point((event->scene).camera,
+						pixel->coor, pixel->s_value),
 					&(event->scene), (event->scene).lights, pixel->vis_obj);
 			((int *)(((t_event *)event)->img)->img_arr)
 				[j + (event->scene).width * i] = get_color(pixel->color);

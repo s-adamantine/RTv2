@@ -22,6 +22,8 @@ static void	set_values_render_2(t_scene *scene, char *s, char *value)
 		scene->anti_a = ft_atod(value);
 	else if (ft_strncmp(s, "wait", 4) == 0)
 		scene->wait = ft_atod(value);
+	else if (ft_strncmp(s, "reflection", 10) == 0)
+		scene->refl = ft_atoi(value);
 }
 
 static void	set_values_render(t_scene *scene, char *s, char *value)
@@ -36,7 +38,8 @@ static void	set_values_render(t_scene *scene, char *s, char *value)
 		ft_strcpy(scene->name, (const char *)value);
 	}
 	if (ft_strncmp(s, "ambient", 7) == 0 || ft_strncmp(s, "grain", 5) == 0 ||
-			ft_strncmp(s, "anti_a", 6) == 0 || ft_strncmp(s, "wait", 4) == 0)
+			ft_strncmp(s, "anti_a", 6) == 0 || ft_strncmp(s, "wait", 4) == 0
+		|| ft_strncmp(s, "reflection", 10) == 0)
 		set_values_render_2(scene, s, value);
 	else if (ft_strncmp(s, "dimensions", 10) == 0)
 	{

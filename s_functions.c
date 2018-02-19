@@ -12,7 +12,31 @@
 
 #include "rtv1.h"
 
-double	get_s_cylinder(t_object *s, t_3v dir, t_3v src_o)
+static double	get_nearest_intersection(double a, double b, double d
+		double *int_2)
+{
+	double	t_1;
+	double	t_2;
+
+	t_1 = (-b + sqrt(d)) / (2 * a);
+	t_2 = (-b - sqrt(d)) / (2 * a);
+	if (t_1 < 0.001 && t_2 < 0.001)
+		return (-1);
+	if (t_1 < 0.001)
+	{
+		*int_2 = t_1;
+		return (t_2);
+	}
+	if (t_2 < 0.001)
+	{
+		*int_2 = t_2;
+		return (t_1);
+	}
+	*int_2 = (t_1 < t_2) ? t_2 : t_1;
+	return ((t_1 < t_2) ? t_1 : t_2);
+}
+
+double	get_s_cylinder(t_object *s, t_3v dir, t_3v src_o, double *int_2)
 {
 	double	a;
 	double	b;
@@ -29,10 +53,10 @@ double	get_s_cylinder(t_object *s, t_3v dir, t_3v src_o)
 	d = b * b - 4 * a * c;
 	if (d < 0.0001)
 		return (-1);
-	return (get_nearest_intersection(a, b, d));
+	return (get_nearest_intersection(a, b, d, int_2));
 }
 
-double	get_s_sphere(t_object *s, t_3v dir, t_3v src_o)
+double	get_s_sphere(t_object *s, t_3v dir, t_3v src_o, double *int_2)
 {
 	double	a;
 	double	b;
@@ -47,13 +71,14 @@ double	get_s_sphere(t_object *s, t_3v dir, t_3v src_o)
 	d = b * b - 4 * a * c;
 	if (d < 0)
 		return (-1);
-	return (get_nearest_intersection(a, b, d));
+	return (get_nearest_intersection(a, b, d, int_2));
 }
 
-double	get_s_plane(t_object *s, t_3v dir, t_3v src_o)
+double	get_s_plane(t_object *s, t_3v dir, t_3v src_o, double *int_2)
 {
 	double	to_return;
 
+	(void)int_2;
 	if (s->type != 0)
 		return (-1);
 	if ((dir.v)[1] == 0)
@@ -64,7 +89,7 @@ double	get_s_plane(t_object *s, t_3v dir, t_3v src_o)
 	return (-1);
 }
 
-double	get_s_cone(t_object *s, t_3v dir, t_3v src_o)
+double	get_s_cone(t_object *s, t_3v dir, t_3v src_o, double *int_2)
 {
 	double	a;
 	double	b;
@@ -87,5 +112,5 @@ double	get_s_cone(t_object *s, t_3v dir, t_3v src_o)
 	d = b * b - 4 * a * c;
 	if (d < 0)
 		return (-1);
-	return (get_nearest_intersection(a, b, d));
+	return (get_nearest_intersection(a, b, d, int_2));
 }

@@ -24,6 +24,7 @@ SRCS = 	rtv1.c\
 		get_source.c\
 		get_intensity.c\
 		tools.c\
+		vector_tools.c\
 		color_tools.c\
 		s_functions.c\
 		set_light_per_pixel.c\

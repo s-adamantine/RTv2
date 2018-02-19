@@ -16,11 +16,11 @@ static void	init_def_object(t_object *object, int id)
 {
 	t_3v	def;
 
-	def = ft_init_3v(0.0, 0.0, 0.0);
+	def = ft_zero_3v();
 	object->id = id;
 	object->type = 0;
 	object->origin = def;
-	def = ft_init_3v(0.0, 0.0, 0.0);
+	def = ft_zero_3v();
 	object->rotation = def;
 	object->radius = RADIUS;
 	object->diffuse = ALBEDO;

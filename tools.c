@@ -46,19 +46,13 @@ void	get_doubles_from_line(double *v, char *line, int size)
 	ft_free_array((void **)values_str);
 }
 
-double	get_nearest_intersection(double a, double b, double d)
+t_3v	get_point(t_cam origin, t_3v coor, double s_value)
 {
-	double	t_1;
-	double	t_2;
+	t_3v		point;
 
-	t_1 = (-b + sqrt(d)) / (2 * a);
-	t_2 = (-b - sqrt(d)) / (2 * a);
-	if (t_1 < 0.001 && t_2 < 0.001)
-		return (-1);
-	if (t_1 < 0.001)
-		return (t_2);
-	if (t_2 < 0.001)
-		return (t_1);
-	else
-		return ((t_1 < t_2) ? t_1 : t_2);
+	change_dir(&coor, origin.rotation);
+	point = origin.origin;
+	ft_3v_scalar(&coor, s_value);
+	point = ft_3v_add(point, coor);
+	return (point);
 }

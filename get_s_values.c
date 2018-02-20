@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/07 15:58:53 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/20 16:56:51 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,7 @@ static void		setup_pixel(t_pixel *pixel, t_scene scene)
 	if (!(pixel->point_r = (t_3v *)malloc(sizeof(t_3v) * scene.refl)))
 		error(1);
 	ft_bzero(pixel->c_per_src, sizeof(t_3v) * scene.amount_light);
+	ft_bzero(pixel->vis_obj_r, sizeof(t_object *) * scene.refl);
 	pixel->color = ft_zero_3v();
 }
 

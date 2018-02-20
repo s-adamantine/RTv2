@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/08 14:09:09 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/20 18:37:27 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ typedef struct	s_pixel
 	double		int_2;
 	t_object	*vis_obj;
 	t_3v		point;
+	t_3v		normal;
 	double		*s_value_r;
 	double		*int_2_r;
 	t_object	**vis_obj_r;

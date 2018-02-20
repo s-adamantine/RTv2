@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 18:31:47 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/08 09:29:36 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/20 18:54:11 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,11 +77,11 @@ void				*get_light_value(void *arg)
 		{
 			pixel = &((event->p_array)[j + i * (event->scene).width]);
 			j++;
-			if (!pixel->vis_obj)
+			if (!pixel->vis_obj[0])
 				continue ;
 			pixel->color = get_pixel_value(get_point((event->scene).camera,
-						pixel->coor, pixel->s_value),
-					&(event->scene), (event->scene).lights, pixel->vis_obj);
+						pixel->coor, pixel->s_value[0]),
+					&(event->scene), (event->scene).lights, pixel->vis_obj[0]);
 			((int *)(((t_event *)event)->img)->img_arr)
 				[j + (event->scene).width * i] = get_color(pixel->color);
 		}

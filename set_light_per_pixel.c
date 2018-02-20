@@ -6,17 +6,15 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/20 18:32:32 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/20 19:11:37 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static int		light_reaches(t_3v dir, t_list *objects, int src_id,
-		double *int_2)
+static int		light_reaches(t_3v dir, t_list *objects, int src_id)
 {
 	double		t_value;
-	double		t_value_2;
 	int			reached;
 	t_list		*o_lst;
 	t_object	*obj;
@@ -30,16 +28,11 @@ static int		light_reaches(t_3v dir, t_list *objects, int src_id,
 		obj = (t_object *)o_lst->content;
 		dir_a = get_dir(dir, obj->rotation);
 		rel_src = get_source(src_id, obj->rel_lights);
-		t_value = obj->f(obj, dir_a, rel_src->origin, int_2);
+		t_value = obj->f(obj, dir_a, rel_src->origin);
 		if (t_value > 0.001 && t_value < 0.99999)
 			return (0);
-		else if (t_value > 0.99999 && t_value < 1.001 && *int_2 < 0.001)
-			return (0);
 		else if (t_value > 0.99999 && t_value < 1.001)
-		{
 			reached = 1;
-			t_value_2 = *int_2;
-		}
 		o_lst = o_lst->next;
 	}
 	return (reached);
@@ -67,12 +60,12 @@ static void		set_light_value(t_intensity in, t_pixel *p,
 	t_object	o;
 	double		influence;
 
-	o = *(p->vis_obj_r[i]);
+	o = *(p->vis_obj[i]);
 	c = &(p->c_per_src[l.id - 1]);
 	influence = 1.0;
 	while (i > 0)
 	{
-		influence *= ((p->vis_obj_r)[i - 1])->specular;
+		influence *= ((p->vis_obj)[i - 1])->specular;
 		i--;
 	}
 	in.diff = in.diff * (l.intensity).diff;
@@ -96,20 +89,22 @@ static void		light_intensity(t_source src, t_pixel *p, t_event *event)
 
 	scene = event->scene;
 	i = 0;
-	while (i < scene.refl && p->vis_obj_r[i])
+	while (i < scene.refl && p->vis_obj[i])
 	{
-		dir = ft_3v_subtract(p->point_r[i], (src.origin));
+		dir = ft_3v_subtract(p->point[i], (src.origin));
+		if (ft_3v_dot_product(dir, p->normal[i]) < 0) 
+			break ;
 		in.diff = 0;
 		in.spec = 0;
 		if (i == 0)
 			view = scene.camera;
 		else
 		{
-			view.origin = p->point_r[i - 1];
+			view.origin = p->point[i - 1];
 			view.rotation = ft_zero_3v();
 		}
-		if (light_reaches(dir, scene.objects, src.id, &(p->int_2_r[i])) > 0.01)
-			in = get_intensity(p->point_r[i], p->vis_obj_r[i], dir, view);
+		if (light_reaches(dir, scene.objects, src.id) > 0.01)
+			in = get_intensity(p->point[i], p->vis_obj[i], dir, view);
 		set_light_value(in, p, src, i);
 		i++;
 	}
@@ -129,7 +124,7 @@ void		set_light_per_pixel(t_event *event, t_source src)
 		{
 			p = &((event->p_array)[j + i * (event->scene).width]);
 			j++;
-			if (!p->vis_obj)
+			if (!p->vis_obj[0])
 				continue ;
 			light_intensity(src, p, event);
 		}

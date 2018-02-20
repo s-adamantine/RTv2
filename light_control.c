@@ -16,7 +16,7 @@ void	*turn_on_all(void *arg)
 		while (++j < (event->scene).width)
 		{
 			pixel = &((event->p_array)[j + i * (event->scene).width]);
-			if (pixel->vis_obj)
+			if (pixel->vis_obj[0])
 			{
 				k = -1;
 				while (++k < (event->scene).amount_light)

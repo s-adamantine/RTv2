@@ -6,14 +6,13 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:47:11 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/20 18:23:02 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/20 18:39:08 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static double	get_nearest_intersection(double a, double b, double d,
-		double *int_2)
+static double	get_nearest_intersection(double a, double b, double d)
 {
 	double	t_1;
 	double	t_2;
@@ -23,20 +22,13 @@ static double	get_nearest_intersection(double a, double b, double d,
 	if (t_1 < 0.001 && t_2 < 0.001)
 		return (-1);
 	if (t_1 < 0.001)
-	{
-		*int_2 = t_1;
 		return (t_2);
-	}
 	if (t_2 < 0.001)
-	{
-		*int_2 = t_2;
 		return (t_1);
-	}
-	*int_2 = (t_1 < t_2) ? t_2 : t_1;
 	return ((t_1 < t_2) ? t_1 : t_2);
 }
 
-double	get_s_cylinder(t_object *s, t_3v dir, t_3v src_o, double *int_2)
+double	get_s_cylinder(t_object *s, t_3v dir, t_3v src_o)
 {
 	double	a;
 	double	b;
@@ -53,10 +45,10 @@ double	get_s_cylinder(t_object *s, t_3v dir, t_3v src_o, double *int_2)
 	d = b * b - 4 * a * c;
 	if (d < 0.0001)
 		return (-1);
-	return (get_nearest_intersection(a, b, d, int_2));
+	return (get_nearest_intersection(a, b, d));
 }
 
-double	get_s_sphere(t_object *s, t_3v dir, t_3v src_o, double *int_2)
+double	get_s_sphere(t_object *s, t_3v dir, t_3v src_o)
 {
 	double	a;
 	double	b;
@@ -71,14 +63,13 @@ double	get_s_sphere(t_object *s, t_3v dir, t_3v src_o, double *int_2)
 	d = b * b - 4 * a * c;
 	if (d < 0)
 		return (-1);
-	return (get_nearest_intersection(a, b, d, int_2));
+	return (get_nearest_intersection(a, b, d));
 }
 
-double	get_s_plane(t_object *s, t_3v dir, t_3v src_o, double *int_2)
+double	get_s_plane(t_object *s, t_3v dir, t_3v src_o)
 {
 	double	to_return;
 
-	(void)int_2;
 	if (s->type != 0)
 		return (-1);
 	if ((dir.v)[1] == 0)
@@ -89,7 +80,7 @@ double	get_s_plane(t_object *s, t_3v dir, t_3v src_o, double *int_2)
 	return (-1);
 }
 
-double	get_s_cone(t_object *s, t_3v dir, t_3v src_o, double *int_2)
+double	get_s_cone(t_object *s, t_3v dir, t_3v src_o)
 {
 	double	a;
 	double	b;
@@ -110,13 +101,7 @@ double	get_s_cone(t_object *s, t_3v dir, t_3v src_o, double *int_2)
 		(src_o.v)[1] * (src_o.v)[1]) - sin(angle) * sin(angle) *
 		(src_o.v)[2] * (src_o.v)[2];
 	d = b * b - 4 * a * c;
-	if (dir.v[1] == 0 && src_o.v[2] == 500)
-	{
-		printf("%f %f %f\n", a, b, c);
-		printf("%f %f %f\n", dir.v[0], dir.v[1], dir.v[2]);
-		printf("%f %f %f\n\n", src_o.v[0], src_o.v[1], src_o.v[2]);
-	}
 	if (d < 0)
 		return (-1);
-	return (get_nearest_intersection(a, b, d, int_2));
+	return (get_nearest_intersection(a, b, d));
 }

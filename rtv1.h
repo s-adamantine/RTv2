@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/20 18:37:27 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/20 18:53:45 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,15 +98,10 @@ typedef struct	s_pixel
 {
 	int			status;
 	t_3v		coor;
-	double		s_value;
-	double		int_2;
-	t_object	*vis_obj;
-	t_3v		point;
-	t_3v		normal;
-	double		*s_value_r;
-	double		*int_2_r;
-	t_object	**vis_obj_r;
-	t_3v		*point_r;
+	t_3v		*normal;
+	double		*s_value;
+	t_object	**vis_obj;
+	t_3v		*point;
 	t_3v		*c_per_src;
 	t_3v		color;
 }				t_pixel;
@@ -156,11 +151,10 @@ void			get_doubles_from_line(double *vector, char *line, int size);
 void			add_light(t_scene *scene, int fd);
 void			set_render(t_scene *scene, int fd);
 void			set_camera(t_scene *scene, int fd);
-double			get_s_cylinder(t_object *s, t_3v dir, t_3v r_origin,
-		double *int_2);
-double			get_s_plane(t_object *s, t_3v dir, t_3v src_o, double *int_2);
-double			get_s_sphere(t_object *s, t_3v dir, t_3v src_o, double *int_2);
-double			get_s_cone(t_object *s, t_3v dir, t_3v src_c, double *int_2);
+double			get_s_cylinder(t_object *s, t_3v dir, t_3v r_origin);
+double			get_s_plane(t_object *s, t_3v dir, t_3v src_o);
+double			get_s_sphere(t_object *s, t_3v dir, t_3v src_o);
+double			get_s_cone(t_object *s, t_3v dir, t_3v src_c);
 void			*get_s_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/20 19:11:37 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/21 16:39:47 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,28 +71,45 @@ static void		set_light_value(t_intensity in, t_pixel *p,
 	in.diff = in.diff * (l.intensity).diff;
 	in.spec = in.spec * (l.intensity).spec;
 	check_values(&in, o, l);
-	(c->v)[0] += influence * (1 - in.spec) * in.diff * ((l.color).v)[0] * ((o.color).v)[0];
-	(c->v)[1] += influence * (1 - in.spec) * in.diff * ((l.color).v)[1] * ((o.color).v)[1];
-	(c->v)[2] += influence * (1 - in.spec) * in.diff * ((l.color).v)[2] * ((o.color).v)[2];
+	(c->v)[0] += influence * (1 - in.spec) * in.diff * ((l.color).v)[0]
+		* ((o.color).v)[0];
+	(c->v)[1] += influence * (1 - in.spec) * in.diff * ((l.color).v)[1]
+		* ((o.color).v)[1];
+	(c->v)[2] += influence * (1 - in.spec) * in.diff * ((l.color).v)[2]
+		* ((o.color).v)[2];
 	(c->v)[0] += in.spec * ((l.color).v)[0];
 	(c->v)[1] += in.spec * ((l.color).v)[1];
 	(c->v)[2] += in.spec * ((l.color).v)[2];
 }
 
-static void		light_intensity(t_source src, t_pixel *p, t_event *event)
+static int		inside_object(t_object *o, t_source src, t_cam cam, int amount)
+{
+	int	i;
+
+	(void)o;
+	(void)amount;
+	i = 0;
+	while (i < amount)
+	{
+		if (src.inside_obj[i] != cam.inside_obj[i])
+			return (0);
+		i++;
+	}
+	return (1);
+}
+
+static void		light_intensity(t_source src, t_pixel *p, t_scene scene)
 {
 	t_3v		dir;
-	t_scene		scene;
 	t_intensity	in;
 	t_cam		view;
 	int			i;
 
-	scene = event->scene;
 	i = 0;
 	while (i < scene.refl && p->vis_obj[i])
 	{
 		dir = ft_3v_subtract(p->point[i], (src.origin));
-		if (ft_3v_dot_product(dir, p->normal[i]) < 0) 
+		if (!inside_object(p->vis_obj[i], src, scene.camera, scene.amount_obj))
 			break ;
 		in.diff = 0;
 		in.spec = 0;
@@ -126,7 +143,7 @@ void		set_light_per_pixel(t_event *event, t_source src)
 			j++;
 			if (!p->vis_obj[0])
 				continue ;
-			light_intensity(src, p, event);
+			light_intensity(src, p, event->scene);
 		}
 		i++;
 	}

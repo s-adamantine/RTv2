@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/02/20 14:22:50 by mpauw            ###   ########.fr        #
+#    Updated: 2018/02/21 16:43:00 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS = 	rtv1.c\
 		anti_aliasing.c\
 		fill_square.c\
 		light_control.c\
+		light_inside.c\
 		mouse_event.c\
 		calculate_movement.c\
 		get_light_value.c
@@ -55,7 +56,7 @@ FRAMEWORK = -framework OpenGL -framework AppKit
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LFTDIR)$(LIBFT) $(LMLXDIR)$(LIBMLX)
-	-@gcc $(FLAGS) -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
+	-@gcc $(FLAGS) -fsanitize=address -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
 	 -I$(LMLXDIR) -L$(LMLXDIR) -l$(MLX) \
 	 $(FRAMEWORK)
 	-@echo "RTv1 Ready"
@@ -71,11 +72,11 @@ $(LMLXDIR)$(LIBMLX):
 
 clean:
 	-@/bin/rm -f $(OBJ)
-#	-@$(MAKE) -C $(LFTDIR) clean
-#	-@$(MAKE) -C $(LMLXDIR) clean
+	-@$(MAKE) -C $(LFTDIR) clean
+	-@$(MAKE) -C $(LMLXDIR) clean
 
 fclean: clean
 	-@/bin/rm -f $(NAME)
-#	-@$(MAKE) -C $(LFTDIR) fclean
+	-@$(MAKE) -C $(LFTDIR) fclean
 
 re: fclean all

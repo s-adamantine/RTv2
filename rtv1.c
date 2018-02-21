@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/06 09:28:12 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/21 14:53:29 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void	run_threads(t_event *event)
 	pthread_t	light_values;
 	pthread_t	turn_on;
 
+	light_inside((void *)event);
 	pthread_create(&s_values, NULL, &get_s_values, (void *)event);
 	pthread_join(s_values, NULL);
 	pthread_create(&light_values, NULL, &init_light_values, (void *)event);

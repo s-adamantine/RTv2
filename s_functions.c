@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:47:11 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/20 18:39:08 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/21 14:47:13 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static double	get_nearest_intersection(double a, double b, double d)
 	t_1 = (-b + sqrt(d)) / (2 * a);
 	t_2 = (-b - sqrt(d)) / (2 * a);
 	if (t_1 < 0.001 && t_2 < 0.001)
-		return (-1);
+		return (-2);
 	if (t_1 < 0.001)
 		return (t_2);
 	if (t_2 < 0.001)

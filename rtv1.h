@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/20 18:53:45 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/21 15:08:09 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ typedef struct	s_source
 {
 	int			type;
 	int			id;
+	int			*inside_obj;
 	t_intensity	intensity;
 	t_3v		origin;
 	t_3v		*origin_o;
@@ -71,6 +72,7 @@ typedef struct	s_source
 typedef struct	s_cam
 {
 	int			id;
+	int			*inside_obj;
 	t_3v		origin;
 	t_3v		*origin_o;
 	t_3v		rotation;
@@ -159,6 +161,7 @@ void			*get_s_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
 void			*turn_on_all(void *arg);
+void			*light_inside(void *arg);
 void			set_light_per_pixel(t_event *event, t_source src);
 t_event			init_window(t_scene scene);
 t_source		*get_source(int id, t_list *lst);
@@ -166,6 +169,7 @@ t_3v			get_dir(t_3v dir, t_3v rotation);
 t_3v			get_point(t_cam origin, t_3v coor, double s_value);
 t_3v			get_reflection_vector(t_3v n, t_3v dir_a);
 t_3v			get_normal(t_object *obj, t_3v point);
+t_3v			get_source_origin(t_object *obj, int id);
 void			change_dir(t_3v *dir, t_3v rotation);
 void			rotate_object(t_object *object, t_scene *scene, int cam_only);
 void			init_loop(t_event *event);

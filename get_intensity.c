@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:40:06 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/08 10:33:20 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/21 17:05:41 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,18 @@ static double	get_d(t_3v dir_a, t_3v n, t_object *obj)
 	return (d);
 }
 
-t_intensity		get_intensity(t_3v point, t_object *obj, t_3v dir, t_cam cam)
+t_intensity		get_intensity(t_pixel *p, int r, t_3v dir, t_cam cam)
 {
-	t_3v		n;
 	t_3v		dir_a;
 	t_intensity	i;
+	t_object	*obj;
 	double		angle;
 	double		size;
 
+	obj = p->vis_obj[r];
 	i.diff = 0;
 	i.spec = 0;
-	n = get_normal(obj, point);
-	if (ft_get_3v_size(n) == 0)
+	if (ft_get_3v_size(p->normal[r]) == 0)
 		return (i);
 	dir_a = get_dir(dir, obj->rotation);
 	size = ft_get_3v_size(dir_a);
@@ -65,8 +65,8 @@ t_intensity		get_intensity(t_3v point, t_object *obj, t_3v dir, t_cam cam)
 	if (size == 0)
 		return (i);
 	ft_3v_scalar(&dir_a, 1 / size);
-	i.diff = get_d(dir_a, n, obj);
-	angle = get_s(point, n, dir_a, cam);
+	i.diff = get_d(dir_a, p->normal[r], obj);
+	angle = get_s(p->point[r], p->normal[r], dir_a, cam);
 	if (angle < 0 && obj->type != 0)
 		angle = 0;
 	angle = fabs(angle);

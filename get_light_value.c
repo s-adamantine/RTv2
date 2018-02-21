@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 18:31:47 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/20 18:54:11 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/21 17:05:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static double		light_reaches(t_3v dir, t_list *objects, int src_id)
 	return (1);
 }
 
-static t_3v			get_pixel_value(t_3v point, t_scene *scene, t_list *sources,
+static t_3v			get_pixel_value(t_pixel *p, t_scene *scene, t_list *sources,
 		t_object *obj)
 {
 	t_list		*s_lst;
@@ -50,10 +50,10 @@ static t_3v			get_pixel_value(t_3v point, t_scene *scene, t_list *sources,
 	while (s_lst && s_lst->content)
 	{
 		src = (t_source *)s_lst->content;
-		dir = ft_3v_subtract(point, (src->origin));
+		dir = ft_3v_subtract(p->point[0], (src->origin));
 		if (light_reaches(dir, scene->objects, src->id) > 0.01)
 		{
-			intensity = get_intensity(point, obj, dir, scene->camera);
+			intensity = get_intensity(p, 0, dir, scene->camera);
 			update_color(intensity, &color, obj, *src);
 		}
 		s_lst = s_lst->next;
@@ -79,9 +79,8 @@ void				*get_light_value(void *arg)
 			j++;
 			if (!pixel->vis_obj[0])
 				continue ;
-			pixel->color = get_pixel_value(get_point((event->scene).camera,
-						pixel->coor, pixel->s_value[0]),
-					&(event->scene), (event->scene).lights, pixel->vis_obj[0]);
+			pixel->color = get_pixel_value(pixel, 0, (event->scene).lights,
+					pixel->vis_obj[0]);
 			((int *)(((t_event *)event)->img)->img_arr)
 				[j + (event->scene).width * i] = get_color(pixel->color);
 		}

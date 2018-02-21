@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/21 16:39:47 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/21 17:05:39 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,10 @@ static void		set_light_value(t_intensity in, t_pixel *p,
 	(c->v)[2] += in.spec * ((l.color).v)[2];
 }
 
-static int		inside_object(t_object *o, t_source src, t_cam cam, int amount)
+static int		inside_object(t_pixel *p, t_source src, t_cam cam, int amount)
 {
 	int	i;
 
-	(void)o;
-	(void)amount;
 	i = 0;
 	while (i < amount)
 	{
@@ -109,7 +107,7 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene scene)
 	while (i < scene.refl && p->vis_obj[i])
 	{
 		dir = ft_3v_subtract(p->point[i], (src.origin));
-		if (!inside_object(p->vis_obj[i], src, scene.camera, scene.amount_obj))
+		if (!inside_object(p, src, scene.camera, scene.amount_obj))
 			break ;
 		in.diff = 0;
 		in.spec = 0;
@@ -121,7 +119,7 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene scene)
 			view.rotation = ft_zero_3v();
 		}
 		if (light_reaches(dir, scene.objects, src.id) > 0.01)
-			in = get_intensity(p->point[i], p->vis_obj[i], dir, view);
+			in = get_intensity(p, i, dir, view);
 		set_light_value(in, p, src, i);
 		i++;
 	}

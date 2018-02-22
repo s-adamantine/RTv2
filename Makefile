@@ -6,12 +6,11 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/02/21 17:05:55 by mpauw            ###   ########.fr        #
+#    Updated: 2018/02/22 09:40:27 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = RTv1 
-FLAGS = -Wall -Wextra -Werror 
 INCLUDES = rtv1.h keys.h mlx_constants.h
 SRCS = 	rtv1.c\
 		set_scene.c\
@@ -51,12 +50,14 @@ LIBMLX = libmlx.a
 FT = ft
 MLX = mlx
 MAKE = make
+FLAGS = -Wall -Wextra -Werror 
+SEGFAULT = -fsanitize=address 
 FRAMEWORK = -framework OpenGL -framework AppKit
 
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LFTDIR)$(LIBFT) $(LMLXDIR)$(LIBMLX)
-	-@gcc $(FLAGS) -fsanitize=address -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
+	-@gcc $(FLAGS) -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
 	 -I$(LMLXDIR) -L$(LMLXDIR) -l$(MLX) \
 	 $(FRAMEWORK)
 	-@echo "RTv1 Ready"
@@ -72,11 +73,11 @@ $(LMLXDIR)$(LIBMLX):
 
 clean:
 	-@/bin/rm -f $(OBJ)
-	-@$(MAKE) -C $(LFTDIR) clean
-	-@$(MAKE) -C $(LMLXDIR) clean
+#	-@$(MAKE) -C $(LFTDIR) clean
+#	-@$(MAKE) -C $(LMLXDIR) clean
 
 fclean: clean
 	-@/bin/rm -f $(NAME)
-	-@$(MAKE) -C $(LFTDIR) fclean
+#	-@$(MAKE) -C $(LFTDIR) fclean
 
 re: fclean all

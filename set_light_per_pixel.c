@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/21 17:05:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/22 16:50:36 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int		light_reaches(t_3v dir, t_list *objects, int src_id)
 		t_value = obj->f(obj, dir_a, rel_src->origin);
 		if (t_value > 0.001 && t_value < 0.99999)
 			return (0);
-		else if (t_value > 0.99999 && t_value < 1.001)
+		else if (t_value > 0.999999 && t_value < 1.000001)
 			reached = 1;
 		o_lst = o_lst->next;
 	}
@@ -87,6 +87,7 @@ static int		inside_object(t_pixel *p, t_source src, t_cam cam, int amount)
 	int	i;
 
 	i = 0;
+	(void)p;
 	while (i < amount)
 	{
 		if (src.inside_obj[i] != cam.inside_obj[i])
@@ -101,27 +102,27 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene scene)
 	t_3v		dir;
 	t_intensity	in;
 	t_cam		view;
-	int			i;
+	int			r;
 
-	i = 0;
-	while (i < scene.refl && p->vis_obj[i])
+	r = 0;
+	while (r < scene.refl && p->vis_obj[r])
 	{
-		dir = ft_3v_subtract(p->point[i], (src.origin));
+		dir = ft_3v_subtract(p->point[r], (src.origin));
 		if (!inside_object(p, src, scene.camera, scene.amount_obj))
 			break ;
 		in.diff = 0;
 		in.spec = 0;
-		if (i == 0)
+		if (r == 0)
 			view = scene.camera;
 		else
 		{
-			view.origin = p->point[i - 1];
+			view.origin = p->point[r - 1];
 			view.rotation = ft_zero_3v();
 		}
 		if (light_reaches(dir, scene.objects, src.id) > 0.01)
-			in = get_intensity(p, i, dir, view);
-		set_light_value(in, p, src, i);
-		i++;
+			in = get_intensity(p, r, dir, view);
+		set_light_value(in, p, src, r);
+		r++;
 	}
 }
 

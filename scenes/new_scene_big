@@ -7,17 +7,17 @@ camera {
 		{origin, {2000.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
-*light {
+light {
 		{origin, {250.0 50.0 50.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 0}}
 }
 light {
-		{origin, {4000.0 0.0 0.0}}
+		{origin, {-2000.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 1}}
 }
-*light {
+light {
 		{origin, {-500.0 -50.0 50.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 1}}

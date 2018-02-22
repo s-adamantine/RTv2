@@ -33,7 +33,7 @@ object {
 }
 object {
 		{type, {sphere}}
-		{origin, {0.0 0.0 0.0}}
+		{origin, {45.0 45.0 0.0}}
 		{rotation, {20.0 20.0 0.0}}
 		{color, {0.0 0.0 0.5}}
 		{radius, {40}}

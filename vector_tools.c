@@ -17,7 +17,8 @@ t_3v	get_normal(t_object *obj, t_3v point)
 
 	if (obj->type == 0)
 		return (ft_get_3v_unit(1));
-	norm_d = ft_3v_subtract(point, obj->origin);
+	else
+		norm_d = ft_3v_subtract(point, obj->origin);
 	norm_t = get_dir(norm_d, obj->rotation);
 	if (obj->type == 2)
 		(norm_t.v)[2] = 0;

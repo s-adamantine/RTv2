@@ -6,18 +6,23 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:40:06 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/21 17:05:41 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/22 16:21:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static double	get_s(t_3v point, t_3v n, t_3v dir_a, t_cam cam)
+static double	get_s(t_pixel *p, int r, t_3v dir_a, t_cam cam)
 {
 	double	s;
 	t_3v	tmp_dir;
 	t_3v	dir_v;
+	t_3v	point;
+	t_3v	n;
 
+	point = p->point[r];
+	n = p->normal[r];
+	point = get_dir(point, (p->vis_obj[r])->rotation);
 	s = 0;
 	dir_v = get_reflection_vector(n, dir_a);
 	tmp_dir = ft_3v_subtract(point, cam.origin);
@@ -66,8 +71,8 @@ t_intensity		get_intensity(t_pixel *p, int r, t_3v dir, t_cam cam)
 		return (i);
 	ft_3v_scalar(&dir_a, 1 / size);
 	i.diff = get_d(dir_a, p->normal[r], obj);
-	angle = get_s(p->point[r], p->normal[r], dir_a, cam);
-	if (angle < 0 && obj->type != 0)
+	angle = get_s(p, r, dir_a, cam);
+	if (angle < 0)
 		angle = 0;
 	angle = fabs(angle);
 	i.spec = obj->specular * pow(angle, obj->shininess);

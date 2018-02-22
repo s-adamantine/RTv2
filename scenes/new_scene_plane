@@ -3,11 +3,11 @@ render {
 		{dimensions, {1200 900}}
 }
 camera {
-		{origin, {250.0 0.0 0.0}}
+		{origin, {1000.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
-light {
-		{origin, {-200.0 0.0 0.0}}
+*light {
+		{origin, {200.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 2}}
 }
@@ -18,8 +18,23 @@ light {
 }
 object {
 		{type, {plane}}
-		{origin, {0.0 -100.0 0.0}}
-		{rotation, {0.0 0.0 0.0}}
-		{color, {1.0 0.0 1.0}}
+		{origin, {0.0 0.0 -50.0}}
+		{rotation, {90.0 0.0 0.0}}
+		{color, {1.0 0.0 0.3}}
 		{reflection, {0.0 0.4 0.2 20}}
+}
+object {
+		{type, {plane}}
+		{origin, {0.0 -20.0 0.0}}
+		{rotation, {0.0 0.0 90.0}}
+		{color, {0.0 1.0 0.0}}
+		{reflection, {0.0 0.4 0.2 20}}
+}
+object {
+		{type, {sphere}}
+		{origin, {45.0 45.0 0.0}}
+		{rotation, {20.0 20.0 0.0}}
+		{color, {0.0 0.0 0.5}}
+		{radius, {40}}
+		{reflection, {0.1 0.15 0.5 20}}
 }

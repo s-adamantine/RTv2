@@ -6,7 +6,7 @@ t_3v	get_reflection_vector(t_3v n, t_3v dir_a)
 
 	tmp = 2 * ft_3v_dot_product(n, dir_a);
 	ft_3v_scalar(&n, tmp);
-	return (ft_3v_subtract(n, dir_a));
+	return (ft_3v_subtract(dir_a, n));
 }
 
 t_3v	get_normal(t_object *obj, t_3v point)

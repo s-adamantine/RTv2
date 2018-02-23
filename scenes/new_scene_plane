@@ -12,7 +12,7 @@ camera {
 		{intensity, {10 2}}
 }
 light {
-		{origin, {200.0 -500.0 -200.0}}
+		{origin, {-100.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 2}}
 }

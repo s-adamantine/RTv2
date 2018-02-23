@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/02/22 09:40:27 by mpauw            ###   ########.fr        #
+#    Updated: 2018/02/23 11:45:19 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -73,11 +73,11 @@ $(LMLXDIR)$(LIBMLX):
 
 clean:
 	-@/bin/rm -f $(OBJ)
-#	-@$(MAKE) -C $(LFTDIR) clean
-#	-@$(MAKE) -C $(LMLXDIR) clean
+	-@$(MAKE) -C $(LFTDIR) clean
+	-@$(MAKE) -C $(LMLXDIR) clean
 
 fclean: clean
 	-@/bin/rm -f $(NAME)
-#	-@$(MAKE) -C $(LFTDIR) fclean
+	-@$(MAKE) -C $(LFTDIR) fclean
 
 re: fclean all

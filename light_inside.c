@@ -6,17 +6,29 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:03:49 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/21 16:41:25 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/23 11:20:07 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
+static int	behind_plane(t_object *obj, int s_id)
+{
+	t_3v	dir;
+	double	t_value;
+
+	dir = get_dir(ft_3v_subtract(get_source_origin(obj, s_id), (obj->rel_cam).origin), obj->rotation);
+	t_value = obj->f(obj, dir, get_source_origin(obj, s_id));
+	if (t_value < 1 && t_value > 0)
+		return (1);
+	return (0);
+}
+
 static int	s_in_object(t_object *obj, int s_id)
 {
-	t_3v		tmp_dir;
-	int			intersections;
-	int			rotated;
+	t_3v	tmp_dir;
+	int		intersections;
+	int		rotated;
 
 	intersections = 0;
 	rotated = 0;
@@ -46,7 +58,10 @@ void	check_s_inside(t_list *o_lst, int *inside_obj, int s_id)
 	while (tmp && tmp->content)
 	{
 		obj = (t_object *)tmp->content;
-		if (s_in_object(obj, s_id))
+		if (obj->type != 0 && s_in_object(obj, s_id))
+			inside_obj[i] = 1;
+		else if (obj->type == 0 && s_id != -1 &&
+				behind_plane(obj, s_id))
 			inside_obj[i] = 1;
 		else
 			inside_obj[i] = 0;
@@ -64,6 +79,7 @@ void		*light_inside(void *arg)
 
 	scene = &(((t_event *)arg)->scene);
 	s_lst = scene->lights;
+	cam = &(scene->camera);
 	while (s_lst && s_lst->content)
 	{
 		src = (t_source *)s_lst->content;
@@ -72,7 +88,6 @@ void		*light_inside(void *arg)
 		check_s_inside(scene->objects, src->inside_obj, src->id);
 		s_lst = s_lst->next;
 	}
-	cam = &(scene->camera);
 	if (!(cam->inside_obj = (int *)malloc(sizeof(int) * scene->amount_obj)))
 		error(1);
 	check_s_inside(scene->objects, cam->inside_obj, -1);

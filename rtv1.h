@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/21 17:05:42 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/26 13:28:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,11 +116,9 @@ typedef struct	s_scene
 	int			amount_obj;
 	int			amount_light;
 	int			cam_set;
-	int			amount_d;
 	int			grain;
 	int			anti_a;
 	int			refl;
-	double		avg_d;
 	double		ambient;
 	double		wait;
 	t_cam		camera;
@@ -177,6 +175,7 @@ int				key_pressed(int key, t_event *param);
 int				get_color(t_3v c);
 void			update_color(t_intensity intensity, t_3v *color,
 		t_object *o, t_source l);
+t_3v			get_rel_origin(t_3v origin, t_object *obj);
 t_intensity		get_intensity(t_pixel *p, int r, t_3v dir, t_cam cam);
 int				fill_square(t_img **img, int index, int size, int color);
 t_img			*init_image(void *mlx, int width_scr, int height_scr);

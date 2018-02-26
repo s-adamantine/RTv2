@@ -6,11 +6,26 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/19 13:32:50 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 12:10:05 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/02/26 12:30:21 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+t_3v	get_rel_origin(t_3v origin, t_object *obj)
+{
+	int		i;
+	t_3v	rel_origin;
+
+	i = 0;
+	rel_origin = origin;
+	while (i < 3)
+	{
+		rel_origin.v[i] = rel_origin.v[i] - (obj->origin).v[i];
+		i++;
+	}
+	return (rel_origin);
+}
 
 void	change_dir(t_3v *dir, t_3v rotation)
 {

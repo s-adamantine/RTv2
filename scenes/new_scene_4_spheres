@@ -1,0 +1,48 @@
+render {
+		{name, {Scene Plane}}
+		{dimensions, {1200 1200}}
+}
+camera {
+		{origin, {1000.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+light {
+		{origin, {200.0 0.0 0.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {10 1}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 0.0 200.0}}
+		{color, {0.0 1.0 1.0}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 0.0 -200.0}}
+		{color, {0.0 0.0 1.0}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 200.0 0.0}}
+		{color, {0.0 1.0 0.0}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 -200.0 0.0}}
+		{color, {1.0 0.0 0.0}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {plane}}
+		{origin, {-50.0 0.0 0.0}}
+		{rotation, {0.0 0.0 90.0}}
+		{color, {0.0 0.3 0.0}}
+		{reflection, {0.0 0.3 0.0 20}}
+}

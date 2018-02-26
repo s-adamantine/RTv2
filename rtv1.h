@@ -168,6 +168,7 @@ t_3v			get_point(t_cam origin, t_3v coor, double s_value);
 t_3v			get_reflection_vector(t_3v n, t_3v dir_a);
 t_3v			get_normal(t_object *obj, t_3v point);
 t_3v			get_source_origin(t_object *obj, int id);
+t_3v			get_r_source(t_object *obj, t_cam *cam);
 void			change_dir(t_3v *dir, t_3v rotation);
 void			rotate_object(t_object *object, t_scene *scene, int cam_only);
 void			init_loop(t_event *event);

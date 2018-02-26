@@ -55,3 +55,14 @@ t_3v	get_dir(t_3v dir, t_3v rotation)
 	}
 	return (new_dir);
 }
+
+t_3v		get_r_source(t_object *obj, t_cam *cam)
+{
+	t_3v	refl_o;
+
+	if (!cam)
+		return ((obj->rel_cam).origin);
+	refl_o = get_rel_origin(cam->origin, obj);
+	change_dir(&refl_o, obj->rotation);
+	return (refl_o);
+}

@@ -101,7 +101,6 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene scene)
 {
 	t_3v		dir;
 	t_intensity	in;
-	t_cam		view;
 	int			r;
 
 	r = 0;
@@ -112,15 +111,8 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene scene)
 			break ;
 		in.diff = 0;
 		in.spec = 0;
-		if (r == 0)
-			view = scene.camera;
-		else
-		{
-			view.origin = p->point[r - 1];
-			view.rotation = ft_zero_3v();
-		}
 		if (light_reaches(dir, scene.objects, src.id) > 0.01)
-			in = get_intensity(p, r, dir, view);
+			in = get_intensity(p, r, dir, (p->vis_obj[r])->rel_cam);
 		set_light_value(in, p, src, r);
 		r++;
 	}

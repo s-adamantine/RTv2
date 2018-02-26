@@ -43,8 +43,8 @@ LFTDIR = libft/
 # Use other $LMLXDIR by (un)commenting the following two lines 
 # if the project does not compile. 
 # 
-LMLXDIR = minilibx_macos/
-#LMLXDIR = mlx_macbook/
+#LMLXDIR = minilibx_macos/
+LMLXDIR = mlx_macbook/
 LIBFT = libft.a
 LIBMLX = libmlx.a
 FT = ft
@@ -73,11 +73,11 @@ $(LMLXDIR)$(LIBMLX):
 
 clean:
 	-@/bin/rm -f $(OBJ)
-	-@$(MAKE) -C $(LFTDIR) clean
-	-@$(MAKE) -C $(LMLXDIR) clean
+#	-@$(MAKE) -C $(LFTDIR) clean
+#	-@$(MAKE) -C $(LMLXDIR) clean
 
 fclean: clean
 	-@/bin/rm -f $(NAME)
-	-@$(MAKE) -C $(LFTDIR) fclean
+#	-@$(MAKE) -C $(LFTDIR) fclean
 
 re: fclean all

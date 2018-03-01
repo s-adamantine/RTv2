@@ -11,7 +11,7 @@ light {
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 0}}
 }
-light {
+*light {
 		{origin, {0.0 80.0 -100.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 0}}
@@ -38,7 +38,7 @@ light {
 object {
 		{type, {plane}}
 		{origin, {100.0 -100.0 -60.0}}
-		{rotation, {35.0 0.0 0.0}}
+		{rotation, {1.0 0.0 0.0}}
 		{color, {0.7 0.0 0.0}}
 		{reflection, {0.0 0.4 0.8 20}}
 }

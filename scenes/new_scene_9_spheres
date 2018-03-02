@@ -1,0 +1,87 @@
+render {
+		{name, {Scene 9 Spheres}}
+		{dimensions, {1200 1200}}
+}
+camera {
+		{origin, {1200.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+light {
+		{origin, {150.0 -300.0 0.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {20 0}}
+}
+light {
+		{origin, {150.0 300.0 0.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {20 0}}
+}
+light {
+		{origin, {150.0 0.0 -300.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {20 0}}
+}
+light {
+		{origin, {150.0 0.0 300.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {20 0}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {0.0 200.0 -126.0}}
+		{color, {0.0 0.5 0.5}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 0.0 -126.0}}
+		{color, {0.0 0.5 0.5}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 -200.0 -126.0}}
+		{color, {0.0 0.5 0.5}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {0.0 300.0 -300.0}}
+		{color, {0.0 0.5 0.5}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 100.0 -300.0}}
+		{color, {0.0 0.5 0.5}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 -100.0 -300.0}}
+		{color, {0.0 0.5 0.5}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 -300.0 -300.0}}
+		{color, {0.0 0.5 0.5}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {plane}}
+		{origin, {-50.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{rotation, {0.0 0.0 90.0}}
+		{color, {0.0 0.3 0.0}}
+		{reflection, {0.0 0.3 0.0 20}}
+}

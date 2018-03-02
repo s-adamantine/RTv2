@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/23 16:40:46 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/02 16:31:13 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ static void		check_values(t_intensity *in, t_object o, t_source l)
 		error(4);
 }
 
-static void		set_light_value(t_intensity in, t_pixel *p,
+static double	set_light_value(t_intensity in, t_pixel *p,
 		t_source l, int i)
 {
 	t_3v		*c;
@@ -80,6 +80,7 @@ static void		set_light_value(t_intensity in, t_pixel *p,
 	(c->v)[0] += in.spec * ((l.color).v)[0];
 	(c->v)[1] += in.spec * ((l.color).v)[1];
 	(c->v)[2] += in.spec * ((l.color).v)[2];
+	return ((c->v)[0] + (c->v)[1] + (c-v)[2]);
 }
 
 static int		inside_object(t_pixel *p, t_source src, t_cam cam, int amount)
@@ -97,25 +98,30 @@ static int		inside_object(t_pixel *p, t_source src, t_cam cam, int amount)
 	return (1);
 }
 
-static void		light_intensity(t_source src, t_pixel *p, t_scene scene)
+static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 {
-	t_3v		dir;
-	t_intensity	in;
-	int			r;
+	t_3v			dir;
+	t_intensity		in;
+	int				r;
+	double			total_value;
+
 
 	r = 0;
-	while (r < scene.refl && p->vis_obj[r])
+	total_value = 0.0;
+	while (r < scene->refl && p->vis_obj[r])
 	{
 		dir = ft_3v_subtract(p->point[r], (src.origin));
-		if (!inside_object(p, src, scene.camera, scene.amount_obj))
+		if (!inside_object(p, src, scene->camera, scene->amount_obj))
 			break ;
 		in.diff = 0;
 		in.spec = 0;
-		if (light_reaches(dir, scene.objects, src.id) > 0.01)
+		if (light_reaches(dir, scene->objects, src.id) > 0.01)
 			in = get_intensity(p, r, dir, (p->vis_obj[r])->rel_cam);
-		set_light_value(in, p, src, r);
+		total_value = set_light_value(in, p, src, r);
 		r++;
 	}
+	if (total_value > scene->max_value)
+		max_value = total_value;
 }
 
 void		set_light_per_pixel(t_event *event, t_source src)
@@ -134,7 +140,7 @@ void		set_light_per_pixel(t_event *event, t_source src)
 			j++;
 			if (!p->vis_obj[0])
 				continue ;
-			light_intensity(src, p, event->scene);
+			light_intensity(src, p, &(event->scene));
 		}
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/26 13:32:11 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/02 16:31:28 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,12 @@ static void	init_def_scene(t_scene *scene)
 	scene->width = 1080;
 	scene->height = 800;
 	scene->wait = 0.5;
-	scene->refl = 2;
+	scene->refl = 3;
 	scene->cam_set = 0;
 	scene->ambient = 0.5;
 	scene->grain = 4;
 	scene->anti_a = 2;
+	scene->max_value = 0.0;
 	cam.id = -1;
 	cam.origin = ft_init_3v(CAM_X, CAM_Y, CAM_Z);
 	cam.rotation = ft_zero_3v();

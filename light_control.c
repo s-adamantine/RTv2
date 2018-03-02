@@ -6,7 +6,7 @@ void	*turn_on_all(void *arg)
 	int		j;
 	int		k;
 	t_event	*event;
-	t_pixel	*pixel;
+	t_pixel	*p;
 
 	event = (t_event *)arg;
 	i = -1;
@@ -15,15 +15,15 @@ void	*turn_on_all(void *arg)
 		j = -1;
 		while (++j < (event->scene).width)
 		{
-			pixel = &((event->p_array)[j + i * (event->scene).width]);
-			if (pixel->vis_obj[0])
+			p = &((event->p_array)[j + i * (event->scene).width]);
+			if (p->vis_obj[0])
 			{
 				k = -1;
 				while (++k < (event->scene).amount_light)
-					pixel->color = ft_3v_add((pixel->c_per_src)[k], pixel->color);
+					p->color = ft_3v_add((p->c_per_src)[k], p->color);
 			}
 			((int *)(event->img)->img_arr)
-				[j + (event->scene).width * i] = get_color(pixel->color);
+				[j + (event->scene).width * i] = get_color(p->color);
 		}
 	}
 	return (NULL);

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/26 13:28:44 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/02 16:31:45 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,6 +121,7 @@ typedef struct	s_scene
 	int			refl;
 	double		ambient;
 	double		wait;
+	double		max_value;
 	t_cam		camera;
 	t_list		*lights;
 	t_list		*objects;
@@ -164,6 +165,7 @@ void			set_light_per_pixel(t_event *event, t_source src);
 t_event			init_window(t_scene scene);
 t_source		*get_source(int id, t_list *lst);
 t_3v			get_dir(t_3v dir, t_3v rotation);
+t_3v			get_rev_dir(t_3v dir, t_3v rotation);
 t_3v			get_point(t_cam origin, t_3v coor, double s_value);
 t_3v			get_reflection_vector(t_3v n, t_3v dir_a);
 t_3v			get_normal(t_object *obj, t_3v point);

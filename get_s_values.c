@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/26 15:06:29 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/02 16:06:22 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +44,27 @@ static t_object	*get_vis_obj(double *s_value, t_3v dir,
 static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
 {
 	t_cam	cam;
+	t_3v	n_dir;
 
 	if (r == scene->refl)
 		return ;
 	p->s_value[r] = MAX_S_VALUE;
 	cam.origin = (r > 0) ? p->point[r - 1] : (scene->camera).origin;
-	cam.rotation = (r > 0) ? (p->vis_obj[r - 1])->rotation : (scene->camera).rotation;
-	p->vis_obj[r] = get_vis_obj(&(p->s_value[r]), get_dir(dir, cam.rotation), scene->objects, &cam);
+	cam.rotation = (r > 0) ? (p->vis_obj[r - 1])->rotation :
+		(scene->camera).rotation;
+	p->vis_obj[r] = get_vis_obj(&(p->s_value[r]),
+			get_dir(dir, cam.rotation), scene->objects, &cam);
 	if (!(p->vis_obj[r]) || (r > 0 &&
 				(p->vis_obj[r])->id == (p->vis_obj[r - 1])->id))
 		return ;
-	cam.rotation = (r > 0) ? ft_zero_3v() : (scene->camera).rotation;
-//	if (r > 0)
-//	{
-//		p->point[r] = get_dir(p->point[r], (p->vis_obj[r])->rotation);
 	p->point[r] = get_point(cam, dir, p->s_value[r]);
-//	}
-//	else
-//		p->point[r] = get_point(scene->camera, p->coor, p->s_value[r]);
 	p->normal[r] = get_normal(p->vis_obj[r], p->point[r]);
 	if ((p->vis_obj[r])->specular > -0.001 && (p->vis_obj[r])->specular < 0.001)
 		return ;
-	get_reflections(r + 1, p, scene, get_reflection_vector(get_dir(p->normal[r],
-					(p->vis_obj[r])->rotation), dir));
+	n_dir = get_rev_dir(get_reflection_vector(get_rev_dir(p->normal[r],
+					(p->vis_obj[r])->rotation), dir),
+			(p->vis_obj[r])->rotation);
+	get_reflections(r + 1, p, scene, n_dir);
 }
 
 static void		get_value(t_scene *scene, t_pixel *p)
@@ -75,7 +73,6 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	t_object	*obj;
 
 	coor = p->coor;
-//	change_dir(&coor, (scene->camera).rotation);
 	get_reflections(0, p, scene, coor);
 	if (!p->vis_obj[0])
 		return ;

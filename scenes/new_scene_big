@@ -10,22 +10,22 @@ camera {
 light {
 		{origin, {250.0 50.0 50.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {10 0}}
+		{intensity, {5 0}}
 }
 light {
 		{origin, {-2000.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {10 1}}
+		{intensity, {5 1}}
 }
 light {
 		{origin, {-500.0 -50.0 50.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {10 1}}
+		{intensity, {5 0}}
 }
 light {
 		{origin, {900.0 100.0 10.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {10 2}}
+		{intensity, {5 0}}
 }
 object {
 		{type, {cone}}
@@ -33,7 +33,7 @@ object {
 		{rotation, {150.0 0.0 0.0}}
 		{color, {0.0 0.0 0.8}}
 		{radius, {0.4}}
-		{reflection, {0.0 0.15 0.5 10}}
+		{reflection, {0.0 0.15 0.2 10}}
 }
 object {
 		{type, {cylinder}}
@@ -49,7 +49,7 @@ object {
 		{rotation, {0.0 0.0 0.0}}
 		{radius, {40}}
 		{color, {0.8 0.0 0.5}}
-		{reflection, {0.0 0.15 0.3 10}}
+		{reflection, {0.0 0.15 0.2 10}}
 }
 object {
 		{type, {sphere}}
@@ -57,7 +57,7 @@ object {
 		{rotation, {180.0 0.0 0.0}}
 		{color, {0.0 0.0 1.0}}
 		{radius, {100}}
-		{reflection, {0.0 0.15 0.4 10}}
+		{reflection, {0.0 0.15 0.2 10}}
 }
 object {
 		{type, {plane}}

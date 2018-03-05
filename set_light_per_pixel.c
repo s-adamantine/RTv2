@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/02 16:31:13 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/05 10:12:20 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,7 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	(c->v)[0] += in.spec * ((l.color).v)[0];
 	(c->v)[1] += in.spec * ((l.color).v)[1];
 	(c->v)[2] += in.spec * ((l.color).v)[2];
-	return ((c->v)[0] + (c->v)[1] + (c-v)[2]);
+	return ((c->v)[0] + (c->v)[1] + (c->v)[2]);
 }
 
 static int		inside_object(t_pixel *p, t_source src, t_cam cam, int amount)
@@ -121,7 +121,7 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 		r++;
 	}
 	if (total_value > scene->max_value)
-		max_value = total_value;
+		scene->max_value = total_value;
 }
 
 void		set_light_per_pixel(t_event *event, t_source src)

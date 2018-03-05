@@ -7,76 +7,121 @@ camera {
 		{rotation, {0.0 0.0 0.0}}
 }
 light {
-		{origin, {150.0 -300.0 0.0}}
-		{color, {1.0 1.0 1.0}}
-		{intensity, {20 0}}
-}
-light {
-		{origin, {150.0 300.0 0.0}}
-		{color, {1.0 1.0 1.0}}
-		{intensity, {20 0}}
-}
-light {
-		{origin, {150.0 0.0 -300.0}}
-		{color, {1.0 1.0 1.0}}
-		{intensity, {20 0}}
-}
-light {
-		{origin, {150.0 0.0 300.0}}
+		{origin, {4000.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {20 0}}
 }
 
 object {
 		{type, {sphere}}
-		{origin, {0.0 200.0 -126.0}}
-		{color, {0.0 0.5 0.5}}
-		{radius, {100}}
-		{reflection, {0.1 0.15 0.5 10}}
-}
-object {
-		{type, {sphere}}
-		{origin, {0.0 0.0 -126.0}}
-		{color, {0.0 0.5 0.5}}
-		{radius, {100}}
-		{reflection, {0.1 0.15 0.5 10}}
-}
-object {
-		{type, {sphere}}
-		{origin, {0.0 -200.0 -126.0}}
-		{color, {0.0 0.5 0.5}}
+		{origin, {0.0 0.0 350.0}}
+		{color, {0.0 0.9 0.9}}
 		{radius, {100}}
 		{reflection, {0.1 0.15 0.5 10}}
 }
 
 object {
 		{type, {sphere}}
-		{origin, {0.0 300.0 -300.0}}
-		{color, {0.0 0.5 0.5}}
+		{origin, {0.0 -100.0 175.0}}
+		{color, {0.0 0.5 1.0}}
 		{radius, {100}}
 		{reflection, {0.1 0.15 0.5 10}}
 }
 object {
 		{type, {sphere}}
-		{origin, {0.0 100.0 -300.0}}
-		{color, {0.0 0.5 0.5}}
+		{origin, {0.0 100.0 175.0}}
+		{color, {0.0 0.0 0.5}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {0.0 200.0 0.0}}
+		{color, {0.0 0.4 0.0}}
 		{radius, {100}}
 		{reflection, {0.1 0.15 0.5 10}}
 }
 object {
 		{type, {sphere}}
-		{origin, {0.0 -100.0 -300.0}}
-		{color, {0.0 0.5 0.5}}
+		{origin, {0.0 0.0 0.0}}
+		{color, {0.0 0.0 0.0}}
 		{radius, {100}}
 		{reflection, {0.1 0.15 0.5 10}}
 }
 object {
 		{type, {sphere}}
-		{origin, {0.0 -300.0 -300.0}}
-		{color, {0.0 0.5 0.5}}
+		{origin, {0.0 -200.0 0.0}}
+		{color, {0.9 0.0 0.0}}
 		{radius, {100}}
 		{reflection, {0.1 0.15 0.5 10}}
 }
+
+object {
+		{type, {sphere}}
+		{origin, {0.0 300.0 -175.0}}
+		{color, {0.0 0.0 0.5}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 100.0 -175.0}}
+		{color, {0.0 0.5 1.0}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 -100.0 -175.0}}
+		{color, {0.5 0.0 0.5}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 -300.0 -175.0}}
+		{color, {0.0 0.0 1.0}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {0.0 400.0 -350.0}}
+		{color, {0.9 0.0 0.0}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 200.0 -350.0}}
+		{color, {0.0 0.0 1.0}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 0.0 -350.0}}
+		{color, {0.0 0.4 0.0}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 -200.0 -350.0}}
+		{color, {0.0 0.9 0.9}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 -400.0 -350.0}}
+		{color, {0.5 0.0 0.5}}
+		{radius, {100}}
+		{reflection, {0.1 0.15 0.5 10}}
+}
+
 object {
 		{type, {plane}}
 		{origin, {-50.0 0.0 0.0}}

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/02 16:31:45 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/21 16:32:22 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef struct	s_source
 	int			type;
 	int			id;
 	int			*inside_obj;
+	int			b;
 	t_intensity	intensity;
 	t_3v		origin;
 	t_3v		*origin_o;
@@ -83,6 +84,7 @@ typedef struct	s_object
 	int			id;
 	int			type;
 	double		radius;
+	double		radius_sq;
 	double		diffuse;
 	double		ambient;
 	double		specular;
@@ -92,8 +94,10 @@ typedef struct	s_object
 	t_3v		origin;
 	t_3v		rotation;
 	t_3v		normal;
-	t_list		*rel_lights;
-	t_cam		rel_cam;
+	double		*fixed_value;
+	double		*fixed_value_2;
+	t_3v		*fixed_vec;
+	t_3v		*dif_c;
 }				t_object;
 
 typedef struct	s_pixel
@@ -152,10 +156,10 @@ void			get_doubles_from_line(double *vector, char *line, int size);
 void			add_light(t_scene *scene, int fd);
 void			set_render(t_scene *scene, int fd);
 void			set_camera(t_scene *scene, int fd);
-double			get_s_cylinder(t_object *s, t_3v dir, t_3v r_origin);
-double			get_s_plane(t_object *s, t_3v dir, t_3v src_o);
-double			get_s_sphere(t_object *s, t_3v dir, t_3v src_o);
-double			get_s_cone(t_object *s, t_3v dir, t_3v src_c);
+double			get_s_cylinder(t_object *s, t_3v dir, int i);
+double			get_s_plane(t_object *s, t_3v dir, int i);
+double			get_s_sphere(t_object *s, t_3v dir, int i);
+double			get_s_cone(t_object *s, t_3v dir, int i);
 void			*get_s_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
@@ -179,6 +183,7 @@ int				get_color(t_3v c);
 void			update_color(t_intensity intensity, t_3v *color,
 		t_object *o, t_source l);
 t_3v			get_rel_origin(t_3v origin, t_object *obj);
+t_3v			normalize(t_3v v);
 t_intensity		get_intensity(t_pixel *p, int r, t_3v dir, t_cam cam);
 int				fill_square(t_img **img, int index, int size, int color);
 t_img			*init_image(void *mlx, int width_scr, int height_scr);
@@ -189,5 +194,6 @@ int				toggle_button(int button, int x, int y, t_event *event);
 void			set_drag_angle(t_event *event, int x, int y);
 void			set_move(t_event *event, int move);
 int				key_hold(int key, t_event *event);
+void			set_fixed_values(t_scene *scene);
 
 #endif

@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 11:06:44 by mpauw             #+#    #+#              #
-#    Updated: 2018/02/02 11:29:52 by mpauw            ###   ########.fr        #
+#    Updated: 2018/03/21 15:14:52 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -94,6 +94,7 @@ SRC = ft_atoi.c\
 	  ft_make_3v_unit.c\
 	  ft_cross_product.c\
 	  ft_3v_scalar.c\
+	  ft_3v_scalar_p.c\
 	  ft_rotate_3v.c\
 	  ft_init_3v.c\
 	  ft_zero_3v.c

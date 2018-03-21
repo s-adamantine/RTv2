@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/03/01 15:45:11 by mpauw            ###   ########.fr        #
+#    Updated: 2018/03/21 16:01:24 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,10 +17,9 @@ SRCS = 	rtv1.c\
 		set_object.c\
 		set_camera.c\
 		set_render.c\
-		rotate_object.c\
+		set_fixed_values.c\
 		add_light.c\
 		get_dir.c\
-		get_source.c\
 		get_intensity.c\
 		tools.c\
 		vector_tools.c\
@@ -34,9 +33,10 @@ SRCS = 	rtv1.c\
 		fill_square.c\
 		light_control.c\
 		light_inside.c\
-		mouse_event.c\
-		calculate_movement.c\
-		get_light_value.c
+		mouse_event.c
+	#	calculate_movement.c\
+	#	get_source.c\
+	#	get_light_value.c
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/
 #

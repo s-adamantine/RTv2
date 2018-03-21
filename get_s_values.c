@@ -6,30 +6,26 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/02 16:06:22 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/21 17:44:32 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
 static t_object	*get_vis_obj(double *s_value, t_3v dir,
-		t_list *objects, t_cam *cam)
+		t_list *objects)
 {
 	double		tmp;
 	t_list		*tmp_obj;
 	t_object	*obj;
 	t_object	*visible_object;
-	t_3v		tmp_dir;
 
 	visible_object = NULL;
 	tmp_obj = objects;
 	while (objects && objects->content)
 	{
 		obj = (t_object *)objects->content;
-		tmp_dir = get_dir(dir, obj->rotation);
-		if (ft_get_3v_size(tmp_dir) == 0)
-			error(5);
-		tmp = obj->f(obj, tmp_dir, get_r_source(obj, cam));
+		tmp = obj->f(obj, dir, 0);
 		if (tmp > 0.001 && tmp < *s_value)
 		{
 			*s_value = tmp;
@@ -53,7 +49,7 @@ static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
 	cam.rotation = (r > 0) ? (p->vis_obj[r - 1])->rotation :
 		(scene->camera).rotation;
 	p->vis_obj[r] = get_vis_obj(&(p->s_value[r]),
-			get_dir(dir, cam.rotation), scene->objects, &cam);
+			get_dir(dir, cam.rotation), scene->objects);
 	if (!(p->vis_obj[r]) || (r > 0 &&
 				(p->vis_obj[r])->id == (p->vis_obj[r - 1])->id))
 		return ;
@@ -61,9 +57,7 @@ static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
 	p->normal[r] = get_normal(p->vis_obj[r], p->point[r]);
 	if ((p->vis_obj[r])->specular > -0.001 && (p->vis_obj[r])->specular < 0.001)
 		return ;
-	n_dir = get_rev_dir(get_reflection_vector(get_rev_dir(p->normal[r],
-					(p->vis_obj[r])->rotation), dir),
-			(p->vis_obj[r])->rotation);
+	n_dir = get_reflection_vector((p->vis_obj[r])->normal, dir);
 	get_reflections(r + 1, p, scene, n_dir);
 }
 
@@ -71,8 +65,13 @@ static void		get_value(t_scene *scene, t_pixel *p)
 {
 	t_3v		coor;
 	t_object	*obj;
+	double		size;
 
 	coor = p->coor;
+	size = ft_get_3v_size(coor);
+	if (size < 0.00001)
+		error(5);
+	ft_3v_scalar_p(&coor, 1 / size);
 	get_reflections(0, p, scene, coor);
 	if (!p->vis_obj[0])
 		return ;

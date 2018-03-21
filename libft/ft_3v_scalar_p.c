@@ -1,27 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_3v_scalar.c                                     :+:      :+:    :+:   */
+/*   ft_3v_scalar_p.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/23 11:23:52 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/21 15:16:04 by mpauw            ###   ########.fr       */
+/*   Created: 2018/03/21 15:13:31 by mpauw             #+#    #+#             */
+/*   Updated: 2018/03/21 15:13:58 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_3v	ft_3v_scalar(t_3v v, double s)
+void	ft_3v_scalar_p(t_3v *v, double s)
 {
-	t_3v	to_return;
-	int		i;
+	int	i;
 
+	if (!v)
+		return ;
 	i = 0;
 	while (i < 3)
 	{
-		(to_return.v)[i] = (v.v)[i] * s;
+		(v->v)[i] = (v->v)[i] * s;
 		i++;
 	}
-	return (to_return);
 }

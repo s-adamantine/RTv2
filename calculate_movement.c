@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 16:15:17 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/08 15:01:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/21 15:56:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	set_move(t_event *event, int move)
 		ft_rotate_3v(&dir, i, -((cam->rotation).v[i]), 0);
 		i--;
 	}
-	ft_3v_scalar(&dir, move * 20);
+	ft_3v_scalar_p(&dir, move * 20);
 	cam->origin = ft_3v_add(cam->origin, dir);
 	lst = (event->scene).objects;
 	while (lst && lst->content)

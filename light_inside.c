@@ -6,25 +6,25 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:03:49 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/23 13:52:14 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/21 16:14:51 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static int	behind_plane(t_object *obj, int s_id)
+static int	behind_plane(t_object *obj, t_source *src, t_scene *scene)
 {
 	t_3v	dir;
 	double	t_value;
 
-	dir = ft_3v_subtract((obj->rel_cam).origin, get_source_origin(obj, s_id));
-	t_value = obj->f(obj, dir, get_source_origin(obj, s_id));
+	dir = ft_3v_subtract((scene->camera).origin, src->origin);
+	t_value = obj->f(obj, dir, 0);
 	if (t_value < 1 && t_value > 0)
 		return (1);
 	return (0);
 }
 
-static int	s_in_object(t_object *obj, int s_id)
+static int	s_in_object(t_object *obj, t_source *src)
 {
 	t_3v	tmp_dir;
 	int		intersections;
@@ -37,7 +37,7 @@ static int	s_in_object(t_object *obj, int s_id)
 		tmp_dir = get_dir(ft_get_3v_unit(intersections), obj->rotation);
 		if (rotated)
 			tmp_dir = get_dir(tmp_dir, ft_init_3v(45, 45, 45));
-		if (obj->f(obj, tmp_dir, get_source_origin(obj, s_id)) != -1)
+		if (obj->f(obj, tmp_dir, src->id + 1) != -1)
 			intersections++;
 		else if (rotated)
 			return (0);
@@ -47,7 +47,8 @@ static int	s_in_object(t_object *obj, int s_id)
 	return (1);
 }
 
-void	check_s_inside(t_list *o_lst, int *inside_obj, int s_id)
+void	check_s_inside(t_list *o_lst, int *inside_obj, t_source *src,
+		t_scene *scene)
 {
 	t_object	*obj;
 	t_list		*tmp;
@@ -58,10 +59,10 @@ void	check_s_inside(t_list *o_lst, int *inside_obj, int s_id)
 	while (tmp && tmp->content)
 	{
 		obj = (t_object *)tmp->content;
-		if (obj->type != 0 && s_in_object(obj, s_id))
+		if (obj->type != 0 && s_in_object(obj, src))
 			inside_obj[i] = 1;
-		else if (obj->type == 0 && s_id != -1 &&
-				behind_plane(obj, s_id))
+		else if (obj->type == 0 && src->b != -1 &&
+				behind_plane(obj, src, scene))
 			inside_obj[i] = 1;
 		else
 			inside_obj[i] = 0;
@@ -85,11 +86,13 @@ void		*light_inside(void *arg)
 		src = (t_source *)s_lst->content;
 		if (!(src->inside_obj = (int *)malloc(sizeof(int) * scene->amount_obj)))
 			error(1);
-		check_s_inside(scene->objects, src->inside_obj, src->id);
+		src->b = src->id;
+		check_s_inside(scene->objects, src->inside_obj, src, scene);
 		s_lst = s_lst->next;
 	}
 	if (!(cam->inside_obj = (int *)malloc(sizeof(int) * scene->amount_obj)))
 		error(1);
-	check_s_inside(scene->objects, cam->inside_obj, -1);
+	src->b = -1;
+	check_s_inside(scene->objects, cam->inside_obj, src, scene);
 	return (NULL);
 }

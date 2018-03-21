@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 13:57:58 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/07 13:41:00 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/21 17:17:39 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,11 +48,12 @@ void	get_doubles_from_line(double *v, char *line, int size)
 
 t_3v	get_point(t_cam origin, t_3v coor, double s_value)
 {
-	t_3v		point;
+	t_3v	point;
+	t_3v	dir;
 
-	change_dir(&coor, origin.rotation);
+	dir = get_dir(coor, origin.rotation);
 	point = origin.origin;
-	ft_3v_scalar(&coor, s_value);
-	point = ft_3v_add(point, coor);
+	ft_3v_scalar_p(&dir, s_value);
+	point = ft_3v_add(point, dir);
 	return (point);
 }

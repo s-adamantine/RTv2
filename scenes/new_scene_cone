@@ -6,19 +6,19 @@ render {
 }
 camera {
 		{origin, {500.0 0.0 0.0}}
-		{rotation, {0.0 1.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
 }
 light {
 		{origin, {250.0 -250.0 0.0}}
 		{color, {0.0 1.0 1.0}}
 		{intensity, {15 0}}
 }
-*light {
+light {
 		{origin, {30.0 0.0 0.0}}
 		{color, {0.0 1.0 1.0}}
 		{intensity, {15 4}}
 }
-*light {
+light {
 		{origin, {250.0 250.0 200.0}}
 		{color, {0.0 1.0 1.0}}
 		{intensity, {15 4}}
@@ -26,12 +26,12 @@ light {
 object {
 		{type, {cone}}
 		{origin, {0.0 0.0 0.0}}
-		{rotation, {20.0 20.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
 		{color, {0.3 0.2 0.5}}
 		{radius, {0.4}}
 		{reflection, {0.1 0.15 0.5 20}}
 }
-object {
+*object {
 		{type, {sphere}}
 		{origin, {45.0 45.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}

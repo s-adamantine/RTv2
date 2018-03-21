@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 08:24:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/08 14:21:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/21 16:08:39 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,10 +25,10 @@ int		key_hold(int key, t_event *event)
 {
 	if (key == KEY_W || key == KEY_S || key == KEY_A || key == KEY_D)
 	{
-		if (key == KEY_W || key == KEY_S)
-			set_move(event, (key == KEY_W ? -1 : 1));
-		else
-			set_move(event, (key == KEY_A ? -2 : 2));
+//		if (key == KEY_W || key == KEY_S)
+//			set_move(event, (key == KEY_W ? -1 : 1));
+//		else
+//			set_move(event, (key == KEY_A ? -2 : 2));
 		event->cur_grain = (event->scene).grain;
 //		raytracer(event, &(event->scene), 0);
 		mlx_put_image_to_window(event->mlx, event->win,

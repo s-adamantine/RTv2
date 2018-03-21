@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:04:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/02 11:30:42 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/21 15:14:35 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,8 @@ t_3v				ft_3v_subtract(t_3v v1, t_3v v2);
 t_3v				ft_get_3v_unit(int dir);
 void				ft_make_3v_unit(t_3v v);
 t_3v				ft_cross_product(t_3v v1, t_3v v2);
-void				ft_3v_scalar(t_3v *v, double s);
+t_3v				ft_3v_scalar(t_3v v, double s);
+void				ft_3v_scalar_p(t_3v *v, double s);
 void				ft_rotate_3v(t_3v *v, int axis, double angle, int rad);
 t_3v				ft_zero_3v(void);
 t_3v				ft_init_3v(double a, double b, double c);

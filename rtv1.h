@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 09:12:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/22 16:03:31 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,6 @@ typedef struct	s_object
 	t_3v		origin;
 	t_3v		dir;
 	t_3v		rotation;
-	t_3v		normal;
 	double		*fixed_value;
 	double		*fixed_value_2;
 	t_3v		*fixed_vec;

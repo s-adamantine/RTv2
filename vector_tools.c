@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 18:18:41 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 13:47:12 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/22 16:53:38 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_3v	get_normal(t_object *obj, t_3v point)
 	double	size;
 
 	if (obj->type == 0)
-		return (get_dir(ft_get_3v_unit(1), obj->rotation));
+		return (get_dir(ft_get_3v_unit(2), obj->rotation));
 	else
 		norm_t = ft_3v_subtract(point, obj->origin);
 	norm_t = get_rev_dir(norm_t, obj->rotation);

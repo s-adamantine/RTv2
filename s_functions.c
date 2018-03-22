@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 16:47:11 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 09:43:26 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/22 16:12:47 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,9 @@ double	get_s_plane(t_object *s, t_3v dir, int i)
 	double	to_return;
 	double	tmp;
 
-	if ((tmp = ft_3v_dot_product(dir, s->normal)) < 0.0001)
+	if (fabs((tmp = ft_3v_dot_product(dir, s->dir))) < 0.0001)
 		return (-1);
-	to_return = s->fixed_value[i] / tmp;
+	to_return = -(s->fixed_value[i] / tmp);
 	if (to_return > 0.0001)
 		return (to_return);
 	return (-1);

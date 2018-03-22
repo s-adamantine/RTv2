@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 13:20:16 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/22 16:04:20 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
 	p->normal[r] = get_normal(p->vis_obj[r], p->point[r]);
 	if ((p->vis_obj[r])->specular > -0.001 && (p->vis_obj[r])->specular < 0.001)
 		return ;
-	n_dir = get_reflection_vector((p->vis_obj[r])->normal, dir);
+	n_dir = get_reflection_vector(p->normal[r], dir);
 	get_reflections(r + 1, p, scene, n_dir);
 }
 

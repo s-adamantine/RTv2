@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 09:15:03 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/22 16:53:39 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ static void	init_def_object(t_object *object, int id)
 	object->diffuse = ALBEDO;
 	def = ft_init_3v(1.0, 1.0, 0.0);
 	object->color = def;
-	object->normal = ft_init_3v(0.0, 1.0, 0.0);
 	object->dir = ft_init_3v(0.0, 0.0, 1.0);
 }
 

@@ -1,22 +1,23 @@
 render {
 		{name, {Scene Plane}}
 		{dimensions, {2000 1400}}
+		{ambient, {5}}
 }
 camera {
 		{origin, {1000.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
-light {
+*light {
 		{origin, {0.0 120.0 40.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 0}}
 }
-light {
+*light {
 		{origin, {0.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 0}}
 }
-light {
+*light {
 		{origin, {-600.0 -20.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 0}}
@@ -26,7 +27,7 @@ light {
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 0}}
 }
-object {
+*object {
 		{type, {plane}}
 		{origin, {0.0 0.0 -50.0}}
 		{rotation, {90.0 0.0 0.0}}
@@ -42,19 +43,19 @@ object {
 }
 object {
 		{type, {plane}}
-		{origin, {100.0 -60.0 -60.0}}
-		{rotation, {0.0 0.0 0.0}}
+		{origin, {0.0 0.0 0.0}}
+		{rotation, {0.0 90.0 0.0}}
 		{color, {0.7 0.0 0.0}}
-		{reflection, {0.0 0.4 0.6 20}}
+		{reflection, {0.0 0.4 0.5 20}}
 }
-object {
+*object {
 		{type, {plane}}
 		{origin, {-500.0 90.0 0.0}}
 		{rotation, {0.0 0.0 270.0}}
 		{color, {0.0 0.0 0.7}}
 		{reflection, {0.0 0.6 0.6 20}}
 }
-object {
+*object {
 		{type, {sphere}}
 		{origin, {0.0 60.0 40.0}}
 		{color, {1.0 0.0 1.0}}

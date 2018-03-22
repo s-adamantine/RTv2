@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/20 18:18:41 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 13:47:12 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/22 09:41:04 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,15 @@ t_3v	get_reflection_vector(t_3v n, t_3v dir)
 
 t_3v	get_normal(t_object *obj, t_3v point)
 {
+	t_3v	norm_d;
 	t_3v	norm_t;
 	double	size;
 
 	if (obj->type == 0)
 		return (get_dir(ft_get_3v_unit(1), obj->rotation));
 	else
-		norm_t = ft_3v_subtract(point, obj->origin);
-	norm_t = get_rev_dir(norm_t, obj->rotation);
+		norm_d = ft_3v_subtract(point, obj->origin);
+	norm_t = get_dir(norm_d, obj->rotation);
 	if (obj->type == 2)
 		(norm_t.v)[2] = 0;
 	if (obj->type == 3)
@@ -41,8 +42,7 @@ t_3v	get_normal(t_object *obj, t_3v point)
 		error(5);
 	if (size != 0)
 		ft_3v_scalar_p(&norm_t, -1 / size);
-	norm_t = get_dir(norm_t, obj->rotation);
-	return (norm_t);
+	return (get_dir(norm_t, obj->rotation));
 }
 
 t_3v	normalize(t_3v v)

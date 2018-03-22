@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/21 17:16:03 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/22 10:34:35 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,6 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 	total_value = 0.0;
 	while (r < scene->refl && p->vis_obj[r])
 	{
-//		dir = ft_3v_subtract(src.origin, p->point[r]);
 		dir = ft_3v_subtract(p->point[r], src.origin);
 		if (!inside_object(p, src, scene->camera, scene->amount_obj))
 			break ;

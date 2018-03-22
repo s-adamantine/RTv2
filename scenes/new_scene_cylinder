@@ -3,13 +3,13 @@ render {
 		{dimensions, {1200 900}}
 }
 camera {
-		{origin, {250.0 0.0 0.0}}
+		{origin, {2500.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
 light {
-		{origin, {0.0 0.0 40.0}}
+		{origin, {0.0 1200.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {4 2}}
+		{intensity, {10 2}}
 }
 *light {
 		{origin, {200.0 -500.0 -200.0}}
@@ -18,9 +18,9 @@ light {
 }
 object {
 		{type, {cylinder}}
-		{origin, {0.0 0.0 -70.0}}
-		{rotation, {90.0 0.0 0.0}}
-		{color, {1.0 0.0 0.0}}
-		{radius, {25}}
-		{reflection, {0.0 0.4 0.2 20}}
+		{origin, {0.0 600.0 500.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{color, {0.5 0.5 0.0}}
+		{radius, {100}}
+		{reflection, {0.2 0.4 0.2 20}}
 }

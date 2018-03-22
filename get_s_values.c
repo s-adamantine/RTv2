@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/21 17:44:32 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/22 13:20:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,13 +65,8 @@ static void		get_value(t_scene *scene, t_pixel *p)
 {
 	t_3v		coor;
 	t_object	*obj;
-	double		size;
 
-	coor = p->coor;
-	size = ft_get_3v_size(coor);
-	if (size < 0.00001)
-		error(5);
-	ft_3v_scalar_p(&coor, 1 / size);
+	coor = normalize(p->coor);
 	get_reflections(0, p, scene, coor);
 	if (!p->vis_obj[0])
 		return ;

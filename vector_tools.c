@@ -18,7 +18,7 @@ t_3v	get_reflection_vector(t_3v n, t_3v dir)
 
 	tmp = 2 * ft_3v_dot_product(n, dir);
 	ft_3v_scalar_p(&n, tmp);
-	return (ft_3v_subtract(dir, n));
+	return (ft_3v_subtract(n, dir));
 }
 
 t_3v	get_normal(t_object *obj, t_3v point)
@@ -40,7 +40,7 @@ t_3v	get_normal(t_object *obj, t_3v point)
 	if (size == 0 && obj->type != 3)
 		error(5);
 	if (size != 0)
-		ft_3v_scalar_p(&norm_t, -1 / size);
+		ft_3v_scalar_p(&norm_t, 1 / size);
 	norm_t = get_dir(norm_t, obj->rotation);
 	return (norm_t);
 }

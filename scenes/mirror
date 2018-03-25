@@ -14,11 +14,11 @@ light {
 object {
 		{type, {plane}}
 		{origin, {0.0 0.0 0.0}}
-		{rotation, {90.0 -45.0 0.0}}
+		{rotation, {0.0 -45.0 0.0}}
 		{color, {0.0 1.0 0.0}}
 		{reflection, {0.0 0.4 0.9 20}}
 }
-object {
+*object {
 		{type, {plane}}
 		{origin, {0.0 0.0 -700.0}}
 		{rotation, {90.0 270.0 0.0}}

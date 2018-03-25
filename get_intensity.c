@@ -57,7 +57,7 @@ t_intensity		get_intensity(t_pixel *p, int r, t_3v dir, t_cam cam)
 	i.spec = 0;
 	if (ft_get_3v_size(p->normal[r]) == 0)
 		return (i);
-	dir = normalize(dir);
+	dir = normalize(ft_3v_scalar(dir, -1));
 	i.diff = get_d(dir, p->normal[r], obj);
 	angle = get_s(p, r, dir, cam);
 	if (angle < 0)

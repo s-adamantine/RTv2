@@ -1,72 +1,68 @@
 render {
 		{name, {Scene 4 Spheres}}
-		{dimensions, {1200 1200}}
+		{dimensions, {600 600}}
 }
 camera {
 		{origin, {1000.0 0.0 0.0}}
-		{rotation, {40.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
 }
 light {
 		{origin, {150.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {7 1}}
 }
-light {
+*light {
 		{origin, {150.0 200.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {7 1}}
 }
-light {
+*light {
 		{origin, {150.0 -200.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {7 1}}
 }
-light {
+*light {
 		{origin, {150.0 0.0 200.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {7 1}}
 }
-light {
+*light {
 		{origin, {150.0 0.0 -200.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {7 0}}
+		{intensity, {7 1}}
 }
 object {
 		{type, {sphere}}
 		{origin, {0.0 0.0 200.0}}
 		{color, {0.0 0.5 0.5}}
-		{radius, {100}}
+		{radius, {120}}
 		{reflection, {0.1 0.15 0.5 10}}
 }
 object {
 		{type, {sphere}}
 		{origin, {0.0 0.0 -200.0}}
-		{rotation, {20.0 0.0 0.0}}
 		{color, {0.0 0.0 1.0}}
-		{radius, {100}}
+		{radius, {120}}
 		{reflection, {0.1 0.15 0.5 10}}
 }
 object {
 		{type, {sphere}}
 		{origin, {0.0 200.0 0.0}}
-		{rotation, {20.0 20.0 0.0}}
 		{color, {0.0 1.0 0.0}}
-		{radius, {100}}
+		{radius, {120}}
 		{reflection, {0.1 0.15 0.5 10}}
 }
 object {
 		{type, {sphere}}
 		{origin, {0.0 -200.0 0.0}}
-		{rotation, {20.0 20.0 0.0}}
 		{color, {1.0 0.0 0.0}}
-		{radius, {100}}
+		{radius, {120}}
 		{reflection, {0.1 0.15 0.5 10}}
 }
 object {
 		{type, {plane}}
-		{origin, {-50.0 0.0 0.0}}
-		{rotation, {0.0 0.0 0.0}}
-		{rotation, {0.0 0.0 90.0}}
+		{origin, {-100.0 0.0 0.0}}
+		{rotation, {0.0 90.0 0.0}}
 		{color, {0.0 0.3 0.0}}
 		{reflection, {0.0 0.3 0.0 20}}
 }

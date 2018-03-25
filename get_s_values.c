@@ -42,22 +42,20 @@ static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
 	t_cam	cam;
 	t_3v	n_dir;
 
-	if (r == scene->refl)
-		return ;
 	p->s_value[r] = MAX_S_VALUE;
 	cam.origin = (r > 0) ? p->point[r - 1] : (scene->camera).origin;
 	cam.rotation = (r > 0) ? (p->vis_obj[r - 1])->rotation :
 		(scene->camera).rotation;
-	p->vis_obj[r] = get_vis_obj(&(p->s_value[r]),
-			get_dir(dir, cam.rotation), scene->objects);
+	p->vis_obj[r] = get_vis_obj(&(p->s_value[r]), dir, scene->objects);
 	if (!(p->vis_obj[r]) || (r > 0 &&
 				(p->vis_obj[r])->id == (p->vis_obj[r - 1])->id))
 		return ;
 	p->point[r] = get_point(cam, dir, p->s_value[r]);
 	p->normal[r] = get_normal(p->vis_obj[r], p->point[r]);
-	if ((p->vis_obj[r])->specular > -0.001 && (p->vis_obj[r])->specular < 0.001)
+	if (((p->vis_obj[r])->specular > -0.001 && (p->vis_obj[r])->specular
+				< 0.001) || r + 1 == scene->refl)
 		return ;
-	n_dir = get_reflection_vector(p->normal[r], dir);
+	n_dir = get_reflection_vector(p->normal[r], ft_3v_scalar(dir, -1));
 	get_reflections(r + 1, p, scene, n_dir);
 }
 

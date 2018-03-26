@@ -1,8 +1,0 @@
-Specular:
-	- 90 degrees z-axis rotation gives reflection far to the right
-
-Reflection
-	- Rotation of sphere doesn't give correct reflection (no problem for
-	  sphere, but probably bigger issue)
-
-

@@ -9,27 +9,27 @@ camera {
 light {
 		{origin, {150.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {7 1}}
+		{intensity, {9 2}}
 }
 *light {
 		{origin, {150.0 200.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {7 1}}
+		{intensity, {9 2}}
 }
 *light {
 		{origin, {150.0 -200.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {7 1}}
+		{intensity, {9 2}}
 }
 *light {
 		{origin, {150.0 0.0 200.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {7 1}}
+		{intensity, {9 2}}
 }
 *light {
 		{origin, {150.0 0.0 -200.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {7 1}}
+		{intensity, {9 2}}
 }
 object {
 		{type, {sphere}}

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/21 12:03:49 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/21 16:14:51 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/03/22 17:41:34 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	behind_plane(t_object *obj, t_source *src, t_scene *scene)
 	t_3v	dir;
 	double	t_value;
 
-	dir = ft_3v_subtract((scene->camera).origin, src->origin);
+	dir = ft_3v_subtract(src->origin, (scene->camera).origin);
 	t_value = obj->f(obj, dir, 0);
 	if (t_value < 1 && t_value > 0)
 		return (1);

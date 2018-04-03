@@ -36,11 +36,10 @@ void	*init_light_values(void *arg)
 	t_source		*src;
 
 	event = (t_event *)arg;
-	s_lst = (event->scene).lights;
+	s_lst = ((event->scene).lights)->next;
 	while (s_lst && s_lst->content)
 	{
 		src = (t_source *)s_lst->content;
-		(event->scene).cur_src = *src;
 		set_light_per_pixel(event, *src);
 		s_lst = s_lst->next;
 	}

@@ -12,34 +12,14 @@
 
 #include "rtv1.h"
 
-static void	set_fixed_values_src(t_source *src, t_object *o, int i)
-{
-	o->dif_c[i] = ft_3v_subtract(src->origin, o->origin);
-	if (o->type == 0)
-		o->fixed_value[i] = ft_3v_dot_product(o->dir, o->dif_c[i]);
-	else if (o->type == 1)
-		o->fixed_value[i] = ft_3v_dot_product(o->dif_c[i], o->dif_c[i]);
-	else if (o->type == 2 || o->type == 3)
-	{
-		o->fixed_vec[i] = ft_3v_subtract(o->dif_c[i],
-				ft_3v_scalar(o->dir,
-					ft_3v_dot_product(o->dif_c[i], o->dir)));
-		
-		o->fixed_value[i] =
-			ft_3v_dot_product(o->fixed_vec[i], o->fixed_vec[i]);
-	}
-	if (o->type == 3)
-		o->fixed_value_2[i] = ft_3v_dot_product(o->dif_c[i], o->dir);
-}
-
-static void	set_fixed_value_cam(t_cam camera, t_object *o, int i)
+static void	set_fixed_value(t_3v origin, t_object *o, int i)
 {
 	if (i == 0)
 	{
 		o->dir = get_dir(o->dir, o->rotation);
 		o->radius_sq = o->radius * o->radius;
 	}
-	o->dif_c[i] = ft_3v_subtract(camera.origin, o->origin);
+	o->dif_c[i] = ft_3v_subtract(origin, o->origin);
 	if (o->type == 0)
 		o->fixed_value[i] = ft_3v_dot_product(o->dir, o->dif_c[i]);
 	else if (o->type == 1)
@@ -62,12 +42,12 @@ static void	set_src(t_scene *scene, t_object *o)
 	t_source	*src;
 	int			i;
 
-	srcs = scene->lights;
+	srcs = (scene->lights)->next;
 	i = scene->refl;
 	while (srcs && srcs->content)
 	{
 		src = (t_source *)srcs->content;
-		set_fixed_values_src(src, o, i);
+		set_fixed_value(src->origin, o, i);
 		srcs = srcs->next;
 		i++;
 	}
@@ -75,10 +55,7 @@ static void	set_src(t_scene *scene, t_object *o)
 
 void		set_value_refl(t_3v point, t_object *o, int r)
 {
-	t_cam	cam;
-
-	cam.origin = point;
-	set_fixed_value_cam(cam, o, r);
+	set_fixed_value(point, o, r);
 }
 
 void		set_fixed_values(t_scene *scene)
@@ -97,7 +74,7 @@ void		set_fixed_values(t_scene *scene)
 			(o->fixed_vec = (t_3v *)malloc(l * sizeof(t_3v))) &&
 			(o->dif_c = (t_3v *)malloc(l * sizeof(t_3v)))))
 			error(1);
-		set_fixed_value_cam(scene->camera, o, 0);
+		set_fixed_value((scene->camera).origin, o, 0);
 		set_src(scene, o);
 		objects = objects->next;
 	}

@@ -2,14 +2,13 @@ render {
 		{name, {Scene Cone}}
 		{dimensions, {1000 720}}
 		{ambient, {5}}
-		{wait, {1.2}}
 }
 camera {
 		{origin, {500.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
-light {
-		{origin, {250.0 -250.0 0.0}}
+*light {
+		{origin, {500.0 0.0 0.0}}
 		{color, {0.0 1.0 1.0}}
 		{intensity, {15 0}}
 }
@@ -42,8 +41,7 @@ object {
 object {
 		{type, {sphere}}
 		{origin, {45.0 45.0 0.0}}
-		{rotation, {0.0 0.0 0.0}}
 		{color, {0.0 0.0 0.5}}
 		{radius, {40}}
-		{reflection, {0.1 0.15 0.5 20}}
+		{reflection, {0.1 0.15 0.1 20}}
 }

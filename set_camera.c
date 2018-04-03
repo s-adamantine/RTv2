@@ -20,6 +20,24 @@ static void	set_values_camera(t_cam *cam, char *s, char *value)
 		update_vector(&(cam->rotation), value);
 }
 
+static void add_as_light(t_scene *scene)
+{
+	t_source	light;
+	t_intensity	i;
+
+	if (((scene->camera).origin).v[0] == 0)
+		((scene->camera).origin).v[0] = 1;
+	light.origin = (scene->camera).origin;
+	light.color = ft_zero_3v();
+	light.rotation = ft_zero_3v();
+	i.diff = 0;
+	i.spec = 0;
+	light.intensity = i;
+	light.id = 0;
+	light.type = 0;
+	ft_lstaddnewr(&(scene->lights), &light, sizeof(t_source));
+}
+
 void		set_camera(t_scene *scene, int fd)
 {
 	char	*line;
@@ -46,4 +64,5 @@ void		set_camera(t_scene *scene, int fd)
 		error(0);
 	free(line);
 	scene->cam_set = 1;
+	add_as_light(scene);
 }

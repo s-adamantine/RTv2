@@ -50,7 +50,7 @@ void	run_threads(t_event *event)
 	pthread_t	light_values;
 	pthread_t	turn_on;
 
-	light_inside((void *)event);
+//	light_inside((void *)event);
 	pthread_create(&s_values, NULL, &get_s_values, (void *)event);
 	pthread_join(s_values, NULL);
 	pthread_create(&light_values, NULL, &init_light_values, (void *)event);

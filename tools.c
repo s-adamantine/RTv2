@@ -45,15 +45,3 @@ void	get_doubles_from_line(double *v, char *line, int size)
 		v[i] = ft_atod(values_str[i]);
 	ft_free_array((void **)values_str);
 }
-
-t_3v	get_point(t_cam origin, t_3v coor, double s_value)
-{
-	t_3v	point;
-	t_3v	dir;
-
-	dir = get_dir(coor, origin.rotation);
-	point = origin.origin;
-	ft_3v_scalar_p(&dir, s_value);
-	point = ft_3v_add(point, dir);
-	return (point);
-}

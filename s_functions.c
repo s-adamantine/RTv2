@@ -28,23 +28,17 @@ static double	get_nearest_intersection(double a, double b, double d)
 	return ((t_1 < t_2) ? t_1 : t_2);
 }
 
-double	get_s_cylinder(t_object *s, t_3v dir, int i)
+double	get_s_plane(t_object *s, t_3v dir, int i)
 {
-	double	a;
-	double	b;
-	double	c;
-	double	d;
-	t_3v	tmp;
+	double	to_return;
+	double	tmp;
 
-	tmp = ft_3v_subtract(dir, ft_3v_scalar(s->dir,
-					ft_3v_dot_product(dir, s->dir)));
-	a = ft_3v_dot_product(tmp, tmp);
-	b = 2 * ft_3v_dot_product(tmp, s->fixed_vec[i]);
-	c = s->fixed_value[i] - s->radius_sq;
-	d = b * b - 4 * a * c;
-	if (d < 0.0001)
+	if (fabs((tmp = ft_3v_dot_product(dir, s->dir))) < 0.0001)
 		return (-1);
-	return (get_nearest_intersection(a, b, d));
+	to_return = -(s->fixed_value[i] / tmp);
+	if (to_return > 0.0001)
+		return (to_return);
+	return (-1);
 }
 
 double	get_s_sphere(t_object *s, t_3v dir, int i)
@@ -65,17 +59,23 @@ double	get_s_sphere(t_object *s, t_3v dir, int i)
 	return (get_nearest_intersection(a, b, d));
 }
 
-double	get_s_plane(t_object *s, t_3v dir, int i)
+double	get_s_cylinder(t_object *s, t_3v dir, int i)
 {
-	double	to_return;
-	double	tmp;
+	double	a;
+	double	b;
+	double	c;
+	double	d;
+	t_3v	tmp;
 
-	if (fabs((tmp = ft_3v_dot_product(dir, s->dir))) < 0.0001)
+	tmp = ft_3v_subtract(dir, ft_3v_scalar(s->dir,
+					ft_3v_dot_product(dir, s->dir)));
+	a = ft_3v_dot_product(tmp, tmp);
+	b = 2 * ft_3v_dot_product(tmp, s->fixed_vec[i]);
+	c = s->fixed_value[i] - s->radius_sq;
+	d = b * b - 4 * a * c;
+	if (d < 0.0001)
 		return (-1);
-	to_return = -(s->fixed_value[i] / tmp);
-	if (to_return > 0.0001)
-		return (to_return);
-	return (-1);
+	return (get_nearest_intersection(a, b, d));
 }
 
 double	get_s_cone(t_object *s, t_3v dir, int i)

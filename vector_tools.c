@@ -16,6 +16,7 @@ t_3v	get_reflection_vector(t_3v n, t_3v dir)
 {
 	double	tmp;
 
+	ft_3v_scalar_p(&dir, -1);
 	tmp = 2 * ft_3v_dot_product(n, dir);
 	ft_3v_scalar_p(&n, tmp);
 	return (ft_3v_subtract(n, dir));
@@ -55,4 +56,16 @@ t_3v	normalize(t_3v v)
 		error(5);
 	tr = ft_3v_scalar(v, 1 / size);
 	return (tr);
+}
+
+t_3v	get_point(t_cam origin, t_3v coor, double s_value)
+{
+	t_3v	point;
+	t_3v	dir;
+
+	dir = coor;
+	point = origin.origin;
+	ft_3v_scalar_p(&dir, s_value);
+	point = ft_3v_add(point, dir);
+	return (point);
 }

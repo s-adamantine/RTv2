@@ -57,17 +57,19 @@ static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
 	if (((p->vis_obj[r])->specular > -0.001 && (p->vis_obj[r])->specular
 				< 0.001) || r + 1 == scene->refl)
 		return ;
-	n_dir = get_reflection_vector(p->normal[r], ft_3v_scalar(dir, -1));
+	n_dir = get_reflection_vector(p->normal[r], dir);
 	get_reflections(r + 1, p, scene, n_dir);
 }
 
 static void		get_value(t_scene *scene, t_pixel *p)
 {
-	t_3v		coor;
+	t_3v		dir;
 	t_object	*obj;
 
-	coor = normalize(get_dir(p->coor, (scene->camera).rotation));
-	get_reflections(0, p, scene, coor);
+//	dir = ft_3v_subtract(p->coor, (scene->camera).origin);
+	dir = p->coor;
+	dir = normalize(get_dir(dir, (scene->camera).rotation));
+	get_reflections(0, p, scene, dir);
 	if (!p->vis_obj[0])
 		return ;
 	obj = p->vis_obj[0];
@@ -95,7 +97,7 @@ static void		setup_pixel(t_pixel *pixel, t_scene scene)
 	ft_bzero(pixel->vis_obj, sizeof(t_object *) * scene.refl);
 	ft_bzero(pixel->point, sizeof(t_3v *) * scene.refl);
 	pixel->color = ft_zero_3v();
-	(pixel->coor).v[0] = -scene.width;
+	(pixel->coor).v[0] = -(scene.width / 2);
 }
 
 void			*get_s_values(void *arg)

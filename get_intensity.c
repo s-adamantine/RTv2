@@ -39,7 +39,7 @@ static double	get_d(t_3v dir, t_3v n, t_object *obj)
 	size = ft_get_3v_size(n);
 	if (size == 0 && obj->type != 3)
 		error(5);
-	angle = ft_3v_dot_product(n, dir);
+	angle = -ft_3v_dot_product(n, dir);
 	if (obj->type == 0)
 		angle = fabs(angle);
 	d = (obj->diffuse / M_PI) * angle;
@@ -57,8 +57,10 @@ t_intensity		get_intensity(t_pixel *p, int r, t_3v dir, t_cam cam)
 	i.spec = 0;
 	if (ft_get_3v_size(p->normal[r]) == 0)
 		return (i);
-	dir = normalize(ft_3v_scalar(dir, -1));
+	dir = normalize(dir);
 	i.diff = get_d(dir, p->normal[r], obj);
+//	printf("%f %f %f\n", (p->normal[r]).v[0], (p->normal[r]).v[1], (p->normal[r]).v[2]);
+//	printf("%f %f %f\n\n", dir.v[0], dir.v[1], dir.v[2]);
 	angle = get_s(p, r, dir, cam);
 	if (angle < 0)
 		angle = 0;

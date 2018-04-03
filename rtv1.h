@@ -199,5 +199,6 @@ void			set_move(t_event *event, int move);
 int				key_hold(int key, t_event *event);
 void			set_fixed_values(t_scene *scene);
 void			set_value_refl(t_3v point, t_object *o, int r);
+void			set_drag_angle(t_event *event, int x, int y);
 
 #endif

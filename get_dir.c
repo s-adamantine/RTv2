@@ -12,18 +12,6 @@
 
 #include "rtv1.h"
 
-void	change_dir(t_3v *dir, t_3v rotation)
-{
-	int		i;
-
-	i = 2;
-	while (i >= 0)
-	{
-		ft_rotate_3v(dir, i, -(rotation.v)[i], 0);
-		i--;
-	}
-}
-
 t_3v	get_rev_dir(t_3v dir, t_3v rotation)
 {
 	int		i;

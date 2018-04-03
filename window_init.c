@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
 /*
 static int		loop_hook(t_event *event)
 {
@@ -28,7 +29,7 @@ static int		loop_hook(t_event *event)
 void			init_loop(t_event *event)
 {
 	mlx_key_hook(event->win, &key_pressed, event);
-/*	mlx_loop_hook(event->mlx, &loop_hook, event);
+//	mlx_loop_hook(event->mlx, &loop_hook, event);
 	mlx_mouse_hook(event->win, &mouse_click, event);
 	mlx_hook(event->win, MOTION_NOTIFY, POINTER_MOTION_MASK,
 			&drag_scene, event);
@@ -36,7 +37,6 @@ void			init_loop(t_event *event)
 			&toggle_button, event);
 	mlx_hook(event->win, KEY_PRESS, KEY_PRESS_MASK,
 			&key_hold, event);
-*/
 	mlx_loop(event->mlx);
 }
 

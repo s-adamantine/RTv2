@@ -33,8 +33,8 @@ SRCS = 	rtv1.c\
 		fill_square.c\
 		light_control.c\
 		light_inside.c\
+		calculate_movement.c\
 		mouse_event.c
-	#	calculate_movement.c\
 	#	get_source.c\
 	#	get_light_value.c
 OBJ = $(SRCS:%.c=%.o)

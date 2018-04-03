@@ -12,82 +12,93 @@
 
 #include "rtv1.h"
 
-static void	set_fixed_values_src(t_source *src, t_object *s, int i)
+static void	set_fixed_values_src(t_source *src, t_object *o, int i)
 {
-	s->dif_c[i] = ft_3v_subtract(src->origin, s->origin);
-	if (s->type == 0)
-		s->fixed_value[i] = ft_3v_dot_product(s->dir, s->dif_c[i]);
-	else if (s->type == 1)
-		s->fixed_value[i] = ft_3v_dot_product(s->dif_c[i], s->dif_c[i]);
-	else if (s->type == 2 || s->type == 3)
+	o->dif_c[i] = ft_3v_subtract(src->origin, o->origin);
+	if (o->type == 0)
+		o->fixed_value[i] = ft_3v_dot_product(o->dir, o->dif_c[i]);
+	else if (o->type == 1)
+		o->fixed_value[i] = ft_3v_dot_product(o->dif_c[i], o->dif_c[i]);
+	else if (o->type == 2 || o->type == 3)
 	{
-		s->fixed_vec[i] = ft_3v_subtract(s->dif_c[i],
-				ft_3v_scalar(s->dir,
-					ft_3v_dot_product(s->dif_c[i], s->dir)));
+		o->fixed_vec[i] = ft_3v_subtract(o->dif_c[i],
+				ft_3v_scalar(o->dir,
+					ft_3v_dot_product(o->dif_c[i], o->dir)));
 		
-		s->fixed_value[i] =
-			ft_3v_dot_product(s->fixed_vec[i], s->fixed_vec[i]);
+		o->fixed_value[i] =
+			ft_3v_dot_product(o->fixed_vec[i], o->fixed_vec[i]);
 	}
-	if (s->type == 3)
-		s->fixed_value_2[i] = ft_3v_dot_product(s->dif_c[i], s->dir);
+	if (o->type == 3)
+		o->fixed_value_2[i] = ft_3v_dot_product(o->dif_c[i], o->dir);
 }
 
-static void	set_fixed_value_cam(t_scene *scene, t_object *s)
+static void	set_fixed_value_cam(t_cam camera, t_object *o, int i)
 {
-	s->dir = get_dir(s->dir, s->rotation);
-	s->dif_c[0] = ft_3v_subtract((scene->camera).origin, s->origin);
-	s->radius_sq = s->radius * s->radius;
-	if (s->type == 0)
-		s->fixed_value[0] = ft_3v_dot_product(s->dir, s->dif_c[0]);
-	else if (s->type == 1)
-		s->fixed_value[0] = ft_3v_dot_product(s->dif_c[0], s->dif_c[0]);
-	else if (s->type == 2 || s->type == 3)
+	if (i == 0)
 	{
-		s->fixed_vec[0] = ft_3v_subtract(s->dif_c[0],
-				ft_3v_scalar(s->dir,
-					ft_3v_dot_product(s->dif_c[0], s->dir)));
-		s->fixed_value[0] =
-			ft_3v_dot_product(s->fixed_vec[0], s->fixed_vec[0]);
+		o->dir = get_dir(o->dir, o->rotation);
+		o->radius_sq = o->radius * o->radius;
 	}
-	if (s->type == 3)
-		s->fixed_value_2[0] = ft_3v_dot_product(s->dif_c[0], s->dir);
+	o->dif_c[i] = ft_3v_subtract(camera.origin, o->origin);
+	if (o->type == 0)
+		o->fixed_value[i] = ft_3v_dot_product(o->dir, o->dif_c[i]);
+	else if (o->type == 1)
+		o->fixed_value[i] = ft_3v_dot_product(o->dif_c[i], o->dif_c[i]);
+	else if (o->type == 2 || o->type == 3)
+	{
+		o->fixed_vec[i] = ft_3v_subtract(o->dif_c[i],
+				ft_3v_scalar(o->dir,
+					ft_3v_dot_product(o->dif_c[i], o->dir)));
+		o->fixed_value[i] =
+			ft_3v_dot_product(o->fixed_vec[i], o->fixed_vec[i]);
+	}
+	if (o->type == 3)
+		o->fixed_value_2[i] = ft_3v_dot_product(o->dif_c[i], o->dir);
 }
 
-static void	set_src(t_scene *scene, t_object *s)
+static void	set_src(t_scene *scene, t_object *o)
 {
 	t_list		*srcs;
 	t_source	*src;
 	int			i;
 
 	srcs = scene->lights;
-	i = 1;
+	i = scene->refl;
 	while (srcs && srcs->content)
 	{
 		src = (t_source *)srcs->content;
-		set_fixed_values_src(src, s, i);
+		set_fixed_values_src(src, o, i);
 		srcs = srcs->next;
 		i++;
 	}
 }
 
-void	set_fixed_values(t_scene *scene)
+void		set_value_refl(t_3v point, t_object *o, int r)
+{
+	t_cam	cam;
+
+	cam.origin = point;
+	set_fixed_value_cam(cam, o, r);
+}
+
+void		set_fixed_values(t_scene *scene)
 {
 	t_list		*objects;
-	t_object	*s;
+	t_object	*o;
 	int			l;
 
 	objects = scene->objects;
-	l = scene->amount_light + 1;
+	l = scene->amount_light + scene->refl;
 	while (objects && objects->content)
 	{
-		s = (t_object *)objects->content;
-		if (!((s->fixed_value = (double *)malloc(l * sizeof(double))) &&
-				(s->fixed_value_2 = (double *)malloc(l * sizeof(double))) &&
-			(s->fixed_vec = (t_3v *)malloc(l * sizeof(t_3v))) &&
-			(s->dif_c = (t_3v *)malloc(l * sizeof(t_3v)))))
+		o = (t_object *)objects->content;
+		if (!((o->fixed_value = (double *)malloc(l * sizeof(double))) &&
+				(o->fixed_value_2 = (double *)malloc(l * sizeof(double))) &&
+			(o->fixed_vec = (t_3v *)malloc(l * sizeof(t_3v))) &&
+			(o->dif_c = (t_3v *)malloc(l * sizeof(t_3v)))))
 			error(1);
-		set_fixed_value_cam(scene, s);
-		set_src(scene, s);
+		set_fixed_value_cam(scene->camera, o, 0);
+		set_src(scene, o);
 		objects = objects->next;
 	}
 }

@@ -12,8 +12,8 @@
 
 #include "rtv1.h"
 
-static t_object	*get_vis_obj(double *s_value, t_3v dir,
-		t_list *objects)
+static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
+		t_list *objects, int r)
 {
 	double		tmp;
 	t_list		*tmp_obj;
@@ -25,10 +25,12 @@ static t_object	*get_vis_obj(double *s_value, t_3v dir,
 	while (objects && objects->content)
 	{
 		obj = (t_object *)objects->content;
-		tmp = obj->f(obj, dir, 0);
-		if (tmp > 0.001 && tmp < *s_value)
+		if (r > 0)
+			set_value_refl(p->point[r - 1], obj, r);
+		tmp = obj->f(obj, dir, r);
+		if (tmp > 0.001 && tmp < p->s_value[r])
 		{
-			*s_value = tmp;
+			p->s_value[r] = tmp;
 			visible_object = obj;
 		}
 		objects = objects->next;
@@ -43,13 +45,13 @@ static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
 	t_3v	n_dir;
 
 	p->s_value[r] = MAX_S_VALUE;
-	cam.origin = (r > 0) ? p->point[r - 1] : (scene->camera).origin;
-	cam.rotation = (r > 0) ? (p->vis_obj[r - 1])->rotation :
-		(scene->camera).rotation;
-	p->vis_obj[r] = get_vis_obj(&(p->s_value[r]), dir, scene->objects);
+	p->vis_obj[r] = get_vis_obj(p, dir, scene->objects, r);
 	if (!(p->vis_obj[r]) || (r > 0 &&
 				(p->vis_obj[r])->id == (p->vis_obj[r - 1])->id))
 		return ;
+	cam.origin = (r > 0) ? p->point[r - 1] : (scene->camera).origin;
+	cam.rotation = (r > 0) ? (p->vis_obj[r - 1])->rotation :
+		(scene->camera).rotation;
 	p->point[r] = get_point(cam, dir, p->s_value[r]);
 	p->normal[r] = get_normal(p->vis_obj[r], p->point[r]);
 	if (((p->vis_obj[r])->specular > -0.001 && (p->vis_obj[r])->specular
@@ -64,7 +66,7 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	t_3v		coor;
 	t_object	*obj;
 
-	coor = normalize(p->coor);
+	coor = normalize(get_dir(p->coor, (scene->camera).rotation));
 	get_reflections(0, p, scene, coor);
 	if (!p->vis_obj[0])
 		return ;

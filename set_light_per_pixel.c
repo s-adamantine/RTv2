@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-static int		light_reaches(t_3v dir, t_list *objects, int src_id)
+static int		light_reaches(t_3v dir, t_list *objects, int fixed_val_id)
 {
 	double		t_value;
 	int			reached;
@@ -24,7 +24,7 @@ static int		light_reaches(t_3v dir, t_list *objects, int src_id)
 	while (o_lst && o_lst->content)
 	{
 		obj = (t_object *)o_lst->content;
-		t_value = obj->f(obj, dir, src_id);
+		t_value = obj->f(obj, dir, fixed_val_id);
 		if (t_value > 0.001 && t_value < 0.99999)
 			return (0);
 		else if (t_value > 0.999999 && t_value < 1.000001)
@@ -106,12 +106,12 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 	total_value = 0.0;
 	while (r < scene->refl && p->vis_obj[r])
 	{
-		dir = ft_3v_subtract(p->point[r], src.origin);
+		dir = ft_3v_subtract(src.origin, p->point[r]);
 	//	if (!inside_object(p, src, scene->camera, scene->amount_obj))
 	//		break ;
 		in.diff = 0;
 		in.spec = 0;
-		if (light_reaches(dir, scene->objects, src.id) > 0.01)
+		if (light_reaches(dir, scene->objects, src.id + scene->refl - 1) > 0.01)
 			in = get_intensity(p, r, dir, scene->camera);
 		total_value = set_light_value(in, p, src, r);
 		r++;

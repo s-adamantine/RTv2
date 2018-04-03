@@ -130,6 +130,9 @@ typedef struct	s_scene
 	t_list		*lights;
 	t_list		*objects;
 	t_source	cur_src;
+	double		*f_value;
+	double		*f_value_2;
+	t_3v		*f_vec;
 }				t_scene;
 
 typedef struct	s_event
@@ -195,5 +198,6 @@ void			set_drag_angle(t_event *event, int x, int y);
 void			set_move(t_event *event, int move);
 int				key_hold(int key, t_event *event);
 void			set_fixed_values(t_scene *scene);
+void			set_value_refl(t_3v point, t_object *o, int r);
 
 #endif

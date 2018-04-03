@@ -1,6 +1,7 @@
 render {
 		{name, {Scene 4 Spheres}}
 		{dimensions, {600 600}}
+		{ambient, {1}}
 }
 camera {
 		{origin, {1000.0 0.0 0.0}}
@@ -9,27 +10,27 @@ camera {
 light {
 		{origin, {150.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {9 2}}
+		{intensity, {9 1}}
 }
-*light {
+light {
 		{origin, {150.0 200.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {9 2}}
+		{intensity, {9 1}}
 }
-*light {
+light {
 		{origin, {150.0 -200.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {9 2}}
+		{intensity, {9 1}}
 }
-*light {
+light {
 		{origin, {150.0 0.0 200.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {9 2}}
+		{intensity, {9 1}}
 }
-*light {
+light {
 		{origin, {150.0 0.0 -200.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {9 2}}
+		{intensity, {9 1}}
 }
 object {
 		{type, {sphere}}
@@ -64,5 +65,5 @@ object {
 		{origin, {-100.0 0.0 0.0}}
 		{rotation, {0.0 90.0 0.0}}
 		{color, {0.0 0.3 0.0}}
-		{reflection, {0.0 0.3 0.0 20}}
+		{reflection, {0.2 0.3 0.0 20}}
 }

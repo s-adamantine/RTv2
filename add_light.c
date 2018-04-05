@@ -19,7 +19,6 @@ static t_source	init_light(t_scene *scene)
 
 	light.origin = ft_zero_3v();
 	light.color = ft_zero_3v();
-	light.rotation = ft_zero_3v();
 	i.diff = 10;
 	i.spec = 10;
 	light.intensity = i;

@@ -13,16 +13,20 @@
 #ifndef RTV1_H
 # define RTV1_H
 
-# define IMG_W 1080
-# define IMG_H 800
 # define MAX_S_VALUE 50000
-# define BG_COLOR 0x20
-# define RADIUS 10.0
-# define ALBEDO 0.25
-# define CAM_X 2000
-# define CAM_Y 0
-# define CAM_Z 0
 # define DEG 57.2958
+# define MENU_WIDTH 400
+# define AMOUNT_INSTRUCTIONS 7
+# define MENU_MARGIN 20
+# define SUB_MARGIN 10
+# define BAR_TOP_HEIGHT 100
+# define MENU_LINE 25
+# define TEXT_LIGHT 0xffffff
+# define TEXT_DARK 0x000000
+# define ALERT_COLOR 0xff3f80
+# define PRIMARY_COLOR 0x66bb6a
+# define PRIMARY_DARK 0x338a3e
+# define PRIMARY_LIGHT 0x98ee99
 
 # include "libft.h"
 # include "mlx.h"
@@ -61,13 +65,11 @@ typedef struct	s_source
 {
 	int			type;
 	int			id;
+	int			on;
 	int			*inside_obj;
-	int			b;
 	t_intensity	intensity;
 	t_3v		origin;
-	t_3v		*origin_o;
 	t_3v		color;
-	t_3v		rotation;
 }				t_source;
 
 typedef struct	s_cam
@@ -75,7 +77,6 @@ typedef struct	s_cam
 	int			id;
 	int			*inside_obj;
 	t_3v		origin;
-	t_3v		*origin_o;
 	t_3v		rotation;
 }				t_cam;
 
@@ -129,11 +130,25 @@ typedef struct	s_scene
 	t_cam		camera;
 	t_list		*lights;
 	t_list		*objects;
-	t_source	cur_src;
 	double		*f_value;
 	double		*f_value_2;
 	t_3v		*f_vec;
+	int			all_on;
 }				t_scene;
+
+typedef struct	s_menu
+{
+	int			x;
+	int			y;
+	int			width;
+	int			height;
+	int			bar_top;
+	int			bar_bottom;
+	int			amount_instructions;
+	int			now_showing;
+	char		**man;
+	t_img		*img;
+}				t_menu;
 
 typedef struct	s_event
 {
@@ -143,10 +158,14 @@ typedef struct	s_event
 	t_scene		scene;
 	t_pixel		*p_array;
 	char		*scene_name;
+	t_menu		menu;
 	int			cur_grain;
 	int			mouse_hold;
 	int			x_0;
 	int			y_0;
+	int			t_select;
+	int			id_select;
+	int			redraw;
 }				t_event;
 
 
@@ -166,7 +185,7 @@ double			get_s_cone(t_object *s, t_3v dir, int i);
 void			*get_s_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
-void			*turn_on_all(void *arg);
+void			turn_on_lights(t_event *event);
 void			*light_inside(void *arg);
 void			set_light_per_pixel(t_event *event, t_source src);
 t_event			init_window(t_scene scene);
@@ -200,5 +219,8 @@ int				key_hold(int key, t_event *event);
 void			set_fixed_values(t_scene *scene);
 void			set_value_refl(t_3v point, t_object *o, int r);
 void			set_drag_angle(t_event *event, int x, int y);
+void			fill_menu(t_event *event);
+void			init_menu(t_event *event);
+void			set_instructions(t_menu *menu);
 
 #endif

@@ -57,7 +57,7 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	double		influence;
 
 	o = *(p->vis_obj[i]);
-	c = &(p->c_per_src[l.id - 1]);
+	c = &(p->c_per_src[l.id]);
 	influence = 1.0;
 	while (i > 0)
 	{
@@ -101,7 +101,6 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 	int				r;
 	double			total_value;
 
-
 	r = 0;
 	total_value = 0.0;
 	while (r < scene->refl && p->vis_obj[r])
@@ -133,6 +132,7 @@ void		set_light_per_pixel(t_event *event, t_source src)
 		while (j < (event->scene).width)
 		{
 			p = &((event->p_array)[j + i * (event->scene).width]);
+			p->c_per_src[src.id] = ft_zero_3v();
 			j++;
 			if (!p->vis_obj[0])
 				continue ;

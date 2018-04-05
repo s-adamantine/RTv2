@@ -29,7 +29,6 @@ static void add_as_light(t_scene *scene)
 		((scene->camera).origin).v[0] = 1;
 	light.origin = (scene->camera).origin;
 	light.color = ft_zero_3v();
-	light.rotation = ft_zero_3v();
 	i.diff = 0;
 	i.spec = 0;
 	light.intensity = i;

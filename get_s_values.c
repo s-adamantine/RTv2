@@ -66,7 +66,6 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	t_3v		dir;
 	t_object	*obj;
 
-//	dir = ft_3v_subtract(p->coor, (scene->camera).origin);
 	dir = p->coor;
 	dir = normalize(get_dir(dir, (scene->camera).rotation));
 	get_reflections(0, p, scene, dir);
@@ -76,13 +75,15 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	p->color = ft_init_3v(((obj->color).v)[0] * obj->ambient * scene->ambient,
 			((obj->color).v)[1] * obj->ambient * scene->ambient,
 			((obj->color).v)[2] * obj->ambient * scene->ambient);
+	p->c_per_src[0] = p->color;
 }
 
 static void		setup_pixel(t_pixel *pixel, t_scene scene)
 {
 	if (scene.refl < 1)
 		scene.refl = 1;
-	if (!(pixel->c_per_src = (t_3v *)malloc(sizeof(t_3v) * scene.amount_light)))
+	if (!(pixel->c_per_src = (t_3v *)malloc(sizeof(t_3v)
+					* (scene.amount_light + 1))))
 		error(1);
 	if (!(pixel->vis_obj = (t_object **)malloc(sizeof(t_object *)
 					* scene.refl)))
@@ -119,6 +120,8 @@ void			*get_s_values(void *arg)
 			(pixel->coor).v[1] = (double)(j - scene.width / 2.0);
 			(pixel->coor).v[2] = (double)(scene.height / 2.0 - i);
 			get_value(&scene, pixel);
+			((int *)(((t_event *)arg)->img)->img_arr)
+				[j + scene.width * i] = get_color(pixel->color);
 			j++;
 		}
 		i++;

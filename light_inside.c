@@ -47,21 +47,21 @@ static int	s_in_object(t_object *obj, t_source *src)
 	return (1);
 }
 
-void	check_s_inside(t_list *o_lst, int *inside_obj, t_source *src,
-		t_scene *scene)
+void	check_s_inside(int *inside_obj, t_source *src,
+		t_scene *scene, int b)
 {
 	t_object	*obj;
 	t_list		*tmp;
 	int			i;
 
-	tmp = o_lst;
+	tmp = scene->objects;
 	i = 0;
 	while (tmp && tmp->content)
 	{
 		obj = (t_object *)tmp->content;
 		if (obj->type != 0 && s_in_object(obj, src))
 			inside_obj[i] = 1;
-		else if (obj->type == 0 && src->b != -1 &&
+		else if (obj->type == 0 && b != -1 &&
 				behind_plane(obj, src, scene))
 			inside_obj[i] = 1;
 		else
@@ -86,13 +86,11 @@ void		*light_inside(void *arg)
 		src = (t_source *)s_lst->content;
 		if (!(src->inside_obj = (int *)malloc(sizeof(int) * scene->amount_obj)))
 			error(1);
-		src->b = src->id;
-		check_s_inside(scene->objects, src->inside_obj, src, scene);
+		check_s_inside(src->inside_obj, src, scene, src->id);
 		s_lst = s_lst->next;
 	}
 	if (!(cam->inside_obj = (int *)malloc(sizeof(int) * scene->amount_obj)))
 		error(1);
-	src->b = -1;
-	check_s_inside(scene->objects, cam->inside_obj, src, scene);
+	check_s_inside(cam->inside_obj, src, scene, -1);
 	return (NULL);
 }

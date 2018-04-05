@@ -32,7 +32,7 @@ static void	init_def_scene(t_scene *scene)
 	scene->anti_a = 2;
 	scene->max_value = 0.0;
 	cam.id = -1;
-	cam.origin = ft_init_3v(CAM_X, CAM_Y, CAM_Z);
+	cam.origin = ft_init_3v(700, 0, 0);
 	cam.rotation = ft_zero_3v();
 	scene->camera = cam;
 }

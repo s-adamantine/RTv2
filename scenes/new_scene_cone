@@ -1,7 +1,7 @@
 render {
 		{name, {Scene Cone}}
 		{dimensions, {1000 720}}
-		{ambient, {5}}
+		{ambient, {0}}
 }
 camera {
 		{origin, {500.0 0.0 0.0}}

@@ -29,10 +29,12 @@ SRCS = 	rtv1.c\
 		get_s_values.c\
 		window_init.c\
 		key_control.c\
+		menu_control.c\
 		anti_aliasing.c\
 		fill_square.c\
 		light_control.c\
 		light_inside.c\
+		instructions.c\
 		calculate_movement.c\
 		mouse_event.c
 	#	get_source.c\
@@ -51,6 +53,7 @@ FT = ft
 MLX = mlx
 MAKE = make
 FLAGS = -Wall -Wextra -Werror 
+# Add before -ggdb to find out where segfault is
 SEGFAULT = -fsanitize=address 
 FRAMEWORK = -framework OpenGL -framework AppKit
 

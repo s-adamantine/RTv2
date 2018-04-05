@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-void	error(int err)
+void		error(int err)
 {
 	if (err == 0)
 		ft_putstr_fd("Error: Error reading file\n", 2);
@@ -30,7 +30,7 @@ void	error(int err)
 	exit(1);
 }
 
-void	s_error(const char *s)
+void		s_error(const char *s)
 {
 	ft_putstr_fd("Error: ", 2);
 	ft_putstr_fd(s, 2);
@@ -38,31 +38,27 @@ void	s_error(const char *s)
 	exit(1);
 }
 
-void	usage(void)
+static void	usage(void)
 {
 	ft_putstr("You must enter a valid file name\n");
 	exit(0);
 }
 
-void	run_threads(t_event *event)
+static void	run_calc(t_event *event)
 {
-	pthread_t	s_values;
-	pthread_t	light_values;
-	pthread_t	turn_on;
-
 //	light_inside((void *)event);
-	pthread_create(&s_values, NULL, &get_s_values, (void *)event);
-	pthread_join(s_values, NULL);
-	pthread_create(&light_values, NULL, &init_light_values, (void *)event);
-	pthread_join(light_values, NULL);
-	pthread_create(&turn_on, NULL, &turn_on_all, (void *)event);
-	pthread_join(turn_on, NULL);
+	get_s_values((void *)event);
 	mlx_put_image_to_window(event->mlx, event->win,
-			(event->img)->img_ptr, 0, 0);
+		(event->img)->img_ptr, 0, 0);
+	init_light_values((void *)event);
+	turn_on_lights(event);
+	mlx_put_image_to_window(event->mlx, event->win,
+		(event->img)->img_ptr, 0, 0);
+	fill_menu(event);
 	init_loop(event);
 }
 
-int		main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
 	int			fd;
 	t_scene		scene;
@@ -77,5 +73,6 @@ int		main(int argc, char **argv)
 		error(0);
 	set_fixed_values(&scene);
 	event = init_window(scene);
-	run_threads(&event);
+	init_menu(&event);
+	run_calc(&event);
 }

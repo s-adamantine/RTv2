@@ -12,16 +12,24 @@
 
 #include "rtv1.h"
 
-int		key_pressed(int key, t_event *event)
+int			key_pressed(int key, t_event *event)
 {
 	if (key == ESC)
 		exit(0);
 	else if (key == SPACE)
 		anti_aliasing(event);
+	else if (KEY_UP_TO_ZERO(key) || key == KEY_0)
+		event->id_select = (key == KEY_0) ? KEY_0 : KEY_NUM_VALUE(key);
+	else if (key == KEY_C || key == KEY_O || key == KEY_L)
+		event->t_select = key;
+	else if (key == KEY_Q && event->t_select == KEY_L)
+		turn_on_lights(event);
+	else if (key == KEY_I)
+		fill_menu(event);
 	return (1);
 }
 
-int		key_hold(int key, t_event *event)
+int			key_hold(int key, t_event *event)
 {
 	if (key == KEY_W || key == KEY_S || key == KEY_A || key == KEY_D)
 	{

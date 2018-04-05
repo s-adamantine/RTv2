@@ -22,8 +22,8 @@ static void	init_def_object(t_object *object, int id)
 	object->origin = def;
 	def = ft_zero_3v();
 	object->rotation = def;
-	object->radius = RADIUS;
-	object->diffuse = ALBEDO;
+	object->radius = 1;
+	object->diffuse = 0.1;
 	def = ft_init_3v(1.0, 1.0, 0.0);
 	object->color = def;
 	object->dir = ft_init_3v(0.0, 0.0, 1.0);

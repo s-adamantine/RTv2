@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/07 15:14:23 by mpauw             #+#    #+#             */
-/*   Updated: 2017/11/08 12:04:48 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/09 18:55:12 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,22 @@
 char	*ft_strcat(char *s1, const char *s2)
 {
 	char	*to_return;
+	int		i;
 
-	to_return = s1;
-	while (*s1)
-		s1++;
+	if (!(to_return = (char *)malloc((ft_strlen(s1) + ft_strlen(s2) + 1) *
+					sizeof(char))))
+		return (NULL);
+	i = 0;
+	while (*(s1 + i))
+	{
+		*(to_return + i) = *(s1 + i);
+		i++;
+	}
 	while (*s2)
 	{
-		*s1 = *(s2++);
-		s1++;
+		*(to_return + i) = *(s2++);
+		i++;
 	}
-	*s1 = 0;
+	*(to_return + i) = 0;
 	return (to_return);
 }

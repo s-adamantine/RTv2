@@ -1,9 +1,51 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   menu_control.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/04/09 11:08:19 by mpauw             #+#    #+#             */
+/*   Updated: 2018/04/09 17:58:00 by mpauw            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rtv1.h"
+
+static void	place_buttons(t_event *event)
+{
+	t_button	button;
+	int			i;
+	int			row;
+	t_menu		*menu;
+
+	i = 0;
+	menu = &(event->menu);
+	while (i < AMOUNT_BUTTONS)
+	{
+		row = i / AMOUNT_BUTTON_PER_ROW;
+		button.width = (menu->width - SUB_MARGIN * 2) / AMOUNT_BUTTON_PER_ROW;
+		button.height = DEF_BUTTON_HEIGHT;
+		button.x = SUB_MARGIN + (i % AMOUNT_BUTTON_PER_ROW) * button.width;
+		button.y = BAR_TOP_HEIGHT + row * DEF_BUTTON_HEIGHT;
+		button.text = (menu->strings).buttons[i];
+		button.id = i + MAIN_BUTTON;
+		button.img = init_image(event->mlx, button.width, button.height);
+		if (i == menu->now_showing)
+			button.color = ALERT_COLOR;
+		else
+			button.color = PRIMARY_DARK;
+		add_button(event, &button);
+		menu->buttons[i] = button;
+		i++;
+	}
+}
 
 static void	set_background(t_event *event)
 {
 	int		i;
 	int		j;
+	int		index;
 	t_menu	*menu;
 
 	i = 0;
@@ -13,40 +55,14 @@ static void	set_background(t_event *event)
 		j = 0;
 		while (j < menu->width)
 		{
-			if (i > menu->bar_top && i < menu->height - menu->bar_bottom
-					&& j > SUB_MARGIN && j < menu->width - SUB_MARGIN)
-				((int *)(menu->img)->img_arr)
-					[j + menu->width * i] = PRIMARY_LIGHT;
-			else
-				((int *)(menu->img)->img_arr)
-					[j + menu->width * i] = PRIMARY_COLOR;
+			index = j + i * menu->width;
+			((int *)(menu->img)->img_arr)[index] = PRIMARY_COLOR;
+			menu->p[index].id  = MAIN_MENU;
+			menu->p[index].button = 0;
 			j++;
 		}
 		i++;
 	}
-	mlx_put_image_to_window(event->mlx, event->win,
-		(menu->img)->img_ptr, menu->x, menu->y);
-}
-
-static void	print_instructions(t_event *event)
-{
-	int	i;
-	int	y;
-	t_menu	*menu;
-
-	i = 0;
-	menu = &(event->menu);
-	mlx_string_put(event->mlx, event->win, menu->x + MENU_MARGIN,
-			menu->y + MENU_MARGIN, TEXT_DARK, "INSTRUCTIONS");
-	y = menu->bar_top + SUB_MARGIN;
-	while (i < menu->amount_instructions)
-	{
-		mlx_string_put(event->mlx, event->win, menu->x + MENU_MARGIN,
-			y, TEXT_DARK, menu->man[i]);
-		i++;
-		y += MENU_LINE;
-	}
-	menu->now_showing = 1;
 }
 
 void	fill_menu(t_event *event)
@@ -55,17 +71,12 @@ void	fill_menu(t_event *event)
 
 	set_background(event);
 	menu = &(event->menu);
-	if (menu->now_showing == 0)
-		print_instructions(event);
-	else
-	{
-		mlx_string_put(event->mlx, event->win, menu->x + MENU_MARGIN,
-			menu->y + MENU_MARGIN, TEXT_DARK, event->scene_name);
-		mlx_string_put(event->mlx, event->win, menu->x + MENU_MARGIN,
-			   	menu->height - menu->bar_bottom + MENU_MARGIN,
-				ALERT_COLOR, "Press I to toggle instructions");
-		menu->now_showing = 0;
-	}
+	mlx_put_image_to_window(event->mlx, event->win,
+		(menu->img)->img_ptr, menu->x, menu->y);
+	mlx_string_put(event->mlx, event->win, menu->x + MENU_MARGIN,
+		menu->y + MENU_MARGIN, TEXT_DARK, event->scene_name);
+	place_buttons(event);
+	add_sub_menu(event);
 }
 
 void	init_menu(t_event *event)
@@ -77,11 +88,20 @@ void	init_menu(t_event *event)
 	menu->y = 0;
 	menu->width = MENU_WIDTH;
 	menu->height = (event->scene).height;
-	menu->bar_top = BAR_TOP_HEIGHT;
-	menu->bar_bottom = MENU_MARGIN + MENU_LINE;
-	menu->amount_instructions = AMOUNT_INSTRUCTIONS;
 	menu->img = init_image(event->mlx, menu->width, menu->height);
-	set_instructions(menu);
+	if (!(menu->p = (t_menu_p *)malloc(sizeof(t_menu_p) * menu->width *
+				   menu->height)))
+		error(1);
+	if (!(menu->buttons = (t_button *)malloc(sizeof(t_button)
+					* AMOUNT_BUTTONS)))
+		error(1);
+	if (!(menu->objects = (t_sub_m *)malloc(sizeof(t_sub_m) *
+					(event->scene).amount_obj)))
+		error(1);
+	if (!(menu->lights = (t_sub_m *)malloc(sizeof(t_sub_m) *
+					(event->scene).amount_light)))
+		error(1);
+	set_strings(menu);
 	set_background(event);
-	menu->now_showing = 1;
+	menu->now_showing = MAIN_MENU;
 }

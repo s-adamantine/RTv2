@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 16:03:31 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/09 18:34:17 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,18 +15,42 @@
 
 # define MAX_S_VALUE 50000
 # define DEG 57.2958
-# define MENU_WIDTH 400
+# define MENU_WIDTH 500
+
 # define AMOUNT_INSTRUCTIONS 7
+# define AMOUNT_INFO 6
+
+# define AMOUNT_BUTTONS 5
+# define AMOUNT_BUTTON_ROWS 2
+# define AMOUNT_BUTTON_PER_ROW 3
 # define MENU_MARGIN 20
 # define SUB_MARGIN 10
-# define BAR_TOP_HEIGHT 100
-# define MENU_LINE 25
+# define SUB_SUB_MARGIN 5
+# define BAR_TOP_HEIGHT 60
+# define OBJ_SUB_MENU_HEIGHT 60
+# define DEF_BUTTON_HEIGHT 30
+# define SUB_MENU_Y (BAR_TOP_HEIGHT + 2 * DEF_BUTTON_HEIGHT + SUB_MARGIN)
+# define MENU_LINE 15 
 # define TEXT_LIGHT 0xffffff
 # define TEXT_DARK 0x000000
 # define ALERT_COLOR 0xff3f80
 # define PRIMARY_COLOR 0x66bb6a
 # define PRIMARY_DARK 0x338a3e
 # define PRIMARY_LIGHT 0x98ee99
+
+# define MAIN_MENU 0x00
+# define OBJECT_MENU 0x01
+# define LIGHT_MENU 0x02
+# define CAM_MENU 0x03
+# define MAN_MENU 0x04
+# define SUB_MENU 0x06
+# define SUB_SUB_MENU 0x07
+# define MAIN_BUTTON 0x10
+# define OBJECT_BUTTON 0x11
+# define LIGHT_BUTTON 0x12
+# define CAM_BUTTON 0x13
+# define MAN_BUTTON 0x14
+# define SUB_MENU_BUTTON 0x15
 
 # include "libft.h"
 # include "mlx.h"
@@ -53,6 +77,7 @@ typedef struct	s_img
 	int			size_line;
 	int			size_line_int;
 	int			endian;
+	int			id;
 }				t_img;
 
 typedef struct	s_intensity
@@ -136,18 +161,61 @@ typedef struct	s_scene
 	int			all_on;
 }				t_scene;
 
+typedef struct	s_menu_p
+{
+	int			x;
+	int			y;
+	int			button;
+	int			id;
+	int			color;
+}				t_menu_p;
+
+typedef struct	s_strings
+{
+	char		**man;
+	char		**types;
+	char		**info;
+	char		**buttons;
+}				t_strings;
+
+typedef struct	s_button
+{
+	int			x;
+	int			y;
+	int			width;
+	int			height;
+	int			color;
+	int			id;
+	char		*text;
+	t_img		*img;
+}				t_button;
+
+typedef struct	s_sub_m
+{
+	int			x;
+	int			y;
+	int			width;
+	int			height;
+	int			color;
+	int			id;
+	t_img		*img;
+}				t_sub_m;
+
 typedef struct	s_menu
 {
 	int			x;
 	int			y;
 	int			width;
 	int			height;
-	int			bar_top;
-	int			bar_bottom;
-	int			amount_instructions;
 	int			now_showing;
-	char		**man;
 	t_img		*img;
+	t_menu_p	*p;
+	t_strings	strings;
+	t_button	*buttons;
+	t_sub_m		sub_m;
+	t_sub_m		camera;
+	t_sub_m		*objects;
+	t_sub_m		*lights;
 }				t_menu;
 
 typedef struct	s_event
@@ -221,6 +289,10 @@ void			set_value_refl(t_3v point, t_object *o, int r);
 void			set_drag_angle(t_event *event, int x, int y);
 void			fill_menu(t_event *event);
 void			init_menu(t_event *event);
-void			set_instructions(t_menu *menu);
+void			set_strings(t_menu *menu);
+void			add_sub_menu(t_event *event);
+void			add_button(t_event *event, t_button *button);
+void			set_sub_menu_pixel(t_menu *menu, t_sub_m *sub_m);
+void			add_object_menu(t_event *event);
 
 #endif

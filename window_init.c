@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 17:10:12 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/22 11:52:13 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/09 13:29:56 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	init_loop(t_event *event)
 {
 	mlx_key_hook(event->win, &key_pressed, event);
 	mlx_loop_hook(event->mlx, &loop_hook, event);
-//	mlx_mouse_hook(event->win, &mouse_click, event);
+	mlx_mouse_hook(event->win, &mouse_click, event);
 //	mlx_hook(event->win, MOTION_NOTIFY, POINTER_MOTION_MASK,
 //			&drag_scene, event);
 //	mlx_hook(event->win, BUTTON_RELEASE, BUTTON_RELEASE_MASK,

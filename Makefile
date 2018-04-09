@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/03/26 08:13:23 by mpauw            ###   ########.fr        #
+#    Updated: 2018/04/09 18:12:16 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,9 +33,12 @@ SRCS = 	rtv1.c\
 		anti_aliasing.c\
 		fill_square.c\
 		light_control.c\
+		sub_menu_control.c\
 		light_inside.c\
-		instructions.c\
+		set_strings.c\
 		calculate_movement.c\
+		object_menu.c\
+		add_button.c\
 		mouse_event.c
 	#	get_source.c\
 	#	get_light_value.c
@@ -45,8 +48,8 @@ LFTDIR = libft/
 # Use other $LMLXDIR by (un)commenting the following two lines 
 # if the project does not compile. 
 # 
-#LMLXDIR = minilibx_macos/
-LMLXDIR = mlx_macbook/
+LMLXDIR = minilibx_macos/
+#LMLXDIR = mlx_macbook/
 LIBFT = libft.a
 LIBMLX = libmlx.a
 FT = ft

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:45:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/07 13:56:32 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/09 13:45:28 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@
 # define KEY_L 0x25
 # define KEY_Q 0x0c
 # define KEY_I 0x22
+# define KEY_M 0x2d
 # define KEY_1 0x12
 # define KEY_2 0x13
 # define KEY_3 0x14

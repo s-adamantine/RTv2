@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 08:24:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/21 16:08:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/09 16:45:02 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int			key_pressed(int key, t_event *event)
 		event->t_select = key;
 	else if (key == KEY_Q && event->t_select == KEY_L)
 		turn_on_lights(event);
-	else if (key == KEY_I)
+	else if (key == KEY_M)
 		fill_menu(event);
 	return (1);
 }

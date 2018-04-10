@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/09 18:34:17 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/10 18:08:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,15 @@
 
 # define AMOUNT_BUTTONS 5
 # define AMOUNT_BUTTON_ROWS 2
-# define AMOUNT_BUTTON_PER_ROW 3
+# define AMT_B_PER_ROW 3
 # define MENU_MARGIN 20
 # define SUB_MARGIN 10
+# define INFO_MARGIN 130
 # define SUB_SUB_MARGIN 5
 # define BAR_TOP_HEIGHT 60
 # define OBJ_SUB_MENU_HEIGHT 60
 # define DEF_BUTTON_HEIGHT 30
+# define TAB_BUTTON_WIDTH 20
 # define SUB_MENU_Y (BAR_TOP_HEIGHT + 2 * DEF_BUTTON_HEIGHT + SUB_MARGIN)
 # define MENU_LINE 15 
 # define TEXT_LIGHT 0xffffff
@@ -51,6 +53,7 @@
 # define CAM_BUTTON 0x13
 # define MAN_BUTTON 0x14
 # define SUB_MENU_BUTTON 0x15
+# define TAB_BUTTON 0x20
 
 # include "libft.h"
 # include "mlx.h"
@@ -198,6 +201,10 @@ typedef struct	s_sub_m
 	int			height;
 	int			color;
 	int			id;
+	int			sub_tab;
+	int			position;
+	int			tab_amount;
+	int			per_tab;
 	t_img		*img;
 }				t_sub_m;
 
@@ -208,6 +215,10 @@ typedef struct	s_menu
 	int			width;
 	int			height;
 	int			now_showing;
+	int			first;
+	int			objects_set;
+	int			lights_set;
+	int			sub_tab_showing;
 	t_img		*img;
 	t_menu_p	*p;
 	t_strings	strings;
@@ -294,5 +305,7 @@ void			add_sub_menu(t_event *event);
 void			add_button(t_event *event, t_button *button);
 void			set_sub_menu_pixel(t_menu *menu, t_sub_m *sub_m);
 void			add_object_menu(t_event *event);
+char			*get_vector_string(t_3v v, int precision);
+void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
 
 #endif

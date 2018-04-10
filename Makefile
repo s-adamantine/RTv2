@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/04/09 18:12:16 by mpauw            ###   ########.fr        #
+#    Updated: 2018/04/10 16:47:04 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,7 @@ SRCS = 	rtv1.c\
 		tools.c\
 		vector_tools.c\
 		color_tools.c\
+		menu_tools.c\
 		s_functions.c\
 		set_light_per_pixel.c\
 		get_s_values.c\
@@ -40,8 +41,6 @@ SRCS = 	rtv1.c\
 		object_menu.c\
 		add_button.c\
 		mouse_event.c
-	#	get_source.c\
-	#	get_light_value.c
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/
 #
@@ -57,13 +56,14 @@ MLX = mlx
 MAKE = make
 FLAGS = -Wall -Wextra -Werror 
 # Add before -ggdb to find out where segfault is
-SEGFAULT = -fsanitize=address 
+SEGFAULT = -fsanitize=address
+VALGRIND = -g3
 FRAMEWORK = -framework OpenGL -framework AppKit
 
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LFTDIR)$(LIBFT) $(LMLXDIR)$(LIBMLX)
-	-@gcc $(FLAGS) -o $(NAME) $(SEGFAULT) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
+	-@gcc $(FLAGS) -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
 	 -I$(LMLXDIR) -L$(LMLXDIR) -l$(MLX) \
 	 $(FRAMEWORK)
 	-@echo "RTv1 Ready"

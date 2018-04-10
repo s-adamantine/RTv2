@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:58:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/09 17:37:30 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/10 18:07:52 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,9 @@ static void	menu_click(int index, t_event *event)
 		(event->menu).now_showing = CAM_MENU;
 	else if (p.id == MAN_BUTTON)
 		(event->menu).now_showing = MAN_MENU;
+	else if (p.id >= TAB_BUTTON && p.id < TAB_BUTTON +
+			((event->menu).sub_m).tab_amount)
+		(event->menu).sub_tab_showing = p.id - TAB_BUTTON;
 	fill_menu(event);
 }
 

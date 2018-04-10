@@ -6,13 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 09:52:49 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 16:12:44 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/10 10:01:12 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-#include <stdio.h>
 
 double	ft_atod(const char *s)
 {

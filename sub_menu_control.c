@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:08:33 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/09 18:09:22 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/10 18:25:26 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,8 @@
 
 static void	print_instructions(t_event *event)
 {
-	int	i;
-	int	y;
+	int		i;
+	int		y;
 	t_menu	*menu;
 
 	i = 0;
@@ -30,31 +30,6 @@ static void	print_instructions(t_event *event)
 	}
 }
 
-void		set_sub_menu_pixel(t_menu *menu, t_sub_m *sub_m)
-{
-	int	i;
-	int	j;
-	int	index;
-
-	i = 0;
-	while (i < sub_m->height)
-	{
-		j = 0;
-		while (j < sub_m->width)
-		{
-			((int *)(sub_m->img)->img_arr)[j + i * sub_m->width] = sub_m->color;
-			index = sub_m->x + j + (sub_m->y + i) * menu->width;
-			menu->p[index].button = 1;
-			menu->p[index].id = sub_m->id;
-			menu->p[index].color = sub_m->color;
-			menu->p[index].id = sub_m->id;
-			menu->p[index].button = 0;
-			j++;
-		}
-		i++;
-	}
-}
-
 static void	init_sub_menu(t_event *event, t_menu *menu)
 {
 	t_sub_m	*s;
@@ -64,28 +39,58 @@ static void	init_sub_menu(t_event *event, t_menu *menu)
 	s->y = SUB_MENU_Y;
 	s->height = menu->height - (SUB_MENU_Y + SUB_MARGIN * 2);
 	s->width = menu->width - 2 * SUB_MARGIN;
+	if (!menu->first)
+		free(s->img);
 	s->img = init_image(event->mlx, s->width, s->height);
 	s->color = PRIMARY_LIGHT;
 	s->id = SUB_MENU;
+	s->tab_amount = 0;
 	set_sub_menu_pixel(menu, s);
 	mlx_put_image_to_window(event->mlx, event->win,
 		(s->img)->img_ptr, s->x, s->y);
+}
+
+static void	add_tab_buttons(t_event *event, t_sub_m s)
+{
+	t_button	button;
+	int			i;
+
+	i = 0;
+	while (i < s.tab_amount)
+	{
+		button.width = TAB_BUTTON_WIDTH;
+		button.height = DEF_BUTTON_HEIGHT;
+		button.x = s.width / 2 - (s.tab_amount * button.width / 2) +
+			i * button.width;;
+		button.y = s.height;
+		button.text = ft_itoa(i + 1);
+		button.id = i + TAB_BUTTON;
+		button.img = init_image(event->mlx, button.width, button.height);
+		if (i == (event->menu).sub_tab_showing)
+			button.color = ALERT_COLOR;
+		else
+			button.color = PRIMARY_DARK;
+		add_button(event, &button);
+		i++;
+	}
 }
 
 void	add_sub_menu(t_event *event)
 {
 	t_menu	*menu;
 
-	menu = &event->menu;
+	menu = &(event->menu);
 	init_sub_menu(event, menu);
 //	if (menu->now_showing == MAIN_MENU)
 //		print_(event);
 	if (menu->now_showing == MAN_MENU)
 		print_instructions(event);
-	else if (menu->now_showing == OBJECT_MENU)
+	else if ((event->menu).now_showing == OBJECT_MENU)
 		add_object_menu(event);
+//		add_object_menu(event);
 //	else if (menu->now_showing == LIGHT_MENU)
 //		print_lights(event);
 //	else if (menu->now_showing == CAM_MENU)
 //		print_cam(event);
+	add_tab_buttons(event, menu->sub_m);
 }

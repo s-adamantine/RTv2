@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/21 14:28:24 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/10 16:53:56 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@ void		error(int err)
 	else if (err == 5)
 		ft_putstr_fd("Error: There is a vector of size 0. Check if there are\
 				lights with the same coordinates as objects.\n", 2);
+	else if (err == 6)
+		ft_putstr_fd("Error: You are trying to divide by zero.\n", 2);
 	exit(1);
 }
 

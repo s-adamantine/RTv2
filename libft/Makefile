@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/11/08 11:06:44 by mpauw             #+#    #+#              #
-#    Updated: 2018/03/21 15:14:52 by mpauw            ###   ########.fr        #
+#    Updated: 2018/04/10 10:19:50 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,7 @@ SRC = ft_atoi.c\
 	  ft_isdigit.c\
 	  ft_isprint.c\
 	  ft_itoa.c\
+	  ft_dtoa.c\
 	  ft_memalloc.c\
 	  ft_memccpy.c\
 	  ft_memchr.c\
@@ -35,6 +36,7 @@ SRC = ft_atoi.c\
 	  ft_putstr.c\
 	  ft_putstr_fd.c\
 	  ft_strcat.c\
+	  ft_strcat_alloc.c\
 	  ft_strchr.c\
 	  ft_strclr.c\
 	  ft_strcmp.c\

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/06 18:04:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/21 15:14:35 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/10 10:13:55 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,5 +124,7 @@ t_3v				ft_zero_3v(void);
 t_3v				ft_init_3v(double a, double b, double c);
 char				*ft_brace_content(char *input, char o, char c);
 void				ft_realloc(void **s, size_t old_size, size_t new_size);
+char				*ft_strcat_alloc(char *s1, const char *s2);
+char				*ft_dtoa(double d, int precision);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:08:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/10 18:07:07 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/11 13:14:14 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,13 @@ void	fill_menu(t_event *event)
 	menu->first = 0;
 }
 
+void	init_sub_menu(t_event *event)
+{
+	t_menu	*menu;
+
+	menu = &(event->menu);
+}
+
 void	init_menu(t_event *event)
 {
 	t_menu	*menu;
@@ -89,21 +96,8 @@ void	init_menu(t_event *event)
 	menu->y = 0;
 	menu->width = MENU_WIDTH;
 	menu->height = (event->scene).height;
-	menu->img = init_image(event->mlx, menu->width, menu->height);
-	menu->first = 1;
-	menu->objects_set = 0;
-	menu->lights_set = 0;
-	menu->sub_tab_showing = 0;
 	if (!(menu->p = (t_menu_p *)malloc(sizeof(t_menu_p) * menu->width *
 				   menu->height)))
 		error(1);
-	if (!(menu->buttons = (t_button *)malloc(sizeof(t_button)
-					* AMOUNT_BUTTONS)))
-		error(1);
-	if (!(menu->lights = (t_sub_m *)malloc(sizeof(t_sub_m) *
-					(event->scene).amount_light)))
-		error(1);
-	set_strings(menu);
-	set_background(event);
-	menu->now_showing = MAIN_MENU;
+	
 }

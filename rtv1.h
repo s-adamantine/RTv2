@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/10 18:08:16 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/11 13:11:11 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -173,14 +173,6 @@ typedef struct	s_menu_p
 	int			color;
 }				t_menu_p;
 
-typedef struct	s_strings
-{
-	char		**man;
-	char		**types;
-	char		**info;
-	char		**buttons;
-}				t_strings;
-
 typedef struct	s_button
 {
 	int			x;
@@ -189,6 +181,7 @@ typedef struct	s_button
 	int			height;
 	int			color;
 	int			id;
+	int			parent_id;
 	char		*text;
 	t_img		*img;
 }				t_button;
@@ -201,11 +194,18 @@ typedef struct	s_sub_m
 	int			height;
 	int			color;
 	int			id;
+	t_button	*buttons;
+	char		**strings;
+	t_img		*img;
+	int			first;
+	int			parent_id;
+	int			*child_id;
+	int			showing;
 	int			sub_tab;
+	int			sub_tab_showing;
 	int			position;
 	int			tab_amount;
 	int			per_tab;
-	t_img		*img;
 }				t_sub_m;
 
 typedef struct	s_menu
@@ -214,19 +214,8 @@ typedef struct	s_menu
 	int			y;
 	int			width;
 	int			height;
-	int			now_showing;
-	int			first;
-	int			objects_set;
-	int			lights_set;
-	int			sub_tab_showing;
-	t_img		*img;
 	t_menu_p	*p;
-	t_strings	strings;
-	t_button	*buttons;
-	t_sub_m		sub_m;
-	t_sub_m		camera;
-	t_sub_m		*objects;
-	t_sub_m		*lights;
+	t_sub_m		*sub_m;
 }				t_menu;
 
 typedef struct	s_event

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:08:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/12 19:19:03 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/12 19:32:52 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,14 @@ int		init_sub_menu(t_menu *menu, int parent_id)
 	sub.selected = 0;
 	sub.child_count = 0;
 	sub.child_id = NULL;
-	if (parent_id > 0)
+	if (parent_id >= 0)
 	{
 		parent = menu->sub_m[parent_id];
 		sub.strings = NULL;
 		sub.parent_id = parent_id;
 	}
 	ft_realloc(((void **)&(menu->sub_m)), menu->sub_m_count * sizeof(t_sub_m),
-			(menu->sub_m_count + 1) * sizeof(t_sub_m));
+		(menu->sub_m_count + 1) * sizeof(t_sub_m));
 	menu->sub_m[menu->sub_m_count] = sub;
 	(menu->sub_m_count)++;
 	return (sub.id);
@@ -94,7 +94,7 @@ void	init_menu(t_event *event)
 	menu = &(event->menu);
 	menu->sub_m = NULL;
 	menu->sub_m_count = 0;
-	init_sub_menu(menu, 0);
+	init_sub_menu(menu, -1);
 	s = &(menu->sub_m[0]);
 	s->id = 0;
 	s->showing = 1;

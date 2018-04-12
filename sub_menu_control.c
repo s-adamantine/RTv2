@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:08:33 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/12 19:18:40 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/12 19:29:28 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,13 @@ static int	init_main_sub_menu(t_event *event, t_sub_m *main, t_menu *menu)
 	t_sub_m	*s;
 	int		id;
 
+	ft_putstr("\nHIERO: ");
+	ft_putnbr(main->x);
+	ft_putchar(' ');
+	ft_putnbr(main->id);
 	id = init_sub_menu(menu, main->id);
+	ft_putstr("\nHIERO: ");
+	ft_putnbr(main->x);
 	s = &(menu->sub_m[id]);
 	s->x = main->x + SUB_MARGIN;
 	s->y = SUB_MENU_Y;
@@ -116,8 +122,8 @@ void	add_sub_menu(t_event *event)
 	int		s_id;
 
 	menu = &(event->menu);
-	init_buttons(event, &(menu->sub_m[0]), menu);
 	s_id = init_main_sub_menu(event, &(menu->sub_m[0]), menu);
+	init_buttons(event, &(menu->sub_m[0]), menu);
 	add_object_menu(event, &(menu->sub_m[s_id]), menu);
 	add_tab_buttons(event, &(menu->sub_m[s_id]), menu);
 }

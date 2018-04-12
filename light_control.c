@@ -45,7 +45,7 @@ static void	switch_one(t_event *event, int id)
 				else
 					p->color = ft_3v_add((p->c_per_src)[id], p->color);
 			}
-			((int *)(event->img)->img_arr)
+			((int *)(event->img).img_arr)
 				[j + (event->scene).width * i] = get_color(p->color);
 			j++;
 		}

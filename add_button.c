@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 14:13:52 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/09 17:15:22 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/11 13:17:46 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	add_button(t_event *event, t_button *b)
 
 	menu = &(event->menu);
 	i = 0;
-	img_arr = ((int *)(b->img)->img_arr);	
+	img_arr = ((int *)(b->img).img_arr);	
 	while (i < b->height)
 	{
 		j = 0;
@@ -46,7 +46,7 @@ void	add_button(t_event *event, t_button *b)
 		i++;
 	}
 	mlx_put_image_to_window(event->mlx, event->win,
-		(b->img)->img_ptr, menu->x + b->x, menu->y + b->y);
+		(b->img).img_ptr, menu->x + b->x, menu->y + b->y);
 	mlx_string_put(event->mlx, event->win, menu->x + b->x + SUB_SUB_MARGIN,
 			menu->y + b->y + SUB_SUB_MARGIN, TEXT_LIGHT, b->text);
 }

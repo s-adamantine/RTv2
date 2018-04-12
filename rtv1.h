@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/11 13:11:11 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/11 17:37:13 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define INFO_MARGIN 130
 # define SUB_SUB_MARGIN 5
 # define BAR_TOP_HEIGHT 60
-# define OBJ_SUB_MENU_HEIGHT 60
+# define OBJ_SUB_M_HEIGHT 125
 # define DEF_BUTTON_HEIGHT 30
 # define TAB_BUTTON_WIDTH 20
 # define SUB_MENU_Y (BAR_TOP_HEIGHT + 2 * DEF_BUTTON_HEIGHT + SUB_MARGIN)
@@ -173,19 +173,6 @@ typedef struct	s_menu_p
 	int			color;
 }				t_menu_p;
 
-typedef struct	s_button
-{
-	int			x;
-	int			y;
-	int			width;
-	int			height;
-	int			color;
-	int			id;
-	int			parent_id;
-	char		*text;
-	t_img		*img;
-}				t_button;
-
 typedef struct	s_sub_m
 {
 	int			x;
@@ -194,13 +181,14 @@ typedef struct	s_sub_m
 	int			height;
 	int			color;
 	int			id;
-	t_button	*buttons;
 	char		**strings;
-	t_img		*img;
+	t_img		img;
 	int			first;
 	int			parent_id;
 	int			*child_id;
 	int			showing;
+	int			type;
+	int			type_id;
 	int			sub_tab;
 	int			sub_tab_showing;
 	int			position;
@@ -210,19 +198,16 @@ typedef struct	s_sub_m
 
 typedef struct	s_menu
 {
-	int			x;
-	int			y;
-	int			width;
-	int			height;
 	t_menu_p	*p;
 	t_sub_m		*sub_m;
+	int			sub_m_count;
 }				t_menu;
 
 typedef struct	s_event
 {
 	void		*mlx;
 	void		*win;
-	t_img		*img;
+	t_img		img;
 	t_scene		scene;
 	t_pixel		*p_array;
 	char		*scene_name;
@@ -275,8 +260,9 @@ void			update_color(t_intensity intensity, t_3v *color,
 t_3v			get_rel_origin(t_3v origin, t_object *obj);
 t_3v			normalize(t_3v v);
 t_intensity		get_intensity(t_pixel *p, int r, t_3v dir, t_cam cam);
-int				fill_square(t_img **img, int index, int size, int color);
-t_img			*init_image(void *mlx, int width_scr, int height_scr);
+int				fill_square(t_img *img, int index, int size, int color);
+void			init_image(void *mlx, int width_scr, int height_scr,
+		t_img *img);
 void			anti_aliasing(t_event *event);
 int				drag_scene(int x, int y, t_event *event);
 int				mouse_click(int button, int x, int y, t_event *event);
@@ -287,13 +273,12 @@ int				key_hold(int key, t_event *event);
 void			set_fixed_values(t_scene *scene);
 void			set_value_refl(t_3v point, t_object *o, int r);
 void			set_drag_angle(t_event *event, int x, int y);
-void			fill_menu(t_event *event);
-void			init_menu(t_event *event);
-void			set_strings(t_menu *menu);
-void			add_sub_menu(t_event *event);
-void			add_button(t_event *event, t_button *button);
 void			set_sub_menu_pixel(t_menu *menu, t_sub_m *sub_m);
-void			add_object_menu(t_event *event);
+void			init_menu(t_event *event);
+int				init_sub_menu(t_menu *menu, int parent_id);
+void			fill_menu(t_event *event, t_menu *menu);
+void			add_object_menu(t_event *event, t_sub_m parent, t_menu *menu);
+void			add_sub_menu(t_event *event);
 char			*get_vector_string(t_3v v, int precision);
 void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
 

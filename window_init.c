@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 17:10:12 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/11 11:23:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/11 17:36:45 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,12 +20,12 @@ static int		loop_hook(t_event *event)
 //		event->cur_grain /= 2;
 //		raytracer(event, &(event->scene), 1);
 //		mlx_put_image_to_window(event->mlx, event->win,
-//			(event->img)->img_ptr, 0, 0);
+//			(event->img).img_ptr, 0, 0);
 //	}
 	if (event->redraw)
 	{
 		mlx_put_image_to_window(event->mlx, event->win,
-			(event->img)->img_ptr, 0, 0);
+			(event->img).img_ptr, 0, 0);
 		event->redraw = 0;
 	}
 	return (1);
@@ -46,15 +46,12 @@ void	init_loop(t_event *event)
 	mlx_loop(event->mlx);
 }
 
-t_img	*init_image(void *mlx, int width_scr, int height_scr)
+void	init_image(void *mlx, int width_scr, int height_scr, t_img *img)
 {
-	t_img	*img;
 	int		bpp;
 	int		size_line;
 	int		endian;
 
-	if (!(img = (t_img *)malloc(sizeof(t_img))))
-		error(errno);
 	img->img_ptr = mlx_new_image(mlx, width_scr, height_scr);
 	img->width = width_scr;
 	img->height = height_scr;
@@ -63,7 +60,6 @@ t_img	*init_image(void *mlx, int width_scr, int height_scr)
 	img->size_line = size_line;
 	img->size_line_int = size_line / (bpp / 8);
 	img->endian = endian;
-	return (img);
 }
 
 t_event	init_window(t_scene scene)
@@ -75,7 +71,7 @@ t_event	init_window(t_scene scene)
 			scene.height, scene.name);
 	event.scene_name = scene.name;
 	event.scene = scene;
-	event.img = init_image(event.mlx, scene.width, scene.height);
+	init_image(event.mlx, scene.width, scene.height, &(event.img));
 	event.cur_grain = scene.grain;
 	event.mouse_hold = 0;
 	event.t_select = KEY_L;

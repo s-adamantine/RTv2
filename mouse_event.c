@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:58:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/10 18:07:52 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/11 16:24:55 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int			drag_scene(int x, int y, t_event *event)
 //		event->cur_grain = (event->scene).grain;
 //		raytracer(event, &(event->scene), 0);
 //		mlx_put_image_to_window(event->mlx, event->win,
-//			(event->img)->img_ptr, 0, 0);
+//			(event->img).img_ptr, 0, 0);
 	}
 	return (1);
 }
@@ -32,20 +32,6 @@ static void	menu_click(int index, t_event *event)
 	t_menu_p	p;
 
 	p = (event->menu).p[index];
-	if (p.id == MAIN_BUTTON)
-		(event->menu).now_showing = MAIN_MENU;
-	else if (p.id == OBJECT_BUTTON)
-		(event->menu).now_showing = OBJECT_MENU;
-	else if (p.id == LIGHT_BUTTON)
-		(event->menu).now_showing = LIGHT_MENU;
-	else if (p.id == CAM_BUTTON)
-		(event->menu).now_showing = CAM_MENU;
-	else if (p.id == MAN_BUTTON)
-		(event->menu).now_showing = MAN_MENU;
-	else if (p.id >= TAB_BUTTON && p.id < TAB_BUTTON +
-			((event->menu).sub_m).tab_amount)
-		(event->menu).sub_tab_showing = p.id - TAB_BUTTON;
-	fill_menu(event);
 }
 
 int			toggle_button(int button, int x, int y, t_event *event)
@@ -60,8 +46,8 @@ int			toggle_button(int button, int x, int y, t_event *event)
 int			mouse_click(int button, int x, int y, t_event *event)
 {
 	if (x > (event->scene).width)
-		menu_click((x - (event->scene.width) + y * (event->menu).width),
-				event);
+		menu_click((x - (event->scene.width) + y *
+					((event->menu).sub_m[0]).width), event);
 	else if (button == 1)
 	{
 		event->mouse_hold = 1;

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/17 18:31:47 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/21 17:05:44 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/11 13:20:35 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ void				*get_light_value(void *arg)
 				continue ;
 			pixel->color = get_pixel_value(pixel, 0, (event->scene).lights,
 					pixel->vis_obj[0]);
-			((int *)(((t_event *)event)->img)->img_arr)
+			((int *)(((t_event *)event)->img).img_arr)
 				[j + (event->scene).width * i] = get_color(pixel->color);
 		}
 		i++;

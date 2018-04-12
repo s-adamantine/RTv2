@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/10 16:53:56 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/11 17:18:22 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ void		error(int err)
 				lights with the same coordinates as objects.\n", 2);
 	else if (err == 6)
 		ft_putstr_fd("Error: You are trying to divide by zero.\n", 2);
+	else if (err == 6)
+		ft_putstr_fd("Error: Negative value for height.\n", 2);
 	exit(1);
 }
 
@@ -51,12 +53,12 @@ static void	run_calc(t_event *event)
 //	light_inside((void *)event);
 	get_s_values((void *)event);
 	mlx_put_image_to_window(event->mlx, event->win,
-		(event->img)->img_ptr, 0, 0);
+		(event->img).img_ptr, 0, 0);
 	init_light_values((void *)event);
 	turn_on_lights(event);
 	mlx_put_image_to_window(event->mlx, event->win,
-		(event->img)->img_ptr, 0, 0);
-	fill_menu(event);
+		(event->img).img_ptr, 0, 0);
+	fill_menu(event, &(event->menu));
 	init_loop(event);
 }
 

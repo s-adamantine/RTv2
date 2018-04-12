@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/09 08:24:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/10 14:27:20 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/11 16:31:52 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ int			key_pressed(int key, t_event *event)
 	else if (key == KEY_Q && event->t_select == KEY_L)
 		turn_on_lights(event);
 	else if (key == KEY_M)
-		fill_menu(event);
+		fill_menu(event, &(event->menu));
 	return (1);
 }
 
@@ -40,7 +40,7 @@ int			key_hold(int key, t_event *event)
 		event->cur_grain = (event->scene).grain;
 //		raytracer(event, &(event->scene), 0);
 		mlx_put_image_to_window(event->mlx, event->win,
-		(event->img)->img_ptr, 0, 0);
+		(event->img).img_ptr, 0, 0);
 	}
 	return (1);
 }

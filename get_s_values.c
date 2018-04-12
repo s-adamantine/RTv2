@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 17:53:45 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/11 13:20:30 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,7 +120,7 @@ void			*get_s_values(void *arg)
 			(pixel->coor).v[1] = (double)(j - scene.width / 2.0);
 			(pixel->coor).v[2] = (double)(scene.height / 2.0 - i);
 			get_value(&scene, pixel);
-			((int *)(((t_event *)arg)->img)->img_arr)
+			((int *)(((t_event *)arg)->img).img_arr)
 				[j + scene.width * i] = get_color(pixel->color);
 			j++;
 		}

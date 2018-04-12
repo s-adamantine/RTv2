@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:08:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/12 16:12:22 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/12 19:19:03 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,8 @@ int		init_sub_menu(t_menu *menu, int parent_id)
 	sub.type = 0;
 	sub.edge_thickness = 0;
 	sub.selected = 0;
+	sub.child_count = 0;
+	sub.child_id = NULL;
 	if (parent_id > 0)
 	{
 		parent = menu->sub_m[parent_id];

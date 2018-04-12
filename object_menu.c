@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 17:51:37 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/12 15:20:26 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/12 18:56:04 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,10 +80,10 @@ static void	create_obj_sub_menu(t_object *obj, t_event *event, int i,
 	s->type_id = obj->id;
 	s->selected = 0;
 	s->showing = 1;
-	set_sub_menu_pixel(&(event->menu), s);
+//	set_sub_menu_pixel(&(event->menu), s);
 }
 
-void		add_object_menu(t_event *event, t_sub_m parent, t_menu *menu)
+void		add_object_menu(t_event *event, t_sub_m *parent, t_menu *menu)
 {
 	t_list		*lst;
 	t_object	*obj;
@@ -95,8 +95,9 @@ void		add_object_menu(t_event *event, t_sub_m parent, t_menu *menu)
 	while (lst && lst->content)
 	{
 		obj = (t_object *)lst->content;
-		id = init_sub_menu(menu, parent.id);
+		id = init_sub_menu(menu, parent->id);
 		create_obj_sub_menu(obj, event, i, &(menu->sub_m[id]));
+		add_child_id(parent, &(menu->sub_m[id]));
 		i++;
 		lst = lst->next;
 	}

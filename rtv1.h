@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/12 15:07:13 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/12 19:12:47 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,7 @@ typedef struct	s_sub_m
 	int			first;
 	int			parent_id;
 	int			*child_id;
+	int			child_count;
 	int			showing;
 	int			selected;
 	int			type;
@@ -283,9 +284,11 @@ void			set_sub_menu_pixel(t_menu *menu, t_sub_m *sub_m);
 void			init_menu(t_event *event);
 int				init_sub_menu(t_menu *menu, int parent_id);
 void			fill_menu(t_event *event, t_menu *menu);
-void			add_object_menu(t_event *event, t_sub_m parent, t_menu *menu);
+void			add_object_menu(t_event *event, t_sub_m *parent, t_menu *menu);
 void			add_sub_menu(t_event *event);
 char			*get_vector_string(t_3v v, int precision);
 void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
+void			menu_click(int index, t_event *event);
+void			add_child_id(t_sub_m *parent, t_sub_m *child);
 
 #endif

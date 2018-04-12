@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:58:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/12 16:46:27 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/12 18:02:41 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,39 +25,6 @@ int			drag_scene(int x, int y, t_event *event)
 //			(event->img).img_ptr, 0, 0);
 	}
 	return (1);
-}
-
-static void	handle_object_select(t_event *event, t_menu_p p)
-{
-	t_menu	*menu;
-	int		i;
-
-	menu = &(event->menu);
-	i = 1;
-	while (i < menu->sub_m_count)
-	{
-		if (p.type == (menu->sub_m[i]).type)
-			(menu->sub_m[i]).selected = 0;
-		if ((p.type == MAIN_BUTTON && (menu->sub_m[i]).type == SUB_MENU))
-		{
-			if (p.type_id == (menu->sub_m[i]).type_id)
-				(menu->sub_m[i]).selected = 1;
-			else
-				(menu->sub_m[i]).selected = 0;
-		}
-		i++;
-	}
-	(menu->sub_m[p.id]).selected = 1;
-	fill_menu(event, menu);
-}
-
-static void	menu_click(int index, t_event *event)
-{
-	t_menu_p	p;
-
-	p = (event->menu).p[index];
-	if (p.type == MAIN_BUTTON || p.type == TAB_BUTTON || p.type == OBJECT_MENU)
-		handle_object_select(event, p);
 }
 
 int			toggle_button(int button, int x, int y, t_event *event)

@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/04/12 15:25:27 by mpauw            ###   ########.fr        #
+#    Updated: 2018/04/12 18:37:14 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS = 	rtv1.c\
 		light_inside.c\
 		calculate_movement.c\
 		object_menu.c\
+		menu_click.c\
 		mouse_event.c
 #		add_button.c\
 #		set_strings.c\
@@ -64,7 +65,7 @@ FRAMEWORK = -framework OpenGL -framework AppKit
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LFTDIR)$(LIBFT) $(LMLXDIR)$(LIBMLX)
-	-@gcc $(FLAGS) -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
+	-@gcc $(FLAGS) $(SEGFAULT) -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
 	 -I$(LMLXDIR) -L$(LMLXDIR) -l$(MLX) \
 	 $(FRAMEWORK)
 	-@echo "RTv1 Ready"

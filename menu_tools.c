@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/10 16:38:21 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/11 16:25:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/12 18:54:10 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void		set_sub_menu_pixel(t_menu *menu, t_sub_m *sub_m)
 		{
 			((int *)(sub_m->img).img_arr)[j + i * sub_m->width] = sub_m->color;
 			index = sub_m->x + j + (sub_m->y + i) * (menu->sub_m[0]).width;
-			menu->p[index].button = 1;
 			menu->p[index].id = sub_m->id;
 			menu->p[index].color = sub_m->color;
 			menu->p[index].id = sub_m->id;
@@ -48,4 +47,13 @@ void	set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i)
 	parent->tab_amount = ceil(((double)(i + 1)) / parent->per_tab);
 	child->sub_tab = i / parent->per_tab;
 	child->position = i % parent->per_tab;
+}
+
+void	add_child_id(t_sub_m *parent, t_sub_m *child)
+{
+	ft_realloc(((void **)&(parent->child_id)),
+			parent->child_count * sizeof(int),
+			(parent->child_count + 1) * sizeof(int));
+	(parent->child_id)[parent->child_count] = child->id;
+	(parent->child_count)++;
 }

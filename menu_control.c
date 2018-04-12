@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:08:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/11 19:14:41 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/12 16:12:22 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ static void	place_sub_m(t_event *event, t_sub_m *s, t_menu *menu)
 {
 	int		i;
 	int		j;
-	int		index;
 
 	i = 0;
 	while (i < s->height)
@@ -24,15 +23,22 @@ static void	place_sub_m(t_event *event, t_sub_m *s, t_menu *menu)
 		j = 0;
 		while (j < s->width)
 		{
-			index = j + i * s->width;
-			((int *)(s->img).img_arr)[index] = s->color;
-			menu->p[index].id  = s->id;
+			if (j < s->edge_thickness || j >= s->width - s->edge_thickness ||
+					i < s->edge_thickness || i >= s->height - s->edge_thickness)
+				((int *)(s->img).img_arr)[j + i * s->width] = s->edge_color;
+			else if (s->selected)
+				((int *)(s->img).img_arr)[j + i * s->width] = s->color_selected;
+			else
+				((int *)(s->img).img_arr)[j + i * s->width] = s->color;
+			menu->p[(j + s->x) + (i + s->y) * MENU_WIDTH].id  = s->id;
+			menu->p[(j + s->x) + (i + s->y) * MENU_WIDTH].type_id  = s->type_id;
+			menu->p[(j + s->x) + (i + s->y) * MENU_WIDTH].type  = s->type;
 			j++;
 		}
 		i++;
 	}
 	mlx_put_image_to_window(event->mlx, event->win,
-		(s->img).img_ptr, s->x, s->y);
+			(s->img).img_ptr, s->x + (event->scene).width, s->y);
 }
 
 void	fill_menu(t_event *event, t_menu *menu)
@@ -41,7 +47,6 @@ void	fill_menu(t_event *event, t_menu *menu)
 	t_sub_m	*s;
 
 	i = 0;
-	add_sub_menu(event);
 	while (i < menu->sub_m_count)
 	{
 		s = &(menu->sub_m[i]);
@@ -64,16 +69,12 @@ int		init_sub_menu(t_menu *menu, int parent_id)
 	sub.showing = 0;
 	sub.first = 1;
 	sub.type = 0;
+	sub.edge_thickness = 0;
+	sub.selected = 0;
 	if (parent_id > 0)
 	{
 		parent = menu->sub_m[parent_id];
-		sub.x = parent.x;
-		sub.y = parent.y;
-		sub.width = parent.width;
-		sub.height = parent.height;
-		sub.color = parent.color;
 		sub.strings = NULL;
-		sub.img = parent.img;
 		sub.parent_id = parent_id;
 	}
 	ft_realloc(((void **)&(menu->sub_m)), menu->sub_m_count * sizeof(t_sub_m),
@@ -97,14 +98,16 @@ void	init_menu(t_event *event)
 	s->showing = 1;
 	s->first = 1;
 	s->parent_id = -1;
-	s->x = (event->scene).width;
+	s->x = 0;
 	s->y = 0;
 	s->width = MENU_WIDTH;
 	s->height = (event->scene).height;
 	s->color = PRIMARY_COLOR;
+	s->color_selected = PRIMARY_COLOR;
 	s->strings = NULL;
 	init_image(event->mlx, s->width, s->height, &(s->img));
 	if (!(menu->p = (t_menu_p *)malloc(sizeof(t_menu_p) * s->width *
 				   s->height)))
 		error(1);
+	add_sub_menu(event);
 }

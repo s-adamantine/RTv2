@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 17:51:37 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/11 17:35:30 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/12 15:20:26 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,9 +74,12 @@ static void	create_obj_sub_menu(t_object *obj, t_event *event, int i,
 	s->y = parent->y + SUB_SUB_MARGIN + s->position
 		* (s->height + SUB_SUB_MARGIN);
 	init_image(event->mlx, s->width, s->height, &(s->img));
-	s->color = PRIMARY_LIGHT;
+	s->color = PRIMARY_COLOR;
+	s->color_selected = PRIMARY_LIGHT;
 	s->type = OBJECT_MENU;
 	s->type_id = obj->id;
+	s->selected = 0;
+	s->showing = 1;
 	set_sub_menu_pixel(&(event->menu), s);
 }
 

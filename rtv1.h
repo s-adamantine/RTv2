@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/11 17:37:13 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/12 15:07:13 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,9 @@
 # define AMOUNT_INSTRUCTIONS 7
 # define AMOUNT_INFO 6
 
-# define AMOUNT_BUTTONS 5
-# define AMOUNT_BUTTON_ROWS 2
-# define AMT_B_PER_ROW 3
+# define AMT_BUT 5
+# define AMT_B_ROW 2
+# define AMT_B_P_ROW 3
 # define MENU_MARGIN 20
 # define SUB_MARGIN 10
 # define INFO_MARGIN 130
@@ -170,6 +170,8 @@ typedef struct	s_menu_p
 	int			y;
 	int			button;
 	int			id;
+	int			type_id;
+	int			type;
 	int			color;
 }				t_menu_p;
 
@@ -180,6 +182,7 @@ typedef struct	s_sub_m
 	int			width;
 	int			height;
 	int			color;
+	int			color_selected;
 	int			id;
 	char		**strings;
 	t_img		img;
@@ -187,6 +190,7 @@ typedef struct	s_sub_m
 	int			parent_id;
 	int			*child_id;
 	int			showing;
+	int			selected;
 	int			type;
 	int			type_id;
 	int			sub_tab;
@@ -194,6 +198,8 @@ typedef struct	s_sub_m
 	int			position;
 	int			tab_amount;
 	int			per_tab;
+	int			edge_thickness;
+	int			edge_color;
 }				t_sub_m;
 
 typedef struct	s_menu

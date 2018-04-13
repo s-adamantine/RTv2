@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/10 16:38:21 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/12 18:54:10 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/13 14:11:59 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ void		set_sub_menu_pixel(t_menu *menu, t_sub_m *sub_m)
 		while (j < sub_m->width)
 		{
 			((int *)(sub_m->img).img_arr)[j + i * sub_m->width] = sub_m->color;
-			index = sub_m->x + j + (sub_m->y + i) * (menu->sub_m[0]).width;
+			index = sub_m->x + j + (sub_m->y + i) * (menu->sub_m[0])->width;
 			menu->p[index].id = sub_m->id;
 			menu->p[index].color = sub_m->color;
 			menu->p[index].id = sub_m->id;

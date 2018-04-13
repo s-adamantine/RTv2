@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/12 19:33:09 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/13 17:25:37 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # define AMOUNT_INSTRUCTIONS 7
 # define AMOUNT_INFO 6
 
+# define AMT_SUB_M 5
 # define AMT_BUT 5
 # define AMT_B_ROW 2
 # define AMT_B_P_ROW 3
@@ -186,7 +187,6 @@ typedef struct	s_sub_m
 	int			id;
 	char		**strings;
 	t_img		img;
-	int			first;
 	int			parent_id;
 	int			*child_id;
 	int			child_count;
@@ -206,8 +206,10 @@ typedef struct	s_sub_m
 typedef struct	s_menu
 {
 	t_menu_p	*p;
-	t_sub_m		*sub_m;
+	t_sub_m		**sub_m;
 	int			sub_m_count;
+	int			sub_m_showing;
+	int			sub_tab_showing;
 }				t_menu;
 
 typedef struct	s_event

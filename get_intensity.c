@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:40:06 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 16:53:42 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/13 14:55:33 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,8 +59,6 @@ t_intensity		get_intensity(t_pixel *p, int r, t_3v dir, t_cam cam)
 		return (i);
 	dir = normalize(dir);
 	i.diff = get_d(dir, p->normal[r], obj);
-//	printf("%f %f %f\n", (p->normal[r]).v[0], (p->normal[r]).v[1], (p->normal[r]).v[2]);
-//	printf("%f %f %f\n\n", dir.v[0], dir.v[1], dir.v[2]);
 	angle = get_s(p, r, dir, cam);
 	if (angle < 0)
 		angle = 0;

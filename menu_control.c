@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:08:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/12 19:32:52 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/13 17:25:35 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,41 +49,36 @@ void	fill_menu(t_event *event, t_menu *menu)
 	i = 0;
 	while (i < menu->sub_m_count)
 	{
-		s = &(menu->sub_m[i]);
+		s = menu->sub_m[i];
 		if (s->showing)
-		{
 			place_sub_m(event, s, menu);
-//			if (s->strings)
-//				place_sub_strings(event, s);
-		}
+		else if (i > 0 && menu->sub_m_showing ==
+				(menu->sub_m[s->parent_id])->type_id
+				&& (s->sub_tab == -1 || s->sub_tab == menu->sub_tab_showing))
+			place_sub_m(event, s, menu);
 		i++;
 	}
 }
 
 int		init_sub_menu(t_menu *menu, int parent_id)
 {
-	t_sub_m	parent;
-	t_sub_m	sub;
+	t_sub_m	*sub;
 
-	sub.id = menu->sub_m_count;
-	sub.showing = 0;
-	sub.first = 1;
-	sub.type = 0;
-	sub.edge_thickness = 0;
-	sub.selected = 0;
-	sub.child_count = 0;
-	sub.child_id = NULL;
-	if (parent_id >= 0)
-	{
-		parent = menu->sub_m[parent_id];
-		sub.strings = NULL;
-		sub.parent_id = parent_id;
-	}
-	ft_realloc(((void **)&(menu->sub_m)), menu->sub_m_count * sizeof(t_sub_m),
-		(menu->sub_m_count + 1) * sizeof(t_sub_m));
+	if (!(sub = (t_sub_m *)malloc(sizeof(t_sub_m))))
+		error(1);
+	ft_realloc(((void **)&(menu->sub_m)), menu->sub_m_count * sizeof(t_sub_m *),
+		(menu->sub_m_count + 1) * sizeof(t_sub_m *));
 	menu->sub_m[menu->sub_m_count] = sub;
+	sub->id = menu->sub_m_count;
+	sub->showing = 0;
+	sub->type = 0;
+	sub->edge_thickness = 0;
+	sub->selected = 0;
+	sub->child_count = 0;
+	sub->child_id = NULL;
+	sub->parent_id = parent_id;
 	(menu->sub_m_count)++;
-	return (sub.id);
+	return (sub->id);
 }
 
 void	init_menu(t_event *event)
@@ -94,11 +89,12 @@ void	init_menu(t_event *event)
 	menu = &(event->menu);
 	menu->sub_m = NULL;
 	menu->sub_m_count = 0;
+	menu->sub_m_showing = 0;
+	menu->sub_tab_showing = 0;
 	init_sub_menu(menu, -1);
-	s = &(menu->sub_m[0]);
+	s = menu->sub_m[0];
 	s->id = 0;
 	s->showing = 1;
-	s->first = 1;
 	s->parent_id = -1;
 	s->x = 0;
 	s->y = 0;

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:58:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/12 18:02:41 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/13 14:20:26 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int			mouse_click(int button, int x, int y, t_event *event)
 {
 	if (button == 1 && (x > (event->scene).width))
 		menu_click((x - (event->scene.width) + y *
-					((event->menu).sub_m[0]).width), event);
+					((event->menu).sub_m[0])->width), event);
 	else if (button == 1)
 	{
 		event->mouse_hold = 1;

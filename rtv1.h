@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/13 17:25:37 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/18 12:04:13 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,11 +121,13 @@ typedef struct	s_object
 	double		shininess;
 	double		(*f)();
 	t_3v		color;
+	t_3v		sec_color;
 	t_3v		origin;
 	t_3v		dir;
 	t_3v		rotation;
 	double		*fixed_value;
 	double		*fixed_value_2;
+	double		axis_rotation;
 	t_3v		*fixed_vec;
 	t_3v		*dif_c;
 }				t_object;
@@ -137,6 +139,7 @@ typedef struct	s_pixel
 	t_3v		*normal;
 	double		*s_value;
 	t_object	**vis_obj;
+	t_3v		*obj_color;
 	t_3v		*point;
 	t_3v		*c_per_src;
 	t_3v		color;
@@ -264,8 +267,6 @@ void			rotate_object(t_object *object, t_scene *scene, int cam_only);
 void			init_loop(t_event *event);
 int				key_pressed(int key, t_event *param);
 int				get_color(t_3v c);
-void			update_color(t_intensity intensity, t_3v *color,
-		t_object *o, t_source l);
 t_3v			get_rel_origin(t_3v origin, t_object *obj);
 t_3v			normalize(t_3v v);
 t_intensity		get_intensity(t_pixel *p, int r, t_3v dir, t_cam cam);
@@ -292,5 +293,6 @@ char			*get_vector_string(t_3v v, int precision);
 void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
 void			menu_click(int index, t_event *event);
 void			add_child_id(t_sub_m *parent, t_sub_m *child);
+t_3v			get_object_color(t_object o, t_3v p);
 
 #endif

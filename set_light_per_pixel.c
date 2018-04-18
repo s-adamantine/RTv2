@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 17:53:41 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/18 11:39:13 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,15 +34,15 @@ static int		light_reaches(t_3v dir, t_list *objects, int fixed_val_id)
 	return (reached);
 }
 
-static void		check_values(t_intensity *in, t_object o, t_source l)
+static void		check_values(t_intensity *in, t_3v color, t_source l)
 {
 	if (in->diff > 1)
 		in->diff = 1;
 	if (in->spec > 1)
 		in->spec = 1;
-	if (((o.color).v)[0] > 1 || ((o.color).v)[1] > 1 || ((o.color).v)[2] > 1
-			|| ((o.color).v)[0] < 0 || ((o.color).v)[1] < 0
-			|| ((o.color).v)[2] < 0 || ((l.color).v)[0] > 1
+	if (color.v[0] > 1 || color.v[1] > 1 || color.v[2] > 1
+			|| color.v[0] < 0 || color.v[1] < 0
+			|| color.v[2] < 0 || ((l.color).v)[0] > 1
 			|| ((l.color).v)[1] > 1 || ((l.color).v)[2] > 1
 			|| ((l.color).v)[0] < 0 || ((l.color).v)[1] < 0
 			|| ((l.color).v)[2] < 0)
@@ -53,10 +53,10 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 		t_source l, int i)
 {
 	t_3v		*c;
-	t_object	o;
+	t_3v		o;
 	double		influence;
 
-	o = *(p->vis_obj[i]);
+	o = p->obj_color[i];
 	c = &(p->c_per_src[l.id]);
 	influence = 1.0;
 	while (i > 0)
@@ -68,17 +68,17 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	in.spec = in.spec * (l.intensity).spec;
 	check_values(&in, o, l);
 	(c->v)[0] += influence * (1 - in.spec) * in.diff * ((l.color).v)[0]
-		* ((o.color).v)[0];
+		* o.v[0];
 	(c->v)[1] += influence * (1 - in.spec) * in.diff * ((l.color).v)[1]
-		* ((o.color).v)[1];
+		* o.v[1];
 	(c->v)[2] += influence * (1 - in.spec) * in.diff * ((l.color).v)[2]
-		* ((o.color).v)[2];
+		* o.v[2];
 	(c->v)[0] += in.spec * ((l.color).v)[0];
 	(c->v)[1] += in.spec * ((l.color).v)[1];
 	(c->v)[2] += in.spec * ((l.color).v)[2];
 	return ((c->v)[0] + (c->v)[1] + (c->v)[2]);
 }
-/*
+
 static int		inside_object(t_pixel *p, t_source src, t_cam cam, int amount)
 {
 	int	i;
@@ -93,7 +93,7 @@ static int		inside_object(t_pixel *p, t_source src, t_cam cam, int amount)
 	}
 	return (1);
 }
-*/
+
 static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 {
 	t_3v			dir;
@@ -106,8 +106,8 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 	while (r < scene->refl && p->vis_obj[r])
 	{
 		dir = ft_3v_subtract(p->point[r], src.origin);
-	//	if (!inside_object(p, src, scene->camera, scene->amount_obj))
-	//		break ;
+		if (!inside_object(p, src, scene->camera, scene->amount_obj))
+			break ;
 		in.diff = 0;
 		in.spec = 0;
 		if (light_reaches(dir, scene->objects, src.id + scene->refl - 1) > 0.01)

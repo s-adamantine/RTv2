@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/04/13 15:41:29 by mpauw            ###   ########.fr        #
+#    Updated: 2018/04/18 11:42:11 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,10 +39,8 @@ SRCS = 	rtv1.c\
 		calculate_movement.c\
 		object_menu.c\
 		menu_click.c\
+		get_object_color.c\
 		mouse_event.c
-#		add_button.c\
-#		set_strings.c\
-
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/
 #

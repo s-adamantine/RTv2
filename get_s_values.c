@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/11 13:20:30 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/18 11:51:11 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
 	cam.rotation = (r > 0) ? (p->vis_obj[r - 1])->rotation :
 		(scene->camera).rotation;
 	p->point[r] = get_point(cam, dir, p->s_value[r]);
+	p->obj_color[r] = get_object_color(*(p->vis_obj[r]), p->point[r]);
 	p->normal[r] = get_normal(p->vis_obj[r], p->point[r]);
 	if (((p->vis_obj[r])->specular > -0.001 && (p->vis_obj[r])->specular
 				< 0.001) || r + 1 == scene->refl)
@@ -64,6 +65,7 @@ static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
 static void		get_value(t_scene *scene, t_pixel *p)
 {
 	t_3v		dir;
+	t_3v		color;
 	t_object	*obj;
 
 	dir = p->coor;
@@ -71,10 +73,11 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	get_reflections(0, p, scene, dir);
 	if (!p->vis_obj[0])
 		return ;
+	color = p->obj_color[0];
 	obj = p->vis_obj[0];
-	p->color = ft_init_3v(((obj->color).v)[0] * obj->ambient * scene->ambient,
-			((obj->color).v)[1] * obj->ambient * scene->ambient,
-			((obj->color).v)[2] * obj->ambient * scene->ambient);
+	p->color = ft_init_3v(color.v[0] * obj->ambient * scene->ambient,
+			color.v[1] * obj->ambient * scene->ambient,
+			color.v[2] * obj->ambient * scene->ambient);
 	p->c_per_src[0] = p->color;
 }
 
@@ -92,11 +95,14 @@ static void		setup_pixel(t_pixel *pixel, t_scene scene)
 		error(1);
 	if (!(pixel->point = (t_3v *)malloc(sizeof(t_3v) * scene.refl)))
 		error(1);
+	if (!(pixel->obj_color = (t_3v *)malloc(sizeof(t_3v) * scene.refl)))
+		error(1);
 	if (!(pixel->normal = (t_3v *)malloc(sizeof(t_3v) * scene.refl)))
 		error(1);
 	ft_bzero(pixel->c_per_src, sizeof(t_3v) * scene.amount_light);
 	ft_bzero(pixel->vis_obj, sizeof(t_object *) * scene.refl);
 	ft_bzero(pixel->point, sizeof(t_3v *) * scene.refl);
+	ft_bzero(pixel->obj_color, sizeof(t_3v *) * scene.refl);
 	pixel->color = ft_zero_3v();
 	(pixel->coor).v[0] = -(scene.width / 2);
 }

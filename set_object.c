@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 16:53:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/04/18 13:28:08 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,16 @@ static void	init_def_object(t_object *object, int id)
 	def = ft_zero_3v();
 	object->id = id;
 	object->type = 0;
+	object->axis_rotation = 0;
 	object->origin = def;
 	def = ft_zero_3v();
 	object->rotation = def;
+	object->axis_rotation = 0;
 	object->radius = 1;
 	object->diffuse = 0.1;
 	def = ft_init_3v(1.0, 1.0, 0.0);
 	object->color = def;
+	object->sec_color = ft_init_3v(0.0, 0.0, 1.0);
 	object->dir = ft_init_3v(0.0, 0.0, 1.0);
 }
 
@@ -70,8 +73,12 @@ static void	set_values_object(t_object *obj, char *s, char *value)
 		update_vector(&(obj->origin), value);
 	else if (ft_strncmp(s, "rotation", 7) == 0)
 		update_vector(&(obj->rotation), value);
+	else if (ft_strncmp(s, "axis_rotation", 11) == 0)
+		obj->axis_rotation = ft_atod(value);
 	else if (ft_strncmp(s, "color", 5) == 0)
 		update_vector(&(obj->color), value);
+	else if (ft_strncmp(s, "sec_color", 9) == 0)
+		update_vector(&(obj->sec_color), value);
 	else if (ft_strncmp(s, "radius", 6) == 0)
 		obj->radius = ft_atod(value);
 	else if (ft_strncmp(s, "reflection", 10) == 0)

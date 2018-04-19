@@ -219,7 +219,6 @@ typedef struct	s_event
 	t_img		img;
 	t_scene		scene;
 	t_pixel		*p_array;
-	char		*scene_name;
 	t_menu		menu;
 	int			cur_grain;
 	int			mouse_hold;

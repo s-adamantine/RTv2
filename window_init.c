@@ -69,7 +69,6 @@ t_event	init_window(t_scene scene)
 	event.mlx = mlx_init();
 	event.win = mlx_new_window(event.mlx, scene.width,
 			scene.height, scene.name);
-	event.scene_name = scene.name;
 	event.scene = scene;
 	init_image(event.mlx, scene.width, scene.height, &(event.img));
 	event.cur_grain = scene.grain;

@@ -1,0 +1,30 @@
+render {
+		{name, {Scene Sphere Inside}}
+		{reflection, {2}}
+		{dimensions, {1200 900}}
+		{anti_a, {4}}
+}
+camera {
+		{origin, {700.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+light {
+		{origin, {700.0 0.0 0.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {20 3}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{color, {0.0 0.0 1.0}}
+		{radius, {200}}
+		{reflection, {0.0 0.25 0.0 20}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 150.0 0.0}}
+		{color, {0.0 1.0 0.0}}
+		{radius, {100}}
+		{reflection, {0.0 0.25 0.0 20}}
+}

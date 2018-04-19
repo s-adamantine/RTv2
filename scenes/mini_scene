@@ -1,6 +1,7 @@
 render {
 		{name, {Scene Sphere}}
 		{dimensions, {100 100}}
+		{reflection, {2}}
 		{grain, {8}}
 }
 camera {

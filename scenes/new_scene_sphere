@@ -1,5 +1,6 @@
 render {
 		{name, {Scene Sphere}}
+		{reflection, {2}}
 		{dimensions, {1200 900}}
 		{anti_a, {4}}
 }

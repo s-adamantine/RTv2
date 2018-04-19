@@ -1,5 +1,6 @@
 render {
 		{name, {Scene Plane}}
+		{reflection, {2}}
 		{dimensions, {1000 700}}
 		{ambient, {2}}
 }

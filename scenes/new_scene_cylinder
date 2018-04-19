@@ -1,5 +1,6 @@
 render {
 		{name, {Scene Cylinder}}
+		{reflection, {2}}
 		{dimensions, {1200 900}}
 }
 camera {

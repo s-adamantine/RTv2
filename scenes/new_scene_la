@@ -1,5 +1,6 @@
 render {
 		{name, {Scene La La Land}}
+		{reflection, {2}}
 		{dimensions, {800 600}}
 }
 camera {

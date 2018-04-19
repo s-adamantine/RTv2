@@ -1,5 +1,6 @@
 render {
 		{name, {Scene 9 Spheres}}
+		{reflection, {2}}
 		{dimensions, {1200 1200}}
 }
 camera {

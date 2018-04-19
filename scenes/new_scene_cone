@@ -1,5 +1,6 @@
 render {
 		{name, {Scene Cone}}
+		{reflection, {1}}
 		{dimensions, {1000 720}}
 		{ambient, {0}}
 }

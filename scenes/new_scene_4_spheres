@@ -1,5 +1,6 @@
 render {
 		{name, {Scene 4 Spheres}}
+		{reflection, {2}}
 		{dimensions, {600 600}}
 		{ambient, {1}}
 }

@@ -1,5 +1,6 @@
 render {
 		{name, {Scene La La Land Large}}
+		{reflection, {2}}
 		{dimensions, {1600 1200}}
 		{grain, {8}}
 }

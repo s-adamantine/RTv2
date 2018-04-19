@@ -103,6 +103,7 @@ typedef struct	s_source
 typedef struct	s_cam
 {
 	int			id;
+	int			init;
 	int			*inside_obj;
 	t_3v		origin;
 	t_3v		rotation;
@@ -155,7 +156,8 @@ typedef struct	s_scene
 	double		ambient;
 	double		wait;
 	double		max_value;
-	t_cam		camera;
+	t_cam		*cam;
+	t_list		*cameras;
 	t_list		*lights;
 	t_list		*objects;
 	double		*f_value;

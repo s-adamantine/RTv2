@@ -67,7 +67,7 @@ t_event	init_window(t_scene scene)
 	t_event	event;
 
 	event.mlx = mlx_init();
-	event.win = mlx_new_window(event.mlx, scene.width + MENU_WIDTH,
+	event.win = mlx_new_window(event.mlx, scene.width,
 			scene.height, scene.name);
 	event.scene_name = scene.name;
 	event.scene = scene;
@@ -77,6 +77,9 @@ t_event	init_window(t_scene scene)
 	event.t_select = KEY_L;
 	event.id_select = KEY_0;
 	event.redraw = 0;
+//	if (!(event.p_array = (t_pixel **)malloc(sizeof(t_pixel *)
+//					* scene.cam_set)))
+//		error(1);
 	if (!(event.p_array = (t_pixel *)malloc(sizeof(t_pixel)
 					* scene.width * scene.height)))
 		error(1);

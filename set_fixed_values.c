@@ -74,7 +74,7 @@ void		set_fixed_values(t_scene *scene)
 			(o->fixed_vec = (t_3v *)malloc(l * sizeof(t_3v))) &&
 			(o->dif_c = (t_3v *)malloc(l * sizeof(t_3v)))))
 			error(1);
-		set_fixed_value((scene->camera).origin, o, 0);
+		set_fixed_value((scene->cam)->origin, o, 0);
 		set_src(scene, o);
 		objects = objects->next;
 	}

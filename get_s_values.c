@@ -49,9 +49,9 @@ static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
 	if (!(p->vis_obj[r]) || (r > 0 &&
 				(p->vis_obj[r])->id == (p->vis_obj[r - 1])->id))
 		return ;
-	cam.origin = (r > 0) ? p->point[r - 1] : (scene->camera).origin;
+	cam.origin = (r > 0) ? p->point[r - 1] : (scene->cam)->origin;
 	cam.rotation = (r > 0) ? (p->vis_obj[r - 1])->rotation :
-		(scene->camera).rotation;
+		(scene->cam)->rotation;
 	p->point[r] = get_point(cam, dir, p->s_value[r]);
 	p->normal[r] = get_normal(p->vis_obj[r], p->point[r]);
 	if (((p->vis_obj[r])->specular > -0.001 && (p->vis_obj[r])->specular
@@ -67,7 +67,7 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	t_object	*obj;
 
 	dir = p->coor;
-	dir = normalize(get_dir(dir, (scene->camera).rotation));
+	dir = normalize(get_dir(dir, (scene->cam)->rotation));
 	get_reflections(0, p, scene, dir);
 	if (!p->vis_obj[0])
 		return ;
@@ -126,5 +126,6 @@ void			*get_s_values(void *arg)
 		}
 		i++;
 	}
+	(scene.cam)->init = 1;
 	return (NULL);
 }

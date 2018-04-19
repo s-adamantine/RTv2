@@ -18,7 +18,7 @@ void	set_drag_angle(t_event *event, int x, int y)
 	t_3v		new_rot;
 	double		d;
 
-	cam = &((event->scene).camera);
+	cam = (event->scene).cam;
 	d = sqrt((cam->origin).v[0] * (cam->origin).v[0] + (cam->origin).v[1]
 			* (cam->origin).v[1] + (cam->origin).v[2] * (cam->origin).v[2]);
 	new_rot.v[1] = DEG * (atan(event->y_0 / d) - atan(y / d));
@@ -39,7 +39,7 @@ void	set_move(t_event *event, int move)
 		dir = ft_init_3v(1, 0, 0);
 	else
 		dir = ft_init_3v(0, 0.5, 0);
-	cam = &((event->scene).camera);
+	cam = (event->scene).cam;
 	i = 2;
 	while (i >= 0)
 	{

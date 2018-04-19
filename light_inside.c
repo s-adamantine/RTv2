@@ -17,7 +17,7 @@ static int	behind_plane(t_object *obj, t_source *src, t_scene *scene)
 	t_3v	dir;
 	double	t_value;
 
-	dir = ft_3v_subtract(src->origin, (scene->camera).origin);
+	dir = ft_3v_subtract(src->origin, (scene->cam)->origin);
 	t_value = obj->f(obj, dir, 0);
 	if (t_value < 1 && t_value > 0)
 		return (1);
@@ -80,7 +80,7 @@ void		*light_inside(void *arg)
 
 	scene = &(((t_event *)arg)->scene);
 	s_lst = scene->lights;
-	cam = &(scene->camera);
+	cam = scene->cam;
 	while (s_lst && s_lst->content)
 	{
 		src = (t_source *)s_lst->content;

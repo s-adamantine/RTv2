@@ -156,6 +156,7 @@ typedef struct	s_object
 	double		ambient;
 	double		specular;
 	double		shininess;
+	double		transparent;
 	double		(*f)();
 	t_3v		color;
 	t_3v		origin;
@@ -167,17 +168,23 @@ typedef struct	s_object
 	t_3v		*dif_c;
 }				t_object;
 
+typedef struct	s_p_info
+{
+	t_3v		normal;
+	double		s_value;
+	t_object	*vis_obj;
+	t_3v		point;
+	int			type;
+}				t_p_info;
+
 typedef struct	s_pixel
 {
 	int			status;
-	int			cam_id;
-	t_3v		coor;
-	t_3v		*normal;
-	double		*s_value;
-	t_object	**vis_obj;
-	t_3v		*point;
+	int			amount_p;
 	t_3v		*c_per_src;
+	t_3v		coor;
 	t_3v		color;
+	t_p_info	**pi_arr;
 }				t_pixel;
 
 typedef struct	s_cam
@@ -266,7 +273,7 @@ void			update_color(t_intensity intensity, t_3v *color,
 		t_object *o, t_source l);
 t_3v			get_rel_origin(t_3v origin, t_object *obj);
 t_3v			normalize(t_3v v);
-t_intensity		get_intensity(t_pixel *p, int r, t_3v dir, t_cam cam);
+t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam);
 int				fill_square(t_img *img, int index, int size, int color);
 void			init_image(void *mlx, int width_scr, int height_scr,
 		t_img *img);

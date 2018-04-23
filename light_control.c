@@ -42,7 +42,7 @@ static void	switch_one(t_event *event, int id)
 		{
 			p = &((((event->scene).cam)->p_array)[j + i *
 					(event->scene).width]);
-			if (p->vis_obj[0])
+			if ((p->pi_arr[0])->vis_obj)
 			{
 				if (id == 0)
 					p->color = p->c_per_src[0];

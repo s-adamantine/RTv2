@@ -25,10 +25,6 @@ static int		light_reaches(t_3v dir, t_list *objects, int fixed_val_id)
 	{
 		obj = (t_object *)o_lst->content;
 		t_value = obj->f(obj, dir, fixed_val_id);
-		if (fixed_val_id == 1)
-		{
-			printf("%f %f %f %f\n", t_value, (obj->dif_c[1]).v[0], (obj->dif_c[1]).v[1], (obj->dif_c[1]).v[2]);
-		}
 		if (t_value > 0.001 && t_value < 0.99999)
 			return (0);
 		else if (t_value > 0.999999 && t_value < 1.000001)
@@ -53,6 +49,34 @@ static void		check_values(t_intensity *in, t_object o, t_source l)
 		error(4);
 }
 
+static double	get_influence(t_pixel *p, int i)
+{
+	double	influence;
+
+//	printf("%d %d %d\n", p->amount_p, ((p->pi_arr[i - 1])->vis_obj)->id, i);
+	influence = 1.0 - (((p->pi_arr[i - 1])->vis_obj)->transparent +
+			((p->pi_arr[i - 1])->vis_obj)->specular) / 2;
+	if ((p->pi_arr[i])->type == 2)
+	{
+		while (i > 0)
+		{
+			if ((p->pi_arr[i - 1])->type % 2 == 0)
+				influence *= ((p->pi_arr[i - 1])->vis_obj)->transparent;
+			i--;
+		}
+	}
+	else
+	{
+		while (i > 0)
+		{
+			if ((p->pi_arr[i - 1])->type < 2)
+				influence *= ((p->pi_arr[i - 1])->vis_obj)->specular;
+			i--;
+		}
+	}
+	return (influence);
+}
+
 static double	set_light_value(t_intensity in, t_pixel *p,
 		t_source l, int i)
 {
@@ -60,14 +84,9 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	t_object	o;
 	double		influence;
 
-	o = *(p->vis_obj[i]);
+	o = *((p->pi_arr[i])->vis_obj);
 	c = &(p->c_per_src[l.id]);
-	influence = 1.0;
-	while (i > 0)
-	{
-		influence *= ((p->vis_obj)[i - 1])->specular;
-		i--;
-	}
+	influence = ((p->pi_arr[i])->type == 0) ? 1.0 : get_influence(p, i);
 	in.diff = in.diff * (l.intensity).diff;
 	in.spec = in.spec * (l.intensity).spec;
 	check_values(&in, o, l);
@@ -88,18 +107,26 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 	t_3v			dir;
 	t_intensity		in;
 	int				r;
+	t_p_info		*pi;
 	double			total_value;
 
 	r = 0;
 	total_value = 0.0;
-	while (r < scene->refl && p->vis_obj[r])
+	while (r < p->amount_p)
 	{
-		dir = ft_3v_subtract(p->point[r], src.origin);
+		pi = p->pi_arr[r];
+		if (!(pi->vis_obj))
+			break ;
+		dir = ft_3v_subtract(pi->point, src.origin);
 		in.diff = 0;
 		in.spec = 0;
 		if (light_reaches(dir, scene->objects, src.id + scene->refl +
 					scene->amount_fixed * (scene->cam)->id - 1) > 0.01)
-			in = get_intensity(p, r, dir, *(scene->cam));
+		{
+			if (r == 0)
+				printf("YOLO\n");
+			in = get_intensity(pi, dir, *(scene->cam));
+		}
 		total_value = set_light_value(in, p, src, r);
 		r++;
 	}
@@ -123,7 +150,7 @@ void		set_light_per_pixel(t_event *event, t_source src)
 					(event->scene).width]);
 			p->c_per_src[src.id] = ft_zero_3v();
 			j++;
-			if (!p->vis_obj[0])
+			if (!(p->pi_arr[0])->vis_obj)
 				continue ;
 			light_intensity(src, p, &(event->scene));
 		}

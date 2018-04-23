@@ -12,16 +12,14 @@
 
 #include "rtv1.h"
 
-static t_cam	*init_def_cam(t_scene *scene)
+static t_cam	init_def_cam(t_scene *scene)
 {
-	t_cam	*cam;
+	t_cam	cam;
 
-	if (!(cam = (t_cam *)malloc(sizeof(t_cam))))
-		error(1);
-	cam->id = scene->cam_set;
-	cam->init = 0;
-	cam->origin = ft_init_3v(700, 0, 0);
-	cam->rotation = ft_zero_3v();
+	cam.id = scene->cam_set;
+	cam.init = 0;
+	cam.origin = ft_init_3v(700, 0, 0);
+	cam.rotation = ft_zero_3v();
 	(scene->cam_set)++;
 	return (cam);
 }
@@ -34,22 +32,22 @@ static void		set_values_camera(t_cam *cam, char *s, char *value)
 		update_vector(&(cam->rotation), value);
 }
 
-static void 	add_as_light(t_scene *scene, t_cam *cam)
+static void 	add_as_light(t_scene *scene, t_cam cam)
 {
 	t_source	light;
 	t_intensity	i;
 
-	if ((cam->origin).v[0] == 0)
-		(cam->origin).v[0] = 1;
-	light.origin = cam->origin;
+	if ((cam.origin).v[0] == 0)
+		(cam.origin).v[0] = 1;
+	light.origin = cam.origin;
 	light.color = ft_zero_3v();
 	i.diff = 0;
 	i.spec = 0;
 	light.intensity = i;
-	light.id = 0;
+	light.id = cam.id;
 	light.type = 0;
 	ft_lstaddnewr(&(scene->lights), &light, sizeof(t_source));
-	ft_lstaddnewr(&(scene->cameras), cam, sizeof(t_cam));
+	ft_lstaddnewr(&(scene->cameras), &cam, sizeof(t_cam));
 }
 
 void			set_camera(t_scene *scene, int fd)
@@ -58,7 +56,7 @@ void			set_camera(t_scene *scene, int fd)
 	char	*s;
 	char	*value;
 	int		gnl;
-	t_cam	*cam;
+	t_cam	cam;
 
 	cam = init_def_cam(scene);
 	while ((gnl = get_next_line(fd, &line)) == 1)
@@ -69,7 +67,7 @@ void			set_camera(t_scene *scene, int fd)
 			error(0);
 		if (!(value = ft_brace_content(s, '{', '}')))
 			error(0);
-		set_values_camera(cam, s, value);
+		set_values_camera(&cam, s, value);
 		free(s);
 		free(value);
 		free(line);

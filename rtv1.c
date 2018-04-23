@@ -50,7 +50,7 @@ static void	usage(void)
 
 static void	run_calc(t_event *event)
 {
-	light_inside((void *)event);
+//	light_inside((void *)event);
 	get_s_values((void *)event);
 	mlx_put_image_to_window(event->mlx, event->win,
 		(event->img).img_ptr, 0, 0);

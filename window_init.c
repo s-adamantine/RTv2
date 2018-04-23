@@ -42,7 +42,6 @@ void	init_loop(t_event *event)
 //			&toggle_button, event);
 //	mlx_hook(event->win, KEY_PRESS, KEY_PRESS_MASK,
 //			&key_hold, event);
-
 	mlx_loop(event->mlx);
 }
 
@@ -76,10 +75,7 @@ t_event	init_window(t_scene scene)
 	event.t_select = KEY_L;
 	event.id_select = KEY_0;
 	event.redraw = 0;
-//	if (!(event.p_array = (t_pixel **)malloc(sizeof(t_pixel *)
-//					* scene.cam_set)))
-//		error(1);
-	if (!(event.p_array = (t_pixel *)malloc(sizeof(t_pixel)
+	if (!((scene.cam)->p_array = (t_pixel *)malloc(sizeof(t_pixel)
 					* scene.width * scene.height)))
 		error(1);
 	return (event);

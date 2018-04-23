@@ -36,45 +36,53 @@ static void	set_fixed_value(t_3v origin, t_object *o, int i)
 		o->fixed_value_2[i] = ft_3v_dot_product(o->dif_c[i], o->dir);
 }
 
+void		set_value_refl(t_3v point, t_object *o, int r)
+{
+	set_fixed_value(point, o, r);
+}
+
 static void	set_src(t_scene *scene, t_object *o)
 {
 	t_list		*srcs;
 	t_source	*src;
 	int			i;
 
-	srcs = (scene->lights)->next;
 	i = scene->refl;
+	srcs = scene->lights;
 	while (srcs && srcs->content)
 	{
 		src = (t_source *)srcs->content;
-		set_fixed_value(src->origin, o, i);
+		if (src->type)
+		{
+			set_fixed_value(src->origin, o, i + scene->amount_fixed *
+					(scene->cam)->id);
+			i++;
+		}
 		srcs = srcs->next;
-		i++;
 	}
-}
-
-void		set_value_refl(t_3v point, t_object *o, int r)
-{
-	set_fixed_value(point, o, r);
 }
 
 void		set_fixed_values(t_scene *scene)
 {
 	t_list		*objects;
 	t_object	*o;
+	t_cam		*cam;
 	int			l;
 
+	l = (scene->amount_light + scene->refl + 1) * scene->cam_set;
+	scene->amount_fixed = scene->amount_light + scene->refl + 1;
 	objects = scene->objects;
-	l = scene->amount_light + scene->refl;
+	cam = scene->cam;
 	while (objects && objects->content)
 	{
 		o = (t_object *)objects->content;
-		if (!((o->fixed_value = (double *)malloc(l * sizeof(double))) &&
+		if ((scene->cam)->id == 0 && 
+				!((o->fixed_value = (double *)malloc(l * sizeof(double))) &&
 				(o->fixed_value_2 = (double *)malloc(l * sizeof(double))) &&
-			(o->fixed_vec = (t_3v *)malloc(l * sizeof(t_3v))) &&
-			(o->dif_c = (t_3v *)malloc(l * sizeof(t_3v)))))
+				(o->fixed_vec = (t_3v *)malloc(l * sizeof(t_3v))) &&
+				(o->dif_c = (t_3v *)malloc(l * sizeof(t_3v)))))
 			error(1);
-		set_fixed_value((scene->cam)->origin, o, 0);
+		set_fixed_value(cam->origin, o, scene->amount_fixed * cam->id);
 		set_src(scene, o);
 		objects = objects->next;
 	}

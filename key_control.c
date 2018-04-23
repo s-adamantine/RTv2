@@ -24,9 +24,8 @@ int			key_pressed(int key, t_event *event)
 		event->t_select = key;
 	else if (key == KEY_Q && event->t_select == KEY_L)
 		turn_on_lights(event);
-//	else if (key == KEY_Q && event->t_select == KEY_C && event->id_select
-//			<= event->cam_set)
-//		change_camera(event);
+	else if (key == KEY_Q && event->t_select == KEY_C)
+		change_camera(event);
 	return (1);
 }
 

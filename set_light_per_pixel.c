@@ -25,6 +25,10 @@ static int		light_reaches(t_3v dir, t_list *objects, int fixed_val_id)
 	{
 		obj = (t_object *)o_lst->content;
 		t_value = obj->f(obj, dir, fixed_val_id);
+		if (fixed_val_id == 1)
+		{
+			printf("%f %f %f %f\n", t_value, (obj->dif_c[1]).v[0], (obj->dif_c[1]).v[1], (obj->dif_c[1]).v[2]);
+		}
 		if (t_value > 0.001 && t_value < 0.99999)
 			return (0);
 		else if (t_value > 0.999999 && t_value < 1.000001)
@@ -79,21 +83,6 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	return ((c->v)[0] + (c->v)[1] + (c->v)[2]);
 }
 
-static int		inside_object(t_pixel *p, t_source src, t_cam *cam, int amount)
-{
-	int	i;
-
-	i = 0;
-	(void)p;
-	while (i < amount)
-	{
-		if (src.inside_obj[i] != cam->inside_obj[i])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
 static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 {
 	t_3v			dir;
@@ -106,11 +95,10 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 	while (r < scene->refl && p->vis_obj[r])
 	{
 		dir = ft_3v_subtract(p->point[r], src.origin);
-		if (!inside_object(p, src, scene->cam, scene->amount_obj))
-			break ;
 		in.diff = 0;
 		in.spec = 0;
-		if (light_reaches(dir, scene->objects, src.id + scene->refl - 1) > 0.01)
+		if (light_reaches(dir, scene->objects, src.id + scene->refl +
+					scene->amount_fixed * (scene->cam)->id - 1) > 0.01)
 			in = get_intensity(p, r, dir, *(scene->cam));
 		total_value = set_light_value(in, p, src, r);
 		r++;
@@ -131,7 +119,8 @@ void		set_light_per_pixel(t_event *event, t_source src)
 		j = 0;
 		while (j < (event->scene).width)
 		{
-			p = &((event->p_array)[j + i * (event->scene).width]);
+			p = &((((event->scene).cam)->p_array)[j + i *
+					(event->scene).width]);
 			p->c_per_src[src.id] = ft_zero_3v();
 			j++;
 			if (!p->vis_obj[0])

@@ -83,89 +83,6 @@ typedef struct	s_img
 	int			id;
 }				t_img;
 
-typedef struct	s_intensity
-{
-	double		spec;
-	double		diff;
-}				t_intensity;
-
-typedef struct	s_source
-{
-	int			type;
-	int			id;
-	int			on;
-	int			*inside_obj;
-	t_intensity	intensity;
-	t_3v		origin;
-	t_3v		color;
-}				t_source;
-
-typedef struct	s_cam
-{
-	int			id;
-	int			init;
-	int			*inside_obj;
-	t_3v		origin;
-	t_3v		rotation;
-}				t_cam;
-
-typedef struct	s_object
-{
-	int			id;
-	int			type;
-	double		radius;
-	double		radius_sq;
-	double		diffuse;
-	double		ambient;
-	double		specular;
-	double		shininess;
-	double		(*f)();
-	t_3v		color;
-	t_3v		origin;
-	t_3v		dir;
-	t_3v		rotation;
-	double		*fixed_value;
-	double		*fixed_value_2;
-	t_3v		*fixed_vec;
-	t_3v		*dif_c;
-}				t_object;
-
-typedef struct	s_pixel
-{
-	int			status;
-	t_3v		coor;
-	t_3v		*normal;
-	double		*s_value;
-	t_object	**vis_obj;
-	t_3v		*point;
-	t_3v		*c_per_src;
-	t_3v		color;
-}				t_pixel;
-
-typedef struct	s_scene
-{
-	char		*name;
-	int			width;
-	int			height;
-	int			amount_obj;
-	int			amount_light;
-	int			cam_set;
-	int			grain;
-	int			anti_a;
-	int			refl;
-	double		ambient;
-	double		wait;
-	double		max_value;
-	t_cam		*cam;
-	t_list		*cameras;
-	t_list		*lights;
-	t_list		*objects;
-	double		*f_value;
-	double		*f_value_2;
-	t_3v		*f_vec;
-	int			all_on;
-}				t_scene;
-
 typedef struct	s_menu_p
 {
 	int			x;
@@ -212,13 +129,95 @@ typedef struct	s_menu
 	int			sub_m_count;
 }				t_menu;
 
+typedef struct	s_intensity
+{
+	double		spec;
+	double		diff;
+}				t_intensity;
+
+typedef struct	s_source
+{
+	int			type;
+	int			id;
+	int			on;
+	int			*inside_obj;
+	t_intensity	intensity;
+	t_3v		origin;
+	t_3v		color;
+}				t_source;
+
+typedef struct	s_object
+{
+	int			id;
+	int			type;
+	double		radius;
+	double		radius_sq;
+	double		diffuse;
+	double		ambient;
+	double		specular;
+	double		shininess;
+	double		(*f)();
+	t_3v		color;
+	t_3v		origin;
+	t_3v		dir;
+	t_3v		rotation;
+	double		*fixed_value;
+	double		*fixed_value_2;
+	t_3v		*fixed_vec;
+	t_3v		*dif_c;
+}				t_object;
+
+typedef struct	s_pixel
+{
+	int			status;
+	int			cam_id;
+	t_3v		coor;
+	t_3v		*normal;
+	double		*s_value;
+	t_object	**vis_obj;
+	t_3v		*point;
+	t_3v		*c_per_src;
+	t_3v		color;
+}				t_pixel;
+
+typedef struct	s_cam
+{
+	int			id;
+	int			init;
+	t_3v		origin;
+	t_3v		rotation;
+	t_pixel		*p_array;
+	int			*inside_obj;
+}				t_cam;
+
+typedef struct	s_scene
+{
+	char		*name;
+	int			width;
+	int			height;
+	int			amount_obj;
+	int			amount_light;
+	int			amount_fixed;
+	int			cam_set;
+	int			grain;
+	int			anti_a;
+	int			refl;
+	double		ambient;
+	double		wait;
+	double		max_value;
+	t_cam		*cam;
+	t_list		*cameras;
+	t_list		*lights;
+	t_list		*objects;
+	int			all_on;
+}				t_scene;
+
 typedef struct	s_event
 {
 	void		*mlx;
 	void		*win;
 	t_img		img;
 	t_scene		scene;
-	t_pixel		*p_array;
 	t_menu		menu;
 	int			cur_grain;
 	int			mouse_hold;
@@ -291,5 +290,9 @@ char			*get_vector_string(t_3v v, int precision);
 void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
 void			menu_click(int index, t_event *event);
 void			add_child_id(t_sub_m *parent, t_sub_m *child);
+void			change_camera(t_event *event);
+void			check_s_inside(int *inside_obj, t_source *src,
+		t_scene *scene, int b);
+t_cam			*get_selected_cam(t_scene *scene, int id);
 
 #endif

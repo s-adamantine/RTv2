@@ -34,6 +34,8 @@ SRCS = 	rtv1.c\
 		anti_aliasing.c\
 		fill_square.c\
 		light_control.c\
+		camera_control.c\
+		camera_tools.c\
 		sub_menu_control.c\
 		light_inside.c\
 		calculate_movement.c\
@@ -65,7 +67,7 @@ FRAMEWORK = -framework OpenGL -framework AppKit
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LFTDIR)$(LIBFT) $(LMLXDIR)$(LIBMLX)
-	-@gcc $(FLAGS) $(SEGFAULT) -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
+	-@gcc $(FLAGS) -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
 	 -I$(LMLXDIR) -L$(LMLXDIR) -l$(MLX) \
 	 $(FRAMEWORK)
 	-@echo "RTv1 Ready"

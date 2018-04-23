@@ -13,7 +13,7 @@
 #include "rtv1.h"
 
 static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
-		t_list *objects, int r)
+		t_scene *scene, int r)
 {
 	double		tmp;
 	t_list		*tmp_obj;
@@ -21,21 +21,21 @@ static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
 	t_object	*visible_object;
 
 	visible_object = NULL;
-	tmp_obj = objects;
-	while (objects && objects->content)
+	tmp_obj = scene->objects;
+	while (tmp_obj && tmp_obj->content)
 	{
-		obj = (t_object *)objects->content;
+		obj = (t_object *)tmp_obj->content;
 		if (r > 0)
-			set_value_refl(p->point[r - 1], obj, r);
-		tmp = obj->f(obj, dir, r);
+			set_value_refl(p->point[r - 1], obj, r + scene->amount_fixed *
+					(scene->cam)->id);
+		tmp = obj->f(obj, dir, r + scene->amount_fixed * (scene->cam)->id);
 		if (tmp > 0.001 && tmp < p->s_value[r])
 		{
 			p->s_value[r] = tmp;
 			visible_object = obj;
 		}
-		objects = objects->next;
+		tmp_obj = tmp_obj->next;
 	}
-	objects = tmp_obj;
 	return (visible_object);
 }
 
@@ -45,7 +45,7 @@ static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
 	t_3v	n_dir;
 
 	p->s_value[r] = MAX_S_VALUE;
-	p->vis_obj[r] = get_vis_obj(p, dir, scene->objects, r);
+	p->vis_obj[r] = get_vis_obj(p, dir, scene, r);
 	if (!(p->vis_obj[r]) || (r > 0 &&
 				(p->vis_obj[r])->id == (p->vis_obj[r - 1])->id))
 		return ;
@@ -98,6 +98,7 @@ static void		setup_pixel(t_pixel *pixel, t_scene scene)
 	ft_bzero(pixel->vis_obj, sizeof(t_object *) * scene.refl);
 	ft_bzero(pixel->point, sizeof(t_3v *) * scene.refl);
 	pixel->color = ft_zero_3v();
+	pixel->cam_id = (scene.cam)->id;
 	(pixel->coor).v[0] = -(scene.width / 2);
 }
 
@@ -115,7 +116,7 @@ void			*get_s_values(void *arg)
 		j = 0;
 		while (j < scene.width)
 		{
-			pixel = &((((t_event *)arg)->p_array)[j + scene.width * i]);
+			pixel = &((scene.cam)->p_array[j + scene.width * i]);
 			setup_pixel(pixel, scene);
 			(pixel->coor).v[1] = (double)(j - scene.width / 2.0);
 			(pixel->coor).v[2] = (double)(scene.height / 2.0 - i);

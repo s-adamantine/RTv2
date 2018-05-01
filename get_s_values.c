@@ -47,22 +47,22 @@ static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
 
 	if (!(tmp = (t_p_info **)malloc(sizeof(t_p_info *) * (p->amount_p + 1))))
 		error (1);
-	i = 0;
-	while (i < p->amount_p)
-	{
+	i = -1;
+	while (++i < p->amount_p)
 		tmp[i] = p->pi_arr[i];
-		i++;
-	}
 	free(p->pi_arr);
 	p->pi_arr = tmp;
 	if (!(p->pi_arr[p->amount_p] = (t_p_info *)malloc(sizeof(t_p_info))))
 		error (1);
 	pi = p->pi_arr[p->amount_p];
-	pi->normal = ft_init_3v(1.0, 0.0, 0.0);
 	pi->s_value = MAX_S_VALUE;
-	pi->point = ft_zero_3v();
-	pi->type = type;
 	pi->vis_obj = get_vis_obj(p, dir, scene, pi);
+	pi->type = type;
+	if (!(pi->vis_obj))
+	{
+		free(pi);
+		return (NULL);
+	}
 	return (pi);
 }
 
@@ -74,9 +74,9 @@ static void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type)
 	t_p_info	*pi_prev;
 
 	pi = init_p_info(p, dir, scene, type);
-	pi_prev = (p->amount_p > 0) ? p->pi_arr[p->amount_p - 1] : NULL;
-	if (!(pi->vis_obj))
+	if (!pi)
 		return ;
+	pi_prev = (p->amount_p > 0) ? p->pi_arr[p->amount_p - 1] : NULL;
 	cam.origin = (p->amount_p > 0) ? pi_prev->point : (scene->cam)->origin;
 	cam.rotation = (p->amount_p > 0) ? (pi_prev->vis_obj)->rotation :
 		(scene->cam)->rotation;

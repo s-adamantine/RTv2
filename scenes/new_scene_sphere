@@ -48,7 +48,7 @@ object {
 		{transparent, {0.4}}
 		{reflection, {0.2 0.2 0.2 20}}
 }
-object {
+*object {
 		{type, {sphere}}
 		{origin, {0.0 100.0 0.0}}
 		{color, {0.0 1.0 0.0}}
@@ -62,9 +62,9 @@ object {
 		{rotation, {0.0, 90.0, 0.0}}
 		{color, {1.0 0.0 0.0}}
 		{transparent, {0.0}}
-		{reflection, {0.1 0.25 0.2 20}}
+		{reflection, {0.2 0.25 0.2 20}}
 }
-object {
+*object {
 		{type, {cylinder}}
 		{origin, {0.0 -400.0 -200.0}}
 		{rotation, {90.0 45.0 45.0}}

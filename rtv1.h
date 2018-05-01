@@ -182,6 +182,7 @@ typedef struct	s_p_info
 	t_object	*vis_obj;
 	t_3v		point;
 	int			type;
+	int			is_set;
 }				t_p_info;
 
 typedef struct	s_pixel

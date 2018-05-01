@@ -12,7 +12,8 @@
 
 #include "rtv1.h"
 
-static int		light_reaches(t_3v dir, t_list *objects, int fixed_val_id)
+static int		light_reaches(t_3v dir, t_list *objects, int cam,
+		int fixed_val_id)
 {
 	double		t_value;
 	int			reached;
@@ -24,8 +25,8 @@ static int		light_reaches(t_3v dir, t_list *objects, int fixed_val_id)
 	while (o_lst && o_lst->content)
 	{
 		obj = (t_object *)o_lst->content;
-		t_value = obj->f(obj, dir, fixed_val_id);
-		if (t_value > 0.001 && t_value < 0.99999)
+		t_value = obj->f(obj->fixed_s[cam][fixed_val_id], dir, 0);
+		if (t_value > 0.001 && t_value < 0.99999 && obj->transparent < 0.001)
 			return (0);
 		else if (t_value > 0.999999 && t_value < 1.000001)
 			reached = 1;
@@ -53,9 +54,7 @@ static double	get_influence(t_pixel *p, int i)
 {
 	double	influence;
 
-//	printf("%d %d %d\n", p->amount_p, ((p->pi_arr[i - 1])->vis_obj)->id, i);
-	influence = 1.0 - (((p->pi_arr[i - 1])->vis_obj)->transparent +
-			((p->pi_arr[i - 1])->vis_obj)->specular) / 2;
+	influence = 1 - ((p->pi_arr[i])->vis_obj)->transparent;
 	if ((p->pi_arr[i])->type == 2)
 	{
 		while (i > 0)
@@ -65,7 +64,7 @@ static double	get_influence(t_pixel *p, int i)
 			i--;
 		}
 	}
-	else
+	else if ((p->pi_arr[i])->type == 1)
 	{
 		while (i > 0)
 		{
@@ -86,16 +85,15 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 
 	o = *((p->pi_arr[i])->vis_obj);
 	c = &(p->c_per_src[l.id]);
-	influence = ((p->pi_arr[i])->type == 0) ? 1.0 : get_influence(p, i);
+	influence = get_influence(p, i);
 	in.diff = in.diff * (l.intensity).diff;
 	in.spec = in.spec * (l.intensity).spec;
 	check_values(&in, o, l);
-	(c->v)[0] += influence * (1 - in.spec) * in.diff * ((l.color).v)[0]
-		* ((o.color).v)[0];
-	(c->v)[1] += influence * (1 - in.spec) * in.diff * ((l.color).v)[1]
-		* ((o.color).v)[1];
-	(c->v)[2] += influence * (1 - in.spec) * in.diff * ((l.color).v)[2]
-		* ((o.color).v)[2];
+	in.diff *= (influence * (1 - in.spec));
+	in.spec *= influence;
+	(c->v)[0] += in.diff * ((l.color).v)[0] * ((o.color).v)[0];
+	(c->v)[1] += in.diff * ((l.color).v)[1] * ((o.color).v)[1];
+	(c->v)[2] += in.diff * ((l.color).v)[2] * ((o.color).v)[2];
 	(c->v)[0] += in.spec * ((l.color).v)[0];
 	(c->v)[1] += in.spec * ((l.color).v)[1];
 	(c->v)[2] += in.spec * ((l.color).v)[2];
@@ -108,10 +106,8 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 	t_intensity		in;
 	int				r;
 	t_p_info		*pi;
-	double			total_value;
 
 	r = 0;
-	total_value = 0.0;
 	while (r < p->amount_p)
 	{
 		pi = p->pi_arr[r];
@@ -120,18 +116,12 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 		dir = ft_3v_subtract(pi->point, src.origin);
 		in.diff = 0;
 		in.spec = 0;
-		if (light_reaches(dir, scene->objects, src.id + scene->refl +
-					scene->amount_fixed * (scene->cam)->id - 1) > 0.01)
-		{
-			if (r == 0)
-				printf("YOLO\n");
-			in = get_intensity(pi, dir, *(scene->cam));
-		}
-		total_value = set_light_value(in, p, src, r);
+		if (light_reaches(dir, scene->objects, (scene->cam)->id,
+					src.id - 1) > 0.01)
+			in = get_intensity(pi, dir, *(scene->cam), src.id - 1);
+		set_light_value(in, p, src, r);
 		r++;
 	}
-	if (total_value > scene->max_value)
-		scene->max_value = total_value;
 }
 
 void		set_light_per_pixel(t_event *event, t_source src)
@@ -141,6 +131,7 @@ void		set_light_per_pixel(t_event *event, t_source src)
 	int			j;
 
 	i = 0;
+//	printf("%f\n", ((event->scene).cam)->light_vis[src.id - 1]);
 	while (i < (event->scene).height)
 	{
 		j = 0;

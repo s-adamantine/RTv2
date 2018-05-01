@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-static double	get_nearest_intersection(double a, double b, double d)
+static double	get_nearest_intersection(double a, double b, double d, int alt)
 {
 	double	t_1;
 	double	t_2;
@@ -25,41 +25,43 @@ static double	get_nearest_intersection(double a, double b, double d)
 		return (t_2);
 	if (t_2 < 0.001)
 		return (t_1);
-	return ((t_1 < t_2) ? t_1 : t_2);
+	if (alt == 0)
+		return ((t_1 < t_2) ? t_1 : t_2);
+	else
+		return ((t_1 < t_2) ? t_2 : t_1);
 }
 
-double	get_s_plane(t_object *s, t_3v dir, int i)
+double	get_s_plane(t_fixed_v f, t_3v dir, int alt)
 {
 	double	to_return;
 	double	tmp;
 
-	if (fabs((tmp = ft_3v_dot_product(dir, s->dir))) < 0.0001)
+	(void)alt;
+	if (fabs((tmp = ft_3v_dot_product(dir, f.dir))) < 0.00001)
 		return (-1);
-	to_return = -(s->fixed_value[i] / tmp);
+	to_return = -(f.val / tmp);
 	if (to_return > 0.0001)
 		return (to_return);
 	return (-1);
 }
 
-double	get_s_sphere(t_object *s, t_3v dir, int i)
+double	get_s_sphere(t_fixed_v f, t_3v dir, int alt)
 {
 	double	a;
 	double	b;
 	double	c;
 	double	d;
 
-	if (s->type != 1)
-		return (-1);
 	a = ft_3v_dot_product(dir, dir);
-	b = 2 * ft_3v_dot_product(dir, s->dif_c[i]);
-	c = s->fixed_value[i] - s->radius_sq;
+	b = 2 * ft_3v_dot_product(dir, f.dif_c);
+	c = f.val - f.rad_sq;
 	d = b * b - 4 * a * c;
 	if (d < 0.0001)
 		return (-1);
-	return (get_nearest_intersection(a, b, d));
+	return (get_nearest_intersection(a, b, d, alt));
 }
 
-double	get_s_cylinder(t_object *s, t_3v dir, int i)
+double	get_s_cylinder(t_fixed_v f, t_3v dir, int alt)
 {
 	double	a;
 	double	b;
@@ -67,18 +69,18 @@ double	get_s_cylinder(t_object *s, t_3v dir, int i)
 	double	d;
 	t_3v	tmp;
 
-	tmp = ft_3v_subtract(dir, ft_3v_scalar(s->dir,
-					ft_3v_dot_product(dir, s->dir)));
+	tmp = ft_3v_subtract(dir, ft_3v_scalar(f.dir,
+					ft_3v_dot_product(dir, f.dir)));
 	a = ft_3v_dot_product(tmp, tmp);
-	b = 2 * ft_3v_dot_product(tmp, s->fixed_vec[i]);
-	c = s->fixed_value[i] - s->radius_sq;
+	b = 2 * ft_3v_dot_product(tmp, f.vec);
+	c = f.val - f.rad_sq;
 	d = b * b - 4 * a * c;
 	if (d < 0.0001)
 		return (-1);
-	return (get_nearest_intersection(a, b, d));
+	return (get_nearest_intersection(a, b, d, alt));
 }
 
-double	get_s_cone(t_object *s, t_3v dir, int i)
+double	get_s_cone(t_fixed_v f, t_3v dir, int alt)
 {
 	double	a;
 	double	b;
@@ -87,18 +89,17 @@ double	get_s_cone(t_object *s, t_3v dir, int i)
 	t_3v	tmp;
 
 	tmp = ft_3v_subtract(dir,
-			ft_3v_scalar(s->dir, ft_3v_dot_product(dir, s->dir)));
-	a = cos(s->radius) * cos(s->radius) * ft_3v_dot_product(tmp, tmp);
-	b = 2 * cos(s->radius) * cos(s->radius) *
-		ft_3v_dot_product(tmp, s->fixed_vec[i]);
-	c = cos(s->radius) * cos(s->radius) * s->fixed_value[i];
-	d = ft_3v_dot_product(dir, s->dir);
-	a -= sin(s->radius) * sin(s->radius) * d * d;
-	b -= 2 * sin(s->radius) * sin(s->radius) * d * s->fixed_value_2[i];
-	c -= sin(s->radius) * sin(s->radius) * s->fixed_value_2[i]
-		* s->fixed_value_2[i];
+			ft_3v_scalar(f.dir, ft_3v_dot_product(dir, f.dir)));
+	a = cos(f.rad) * cos(f.rad) * ft_3v_dot_product(tmp, tmp);
+	b = 2 * cos(f.rad) * cos(f.rad) *
+		ft_3v_dot_product(tmp, f.vec);
+	c = cos(f.rad) * cos(f.rad) * f.val;
+	d = ft_3v_dot_product(dir, f.dir);
+	a -= sin(f.rad) * sin(f.rad) * d * d;
+	b -= 2 * sin(f.rad) * sin(f.rad) * d * f.val_2;
+	c -= sin(f.rad) * sin(f.rad) * f.val_2 * f.val_2;
 	d = b * b - 4 * a * c;
 	if (d < 0.0001)
 		return (-1);
-	return (get_nearest_intersection(a, b, d));
+	return (get_nearest_intersection(a, b, d, alt));
 }

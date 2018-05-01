@@ -46,7 +46,7 @@ static double	get_d(t_3v dir, t_3v n, t_object *obj)
 	return (d);
 }
 
-t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam)
+t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam, int src_id)
 {
 	t_intensity	i;
 	t_object	*obj;
@@ -63,5 +63,7 @@ t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam)
 	if (angle < 0)
 		angle = 0;
 	i.spec = obj->specular * pow(angle, obj->shininess);
+	i.diff *= cam.light_vis[src_id];
+	i.spec *= cam.light_vis[src_id];
 	return (i);
 }

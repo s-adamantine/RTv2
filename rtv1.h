@@ -146,12 +146,22 @@ typedef struct	s_source
 	t_3v		color;
 }				t_source;
 
+typedef struct	s_fixed_v
+{
+	double		val;
+	double		val_2;
+	double		rad;
+	double		rad_sq;
+	t_3v		vec;
+	t_3v		dif_c;
+	t_3v		dir;
+}				t_fixed_v;
+
 typedef struct	s_object
 {
 	int			id;
 	int			type;
 	double		radius;
-	double		radius_sq;
 	double		diffuse;
 	double		ambient;
 	double		specular;
@@ -160,12 +170,9 @@ typedef struct	s_object
 	double		(*f)();
 	t_3v		color;
 	t_3v		origin;
-	t_3v		dir;
 	t_3v		rotation;
-	double		*fixed_value;
-	double		*fixed_value_2;
-	t_3v		*fixed_vec;
-	t_3v		*dif_c;
+	t_fixed_v	**fixed_c;
+	t_fixed_v	**fixed_s;
 }				t_object;
 
 typedef struct	s_p_info
@@ -194,7 +201,7 @@ typedef struct	s_cam
 	t_3v		origin;
 	t_3v		rotation;
 	t_pixel		*p_array;
-	int			*inside_obj;
+	double		*light_vis;
 }				t_cam;
 
 typedef struct	s_scene
@@ -211,7 +218,6 @@ typedef struct	s_scene
 	int			refl;
 	double		ambient;
 	double		wait;
-	double		max_value;
 	t_cam		*cam;
 	t_list		*cameras;
 	t_list		*lights;
@@ -245,15 +251,15 @@ void			get_doubles_from_line(double *vector, char *line, int size);
 void			add_light(t_scene *scene, int fd);
 void			set_render(t_scene *scene, int fd);
 void			set_camera(t_scene *scene, int fd);
-double			get_s_cylinder(t_object *s, t_3v dir, int i);
-double			get_s_plane(t_object *s, t_3v dir, int i);
-double			get_s_sphere(t_object *s, t_3v dir, int i);
-double			get_s_cone(t_object *s, t_3v dir, int i);
+double			get_s_cylinder(t_fixed_v f, t_3v dir, int alt);
+double			get_s_plane(t_fixed_v f, t_3v dir, int alt);
+double			get_s_sphere(t_fixed_v f, t_3v dir, int alt);
+double			get_s_cone(t_fixed_v f, t_3v dir, int alt);
 void			*get_s_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
 void			turn_on_lights(t_event *event);
-void			*light_inside(void *arg);
+void			light_inside(t_scene *scene);
 void			set_light_per_pixel(t_event *event, t_source src);
 t_event			init_window(t_scene scene);
 t_source		*get_source(int id, t_list *lst);
@@ -273,7 +279,7 @@ void			update_color(t_intensity intensity, t_3v *color,
 		t_object *o, t_source l);
 t_3v			get_rel_origin(t_3v origin, t_object *obj);
 t_3v			normalize(t_3v v);
-t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam);
+t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam, int src_id);
 int				fill_square(t_img *img, int index, int size, int color);
 void			init_image(void *mlx, int width_scr, int height_scr,
 		t_img *img);
@@ -285,7 +291,7 @@ void			set_drag_angle(t_event *event, int x, int y);
 void			set_move(t_event *event, int move);
 int				key_hold(int key, t_event *event);
 void			set_fixed_values(t_scene *scene);
-void			set_value_refl(t_3v point, t_object *o, int r);
+void			set_value_refl(t_3v point, t_object *o, int r, int cam_id);
 void			set_drag_angle(t_event *event, int x, int y);
 void			set_sub_menu_pixel(t_menu *menu, t_sub_m *sub_m);
 void			init_menu(t_event *event);
@@ -298,8 +304,6 @@ void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
 void			menu_click(int index, t_event *event);
 void			add_child_id(t_sub_m *parent, t_sub_m *child);
 void			change_camera(t_event *event);
-void			check_s_inside(int *inside_obj, t_source *src,
-		t_scene *scene, int b);
 t_cam			*get_selected_cam(t_scene *scene, int id);
 
 #endif

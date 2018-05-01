@@ -10,22 +10,22 @@ camera {
 light {
 		{origin, {250.0 50.0 50.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {20 5}}
+		{intensity, {10 3}}
 }
 light {
 		{origin, {-2000.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {20 5}}
+		{intensity, {10 3}}
 }
 light {
 		{origin, {-500.0 -50.0 50.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {20 5}}
+		{intensity, {10 3}}
 }
 light {
 		{origin, {900.0 100.0 10.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {20 5}}
+		{intensity, {10 3}}
 }
 object {
 		{type, {cone}}

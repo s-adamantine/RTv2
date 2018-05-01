@@ -24,10 +24,9 @@ static void	init_def_object(t_object *object, int id)
 	object->rotation = def;
 	object->radius = 1;
 	object->diffuse = 0.1;
-	object->transparent = 0.5;
+	object->transparent = 0.0;
 	def = ft_init_3v(1.0, 1.0, 0.0);
 	object->color = def;
-	object->dir = ft_init_3v(0.0, 0.0, 1.0);
 }
 
 static void	set_det(t_object *object, t_scene *scene)
@@ -75,6 +74,8 @@ static void	set_values_object(t_object *obj, char *s, char *value)
 		update_vector(&(obj->color), value);
 	else if (ft_strncmp(s, "radius", 6) == 0)
 		obj->radius = ft_atod(value);
+	else if (ft_strncmp(s, "transparent", 11) == 0)
+		obj->transparent = ft_atod(value);
 	else if (ft_strncmp(s, "reflection", 10) == 0)
 	{
 		if (!(tmp = (double *)malloc(4 * sizeof(double))))

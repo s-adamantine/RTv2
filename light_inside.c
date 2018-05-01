@@ -22,87 +22,71 @@
  * than the current method.
  */
 
-static int	behind_plane(t_object *obj, t_source *src, t_scene *scene)
+static int		check_inside(t_3v dir, t_object *obj, t_cam *cam)
 {
-	t_3v	dir;
-	double	t_value;
+	double		t_1;
+	double		t_2;
 
-	dir = ft_3v_subtract(src->origin, (scene->cam)->origin);
-	t_value = obj->f(obj, dir, 0);
-	if (t_value < 1 && t_value > 0)
+	t_1 = obj->f(obj->fixed_c[cam->id][0], dir, 0);
+	if (obj->type == 0 && t_1 < 0.999 && t_1 > 0.001)
+		return (1);
+	t_2 = obj->f(obj->fixed_c[cam->id][0], dir, 1);
+	if (t_1 < 0.999 && t_1 > 0.001 && t_2 > 1.001)
 		return (1);
 	return (0);
 }
 
-static int	s_in_object(t_object *obj, t_source *src)
+static double	check_s_inside(t_source *src, t_scene *scene, t_cam *cam)
 {
-	t_3v	tmp_dir;
-	int		intersections;
-	int		rotated;
-
-	intersections = 0;
-	rotated = 0;
-	while (intersections < 3)
-	{
-		tmp_dir = get_dir(ft_get_3v_unit(intersections), obj->rotation);
-		if (rotated)
-			tmp_dir = get_dir(tmp_dir, ft_init_3v(45, 45, 45));
-		if (obj->f(obj, tmp_dir, src->id + 1) != -1)
-			intersections++;
-		else if (rotated)
-			return (0);
-		else if (++rotated)
-			intersections = 0;
-	}
-	return (1);
-}
-
-void	check_s_inside(int *inside_obj, t_source *src,
-		t_scene *scene, int b)
-{
+	t_3v		dir;
+	t_list		*o_lst;
 	t_object	*obj;
-	t_list		*tmp;
-	int			i;
+	int			inside;
+	double		influence;
 
-	tmp = scene->objects;
-	i = 0;
-	while (tmp && tmp->content)
+	o_lst = scene->objects;
+	influence = 1.0;
+	while (o_lst && o_lst->content)
 	{
-		obj = (t_object *)tmp->content;
-		if (obj->type != 0 && s_in_object(obj, src))
-			inside_obj[i] = 1;
-		else if (obj->type == 0 && b != -1 &&
-				behind_plane(obj, src, scene))
-			inside_obj[i] = 1;
-		else
-			inside_obj[i] = 0;
-		tmp = tmp->next;
-		i++;
+		dir = ft_3v_subtract(src->origin, cam->origin);	
+		if (dir.v[0] == 0 && dir.v[1] == 0 && dir.v[2] == 0)
+			dir.v[1] = 1;
+		obj = (t_object *)o_lst->content;
+		inside = check_inside(dir, obj, cam);
+		if (inside)
+			influence *= obj->transparent;
+		o_lst = o_lst->next;
 	}
+	return (influence);
 }
 
-void		*light_inside(void *arg)
+static void		check_all(t_scene *scene, t_cam *cam)
 {
-	t_scene		*scene;
 	t_list		*s_lst;
 	t_source	*src;
-	t_cam		*cam;
+	int			i;
 
-	scene = &(((t_event *)arg)->scene);
 	s_lst = scene->lights;
+	i = 0;
 	while (s_lst && s_lst->content)
 	{
 		src = (t_source *)s_lst->content;
-		if (!(src->inside_obj = (int *)malloc(sizeof(int) * scene->amount_obj)))
-			error(1);
-		if (src->type == 0)
+		if (src->type != 0)
 		{
-			if (!(cam = get_selected_cam(scene, src->id)))
-				error (1);
-			cam->inside_obj = src->inside_obj;
+			cam->light_vis[i] = check_s_inside(src, scene, cam);
+			i++;
 		}
-		check_s_inside(src->inside_obj, src, scene, src->id);
 		s_lst = s_lst->next;
 	}
-	return (NULL);
+}
+
+void			light_inside(t_scene *scene)
+{
+	t_cam		*cam;
+
+	cam = scene->cam;
+	if (!(cam->light_vis = (double *)malloc(sizeof(double) *
+					scene->amount_light)))
+		error(1);
+	check_all(scene, cam);
 }

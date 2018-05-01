@@ -17,6 +17,7 @@ void	change_camera(t_event *event)
 					* scene->width * scene->height)))
 			error(1);
 		set_fixed_values(scene);
+		light_inside(scene);
 		get_s_values(event);
 		init_light_values((void *)event);
 	}

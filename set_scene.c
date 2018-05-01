@@ -29,7 +29,6 @@ static void	init_def_scene(t_scene *scene)
 	scene->ambient = 0.5;
 	scene->grain = 4;
 	scene->anti_a = 2;
-	scene->max_value = 0.0;
 }
 
 void		set_scene(int fd, t_scene *scene)

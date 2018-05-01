@@ -27,8 +27,8 @@ static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
 		obj = (t_object *)tmp_obj->content;
 		if (p->amount_p > 0)
 			set_value_refl((p->pi_arr[p->amount_p - 1])->point, obj,
-					p->amount_p + scene->amount_fixed * (scene->cam)->id);
-		tmp = obj->f(obj, dir, p->amount_p + scene->amount_fixed * (scene->cam)->id);
+					p->amount_p, (scene->cam)->id);
+		tmp = obj->f(obj->fixed_c[(scene->cam)->id][p->amount_p], dir, 0);
 		if (tmp > 0.001 && tmp < pi->s_value)
 		{
 			pi->s_value = tmp;
@@ -83,7 +83,7 @@ static void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type)
 	pi->point = get_point(cam, dir, pi->s_value);
 	pi->normal = get_normal(pi->vis_obj, pi->point);
 	(p->amount_p)++;
-	if ((pi->vis_obj)->specular > 0.001 && p->amount_p != scene->refl)
+	if ((pi->vis_obj)->specular > 0.001 && p->amount_p < scene->refl)
 	{
 		n_dir = get_reflection_vector(pi->normal, dir);
 		get_reflections(p, scene, n_dir, 1);

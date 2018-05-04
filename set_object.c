@@ -19,6 +19,7 @@ static void	init_def_object(t_object *obj, int id)
 	def = ft_zero_3v();
 	obj->id = id;
 	obj->type = 0;
+	obj->pattern = 1;
 	obj->f = &get_s_plane;
 	obj->axis_rotation = 0;
 	obj->origin = def;
@@ -55,7 +56,7 @@ static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 		s_error("Object type is not valid");
 }
 
-static void	change_material(t_scene *scene, t_object *obj, int value)
+static void	change_material(t_scene *scene, t_object *obj, int value, int mat)
 {
 	t_material	*material;
 	t_list		*tmp;
@@ -66,7 +67,10 @@ static void	change_material(t_scene *scene, t_object *obj, int value)
 		material = (t_material *)tmp->content;
 		if (material->id == value)
 		{
-			obj->m = *material;
+			if (mat == 0 || mat == 1)
+				obj->m = *material;
+			if (mat == 0 || mat == 2)
+				obj->m2 = *material;
 			break ;
 		}
 		tmp = tmp->next;
@@ -86,16 +90,18 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		obj->axis_rotation = ft_atod(value);
 	else if (ft_strncmp(s, "radius", 6) == 0)
 		obj->radius = ft_atod(value);
-	else if (ft_strncmp(s, "size", 4) == 0 || ft_strncmp(s, "distance", 8) == 0
-			|| ft_strncmp(s, "transparent", 11) == 0
+	else if (ft_strncmp(s, "pattern", 7) == 0)
+		obj->pattern = ft_atoi(value);
+	else if (ft_strncmp(s, "transparent", 11) == 0
 			|| ft_strncmp(s, "reflection", 10) == 0
 			|| ft_strncmp(s, "color", 5) == 0
-			|| ft_strncmp(s, "sec_color", 9) == 0
 			|| ft_strncmp(s, "transparent", 11) == 0
 			|| ft_strncmp(s, "reflection", 10) == 0)
 		set_values_material(&(obj->m), s,  value);
 	else if (ft_strncmp(s, "material", 8) == 0)
-		change_material(scene, obj, ft_atoi(value));
+		change_material(scene, obj, ft_atoi(value), 1);
+	else if (ft_strncmp(s, "sec_material", 12) == 0)
+		change_material(scene, obj, ft_atoi(value), 2);
 }
 
 void		set_object(t_list **objects, t_scene *scene, int id, int fd)
@@ -107,7 +113,7 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 	int			gnl;
 
 	init_def_object(&obj, id);
-	change_material(scene, &obj, 0);
+	change_material(scene, &obj, 0, 0);
 	while ((gnl = get_next_line(fd, &line)) == 1)
 	{
 		if (*(line) == '}')

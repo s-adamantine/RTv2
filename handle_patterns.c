@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_object_color.c                                 :+:      :+:    :+:   */
+/*   handle_patterns.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -42,18 +42,20 @@ static double	distance_from_point(t_object o, t_3v p, t_3v k)
 	return (d);
 }
 
-t_3v		get_object_color(t_object o, t_3v p)
+t_material		get_object_material(t_object o, t_3v p)
 {
 	t_3v	angles;
 	t_3v	angles_tmp;
 	t_3v	ref;
 	
+	if (o.type != 1)
+		return (o.m);
 	angles = get_angle(o, p);
 	ref = ft_init_3v(o.radius, 0, 0);
 	angles_tmp = angles;
 	angles_tmp.v[1] = fabs(fmod(angles_tmp.v[1], 20)) - 10;
 	angles_tmp.v[2] = fabs(fmod(angles_tmp.v[2], 20)) - 10;
 	if (distance_from_point(o, angles_tmp, ref) < 10)
-		return ((o.m).color);
-	return ((o.m).sec_color);
+		return (o.m2);
+	return (o.m);
 }

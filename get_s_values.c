@@ -80,9 +80,9 @@ static void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type)
 	cam.origin = (p->amount_p > 0) ? pi_prev->point : (scene->cam)->origin;
 	cam.rotation = (p->amount_p > 0) ? (pi_prev->vis_obj)->rotation :
 		(scene->cam)->rotation;
-	pi->point = get_point(cam, dir, pi->s_value);
+	pi->point = get_point(cam.origin, dir, pi->s_value);
 	pi->normal = get_normal(pi->vis_obj, pi->point);
-	pi->obj_color = get_object_color(*(pi->vis_obj), pi->point);
+	pi->obj_m = get_object_material(*(pi->vis_obj), pi->point);
 	(p->amount_p)++;
 	if (((pi->vis_obj)->m).specular > 0.001 && p->amount_p < scene->refl)
 	{
@@ -107,7 +107,7 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	if (!(pi->vis_obj))
 		return ;
 	obj = pi->vis_obj;
-	color = pi->obj_color;
+	color = (pi->obj_m).color;
 	p->color = ft_init_3v((color.v)[0] * (obj->m).ambient * scene->ambient,
 			(color.v)[1] * (obj->m).ambient * scene->ambient,
 			(color.v)[2] * (obj->m).ambient * scene->ambient);

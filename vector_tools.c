@@ -58,13 +58,13 @@ t_3v	normalize(t_3v v)
 	return (tr);
 }
 
-t_3v	get_point(t_cam origin, t_3v coor, double s_value)
+t_3v	get_point(t_3v origin, t_3v coor, double s_value)
 {
 	t_3v	point;
 	t_3v	dir;
 
 	dir = coor;
-	point = origin.origin;
+	point = origin;
 	ft_3v_scalar_p(&dir, s_value);
 	point = ft_3v_add(point, dir);
 	return (point);

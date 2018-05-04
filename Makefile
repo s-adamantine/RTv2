@@ -37,7 +37,7 @@ SRCS = 	rtv1.c\
 		camera_tools.c\
 		light_inside.c\
 		calculate_movement.c\
-		get_object_color.c\
+		handle_patterns.c\
 		mouse_event.c
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/

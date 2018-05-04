@@ -161,12 +161,8 @@ typedef struct	s_fixed_v
 
 typedef struct	s_material
 {
-	int			type;
 	int			id;
-	int			size;
-	int			distance;
 	t_3v		color;
-	t_3v		sec_color;
 	double		diffuse;
 	double		ambient;
 	double		specular;
@@ -174,11 +170,23 @@ typedef struct	s_material
 	double		transparent;
 }				t_material;
 
+typedef struct	s_pattern
+{
+	int			id;
+	int			type;
+	int			size;
+	int			distance;
+	int			amount_mat;
+}				t_pattern;
+
 typedef struct	s_object
 {
 	int			id;
 	int			type;
+	int			pattern;
+	int			from_inside;
 	t_material	m;
+	t_material	m2;
 	double		radius;
 	double		(*f)();
 	double		axis_rotation;
@@ -193,7 +201,7 @@ typedef struct	s_p_info
 	t_3v		normal;
 	double		s_value;
 	t_object	*vis_obj;
-	t_3v		obj_color;
+	t_material	obj_m;
 	t_3v		point;
 	int			type;
 	int			is_set;
@@ -281,7 +289,7 @@ t_event			init_window(t_scene scene);
 t_source		*get_source(int id, t_list *lst);
 t_3v			get_dir(t_3v dir, t_3v rotation);
 t_3v			get_rev_dir(t_3v dir, t_3v rotation);
-t_3v			get_point(t_cam origin, t_3v coor, double s_value);
+t_3v			get_point(t_3v origin, t_3v coor, double s_value);
 t_3v			get_reflection_vector(t_3v n, t_3v dir_a);
 t_3v			get_normal(t_object *obj, t_3v point);
 t_3v			get_source_origin(t_object *obj, int id);
@@ -317,7 +325,7 @@ char			*get_vector_string(t_3v v, int precision);
 void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
 void			menu_click(int index, t_event *event);
 void			add_child_id(t_sub_m *parent, t_sub_m *child);
-t_3v			get_object_color(t_object o, t_3v p);
+t_material		get_object_material(t_object o, t_3v p);
 void			change_camera(t_event *event);
 t_cam			*get_selected_cam(t_scene *scene, int id);
 void			set_values_material(t_material *m, char *s, char *value);

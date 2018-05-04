@@ -1,0 +1,8 @@
+pattern {
+		{id, {1}}
+		{description, {Polka Dots}}
+		{type, {1}}
+		{mat, {2}}
+		{size, {10}}
+		{distance, {20}}
+}

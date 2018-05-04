@@ -47,6 +47,8 @@ object {
 		{radius, {600}}
 		{transparent, {0.4}}
 		{reflection, {0.2 0.2 0.2 20}}
+		{material, {1}}
+		{sec_material, {2}}
 }
 *object {
 		{type, {sphere}}

@@ -12,6 +12,23 @@
 
 #include "rtv1.h"
 
+static void		get_light_color(t_object *obj, t_3v point, t_source *src)
+{
+	t_material	m;
+
+	if (obj->pattern == 0)
+	{
+		(src->tmp_color).v[0] *= (obj->m).transparent * ((obj->m).color).v[0];
+		(src->tmp_color).v[1] *= (obj->m).transparent * ((obj->m).color).v[1];
+		(src->tmp_color).v[2] *= (obj->m).transparent * ((obj->m).color).v[2];
+		return ;
+	}	
+	m = get_object_material(*obj, point);
+	(src->tmp_color).v[0] *= m.transparent * (m.color).v[0];
+	(src->tmp_color).v[1] *= m.transparent * (m.color).v[1];
+	(src->tmp_color).v[2] *= m.transparent * (m.color).v[2];
+}
+
 static double	light_reaches(t_3v dir, t_list *objects, int cam,
 		t_source *src)
 {
@@ -26,16 +43,12 @@ static double	light_reaches(t_3v dir, t_list *objects, int cam,
 	{
 		obj = (t_object *)o_lst->content;
 		t_value = obj->f(obj->fixed_s[cam][src->id - 1], dir, 0);
-		if (t_value > 0.001 && t_value < 0.99999 && (obj->m).transparent < 0.01)
-			return (0);
-		else if (t_value > 0.001 && t_value < 0.99999)
-		{
-			(src->tmp_color).v[0] *= (obj->m).transparent * ((obj->m).color).v[0];
-			(src->tmp_color).v[1] *= (obj->m).transparent * ((obj->m).color).v[1];
-			(src->tmp_color).v[2] *= (obj->m).transparent * ((obj->m).color).v[2];
-		}
+		if (t_value > 0.001 && t_value < 0.99999)
+			get_light_color(obj, get_point(src->origin, dir, t_value), src);
 		else if (t_value > 0.999999 && t_value < 1.000001)
+		{
 			reached = 1;
+		}
 		o_lst = o_lst->next;
 	}
 	return (reached);
@@ -89,9 +102,11 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	t_3v		o;
 	double		influence;
 
-	o = (p->pi_arr[i])->obj_color;
+	o = ((p->pi_arr[i])->obj_m).color;
 	c = &(p->c_per_src[l.id]);
 	influence = get_influence(p, i);
+	if (((p->pi_arr[i])->vis_obj)->from_inside)
+		influence *= ((p->pi_arr[i])->obj_m).transparent;
 	in.diff = in.diff * (l.intensity).diff;
 	in.spec = in.spec * (l.intensity).spec;
 	check_values(&in, o, l);

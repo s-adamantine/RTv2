@@ -12,16 +12,6 @@
 
 #include "rtv1.h"
 
-/*
- * This file should determine whether lights and cameras are inside an object,
- * or in the case of a plane behind the object. This last part is the problem
- * now, since it depends on the position of the camera. I'll skip the checking
- * for light for now, but we should revisit this part. Basically, we can very
- * much improve this by creating an array of booleans per camera, determining
- * whether a specific light has an effect. That would be much more efficient
- * than the current method.
- */
-
 static int		check_inside(t_3v dir, t_object *obj, t_cam *cam)
 {
 	double		t_1;
@@ -60,12 +50,17 @@ static double	check_s_inside(t_source *src, t_scene *scene, t_cam *cam)
 	return (influence);
 }
 
-static void		check_all(t_scene *scene, t_cam *cam)
+void			light_inside(t_scene *scene)
 {
+	t_cam		*cam;
 	t_list		*s_lst;
 	t_source	*src;
 	int			i;
 
+	cam = scene->cam;
+	if (!(cam->light_vis = (double *)malloc(sizeof(double) *
+					scene->amount_light)))
+		error(1);
 	s_lst = scene->lights;
 	i = 0;
 	while (s_lst && s_lst->content)
@@ -78,15 +73,4 @@ static void		check_all(t_scene *scene, t_cam *cam)
 		}
 		s_lst = s_lst->next;
 	}
-}
-
-void			light_inside(t_scene *scene)
-{
-	t_cam		*cam;
-
-	cam = scene->cam;
-	if (!(cam->light_vis = (double *)malloc(sizeof(double) *
-					scene->amount_light)))
-		error(1);
-	check_all(scene, cam);
 }

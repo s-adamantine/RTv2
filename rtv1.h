@@ -184,6 +184,7 @@ typedef struct	s_p_info
 	t_3v		normal;
 	double		s_value;
 	t_object	*vis_obj;
+	t_3v		obj_color;
 	t_3v		point;
 	int			type;
 	int			is_set;

@@ -41,15 +41,15 @@ static double	light_reaches(t_3v dir, t_list *objects, int cam,
 	return (reached);
 }
 
-static void		check_values(t_intensity *in, t_object o, t_source l)
+static void		check_values(t_intensity *in, t_3v o, t_source l)
 {
 	if (in->diff > 1)
 		in->diff = 1;
 	if (in->spec > 1)
 		in->spec = 1;
-	if (((o.color).v)[0] > 1 || ((o.color).v)[1] > 1 || ((o.color).v)[2] > 1
-			|| ((o.color).v)[0] < 0 || ((o.color).v)[1] < 0
-			|| ((o.color).v)[2] < 0 || ((l.tmp_color).v)[0] > 1
+	if ((o.v)[0] > 1 || (o.v)[1] > 1 || (o.v)[2] > 1
+			|| (o.v)[0] < 0 || (o.v)[1] < 0
+			|| (o.v)[2] < 0 || ((l.tmp_color).v)[0] > 1
 			|| ((l.tmp_color).v)[1] > 1 || ((l.tmp_color).v)[2] > 1
 			|| ((l.tmp_color).v)[0] < 0 || ((l.tmp_color).v)[1] < 0
 			|| ((l.tmp_color).v)[2] < 0)
@@ -86,10 +86,10 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 		t_source l, int i)
 {
 	t_3v		*c;
-	t_object	o;
+	t_3v		o;
 	double		influence;
 
-	o = *((p->pi_arr[i])->vis_obj);
+	o = (p->pi_arr[i])->obj_color;
 	c = &(p->c_per_src[l.id]);
 	influence = get_influence(p, i);
 	in.diff = in.diff * (l.intensity).diff;
@@ -97,9 +97,9 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	check_values(&in, o, l);
 	in.diff *= (influence * (1 - in.spec));
 	in.spec *= influence;
-	(c->v)[0] += in.diff * ((l.tmp_color).v)[0] * ((o.color).v)[0];
-	(c->v)[1] += in.diff * ((l.tmp_color).v)[1] * ((o.color).v)[1];
-	(c->v)[2] += in.diff * ((l.tmp_color).v)[2] * ((o.color).v)[2];
+	(c->v)[0] += in.diff * ((l.tmp_color).v)[0] * (o.v)[0];
+	(c->v)[1] += in.diff * ((l.tmp_color).v)[1] * (o.v)[1];
+	(c->v)[2] += in.diff * ((l.tmp_color).v)[2] * (o.v)[2];
 	(c->v)[0] += in.spec * ((l.tmp_color).v)[0];
 	(c->v)[1] += in.spec * ((l.tmp_color).v)[1];
 	(c->v)[2] += in.spec * ((l.tmp_color).v)[2];

@@ -13,7 +13,7 @@
 #include "rtv1.h"
 
 static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
-		t_list *objects, int r)
+		t_scene *scene, t_p_info *pi)
 {
 	double		tmp;
 	t_list		*tmp_obj;
@@ -21,63 +21,93 @@ static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
 	t_object	*visible_object;
 
 	visible_object = NULL;
-	tmp_obj = objects;
-	while (objects && objects->content)
+	tmp_obj = scene->objects;
+	while (tmp_obj && tmp_obj->content)
 	{
-		obj = (t_object *)objects->content;
-		if (r > 0)
-			set_value_refl(p->point[r - 1], obj, r);
-		tmp = obj->f(obj, dir, r);
-		if (tmp > 0.001 && tmp < p->s_value[r])
+		obj = (t_object *)tmp_obj->content;
+		if (p->amount_p > 0)
+			set_value_refl((p->pi_arr[p->amount_p - 1])->point, obj,
+					p->amount_p, (scene->cam)->id);
+		tmp = obj->f(obj->fixed_c[(scene->cam)->id][p->amount_p], dir, 0);
+		if (tmp > 0.001 && tmp < pi->s_value)
 		{
-			p->s_value[r] = tmp;
+			pi->s_value = tmp;
 			visible_object = obj;
 		}
-		objects = objects->next;
+		tmp_obj = tmp_obj->next;
 	}
-	objects = tmp_obj;
 	return (visible_object);
 }
 
-static void		get_reflections(int r, t_pixel *p, t_scene *scene, t_3v dir)
+static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
 {
-	t_cam	cam;
-	t_3v	n_dir;
+	t_p_info	*pi;
+	t_p_info	**tmp;
+	int			i;
 
-	p->s_value[r] = MAX_S_VALUE;
-	p->vis_obj[r] = get_vis_obj(p, dir, scene->objects, r);
-	if (!(p->vis_obj[r]) || (r > 0 &&
-				(p->vis_obj[r])->id == (p->vis_obj[r - 1])->id))
+	if (!(tmp = (t_p_info **)malloc(sizeof(t_p_info *) * (p->amount_p + 1))))
+		error (1);
+	i = -1;
+	while (++i < p->amount_p)
+		tmp[i] = p->pi_arr[i];
+	free(p->pi_arr);
+	p->pi_arr = tmp;
+	if (!(p->pi_arr[p->amount_p] = (t_p_info *)malloc(sizeof(t_p_info))))
+		error (1);
+	pi = p->pi_arr[p->amount_p];
+	pi->s_value = MAX_S_VALUE;
+	pi->vis_obj = get_vis_obj(p, dir, scene, pi);
+	pi->type = type;
+	if (!(pi->vis_obj))
+	{
+		free(pi);
+		return (NULL);
+	}
+	return (pi);
+}
+
+static void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type)
+{
+	t_cam		cam;
+	t_3v		n_dir;
+	t_p_info	*pi;
+	t_p_info	*pi_prev;
+
+	pi = init_p_info(p, dir, scene, type);
+	if (!pi)
 		return ;
-	cam.origin = (r > 0) ? p->point[r - 1] : (scene->camera).origin;
-	cam.rotation = (r > 0) ? (p->vis_obj[r - 1])->rotation :
-		(scene->camera).rotation;
-	p->point[r] = get_point(cam, dir, p->s_value[r]);
-	p->obj_color[r] = get_object_color(*(p->vis_obj[r]), p->point[r]);
-	p->normal[r] = get_normal(p->vis_obj[r], p->point[r]);
-	if (((p->vis_obj[r])->specular > -0.001 && (p->vis_obj[r])->specular
-				< 0.001) || r + 1 == scene->refl)
-		return ;
-	n_dir = get_reflection_vector(p->normal[r], dir);
-	get_reflections(r + 1, p, scene, n_dir);
+	pi_prev = (p->amount_p > 0) ? p->pi_arr[p->amount_p - 1] : NULL;
+	cam.origin = (p->amount_p > 0) ? pi_prev->point : (scene->cam)->origin;
+	cam.rotation = (p->amount_p > 0) ? (pi_prev->vis_obj)->rotation :
+		(scene->cam)->rotation;
+	pi->point = get_point(cam, dir, pi->s_value);
+	pi->normal = get_normal(pi->vis_obj, pi->point);
+	(p->amount_p)++;
+	if ((pi->vis_obj)->specular > 0.001 && p->amount_p < scene->refl)
+	{
+		n_dir = get_reflection_vector(pi->normal, dir);
+		get_reflections(p, scene, n_dir, 1);
+	}
+	if ((pi->vis_obj)->transparent > 0.001)
+		get_reflections(p, scene, dir, 2);
 }
 
 static void		get_value(t_scene *scene, t_pixel *p)
 {
 	t_3v		dir;
-	t_3v		color;
 	t_object	*obj;
+	t_p_info	*pi;
 
 	dir = p->coor;
-	dir = normalize(get_dir(dir, (scene->camera).rotation));
-	get_reflections(0, p, scene, dir);
-	if (!p->vis_obj[0])
+	dir = normalize(get_dir(dir, (scene->cam)->rotation));
+	get_reflections(p, scene, dir, 0);
+	pi = p->pi_arr[0];
+	if (!(pi->vis_obj))
 		return ;
-	color = p->obj_color[0];
-	obj = p->vis_obj[0];
-	p->color = ft_init_3v(color.v[0] * obj->ambient * scene->ambient,
-			color.v[1] * obj->ambient * scene->ambient,
-			color.v[2] * obj->ambient * scene->ambient);
+	obj = pi->vis_obj;
+	p->color = ft_init_3v(((obj->color).v)[0] * obj->ambient * scene->ambient,
+			((obj->color).v)[1] * obj->ambient * scene->ambient,
+			((obj->color).v)[2] * obj->ambient * scene->ambient);
 	p->c_per_src[0] = p->color;
 }
 
@@ -88,22 +118,11 @@ static void		setup_pixel(t_pixel *pixel, t_scene scene)
 	if (!(pixel->c_per_src = (t_3v *)malloc(sizeof(t_3v)
 					* (scene.amount_light + 1))))
 		error(1);
-	if (!(pixel->vis_obj = (t_object **)malloc(sizeof(t_object *)
-					* scene.refl)))
-		error(1);
-	if (!(pixel->s_value = (double *)malloc(sizeof(double) * scene.refl)))
-		error(1);
-	if (!(pixel->point = (t_3v *)malloc(sizeof(t_3v) * scene.refl)))
-		error(1);
-	if (!(pixel->obj_color = (t_3v *)malloc(sizeof(t_3v) * scene.refl)))
-		error(1);
-	if (!(pixel->normal = (t_3v *)malloc(sizeof(t_3v) * scene.refl)))
+	if (!(pixel->pi_arr = (t_p_info **)malloc(sizeof(t_p_info *))))
 		error(1);
 	ft_bzero(pixel->c_per_src, sizeof(t_3v) * scene.amount_light);
-	ft_bzero(pixel->vis_obj, sizeof(t_object *) * scene.refl);
-	ft_bzero(pixel->point, sizeof(t_3v *) * scene.refl);
-	ft_bzero(pixel->obj_color, sizeof(t_3v *) * scene.refl);
 	pixel->color = ft_zero_3v();
+	pixel->amount_p = 0;
 	(pixel->coor).v[0] = -(scene.width / 2);
 }
 
@@ -121,7 +140,7 @@ void			*get_s_values(void *arg)
 		j = 0;
 		while (j < scene.width)
 		{
-			pixel = &((((t_event *)arg)->p_array)[j + scene.width * i]);
+			pixel = &((scene.cam)->p_array[j + scene.width * i]);
 			setup_pixel(pixel, scene);
 			(pixel->coor).v[1] = (double)(j - scene.width / 2.0);
 			(pixel->coor).v[2] = (double)(scene.height / 2.0 - i);
@@ -132,5 +151,6 @@ void			*get_s_values(void *arg)
 		}
 		i++;
 	}
+	(scene.cam)->init = 1;
 	return (NULL);
 }

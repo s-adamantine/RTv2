@@ -12,10 +12,11 @@
 
 #include "rtv1.h"
 
-static int		light_reaches(t_3v dir, t_list *objects, int fixed_val_id)
+static double	light_reaches(t_3v dir, t_list *objects, int cam,
+		t_source *src)
 {
 	double		t_value;
-	int			reached;
+	double		reached;
 	t_list		*o_lst;
 	t_object	*obj;
 
@@ -24,9 +25,15 @@ static int		light_reaches(t_3v dir, t_list *objects, int fixed_val_id)
 	while (o_lst && o_lst->content)
 	{
 		obj = (t_object *)o_lst->content;
-		t_value = obj->f(obj, dir, fixed_val_id);
-		if (t_value > 0.001 && t_value < 0.99999)
+		t_value = obj->f(obj->fixed_s[cam][src->id - 1], dir, 0);
+		if (t_value > 0.001 && t_value < 0.99999 && obj->transparent < 0.01)
 			return (0);
+		else if (t_value > 0.001 && t_value < 0.99999)
+		{
+			(src->tmp_color).v[0] *= obj->transparent * (obj->color).v[0];
+			(src->tmp_color).v[1] *= obj->transparent * (obj->color).v[1];
+			(src->tmp_color).v[2] *= obj->transparent * (obj->color).v[2];
+		}
 		else if (t_value > 0.999999 && t_value < 1.000001)
 			reached = 1;
 		o_lst = o_lst->next;
@@ -34,64 +41,69 @@ static int		light_reaches(t_3v dir, t_list *objects, int fixed_val_id)
 	return (reached);
 }
 
-static void		check_values(t_intensity *in, t_3v color, t_source l)
+static void		check_values(t_intensity *in, t_object o, t_source l)
 {
 	if (in->diff > 1)
 		in->diff = 1;
 	if (in->spec > 1)
 		in->spec = 1;
-	if (color.v[0] > 1 || color.v[1] > 1 || color.v[2] > 1
-			|| color.v[0] < 0 || color.v[1] < 0
-			|| color.v[2] < 0 || ((l.color).v)[0] > 1
-			|| ((l.color).v)[1] > 1 || ((l.color).v)[2] > 1
-			|| ((l.color).v)[0] < 0 || ((l.color).v)[1] < 0
-			|| ((l.color).v)[2] < 0)
+	if (((o.color).v)[0] > 1 || ((o.color).v)[1] > 1 || ((o.color).v)[2] > 1
+			|| ((o.color).v)[0] < 0 || ((o.color).v)[1] < 0
+			|| ((o.color).v)[2] < 0 || ((l.tmp_color).v)[0] > 1
+			|| ((l.tmp_color).v)[1] > 1 || ((l.tmp_color).v)[2] > 1
+			|| ((l.tmp_color).v)[0] < 0 || ((l.tmp_color).v)[1] < 0
+			|| ((l.tmp_color).v)[2] < 0)
 		error(4);
+}
+
+static double	get_influence(t_pixel *p, int i)
+{
+	double	influence;
+
+	influence = 1 - ((p->pi_arr[i])->vis_obj)->transparent;
+	if ((p->pi_arr[i])->type == 2)
+	{
+		while (i > 0)
+		{
+			if ((p->pi_arr[i - 1])->type % 2 == 0)
+				influence *= ((p->pi_arr[i - 1])->vis_obj)->transparent;
+			i--;
+		}
+	}
+	else if ((p->pi_arr[i])->type == 1)
+	{
+		while (i > 0)
+		{
+			if ((p->pi_arr[i - 1])->type < 2)
+				influence *= ((p->pi_arr[i - 1])->vis_obj)->specular;
+			i--;
+		}
+	}
+	return (influence);
 }
 
 static double	set_light_value(t_intensity in, t_pixel *p,
 		t_source l, int i)
 {
 	t_3v		*c;
-	t_3v		o;
+	t_object	o;
 	double		influence;
 
-	o = p->obj_color[i];
+	o = *((p->pi_arr[i])->vis_obj);
 	c = &(p->c_per_src[l.id]);
-	influence = 1.0;
-	while (i > 0)
-	{
-		influence *= ((p->vis_obj)[i - 1])->specular;
-		i--;
-	}
+	influence = get_influence(p, i);
 	in.diff = in.diff * (l.intensity).diff;
 	in.spec = in.spec * (l.intensity).spec;
 	check_values(&in, o, l);
-	(c->v)[0] += influence * (1 - in.spec) * in.diff * ((l.color).v)[0]
-		* o.v[0];
-	(c->v)[1] += influence * (1 - in.spec) * in.diff * ((l.color).v)[1]
-		* o.v[1];
-	(c->v)[2] += influence * (1 - in.spec) * in.diff * ((l.color).v)[2]
-		* o.v[2];
-	(c->v)[0] += in.spec * ((l.color).v)[0];
-	(c->v)[1] += in.spec * ((l.color).v)[1];
-	(c->v)[2] += in.spec * ((l.color).v)[2];
+	in.diff *= (influence * (1 - in.spec));
+	in.spec *= influence;
+	(c->v)[0] += in.diff * ((l.tmp_color).v)[0] * ((o.color).v)[0];
+	(c->v)[1] += in.diff * ((l.tmp_color).v)[1] * ((o.color).v)[1];
+	(c->v)[2] += in.diff * ((l.tmp_color).v)[2] * ((o.color).v)[2];
+	(c->v)[0] += in.spec * ((l.tmp_color).v)[0];
+	(c->v)[1] += in.spec * ((l.tmp_color).v)[1];
+	(c->v)[2] += in.spec * ((l.tmp_color).v)[2];
 	return ((c->v)[0] + (c->v)[1] + (c->v)[2]);
-}
-
-static int		inside_object(t_pixel *p, t_source src, t_cam cam, int amount)
-{
-	int	i;
-
-	i = 0;
-	(void)p;
-	while (i < amount)
-	{
-		if (src.inside_obj[i] != cam.inside_obj[i])
-			return (0);
-		i++;
-	}
-	return (1);
 }
 
 static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
@@ -99,24 +111,23 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 	t_3v			dir;
 	t_intensity		in;
 	int				r;
-	double			total_value;
+	t_p_info		*pi;
 
 	r = 0;
-	total_value = 0.0;
-	while (r < scene->refl && p->vis_obj[r])
+	while (r < p->amount_p)
 	{
-		dir = ft_3v_subtract(p->point[r], src.origin);
-		if (!inside_object(p, src, scene->camera, scene->amount_obj))
+		pi = p->pi_arr[r];
+		src.tmp_color = src.color;
+		if (!(pi->vis_obj))
 			break ;
+		dir = ft_3v_subtract(pi->point, src.origin);
 		in.diff = 0;
 		in.spec = 0;
-		if (light_reaches(dir, scene->objects, src.id + scene->refl - 1) > 0.01)
-			in = get_intensity(p, r, dir, scene->camera);
-		total_value = set_light_value(in, p, src, r);
+		if (light_reaches(dir, scene->objects, (scene->cam)->id, &src) > 0.01)
+			in = get_intensity(pi, dir, *(scene->cam), src.id - 1);
+		set_light_value(in, p, src, r);
 		r++;
 	}
-	if (total_value > scene->max_value)
-		scene->max_value = total_value;
 }
 
 void		set_light_per_pixel(t_event *event, t_source src)
@@ -131,10 +142,11 @@ void		set_light_per_pixel(t_event *event, t_source src)
 		j = 0;
 		while (j < (event->scene).width)
 		{
-			p = &((event->p_array)[j + i * (event->scene).width]);
+			p = &((((event->scene).cam)->p_array)[j + i *
+					(event->scene).width]);
 			p->c_per_src[src.id] = ft_zero_3v();
 			j++;
-			if (!p->vis_obj[0])
+			if (!(p->pi_arr[0])->vis_obj)
 				continue ;
 			light_intensity(src, p, &(event->scene));
 		}

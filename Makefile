@@ -24,21 +24,18 @@ SRCS = 	rtv1.c\
 		tools.c\
 		vector_tools.c\
 		color_tools.c\
-		menu_tools.c\
 		s_functions.c\
 		set_light_per_pixel.c\
 		get_s_values.c\
 		window_init.c\
 		key_control.c\
-		menu_control.c\
 		anti_aliasing.c\
 		fill_square.c\
 		light_control.c\
-		sub_menu_control.c\
+		camera_control.c\
+		camera_tools.c\
 		light_inside.c\
 		calculate_movement.c\
-		object_menu.c\
-		menu_click.c\
 		get_object_color.c\
 		mouse_event.c
 OBJ = $(SRCS:%.c=%.o)

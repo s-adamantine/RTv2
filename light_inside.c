@@ -12,85 +12,81 @@
 
 #include "rtv1.h"
 
-static int	behind_plane(t_object *obj, t_source *src, t_scene *scene)
-{
-	t_3v	dir;
-	double	t_value;
+/*
+ * This file should determine whether lights and cameras are inside an object,
+ * or in the case of a plane behind the object. This last part is the problem
+ * now, since it depends on the position of the camera. I'll skip the checking
+ * for light for now, but we should revisit this part. Basically, we can very
+ * much improve this by creating an array of booleans per camera, determining
+ * whether a specific light has an effect. That would be much more efficient
+ * than the current method.
+ */
 
-	dir = ft_3v_subtract(src->origin, (scene->camera).origin);
-	t_value = obj->f(obj, dir, 0);
-	if (t_value < 1 && t_value > 0)
+static int		check_inside(t_3v dir, t_object *obj, t_cam *cam)
+{
+	double		t_1;
+	double		t_2;
+
+	t_1 = obj->f(obj->fixed_c[cam->id][0], dir, 0);
+	if (obj->type == 0 && t_1 < 0.999 && t_1 > 0.001)
+		return (1);
+	t_2 = obj->f(obj->fixed_c[cam->id][0], dir, 1);
+	if (t_1 < 0.999 && t_1 > 0.001 && t_2 > 1.001)
 		return (1);
 	return (0);
 }
 
-static int	s_in_object(t_object *obj, t_source *src)
+static double	check_s_inside(t_source *src, t_scene *scene, t_cam *cam)
 {
-	t_3v	tmp_dir;
-	int		intersections;
-	int		rotated;
+	t_3v		dir;
+	t_list		*o_lst;
+	t_object	*obj;
+	int			inside;
+	double		influence;
 
-	intersections = 0;
-	rotated = 0;
-	while (intersections < 3)
+	o_lst = scene->objects;
+	influence = 1.0;
+	while (o_lst && o_lst->content)
 	{
-		tmp_dir = get_dir(ft_get_3v_unit(intersections), obj->rotation);
-		if (rotated)
-			tmp_dir = get_dir(tmp_dir, ft_init_3v(45, 45, 45));
-		if (obj->f(obj, tmp_dir, src->id + 1) != -1)
-			intersections++;
-		else if (rotated)
-			return (0);
-		else if (++rotated)
-			intersections = 0;
+		dir = ft_3v_subtract(src->origin, cam->origin);	
+		if (dir.v[0] == 0 && dir.v[1] == 0 && dir.v[2] == 0)
+			dir.v[1] = 1;
+		obj = (t_object *)o_lst->content;
+		inside = check_inside(dir, obj, cam);
+		if (inside)
+			influence *= obj->transparent;
+		o_lst = o_lst->next;
 	}
-	return (1);
+	return (influence);
 }
 
-void	check_s_inside(int *inside_obj, t_source *src,
-		t_scene *scene, int b)
+static void		check_all(t_scene *scene, t_cam *cam)
 {
-	t_object	*obj;
-	t_list		*tmp;
+	t_list		*s_lst;
+	t_source	*src;
 	int			i;
 
-	tmp = scene->objects;
-	i = 0;
-	while (tmp && tmp->content)
-	{
-		obj = (t_object *)tmp->content;
-		if (obj->type != 0 && s_in_object(obj, src))
-			inside_obj[i] = 1;
-		else if (obj->type == 0 && b != -1 &&
-				behind_plane(obj, src, scene))
-			inside_obj[i] = 1;
-		else
-			inside_obj[i] = 0;
-		tmp = tmp->next;
-		i++;
-	}
-}
-
-void		*light_inside(void *arg)
-{
-	t_scene		*scene;
-	t_list		*s_lst;
-	t_cam		*cam;
-	t_source	*src;
-
-	scene = &(((t_event *)arg)->scene);
 	s_lst = scene->lights;
-	cam = &(scene->camera);
+	i = 0;
 	while (s_lst && s_lst->content)
 	{
 		src = (t_source *)s_lst->content;
-		if (!(src->inside_obj = (int *)malloc(sizeof(int) * scene->amount_obj)))
-			error(1);
-		check_s_inside(src->inside_obj, src, scene, src->id);
+		if (src->type != 0)
+		{
+			cam->light_vis[i] = check_s_inside(src, scene, cam);
+			i++;
+		}
 		s_lst = s_lst->next;
 	}
-	if (!(cam->inside_obj = (int *)malloc(sizeof(int) * scene->amount_obj)))
+}
+
+void			light_inside(t_scene *scene)
+{
+	t_cam		*cam;
+
+	cam = scene->cam;
+	if (!(cam->light_vis = (double *)malloc(sizeof(double) *
+					scene->amount_light)))
 		error(1);
-	check_s_inside(cam->inside_obj, src, scene, -1);
-	return (NULL);
+	check_all(scene, cam);
 }

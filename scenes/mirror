@@ -1,6 +1,7 @@
 render {
 		{name, {Scene Plane}}
 		{dimensions, {1000 700}}
+		{reflection, {2}}
 		{ambient, {2}}
 }
 camera {
@@ -38,5 +39,5 @@ object {
 		{origin, {0.0 -200.0 -1500.0}}
 		{color, {1.0 0.0 1.0}}
 		{radius, {150}}
-		{reflection, {0.1 0.4 0.0 20}}
+		{reflection, {0.1 0.4 0.1 20}}
 }

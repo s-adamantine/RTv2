@@ -38,10 +38,10 @@ int			toggle_button(int button, int x, int y, t_event *event)
 
 int			mouse_click(int button, int x, int y, t_event *event)
 {
-	if (button == 1 && (x > (event->scene).width))
-		menu_click((x - (event->scene.width) + y *
-					((event->menu).sub_m[0])->width), event);
-	else if (button == 1)
+//	if (button == 1 && (x > (event->scene).width))
+//		menu_click((x - (event->scene.width) + y *
+//					((event->menu).sub_m[0]).width), event);
+	if (button == 1)
 	{
 		event->mouse_hold = 1;
 		event->x_0 = x;

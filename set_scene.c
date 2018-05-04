@@ -14,10 +14,9 @@
 
 static void	init_def_scene(t_scene *scene)
 {
-	t_cam	cam;
-
 	if (!(scene->objects = ft_lstnew(NULL, 0)) ||
-			!(scene->lights = ft_lstnew(NULL, 0)))
+			!(scene->lights = ft_lstnew(NULL, 0)) ||
+			!(scene->cameras = ft_lstnew(NULL, 0)))
 		error(1);
 	scene->name = "Default Scene";
 	scene->amount_obj = 0;
@@ -30,11 +29,6 @@ static void	init_def_scene(t_scene *scene)
 	scene->ambient = 0.5;
 	scene->grain = 4;
 	scene->anti_a = 2;
-	scene->max_value = 0.0;
-	cam.id = -1;
-	cam.origin = ft_init_3v(700, 0, 0);
-	cam.rotation = ft_zero_3v();
-	scene->camera = cam;
 }
 
 void		set_scene(int fd, t_scene *scene)
@@ -59,6 +53,7 @@ void		set_scene(int fd, t_scene *scene)
 	if (gnl < 0)
 		error(0);
 	free(line);
+	scene->cam = (t_cam *)(scene->cameras)->content;
 	if (!(scene->grain))
 		scene->grain = (scene->amount_obj && scene->amount_light) ?
 			scene->amount_obj * scene->amount_light : 1;

@@ -144,6 +144,7 @@ typedef struct	s_source
 	t_intensity	intensity;
 	t_3v		origin;
 	t_3v		color;
+	t_3v		tmp_color;
 }				t_source;
 
 typedef struct	s_fixed_v

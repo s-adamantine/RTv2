@@ -12,11 +12,11 @@
 
 #include "rtv1.h"
 
-static int		light_reaches(t_3v dir, t_list *objects, int cam,
-		int fixed_val_id)
+static double	light_reaches(t_3v dir, t_list *objects, int cam,
+		t_source *src)
 {
 	double		t_value;
-	int			reached;
+	double		reached;
 	t_list		*o_lst;
 	t_object	*obj;
 
@@ -25,9 +25,15 @@ static int		light_reaches(t_3v dir, t_list *objects, int cam,
 	while (o_lst && o_lst->content)
 	{
 		obj = (t_object *)o_lst->content;
-		t_value = obj->f(obj->fixed_s[cam][fixed_val_id], dir, 0);
-		if (t_value > 0.001 && t_value < 0.99999 && obj->transparent < 0.001)
+		t_value = obj->f(obj->fixed_s[cam][src->id - 1], dir, 0);
+		if (t_value > 0.001 && t_value < 0.99999 && obj->transparent < 0.01)
 			return (0);
+		else if (t_value > 0.001 && t_value < 0.99999)
+		{
+			(src->tmp_color).v[0] *= obj->transparent * (obj->color).v[0];
+			(src->tmp_color).v[1] *= obj->transparent * (obj->color).v[1];
+			(src->tmp_color).v[2] *= obj->transparent * (obj->color).v[2];
+		}
 		else if (t_value > 0.999999 && t_value < 1.000001)
 			reached = 1;
 		o_lst = o_lst->next;
@@ -43,10 +49,10 @@ static void		check_values(t_intensity *in, t_object o, t_source l)
 		in->spec = 1;
 	if (((o.color).v)[0] > 1 || ((o.color).v)[1] > 1 || ((o.color).v)[2] > 1
 			|| ((o.color).v)[0] < 0 || ((o.color).v)[1] < 0
-			|| ((o.color).v)[2] < 0 || ((l.color).v)[0] > 1
-			|| ((l.color).v)[1] > 1 || ((l.color).v)[2] > 1
-			|| ((l.color).v)[0] < 0 || ((l.color).v)[1] < 0
-			|| ((l.color).v)[2] < 0)
+			|| ((o.color).v)[2] < 0 || ((l.tmp_color).v)[0] > 1
+			|| ((l.tmp_color).v)[1] > 1 || ((l.tmp_color).v)[2] > 1
+			|| ((l.tmp_color).v)[0] < 0 || ((l.tmp_color).v)[1] < 0
+			|| ((l.tmp_color).v)[2] < 0)
 		error(4);
 }
 
@@ -91,12 +97,12 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	check_values(&in, o, l);
 	in.diff *= (influence * (1 - in.spec));
 	in.spec *= influence;
-	(c->v)[0] += in.diff * ((l.color).v)[0] * ((o.color).v)[0];
-	(c->v)[1] += in.diff * ((l.color).v)[1] * ((o.color).v)[1];
-	(c->v)[2] += in.diff * ((l.color).v)[2] * ((o.color).v)[2];
-	(c->v)[0] += in.spec * ((l.color).v)[0];
-	(c->v)[1] += in.spec * ((l.color).v)[1];
-	(c->v)[2] += in.spec * ((l.color).v)[2];
+	(c->v)[0] += in.diff * ((l.tmp_color).v)[0] * ((o.color).v)[0];
+	(c->v)[1] += in.diff * ((l.tmp_color).v)[1] * ((o.color).v)[1];
+	(c->v)[2] += in.diff * ((l.tmp_color).v)[2] * ((o.color).v)[2];
+	(c->v)[0] += in.spec * ((l.tmp_color).v)[0];
+	(c->v)[1] += in.spec * ((l.tmp_color).v)[1];
+	(c->v)[2] += in.spec * ((l.tmp_color).v)[2];
 	return ((c->v)[0] + (c->v)[1] + (c->v)[2]);
 }
 
@@ -111,13 +117,13 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 	while (r < p->amount_p)
 	{
 		pi = p->pi_arr[r];
+		src.tmp_color = src.color;
 		if (!(pi->vis_obj))
 			break ;
 		dir = ft_3v_subtract(pi->point, src.origin);
 		in.diff = 0;
 		in.spec = 0;
-		if (light_reaches(dir, scene->objects, (scene->cam)->id,
-					src.id - 1) > 0.01)
+		if (light_reaches(dir, scene->objects, (scene->cam)->id, &src) > 0.01)
 			in = get_intensity(pi, dir, *(scene->cam), src.id - 1);
 		set_light_value(in, p, src, r);
 		r++;

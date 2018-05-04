@@ -40,8 +40,8 @@ static double	get_d(t_3v dir, t_3v n, t_object *obj)
 	if (size == 0 && obj->type != 3)
 		error(5);
 	angle = -ft_3v_dot_product(n, dir);
-	if (obj->type == 0)
-		angle = fabs(angle);
+//	if (obj->type == 0)
+	angle = fabs(angle);
 	d = (obj->diffuse / M_PI) * angle;
 	return (d);
 }

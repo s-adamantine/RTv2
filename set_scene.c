@@ -16,7 +16,8 @@ static void	init_def_scene(t_scene *scene)
 {
 	if (!(scene->objects = ft_lstnew(NULL, 0)) ||
 			!(scene->lights = ft_lstnew(NULL, 0)) ||
-			!(scene->cameras = ft_lstnew(NULL, 0)))
+			!(scene->cameras = ft_lstnew(NULL, 0)) ||
+			!(scene->materials = ft_lstnew(NULL, 0)))
 		error(1);
 	scene->name = "Default Scene";
 	scene->amount_obj = 0;
@@ -29,6 +30,7 @@ static void	init_def_scene(t_scene *scene)
 	scene->ambient = 0.5;
 	scene->grain = 4;
 	scene->anti_a = 2;
+	set_material(scene);
 }
 
 void		set_scene(int fd, t_scene *scene)

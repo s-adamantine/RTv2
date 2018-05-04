@@ -12,88 +12,90 @@
 
 #include "rtv1.h"
 
-static void	init_def_object(t_object *object, int id)
+static void	init_def_object(t_object *obj, int id)
 {
 	t_3v	def;
 
 	def = ft_zero_3v();
-	object->id = id;
-	object->type = 0;
-	object->axis_rotation = 0;
-	object->origin = def;
+	obj->id = id;
+	obj->type = 0;
+	obj->f = &get_s_plane;
+	obj->axis_rotation = 0;
+	obj->origin = def;
 	def = ft_zero_3v();
-	object->rotation = def;
-	object->axis_rotation = 0;
-	object->radius = 1;
-	object->diffuse = 0.1;
-	object->transparent = 0.0;
-	def = ft_init_3v(1.0, 1.0, 0.0);
-	object->color = def;
-	object->sec_color = ft_init_3v(0.0, 0.0, 1.0);
+	obj->rotation = def;
+	obj->axis_rotation = 0;
+	obj->radius = 1;
 }
 
-static void	set_det(t_object *object, t_scene *scene)
+static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 {
 	scene->amount_obj++;
-	if (object->type == 0)
-		object->f = &get_s_plane;
-	else if (object->type == 1)
-		object->f = &get_s_sphere;
-	else if (object->type == 2)
-		object->f = &get_s_cylinder;
-	else if (object->type == 3)
-		object->f = &get_s_cone;
-}
-
-static int	get_object_type(char *s)
-{
-	int		to_return;
-
-	to_return = -1;
 	if (ft_strncmp(s, "plane", 5) == 0)
-		to_return = 0;
+	{
+		obj->f = &get_s_plane;
+		obj->type  = 0;
+	}
 	else if (ft_strncmp(s, "sphere", 6) == 0)
-		to_return = 1;
+	{
+		obj->f = &get_s_sphere;
+		obj->type = 1;
+	}
 	else if (ft_strncmp(s, "cylinder", 8) == 0)
-		to_return = 2;
+	{
+		obj->f = &get_s_cylinder;
+		obj->type = 2;
+	}
 	else if (ft_strncmp(s, "cone", 4) == 0)
-		to_return = 3;
+	{
+		obj->f = &get_s_cone;
+		obj->type = 3;
+	}
 	else
 		s_error("Object type is not valid");
-	return (to_return);
 }
 
-static void	set_values_object(t_object *obj, char *s, char *value)
+static void	change_material(t_scene *scene, t_object *obj, int value)
 {
-	double	*tmp;
+	t_material	*material;
+	t_list		*tmp;
 
+	tmp = scene->materials;
+	while (tmp && tmp->content)
+	{
+		material = (t_material *)tmp->content;
+		if (material->id == value)
+		{
+			obj->m = *material;
+			break ;
+		}
+		tmp = tmp->next;
+	}
+}
+
+static void	set_values_object(t_scene *scene, t_object *obj, char *s,
+		char *value)
+{
 	if (ft_strncmp(s, "type", 4) == 0)
-		obj->type = get_object_type(value);
+		set_object_type(value, obj, scene);
 	else if (ft_strncmp(s, "origin", 6) == 0)
 		update_vector(&(obj->origin), value);
 	else if (ft_strncmp(s, "rotation", 7) == 0)
 		update_vector(&(obj->rotation), value);
 	else if (ft_strncmp(s, "axis_rotation", 11) == 0)
 		obj->axis_rotation = ft_atod(value);
-	else if (ft_strncmp(s, "color", 5) == 0)
-		update_vector(&(obj->color), value);
-	else if (ft_strncmp(s, "sec_color", 9) == 0)
-		update_vector(&(obj->sec_color), value);
 	else if (ft_strncmp(s, "radius", 6) == 0)
 		obj->radius = ft_atod(value);
-	else if (ft_strncmp(s, "transparent", 11) == 0)
-		obj->transparent = ft_atod(value);
-	else if (ft_strncmp(s, "reflection", 10) == 0)
-	{
-		if (!(tmp = (double *)malloc(4 * sizeof(double))))
-			error(0);
-		get_doubles_from_line(tmp, value, 4);
-		obj->ambient = tmp[0];
-		obj->diffuse = tmp[1];
-		obj->specular = tmp[2];
-		obj->shininess = tmp[3];
-		free(tmp);
-	}
+	else if (ft_strncmp(s, "size", 4) == 0 || ft_strncmp(s, "distance", 8) == 0
+			|| ft_strncmp(s, "transparent", 11) == 0
+			|| ft_strncmp(s, "reflection", 10) == 0
+			|| ft_strncmp(s, "color", 5) == 0
+			|| ft_strncmp(s, "sec_color", 9) == 0
+			|| ft_strncmp(s, "transparent", 11) == 0
+			|| ft_strncmp(s, "reflection", 10) == 0)
+		set_values_material(&(obj->m), s,  value);
+	else if (ft_strncmp(s, "material", 8) == 0)
+		change_material(scene, obj, ft_atoi(value));
 }
 
 void		set_object(t_list **objects, t_scene *scene, int id, int fd)
@@ -101,10 +103,11 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 	char		*line;
 	char		*s;
 	char		*value;
-	t_object	object;
+	t_object	obj;
 	int			gnl;
 
-	init_def_object(&object, id);
+	init_def_object(&obj, id);
+	change_material(scene, &obj, 0);
 	while ((gnl = get_next_line(fd, &line)) == 1)
 	{
 		if (*(line) == '}')
@@ -113,14 +116,13 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 			error(0);
 		if (!(value = ft_brace_content(s, '{', '}')))
 			error(0);
-		set_values_object(&object, s, value);
+		set_values_object(scene, &obj, s, value);
 		free(line);
 		free(s);
 		free(value);
 	}
 	if (gnl < 0)
 		error(0);
-	set_det(&object, scene);
 	free(line);
-	ft_lstaddnewr(objects, &object, sizeof(object));
+	ft_lstaddnewr(objects, &obj, sizeof(obj));
 }

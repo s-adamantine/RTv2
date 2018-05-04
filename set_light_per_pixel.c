@@ -26,13 +26,13 @@ static double	light_reaches(t_3v dir, t_list *objects, int cam,
 	{
 		obj = (t_object *)o_lst->content;
 		t_value = obj->f(obj->fixed_s[cam][src->id - 1], dir, 0);
-		if (t_value > 0.001 && t_value < 0.99999 && obj->transparent < 0.01)
+		if (t_value > 0.001 && t_value < 0.99999 && (obj->m).transparent < 0.01)
 			return (0);
 		else if (t_value > 0.001 && t_value < 0.99999)
 		{
-			(src->tmp_color).v[0] *= obj->transparent * (obj->color).v[0];
-			(src->tmp_color).v[1] *= obj->transparent * (obj->color).v[1];
-			(src->tmp_color).v[2] *= obj->transparent * (obj->color).v[2];
+			(src->tmp_color).v[0] *= (obj->m).transparent * ((obj->m).color).v[0];
+			(src->tmp_color).v[1] *= (obj->m).transparent * ((obj->m).color).v[1];
+			(src->tmp_color).v[2] *= (obj->m).transparent * ((obj->m).color).v[2];
 		}
 		else if (t_value > 0.999999 && t_value < 1.000001)
 			reached = 1;
@@ -60,13 +60,13 @@ static double	get_influence(t_pixel *p, int i)
 {
 	double	influence;
 
-	influence = 1 - ((p->pi_arr[i])->vis_obj)->transparent;
+	influence = 1 - (((p->pi_arr[i])->vis_obj)->m).transparent;
 	if ((p->pi_arr[i])->type == 2)
 	{
 		while (i > 0)
 		{
 			if ((p->pi_arr[i - 1])->type % 2 == 0)
-				influence *= ((p->pi_arr[i - 1])->vis_obj)->transparent;
+				influence *= (((p->pi_arr[i - 1])->vis_obj)->m).transparent;
 			i--;
 		}
 	}
@@ -75,7 +75,7 @@ static double	get_influence(t_pixel *p, int i)
 		while (i > 0)
 		{
 			if ((p->pi_arr[i - 1])->type < 2)
-				influence *= ((p->pi_arr[i - 1])->vis_obj)->specular;
+				influence *= (((p->pi_arr[i - 1])->vis_obj)->m).specular;
 			i--;
 		}
 	}

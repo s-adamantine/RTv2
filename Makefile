@@ -18,6 +18,7 @@ SRCS = 	rtv1.c\
 		set_camera.c\
 		set_render.c\
 		set_fixed_values.c\
+		set_material.c\
 		add_light.c\
 		get_dir.c\
 		get_intensity.c\

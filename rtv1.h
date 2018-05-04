@@ -159,20 +159,29 @@ typedef struct	s_fixed_v
 	t_3v		dir;
 }				t_fixed_v;
 
-typedef struct	s_object
+typedef struct	s_material
 {
-	int			id;
 	int			type;
-	double		radius;
+	int			id;
+	int			size;
+	int			distance;
+	t_3v		color;
+	t_3v		sec_color;
 	double		diffuse;
 	double		ambient;
 	double		specular;
 	double		shininess;
 	double		transparent;
+}				t_material;
+
+typedef struct	s_object
+{
+	int			id;
+	int			type;
+	t_material	m;
+	double		radius;
 	double		(*f)();
 	double		axis_rotation;
-	t_3v		color;
-	t_3v		sec_color;
 	t_3v		origin;
 	t_3v		rotation;
 	t_fixed_v	**fixed_c;
@@ -218,6 +227,7 @@ typedef struct	s_scene
 	int			amount_obj;
 	int			amount_light;
 	int			amount_fixed;
+	int			amount_material;
 	int			cam_set;
 	int			grain;
 	int			anti_a;
@@ -228,6 +238,7 @@ typedef struct	s_scene
 	t_list		*cameras;
 	t_list		*lights;
 	t_list		*objects;
+	t_list		*materials;
 	int			all_on;
 }				t_scene;
 
@@ -309,5 +320,7 @@ void			add_child_id(t_sub_m *parent, t_sub_m *child);
 t_3v			get_object_color(t_object o, t_3v p);
 void			change_camera(t_event *event);
 t_cam			*get_selected_cam(t_scene *scene, int id);
+void			set_values_material(t_material *m, char *s, char *value);
+void			set_material(t_scene *scene);
 
 #endif

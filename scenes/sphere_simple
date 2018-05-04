@@ -30,9 +30,7 @@ object {
 		{type, {sphere}}
 		{origin, {0.0 -150.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
-		{color, {0.0 0.0 1.0}}
-		{sec_color, {0.6 0.0 0.6}}
+		{material, {0 0}}
 		{axis_rotation, {0}}
 		{radius, {250}}
-		{reflection, {0.1 0.25 0.2 20}}
 }

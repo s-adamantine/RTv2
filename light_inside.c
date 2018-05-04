@@ -54,7 +54,7 @@ static double	check_s_inside(t_source *src, t_scene *scene, t_cam *cam)
 		obj = (t_object *)o_lst->content;
 		inside = check_inside(dir, obj, cam);
 		if (inside)
-			influence *= obj->transparent;
+			influence *= (obj->m).transparent;
 		o_lst = o_lst->next;
 	}
 	return (influence);

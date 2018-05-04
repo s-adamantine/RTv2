@@ -54,6 +54,6 @@ t_3v		get_object_color(t_object o, t_3v p)
 	angles_tmp.v[1] = fabs(fmod(angles_tmp.v[1], 20)) - 10;
 	angles_tmp.v[2] = fabs(fmod(angles_tmp.v[2], 20)) - 10;
 	if (distance_from_point(o, angles_tmp, ref) < 10)
-		return (o.color);
-	return (o.sec_color);
+		return ((o.m).color);
+	return ((o.m).sec_color);
 }

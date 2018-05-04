@@ -1,0 +1,11 @@
+material {
+		{type, {Polka Dots}}
+		{type, {1}}
+		{id, {0}}
+		{color, {0.0 0.0 1.0}}
+		{sec_color, {1.0 1.0 1.0}}
+		{transparent, {0}}
+		{size, {10}}
+		{distance, {20}}
+		{reflection, {0.1 0.25 0.0 20}}
+}

@@ -42,7 +42,7 @@ static double	get_d(t_3v dir, t_3v n, t_object *obj)
 	angle = -ft_3v_dot_product(n, dir);
 //	if (obj->type == 0)
 	angle = fabs(angle);
-	d = (obj->diffuse / M_PI) * angle;
+	d = ((obj->m).diffuse / M_PI) * angle;
 	return (d);
 }
 
@@ -62,7 +62,7 @@ t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam, int src_id)
 	angle = get_s(pi, dir, cam);
 	if (angle < 0)
 		angle = 0;
-	i.spec = obj->specular * pow(angle, obj->shininess);
+	i.spec = (obj->m).specular * pow(angle, (obj->m).shininess);
 	i.diff *= cam.light_vis[src_id];
 	i.spec *= cam.light_vis[src_id];
 	return (i);

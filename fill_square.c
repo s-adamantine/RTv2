@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_pixel_size.c                                   :+:      :+:    :+:   */
+/*   fill_square.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/02 15:35:31 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/11 13:20:08 by mpauw            ###   ########.fr       */
+/*   Created: 2018/05/07 14:14:33 by mpauw             #+#    #+#             */
+/*   Updated: 2018/05/07 16:49:19 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-int			fill_square(t_img *img, int index, int size, int color)
+int		fill_square(t_img *img, int index, int size, int color)
 {
 	int	i;
 	int	j;

@@ -2,7 +2,7 @@ render {
 		{name, {Scene Holes}}
 		{dimensions, {1200 900}}
 		{reflection, {1}}
-		{ambient, {1}}
+		{ambient, {0}}
 		{anti_a, {4}}
 }
 camera {
@@ -44,6 +44,6 @@ object {
 		{rotation, {0.0, 90.0, 0.0}}
 		{color, {0.3 0.4 0.6}}
 		{transparent, {0.0}}
-		{reflection, {0.1 0.25 0.2 20}}
+		{reflection, {0.1 0.25 0.0 20}}
 }
 

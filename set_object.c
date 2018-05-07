@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/18 13:28:08 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/07 14:09:45 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,9 +94,7 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		obj->pattern = ft_atoi(value);
 	else if (ft_strncmp(s, "transparent", 11) == 0
 			|| ft_strncmp(s, "reflection", 10) == 0
-			|| ft_strncmp(s, "color", 5) == 0
-			|| ft_strncmp(s, "transparent", 11) == 0
-			|| ft_strncmp(s, "reflection", 10) == 0)
+			|| ft_strncmp(s, "color", 5) == 0)
 		set_values_material(&(obj->m), s,  value);
 	else if (ft_strncmp(s, "material", 8) == 0)
 		change_material(scene, obj, ft_atoi(value), 1);

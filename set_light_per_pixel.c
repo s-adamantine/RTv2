@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/18 11:39:13 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/07 17:51:51 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,7 @@ static double	light_reaches(t_3v dir, t_list *objects, int cam,
 		if (t_value > 0.001 && t_value < 0.99999)
 			get_light_color(obj, get_point(src->origin, dir, t_value), src);
 		else if (t_value > 0.999999 && t_value < 1.000001)
-		{
 			reached = 1;
-		}
 		o_lst = o_lst->next;
 	}
 	return (reached);
@@ -148,23 +146,22 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 void		set_light_per_pixel(t_event *event, t_source src)
 {
 	t_pixel		*p;
+	t_scene		scene;
 	int			i;
 	int			j;
 
 	i = 0;
-	while (i < (event->scene).height)
+	scene = event->scene;
+	while (i < scene.height)
 	{
 		j = 0;
-		while (j < (event->scene).width)
+		while (j < scene.width)
 		{
-			p = &((((event->scene).cam)->p_array)[j + i *
-					(event->scene).width]);
+			p = &(((scene.cam)->p_array)[j + i * scene.width]);
 			p->c_per_src[src.id] = ft_zero_3v();
-			j++;
-			if (!(p->pi_arr[0])->vis_obj)
-				continue ;
-			light_intensity(src, p, &(event->scene));
+			light_intensity(src, p, &scene);
+			j += (scene.cam)->grain;
 		}
-		i++;
+		i += (scene.cam)->grain;
 	}
 }

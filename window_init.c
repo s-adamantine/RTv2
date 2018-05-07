@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 17:10:12 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/11 17:36:45 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/07 18:17:54 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,6 @@
 
 static int		loop_hook(t_event *event)
 {
-
-//	if (event->cur_grain >= 2)
-//	{
-//		event->cur_grain /= 2;
-//		raytracer(event, &(event->scene), 1);
-//		mlx_put_image_to_window(event->mlx, event->win,
-//			(event->img).img_ptr, 0, 0);
-//	}
 	if (event->redraw)
 	{
 		mlx_put_image_to_window(event->mlx, event->win,
@@ -70,13 +62,15 @@ t_event	init_window(t_scene scene)
 			scene.height, scene.name);
 	event.scene = scene;
 	init_image(event.mlx, scene.width, scene.height, &(event.img));
-	event.cur_grain = scene.grain;
 	event.mouse_hold = 0;
 	event.t_select = KEY_L;
 	event.id_select = KEY_0;
 	event.redraw = 0;
 	if (!((scene.cam)->p_array = (t_pixel *)malloc(sizeof(t_pixel)
-					* scene.width * scene.height)))
+				* scene.width * scene.height)) ||
+			!((scene.cam)->pixel_set = (int *)malloc(sizeof(int)
+				* scene.width * scene.height)))
 		error(1);
+	ft_bzero((scene.cam)->pixel_set, sizeof(int) * scene.width * scene.height);
 	return (event);
 }

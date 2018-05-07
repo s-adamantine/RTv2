@@ -1,9 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   set_material.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2018/05/07 11:51:29 by mpauw             #+#    #+#             */
+/*   Updated: 2018/05/07 13:23:43 by mpauw            ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "rtv1.h"
 
 static void	init_def_material(t_material *m, int id)
 {
 	m->color = ft_init_3v(1.0, 1.0, 0.0);
 	m->id = id;
+	m->pattern = 0;
 	m->diffuse = 0.2;
 	m->ambient = 0.1;
 	m->specular = 0.0;
@@ -36,6 +49,8 @@ void		set_values_material(t_material *m, char *s, char *value)
 		update_vector(&(m->color), value);
 	else if (ft_strncmp(s, "id", 2) == 0)
 		m->id = ft_atoi(value);
+	else if (ft_strncmp(s, "pattern", 7) == 0)
+		m->pattern = ft_atoi(value);
 	else if (ft_strncmp(s, "transparent", 11) == 0
 			|| ft_strncmp(s, "reflection", 10) == 0)
 		set_values_material_plus(m, s,  value);

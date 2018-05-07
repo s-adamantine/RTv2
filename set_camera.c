@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:43:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/07 15:58:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/07 17:49:21 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static t_cam	init_def_cam(t_scene *scene)
 	t_cam	cam;
 
 	cam.id = scene->cam_set;
+	cam.grain = scene->grain;
 	cam.init = 0;
 	cam.origin = ft_init_3v(700, 0, 0);
 	cam.rotation = ft_zero_3v();

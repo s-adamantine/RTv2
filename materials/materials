@@ -1,12 +1,28 @@
 material {
 		{id, {1}}
 		{color, {0.0 0.0 1.0}}
-		{transparent, {0.3}}
+		{transparent, {0.0}}
+		{pattern, {1}}
 		{reflection, {0.1 0.25 0.0 20}}
 }
 material {
 		{id, {2}}
 		{color, {0.8 1.0 0.2}}
 		{transparent, {0.7}}
+		{pattern, {1}}
+		{reflection, {0.1 0.25 0.0 20}}
+}
+material {
+		{id, {3}}
+		{color, {0.4 1.0 0.2}}
+		{transparent, {0.3}}
+		{pattern, {1}}
+		{reflection, {0.1 0.25 0.0 20}}
+}
+material {
+		{id, {4}}
+		{color, {0.2 0.8 0.4}}
+		{transparent, {0.9}}
+		{pattern, {1}}
 		{reflection, {0.1 0.25 0.0 20}}
 }

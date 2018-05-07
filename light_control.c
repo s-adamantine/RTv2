@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/13 14:52:00 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/13 14:52:02 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/07 17:54:33 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,32 +40,39 @@ static int	turn_off_or_on(t_scene *scene, int id)
 	return (0);
 }
 
+static void	change_color(t_event *event, int id, int index)
+{
+	t_pixel	*p;
+
+	p = &((((event->scene).cam)->p_array)[index]);
+	if ((p->pi_arr[0])->vis_obj)
+	{
+		if (id == 0)
+			p->color = p->c_per_src[0];
+		else
+			p->color = ft_3v_add((p->c_per_src)[id], p->color);
+	}
+	fill_square(&(event->img), index, ((event->scene).cam)->grain,
+			get_color(p->color));
+}
+
 static void	switch_one(t_event *event, int id)
 {
 	int		i;
 	int		j;
-	t_pixel	*p;
+	t_scene	scene;
 
 	i = 0;
-	while (i < (event->scene).height)
+	scene = event->scene;
+	while (i < scene.height)
 	{
 		j = 0;
-		while (j < (event->scene).width)
+		while (j < scene.width)
 		{
-			p = &((((event->scene).cam)->p_array)[j + i *
-					(event->scene).width]);
-			if ((p->pi_arr[0])->vis_obj)
-			{
-				if (id == 0)
-					p->color = p->c_per_src[0];
-				else
-					p->color = ft_3v_add((p->c_per_src)[id], p->color);
-			}
-			((int *)(event->img).img_arr)
-				[j + (event->scene).width * i] = get_color(p->color);
-			j++;
+			change_color(event, id, j + scene.width * i);
+			j += (scene.cam)->grain;
 		}
-		i++;
+		i += (scene.cam)->grain;
 	}
 }
 
@@ -76,7 +83,7 @@ void		turn_on_lights(t_event *event)
 
 	event->redraw = 1;
 	switch_one(event, 0);
-	if (event->t_select == KEY_L)
+	if (((event->scene).cam)->grain == 1 && event->t_select == KEY_L)
 	{
 		if (!(turn_off_or_on(&(event->scene), event->id_select)))
 			return ;

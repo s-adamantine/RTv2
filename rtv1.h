@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/18 12:04:13 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/07 18:13:22 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,6 +162,7 @@ typedef struct	s_fixed_v
 typedef struct	s_material
 {
 	int			id;
+	int			pattern;
 	t_3v		color;
 	double		diffuse;
 	double		ambient;
@@ -221,10 +222,12 @@ typedef struct	s_cam
 {
 	int			id;
 	int			init;
+	int			grain;
 	t_3v		origin;
 	t_3v		rotation;
 	t_pixel		*p_array;
 	double		*light_vis;
+	int			*pixel_set;
 }				t_cam;
 
 typedef struct	s_scene
@@ -257,7 +260,6 @@ typedef struct	s_event
 	t_img		img;
 	t_scene		scene;
 	t_menu		menu;
-	int			cur_grain;
 	int			mouse_hold;
 	int			x_0;
 	int			y_0;

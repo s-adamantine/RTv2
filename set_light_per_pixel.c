@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/07 17:51:51 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/08 16:40:51 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void		get_light_color(t_object *obj, t_3v point, t_source *src)
 {
 	t_material	m;
 
-	if (obj->pattern == 0)
+	if ((obj->pattern).type == 0)
 	{
 		(src->tmp_color).v[0] *= (obj->m).transparent * ((obj->m).color).v[0];
 		(src->tmp_color).v[1] *= (obj->m).transparent * ((obj->m).color).v[1];

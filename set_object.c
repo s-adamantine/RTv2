@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/07 14:09:45 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/08 16:41:51 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ static void	init_def_object(t_object *obj, int id)
 	def = ft_zero_3v();
 	obj->id = id;
 	obj->type = 0;
-	obj->pattern = 1;
 	obj->f = &get_s_plane;
 	obj->axis_rotation = 0;
 	obj->origin = def;
@@ -77,6 +76,24 @@ static void	change_material(t_scene *scene, t_object *obj, int value, int mat)
 	}
 }
 
+static void	get_pattern(t_scene *scene, t_object *obj, int id)
+{
+	t_pattern	*p;
+	t_list		*tmp;
+
+	tmp = scene->patterns;
+	while (tmp && tmp->content)
+	{
+		p = (t_pattern *)tmp->content;
+		if (p->id == id)
+		{
+			obj->pattern = *p;
+			break ;
+		}
+		tmp = tmp->next;
+	}
+}
+
 static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		char *value)
 {
@@ -91,15 +108,13 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 	else if (ft_strncmp(s, "radius", 6) == 0)
 		obj->radius = ft_atod(value);
 	else if (ft_strncmp(s, "pattern", 7) == 0)
-		obj->pattern = ft_atoi(value);
-	else if (ft_strncmp(s, "transparent", 11) == 0
-			|| ft_strncmp(s, "reflection", 10) == 0
-			|| ft_strncmp(s, "color", 5) == 0)
-		set_values_material(&(obj->m), s,  value);
+		get_pattern(scene, obj, ft_atoi(value));
 	else if (ft_strncmp(s, "material", 8) == 0)
 		change_material(scene, obj, ft_atoi(value), 1);
 	else if (ft_strncmp(s, "sec_material", 12) == 0)
 		change_material(scene, obj, ft_atoi(value), 2);
+	else
+		set_values_material(&(obj->m), s, value);
 }
 
 void		set_object(t_list **objects, t_scene *scene, int id, int fd)

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/07 18:16:38 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/08 16:16:15 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	t_3v		color;
 	t_p_info	*pi;
 
+	p->c_per_src[0] = ft_zero_3v();
 	dir = p->coor;
 	dir = normalize(get_dir(dir, (scene->cam)->rotation));
 	get_reflections(p, scene, dir, 0);
@@ -114,27 +115,26 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	p->c_per_src[0] = p->color;
 }
 
-static void		setup_pixel(t_pixel *pixel, t_scene scene, int i, int j)
+static void		setup_pixel(t_pixel *p, t_scene scene, int i, int j)
 {
 	if (scene.refl < 1)
 		scene.refl = 1;
-	if (!(pixel->c_per_src = (t_3v *)malloc(sizeof(t_3v)
+	if (!(p->c_per_src = (t_3v *)malloc(sizeof(t_3v)
 					* (scene.amount_light + 1))))
 		error(1);
-	if (!(pixel->pi_arr = (t_p_info **)malloc(sizeof(t_p_info *))))
+	if (!(p->pi_arr = (t_p_info **)malloc(sizeof(t_p_info *))))
 		error(1);
-	ft_bzero(pixel->c_per_src, sizeof(t_3v) * scene.amount_light);
-	pixel->color = ft_zero_3v();
-	pixel->amount_p = 0;
+	p->color = ft_zero_3v();
+	p->amount_p = 0;
 	(scene.cam)->pixel_set[j + scene.width * i] = 1;
-	(pixel->coor).v[0] = -(scene.width / 2);
-	(pixel->coor).v[1] = (double)(j - scene.width / 2.0);
-	(pixel->coor).v[2] = (double)(scene.height / 2.0 - i);
+	(p->coor).v[0] = -(scene.width / 2);
+	(p->coor).v[1] = (double)(j - scene.width / 2.0);
+	(p->coor).v[2] = (double)(scene.height / 2.0 - i);
 }
 
 void			*get_s_values(void *arg)
 {
-	t_pixel		*pixel;
+	t_pixel		*p;
 	t_scene		scene;
 	int			i;
 	int			j;
@@ -148,9 +148,9 @@ void			*get_s_values(void *arg)
 		{
 			if (!((scene.cam)->pixel_set[j + scene.width * i]))
 			{
-				pixel = &((scene.cam)->p_array[j + scene.width * i]);
-				setup_pixel(pixel, scene, i, j);
-				get_value(&scene, pixel);
+				p = &((scene.cam)->p_array[j + scene.width * i]);
+				setup_pixel(p, scene, i, j);
+				get_value(&scene, p);
 			}
 			j += (scene.cam)->grain;
 		}

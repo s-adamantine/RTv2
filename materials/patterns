@@ -2,7 +2,13 @@ pattern {
 		{id, {1}}
 		{description, {Polka Dots}}
 		{type, {1}}
-		{mat, {2}}
 		{size, {10}}
 		{distance, {20}}
+}
+pattern {
+		{id, {2}}
+		{description, {Polka Dots}}
+		{type, {1}}
+		{size, {4}}
+		{distance, {8}}
 }

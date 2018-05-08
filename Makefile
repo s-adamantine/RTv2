@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/05/07 18:05:14 by mpauw            ###   ########.fr        #
+#    Updated: 2018/05/08 17:13:11 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ SRCS = 	rtv1.c\
 		set_render.c\
 		set_fixed_values.c\
 		set_material.c\
+		set_pattern.c\
 		add_light.c\
 		get_dir.c\
 		get_intensity.c\
@@ -36,6 +37,7 @@ SRCS = 	rtv1.c\
 		camera_control.c\
 		camera_tools.c\
 		light_inside.c\
+		polka_dot_it.c\
 		calculate_movement.c\
 		handle_patterns.c\
 		mouse_event.c

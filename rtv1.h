@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/07 18:13:22 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/08 17:13:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,17 +177,16 @@ typedef struct	s_pattern
 	int			type;
 	int			size;
 	int			distance;
-	int			amount_mat;
 }				t_pattern;
 
 typedef struct	s_object
 {
 	int			id;
 	int			type;
-	int			pattern;
 	int			from_inside;
 	t_material	m;
 	t_material	m2;
+	t_pattern	pattern;
 	double		radius;
 	double		(*f)();
 	double		axis_rotation;
@@ -239,6 +238,7 @@ typedef struct	s_scene
 	int			amount_light;
 	int			amount_fixed;
 	int			amount_material;
+	int			amount_pattern;
 	int			cam_set;
 	int			grain;
 	int			anti_a;
@@ -250,6 +250,7 @@ typedef struct	s_scene
 	t_list		*lights;
 	t_list		*objects;
 	t_list		*materials;
+	t_list		*patterns;
 	int			all_on;
 }				t_scene;
 
@@ -328,9 +329,11 @@ void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
 void			menu_click(int index, t_event *event);
 void			add_child_id(t_sub_m *parent, t_sub_m *child);
 t_material		get_object_material(t_object o, t_3v p);
+t_material		polka_dot_it(t_object o, t_3v p);
 void			change_camera(t_event *event);
 t_cam			*get_selected_cam(t_scene *scene, int id);
 void			set_values_material(t_material *m, char *s, char *value);
 void			set_material(t_scene *scene);
+void			set_pattern(t_scene *scene);
 
 #endif

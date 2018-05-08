@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 11:51:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/07 13:23:43 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/08 16:40:14 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,14 @@ static void	init_def_material(t_material *m, int id)
 	m->transparent = 0.0;
 }
 
-static void	set_values_material_plus(t_material *m, char *s, char *value)
+void		set_values_material(t_material *m, char *s, char *value)
 {
 	double	*tmp;
 
-	if (ft_strncmp(s, "transparent", 11) == 0)
-		m->transparent = ft_atod(value);
+	if (ft_strncmp(s, "color", 5) == 0)
+		update_vector(&(m->color), value);
+	else if (ft_strncmp(s, "transparent", 11) == 0)
+		ft_atod(value);
 	else if (ft_strncmp(s, "reflection", 10) == 0)
 	{
 		if (!(tmp = (double *)malloc(4 * sizeof(double))))
@@ -41,19 +43,6 @@ static void	set_values_material_plus(t_material *m, char *s, char *value)
 		m->shininess = tmp[3];
 		free(tmp);
 	}
-}
-
-void		set_values_material(t_material *m, char *s, char *value)
-{
-	if (ft_strncmp(s, "color", 5) == 0)
-		update_vector(&(m->color), value);
-	else if (ft_strncmp(s, "id", 2) == 0)
-		m->id = ft_atoi(value);
-	else if (ft_strncmp(s, "pattern", 7) == 0)
-		m->pattern = ft_atoi(value);
-	else if (ft_strncmp(s, "transparent", 11) == 0
-			|| ft_strncmp(s, "reflection", 10) == 0)
-		set_values_material_plus(m, s,  value);
 }
 
 static void	add_material(t_scene *scene, int fd)
@@ -99,7 +88,7 @@ void		set_material(t_scene *scene)
 		return ;
 	while ((gnl = get_next_line(fd, &line)) == 1)
 	{
-		if (ft_strncmp(line, "material {", 8) == 0)
+		if (ft_strncmp(line, "material {", 10) == 0)
 			add_material(scene, fd);
 		free(line);
 	}

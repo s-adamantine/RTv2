@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/07 16:49:43 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/08 16:30:08 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static void	init_def_scene(t_scene *scene)
 	if (!(scene->objects = ft_lstnew(NULL, 0)) ||
 			!(scene->lights = ft_lstnew(NULL, 0)) ||
 			!(scene->cameras = ft_lstnew(NULL, 0)) ||
+			!(scene->patterns = ft_lstnew(NULL, 0)) ||
 			!(scene->materials = ft_lstnew(NULL, 0)))
 		error(1);
 	scene->name = "Default Scene";
@@ -28,9 +29,10 @@ static void	init_def_scene(t_scene *scene)
 	scene->refl = 2;
 	scene->cam_set = 0;
 	scene->ambient = 0.5;
-	scene->grain = 4;
+	scene->grain = 1;
 	scene->anti_a = 2;
 	set_material(scene);
+	set_pattern(scene);
 }
 
 void		set_scene(int fd, t_scene *scene)

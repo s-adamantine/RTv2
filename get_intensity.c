@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:40:06 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/13 14:55:33 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 13:55:04 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,5 @@ t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam, int src_id)
 		angle = 0;
 	i.spec = (obj->m).specular * pow(angle, (obj->m).shininess);
 	(void)src_id;
-//	i.diff *= cam.light_vis[src_id];
-//	i.spec *= cam.light_vis[src_id];
 	return (i);
 }

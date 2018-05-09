@@ -6,11 +6,16 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/08 16:40:51 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 13:35:32 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+/*
+ * Get type of material light reaches, based on pattern. If transparent: deal
+ * with it.
+ */
 
 static void		get_light_color(t_object *obj, t_3v point, t_source *src)
 {
@@ -28,6 +33,11 @@ static void		get_light_color(t_object *obj, t_3v point, t_source *src)
 	(src->tmp_color).v[1] *= m.transparent * (m.color).v[1];
 	(src->tmp_color).v[2] *= m.transparent * (m.color).v[2];
 }
+
+/*
+ * Does the light reach the visible object (after passing through transparent
+ * objects or not).
+ */
 
 static double	light_reaches(t_3v dir, t_list *objects, int cam,
 		t_source *src)
@@ -52,6 +62,10 @@ static double	light_reaches(t_3v dir, t_list *objects, int cam,
 	return (reached);
 }
 
+/*
+ * Make sure color values don't exceed 1.
+ */
+
 static void		check_values(t_intensity *in, t_3v o, t_source l)
 {
 	if (in->diff > 1)
@@ -66,6 +80,11 @@ static void		check_values(t_intensity *in, t_3v o, t_source l)
 			|| ((l.tmp_color).v)[2] < 0)
 		error(4);
 }
+
+/*
+ * Based on transparency/specular reflection, determine how much influence this
+ * object has on the color of this pixel.
+ */
 
 static double	get_influence(t_pixel *p, int i)
 {
@@ -93,6 +112,11 @@ static double	get_influence(t_pixel *p, int i)
 	return (influence);
 }
 
+/*
+ * Change the value for this specific light based on intensity, influence,
+ * color, etc..
+ */
+
 static double	set_light_value(t_intensity in, t_pixel *p,
 		t_source l, int i)
 {
@@ -119,6 +143,11 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	return ((c->v)[0] + (c->v)[1] + (c->v)[2]);
 }
 
+/*
+ * For all objects involved in this pixel, update the light value at this pixel
+ * for this specific source.
+ */
+
 static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 {
 	t_3v			dir;
@@ -142,6 +171,11 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 		r++;
 	}
 }
+
+/*
+ * For this specific source, loop through all the pixels to see what its
+ * influence is.
+ */
 
 void		set_light_per_pixel(t_event *event, t_source src)
 {

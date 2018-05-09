@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   key_control.c                                      :+:      :+:    :+:   */
+/*   event_key.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/09 08:24:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/07 18:08:49 by mpauw            ###   ########.fr       */
+/*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
+/*   Updated: 2018/05/09 14:21:02 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	change_grain(t_event *event, int sharper)
 	if (sharper && ((event->scene).cam)->grain >= 2)
 	{
 		((event->scene).cam)->grain /= 2;
-		get_s_values((void *)event);
+		set_t_values((void *)event);
 		init_light_values((void *)event);
 		turn_on_lights(event);
 		mlx_put_image_to_window(event->mlx, event->win,

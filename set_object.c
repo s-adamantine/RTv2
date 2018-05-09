@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/08 16:41:51 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 14:20:09 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static void	init_def_object(t_object *obj, int id)
 	def = ft_zero_3v();
 	obj->id = id;
 	obj->type = 0;
-	obj->f = &get_s_plane;
+	obj->f = &get_t_plane;
 	obj->axis_rotation = 0;
 	obj->origin = def;
 	def = ft_zero_3v();
@@ -33,22 +33,22 @@ static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 	scene->amount_obj++;
 	if (ft_strncmp(s, "plane", 5) == 0)
 	{
-		obj->f = &get_s_plane;
+		obj->f = &get_t_plane;
 		obj->type  = 0;
 	}
 	else if (ft_strncmp(s, "sphere", 6) == 0)
 	{
-		obj->f = &get_s_sphere;
+		obj->f = &get_t_sphere;
 		obj->type = 1;
 	}
 	else if (ft_strncmp(s, "cylinder", 8) == 0)
 	{
-		obj->f = &get_s_cylinder;
+		obj->f = &get_t_cylinder;
 		obj->type = 2;
 	}
 	else if (ft_strncmp(s, "cone", 4) == 0)
 	{
-		obj->f = &get_s_cone;
+		obj->f = &get_t_cone;
 		obj->type = 3;
 	}
 	else

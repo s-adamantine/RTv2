@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/05/08 17:13:11 by mpauw            ###   ########.fr        #
+#    Updated: 2018/05/09 14:30:45 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,30 +17,27 @@ SRCS = 	rtv1.c\
 		set_object.c\
 		set_camera.c\
 		set_render.c\
-		set_fixed_values.c\
 		set_material.c\
 		set_pattern.c\
-		add_light.c\
-		get_dir.c\
-		get_intensity.c\
-		tools.c\
-		vector_tools.c\
-		color_tools.c\
-		s_functions.c\
+		set_light.c\
+		set_fixed_values.c\
+		set_t_values.c\
+		set_event.c\
 		set_light_per_pixel.c\
-		get_s_values.c\
-		window_init.c\
-		key_control.c\
-		anti_aliasing.c\
-		fill_square.c\
-		light_control.c\
-		camera_control.c\
-		camera_tools.c\
-		light_inside.c\
-		polka_dot_it.c\
-		calculate_movement.c\
-		handle_patterns.c\
-		mouse_event.c
+		get_intensity.c\
+		get_t_value.c\
+		get_object_material.c\
+		tools_parse.c\
+		tools_vector.c\
+		tools_color.c\
+		tools_rotate.c\
+		tools_anti_a.c\
+		tools_grain.c\
+		event_key.c\
+		event_mouse.c\
+		control_light.c\
+		control_camera.c\
+		polka_dot_it.c
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/
 #

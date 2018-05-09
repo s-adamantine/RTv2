@@ -1,16 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   fill_square.c                                      :+:      :+:    :+:   */
+/*   tools_grain.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/05/07 14:14:33 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/07 16:49:19 by mpauw            ###   ########.fr       */
+/*   Created: 2018/05/09 14:24:11 by mpauw             #+#    #+#             */
+/*   Updated: 2018/05/09 14:24:12 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+/*
+ * Fill a square in the image with one color, so we can make the program
+ * quicker by using the grainy effect.
+ */
 
 int		fill_square(t_img *img, int index, int size, int color)
 {

@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   light_control.c                                    :+:      :+:    :+:   */
+/*   control_light.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/04/13 14:52:00 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/08 16:13:21 by mpauw            ###   ########.fr       */
+/*   Created: 2018/05/09 14:12:15 by mpauw             #+#    #+#             */
+/*   Updated: 2018/05/09 14:12:17 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+/*
+ * Determines whether a source should be turned off or on.
+ */
 
 static int	turn_off_or_on(t_scene *scene, int id)
 {
@@ -39,6 +43,11 @@ static int	turn_off_or_on(t_scene *scene, int id)
 		return (1);
 	return (0);
 }
+
+/*
+ * Change the color of a pixel by adding the color value of the light. Change
+ * in image by calling fill_square (grainy effect).
+ */
 
 static void	change_color(t_event *event, int id, int index)
 {
@@ -76,6 +85,10 @@ static void	switch_one(t_event *event, int id)
 	}
 }
 
+/*
+ * Turn on light or multiple lights.
+ */
+
 void		turn_on_lights(t_event *event)
 {
 	t_source	*src;
@@ -99,6 +112,11 @@ void		turn_on_lights(t_event *event)
 		s_lst = s_lst->next;
 	}
 }
+
+/*
+ * For every light, determine the influence it has on every pixel by calling
+ * set_light_per_pixel.
+ */
 
 void		*init_light_values(void *arg)
 {

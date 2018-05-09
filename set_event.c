@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   init_window.c                                      :+:      :+:    :+:   */
+/*   set_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 17:10:12 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/07 18:17:54 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 14:30:42 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ void	init_image(void *mlx, int width_scr, int height_scr, t_img *img)
 	img->endian = endian;
 }
 
-t_event	init_window(t_scene scene)
+t_event	set_event(t_scene scene)
 {
 	t_event	event;
 

@@ -6,15 +6,21 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:49:54 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 16:53:35 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 14:08:32 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
+/*
+ * The fixed values are values that are specific for every object, relative to
+ * a camera, light source or reflection/transparent point. Instead of
+ * calculating them at every pixel, we fix them for every object.
+ */
+
 static void	set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 {
-	f->dir = get_dir(ft_init_3v(0.0, 0.0, 1.0), o->rotation);
+	f->dir = rotate_v(ft_init_3v(0.0, 0.0, 1.0), o->rotation);
 	f->rad = o->radius;
 	f->rad_sq = o->radius * o->radius;
 	f->dif_c = ft_3v_subtract(origin, o->origin);
@@ -31,6 +37,10 @@ static void	set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 	if (o->type == 3)
 		f->val_2 = ft_3v_dot_product(f->dif_c, f->dir);
 }
+
+/*
+ * Set fixed values for reflective and transparent points (work as new camera).
+ */
 
 void		set_value_refl(t_3v point, t_object *o, int r, int cam_id)
 {
@@ -49,6 +59,10 @@ void		set_value_refl(t_3v point, t_object *o, int r, int cam_id)
 	o->fixed_c[cam_id] = tmp;
 	set_fixed_value(point, o, &(o->fixed_c[cam_id][r]));
 }
+
+/*
+ * Set fixed values for the sources.
+ */
 
 static void	set_src(t_scene *scene, t_object *o, int first)
 {
@@ -76,6 +90,11 @@ static void	set_src(t_scene *scene, t_object *o, int first)
 		srcs = srcs->next;
 	}
 }
+
+/*
+ * Set fixed values for a camera, only allocate memory if it's the first call to
+ * the function.
+ */
 
 void		set_fixed_values(t_scene *scene)
 {

@@ -1,16 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   tools.c                                            :+:      :+:    :+:   */
+/*   tools_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/05 13:57:58 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/10 15:55:25 by mpauw            ###   ########.fr       */
+/*   Created: 2018/05/09 14:15:16 by mpauw             #+#    #+#             */
+/*   Updated: 2018/05/09 14:15:17 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+/*
+ * Updates values in a vector by reading from a String.
+ */
 
 void	update_vector(t_3v *vector, char *line)
 {
@@ -29,6 +33,10 @@ void	update_vector(t_3v *vector, char *line)
 	free(tmp);
 }
 
+/*
+ * Get a size amount of doubles from a String.
+ */
+
 void	get_doubles_from_line(double *v, char *line, int size)
 {
 	char		**values_str;
@@ -45,6 +53,10 @@ void	get_doubles_from_line(double *v, char *line, int size)
 		v[i] = ft_atod(values_str[i]);
 	ft_free_array((void **)values_str);
 }
+
+/*
+ * Get a String of vector values.
+ */
 
 char	*get_vector_string(t_3v v, int precision)
 {

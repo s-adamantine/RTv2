@@ -1,16 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   raytracer.c                                        :+:      :+:    :+:   */
+/*   set_s_values.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/08 16:16:15 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 14:21:38 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+/*
+ * Gets the visible object (first, or through transparency or reflection). The
+ * first if makes sure the fixed values are set for transparency and reflection.
+ */
 
 static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
 		t_scene *scene, t_p_info *pi)
@@ -39,6 +44,12 @@ static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
 	return (visible_object);
 }
 
+/*
+ * t_p_info contains information for every object visible at a certain pixel. 
+ * This function dynamically allocates memory, because we don't know in advance
+ * how many objects will be visible.
+ */
+
 static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
 {
 	t_p_info	*pi;
@@ -65,6 +76,11 @@ static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
 	}
 	return (pi);
 }
+
+/*
+ * Recursively called function to determine all visible objects. Stops when
+ * there is no visible object or the object isn't reflective or transparent.
+ */
 
 static void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type)
 {
@@ -93,6 +109,10 @@ static void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type)
 		get_reflections(p, scene, dir, 2);
 }
 
+/*
+ * Some preparations to get the first visible object for this pixel. 
+ */
+
 static void		get_value(t_scene *scene, t_pixel *p)
 {
 	t_3v		dir;
@@ -102,7 +122,7 @@ static void		get_value(t_scene *scene, t_pixel *p)
 
 	p->c_per_src[0] = ft_zero_3v();
 	dir = p->coor;
-	dir = normalize(get_dir(dir, (scene->cam)->rotation));
+	dir = normalize(rotate_v(dir, (scene->cam)->rotation));
 	get_reflections(p, scene, dir, 0);
 	pi = p->pi_arr[0];
 	if (!(pi->vis_obj))
@@ -114,6 +134,10 @@ static void		get_value(t_scene *scene, t_pixel *p)
 			(color.v)[2] * (obj->m).ambient * scene->ambient);
 	p->c_per_src[0] = p->color;
 }
+
+/*
+ * Initializing all variables in t_pixel.
+ */
 
 static void		setup_pixel(t_pixel *p, t_scene scene, int i, int j)
 {
@@ -132,7 +156,12 @@ static void		setup_pixel(t_pixel *p, t_scene scene, int i, int j)
 	(p->coor).v[2] = (double)(scene.height / 2.0 - i);
 }
 
-void			*get_s_values(void *arg)
+/*
+ * Looping through pixels (based on grain size), finding visible object(s) per
+ * pixel.
+ */
+
+void			*set_t_values(void *arg)
 {
 	t_pixel		*p;
 	t_scene		scene;

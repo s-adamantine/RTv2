@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   vector_tools.c                                     :+:      :+:    :+:   */
+/*   tools_vector.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/03/20 18:18:41 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 16:53:38 by mpauw            ###   ########.fr       */
+/*   Created: 2018/05/09 14:15:23 by mpauw             #+#    #+#             */
+/*   Updated: 2018/05/09 14:15:24 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ t_3v	get_normal(t_object *obj, t_3v point)
 	double	size;
 
 	if (obj->type == 0)
-		return (get_dir(ft_get_3v_unit(2), obj->rotation));
+		return (rotate_v(ft_get_3v_unit(2), obj->rotation));
 	else
 		norm_t = ft_3v_subtract(point, obj->origin);
-	norm_t = get_rev_dir(norm_t, obj->rotation);
+	norm_t = rotate_v_inv(norm_t, obj->rotation);
 	if (obj->type == 2)
 		(norm_t.v)[2] = 0;
 	if (obj->type == 3)
@@ -42,7 +42,7 @@ t_3v	get_normal(t_object *obj, t_3v point)
 		error(5);
 	if (size != 0)
 		ft_3v_scalar_p(&norm_t, 1 / size);
-	norm_t = get_dir(norm_t, obj->rotation);
+	norm_t = rotate_v(norm_t, obj->rotation);
 	return (norm_t);
 }
 

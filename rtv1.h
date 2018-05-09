@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/08 17:13:44 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 14:21:56 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -278,11 +278,11 @@ void			get_doubles_from_line(double *vector, char *line, int size);
 void			add_light(t_scene *scene, int fd);
 void			set_render(t_scene *scene, int fd);
 void			set_camera(t_scene *scene, int fd);
-double			get_s_cylinder(t_fixed_v f, t_3v dir, int alt);
-double			get_s_plane(t_fixed_v f, t_3v dir, int alt);
-double			get_s_sphere(t_fixed_v f, t_3v dir, int alt);
-double			get_s_cone(t_fixed_v f, t_3v dir, int alt);
-void			*get_s_values(void *arg);
+double			get_t_cylinder(t_fixed_v f, t_3v dir, int alt);
+double			get_t_plane(t_fixed_v f, t_3v dir, int alt);
+double			get_t_sphere(t_fixed_v f, t_3v dir, int alt);
+double			get_t_cone(t_fixed_v f, t_3v dir, int alt);
+void			*set_t_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
 void			turn_on_lights(t_event *event);
@@ -290,8 +290,8 @@ void			light_inside(t_scene *scene);
 void			set_light_per_pixel(t_event *event, t_source src);
 t_event			init_window(t_scene scene);
 t_source		*get_source(int id, t_list *lst);
-t_3v			get_dir(t_3v dir, t_3v rotation);
-t_3v			get_rev_dir(t_3v dir, t_3v rotation);
+t_3v			rotate_v(t_3v dir, t_3v rotation);
+t_3v			rotate_v_inv(t_3v dir, t_3v rotation);
 t_3v			get_point(t_3v origin, t_3v coor, double s_value);
 t_3v			get_reflection_vector(t_3v n, t_3v dir_a);
 t_3v			get_normal(t_object *obj, t_3v point);
@@ -331,7 +331,6 @@ void			add_child_id(t_sub_m *parent, t_sub_m *child);
 t_material		get_object_material(t_object o, t_3v p);
 t_material		polka_dot_it(t_object o, t_3v p);
 void			change_camera(t_event *event);
-t_cam			*get_selected_cam(t_scene *scene, int id);
 void			set_values_material(t_material *m, char *s, char *value);
 void			set_material(t_scene *scene);
 void			set_pattern(t_scene *scene);

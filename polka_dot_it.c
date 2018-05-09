@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 16:43:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/08 17:14:52 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 13:53:06 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ static t_3v	get_angle(t_object o, t_3v p)
 	t_3v	rot_axis;
 
 	p = ft_3v_subtract(p, o.origin);
-	p = get_rev_dir(p, o.rotation);
+	p = rotate_v_inv(p, o.rotation);
 	k.v[0] = o.radius;
 	k.v[1] = 90 - DEG * acos(p.v[2] / o.radius);
 	rot_axis = ft_zero_3v();
 	rot_axis.v[2] = o.axis_rotation;
-	p = get_dir(p, rot_axis);
+	p = rotate_v(p, rot_axis);
 	k.v[2] = 0;
 	if (p.v[0] == 0)
 		return (k);

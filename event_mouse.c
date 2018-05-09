@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mouse_event.c                                      :+:      :+:    :+:   */
+/*   event_mouse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/02/07 13:58:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/04/13 14:20:26 by mpauw            ###   ########.fr       */
+/*   Created: 2018/05/09 14:12:32 by mpauw             #+#    #+#             */
+/*   Updated: 2018/05/09 14:23:05 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int			drag_scene(int x, int y, t_event *event)
 {
 	if (event->mouse_hold)
 	{
-		set_drag_angle(event, x, y);
+//	set_drag_angle(event, x, y);
 		event->x_0 = x;
 		event->y_0 = y;
 //		event->cur_grain = (event->scene).grain;

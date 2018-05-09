@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   s_functions.c                                      :+:      :+:    :+:   */
+/*   get_t_value.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/17 16:47:11 by mpauw             #+#    #+#             */
-/*   Updated: 2018/03/22 16:12:47 by mpauw            ###   ########.fr       */
+/*   Created: 2018/05/09 14:19:43 by mpauw             #+#    #+#             */
+/*   Updated: 2018/05/09 14:22:27 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static double	get_nearest_intersection(double a, double b, double d, int alt)
 		return ((t_1 < t_2) ? t_2 : t_1);
 }
 
-double	get_s_plane(t_fixed_v f, t_3v dir, int alt)
+double	get_t_plane(t_fixed_v f, t_3v dir, int alt)
 {
 	double	to_return;
 	double	tmp;
@@ -45,7 +45,7 @@ double	get_s_plane(t_fixed_v f, t_3v dir, int alt)
 	return (-1);
 }
 
-double	get_s_sphere(t_fixed_v f, t_3v dir, int alt)
+double	get_t_sphere(t_fixed_v f, t_3v dir, int alt)
 {
 	double	a;
 	double	b;
@@ -61,7 +61,7 @@ double	get_s_sphere(t_fixed_v f, t_3v dir, int alt)
 	return (get_nearest_intersection(a, b, d, alt));
 }
 
-double	get_s_cylinder(t_fixed_v f, t_3v dir, int alt)
+double	get_t_cylinder(t_fixed_v f, t_3v dir, int alt)
 {
 	double	a;
 	double	b;
@@ -80,7 +80,7 @@ double	get_s_cylinder(t_fixed_v f, t_3v dir, int alt)
 	return (get_nearest_intersection(a, b, d, alt));
 }
 
-double	get_s_cone(t_fixed_v f, t_3v dir, int alt)
+double	get_t_cone(t_fixed_v f, t_3v dir, int alt)
 {
 	double	a;
 	double	b;

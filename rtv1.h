@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:21:56 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 14:36:10 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -288,7 +288,7 @@ void			*init_light_values(void *arg);
 void			turn_on_lights(t_event *event);
 void			light_inside(t_scene *scene);
 void			set_light_per_pixel(t_event *event, t_source src);
-t_event			init_window(t_scene scene);
+t_event			get_event(t_scene scene);
 t_source		*get_source(int id, t_list *lst);
 t_3v			rotate_v(t_3v dir, t_3v rotation);
 t_3v			rotate_v_inv(t_3v dir, t_3v rotation);

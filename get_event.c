@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_event.c                                        :+:      :+:    :+:   */
+/*   get_event.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/01/08 17:10:12 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:30:42 by mpauw            ###   ########.fr       */
+/*   Created: 2018/05/09 14:35:35 by mpauw             #+#    #+#             */
+/*   Updated: 2018/05/09 14:36:53 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static int		loop_hook(t_event *event)
+static int	loop_hook(t_event *event)
 {
 	if (event->redraw)
 	{
@@ -23,7 +23,7 @@ static int		loop_hook(t_event *event)
 	return (1);
 }
 
-void	init_loop(t_event *event)
+void		init_loop(t_event *event)
 {
 	mlx_key_hook(event->win, &key_pressed, event);
 	mlx_loop_hook(event->mlx, &loop_hook, event);
@@ -37,7 +37,7 @@ void	init_loop(t_event *event)
 	mlx_loop(event->mlx);
 }
 
-void	init_image(void *mlx, int width_scr, int height_scr, t_img *img)
+void		init_image(void *mlx, int width_scr, int height_scr, t_img *img)
 {
 	int		bpp;
 	int		size_line;
@@ -53,7 +53,7 @@ void	init_image(void *mlx, int width_scr, int height_scr, t_img *img)
 	img->endian = endian;
 }
 
-t_event	set_event(t_scene scene)
+t_event		get_event(t_scene scene)
 {
 	t_event	event;
 

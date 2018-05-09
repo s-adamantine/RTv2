@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:21:12 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 14:35:12 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,6 @@ int			main(int argc, char **argv)
 	if (!(scene.cam_set))
 		error(0);
 	set_fixed_values(&scene);
-	event = init_window(scene);
+	event = get_event(scene);
 	run_calc(&event);
 }

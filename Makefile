@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/05/09 14:30:45 by mpauw            ###   ########.fr        #
+#    Updated: 2018/05/09 14:35:44 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS = 	rtv1.c\
 		set_light.c\
 		set_fixed_values.c\
 		set_t_values.c\
-		set_event.c\
+		get_event.c\
 		set_light_per_pixel.c\
 		get_intensity.c\
 		get_t_value.c\

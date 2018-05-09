@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 11:51:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/08 16:40:14 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 17:05:12 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void		set_values_material(t_material *m, char *s, char *value)
 	if (ft_strncmp(s, "color", 5) == 0)
 		update_vector(&(m->color), value);
 	else if (ft_strncmp(s, "transparent", 11) == 0)
-		ft_atod(value);
+		m->transparent = ft_atod(value);
 	else if (ft_strncmp(s, "reflection", 10) == 0)
 	{
 		if (!(tmp = (double *)malloc(4 * sizeof(double))))

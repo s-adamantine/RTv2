@@ -62,9 +62,10 @@ object {
 		{type, {plane}}
 		{origin, {100.0 0.0 0.0}}
 		{rotation, {0.0, 90.0, 0.0}}
+		{material, {1}}
+		{sec_material, {2}}
+		{pattern, {1}}
 		{color, {1.0 0.0 0.0}}
-		{transparent, {0.0}}
-		{reflection, {0.2 0.25 0.2 20}}
 }
 *object {
 		{type, {cylinder}}

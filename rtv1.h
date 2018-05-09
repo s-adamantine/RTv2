@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:36:10 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 17:05:13 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -177,6 +177,8 @@ typedef struct	s_pattern
 	int			type;
 	int			size;
 	int			distance;
+	int			os_1;
+	int			os_2;
 }				t_pattern;
 
 typedef struct	s_object
@@ -329,7 +331,7 @@ void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
 void			menu_click(int index, t_event *event);
 void			add_child_id(t_sub_m *parent, t_sub_m *child);
 t_material		get_object_material(t_object o, t_3v p);
-t_material		polka_dot_it(t_object o, t_3v p);
+t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif);
 void			change_camera(t_event *event);
 void			set_values_material(t_material *m, char *s, char *value);
 void			set_material(t_scene *scene);

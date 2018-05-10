@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 16:43:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 17:05:08 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 17:13:07 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,9 @@ static t_material	handle_sphere(t_object o, t_3v angle)
 	ref = ft_init_3v(o.radius, 0, 0);
 	angles_tmp = angle;
 	angles_tmp.v[1] = fabs(fmod(angles_tmp.v[1], (o.pattern).distance)) -
-		(o.pattern).size / o.radius;
+		(o.pattern).distance / 2;
 	angles_tmp.v[2] = fabs(fmod(angles_tmp.v[2], (o.pattern).distance)) -
-		(o.pattern).size / o.radius;
+		(o.pattern).distance / 2;
 	angles_tmp = ft_3v_scalar(angles_tmp, 1 / DEG);
 	ref = ft_3v_scalar(ref, 1 / DEG);
 	d = o.radius * acos(sin(ref.v[1]) * sin(angles_tmp.v[1]) + cos(ref.v[1])

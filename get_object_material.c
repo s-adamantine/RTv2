@@ -24,7 +24,7 @@ static t_3v	get_angle(t_object o, t_3v p)
 	if (o.type == 1)
 		k.v[1] = 90 - DEG * acos(p.v[2] / o.radius);
 	else
-		k.v[1] = 90;
+		k.v[1] = p.v[2];
 	rot_axis = ft_zero_3v();
 	rot_axis.v[2] = o.axis_rotation;
 	p = rotate_v(p, rot_axis);
@@ -35,7 +35,7 @@ static t_3v	get_angle(t_object o, t_3v p)
 	return (k);
 }
 
-t_material		get_object_material(t_object o, t_3v p)
+t_material	get_object_material(t_object o, t_3v p)
 {
 	t_3v	dif;
 	t_3v	angle;

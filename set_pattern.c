@@ -30,10 +30,14 @@ static void		set_values_pattern(t_pattern *p, char *s, char *value)
 		p->size = ft_atoi(value);
 	else if (ft_strncmp(s, "distance", 8) == 0)
 		p->distance = ft_atoi(value);
+	else if (ft_strncmp(s, "amount_points", 13) == 0)
+		p->amount_points = ft_atoi(value);
 	else if (ft_strncmp(s, "offset_1", 8) == 0)
 		p->os_1 = ft_atoi(value);
-	else if (ft_strncmp(s, "offset_1", 8) == 0)
+	else if (ft_strncmp(s, "offset_2", 8) == 0)
 		p->os_2 = ft_atoi(value);
+	if (p->distance <= 0)
+		p->distance = 2;
 }
 
 static void	add_pattern(t_scene *scene, int fd)

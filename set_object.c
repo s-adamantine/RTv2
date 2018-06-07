@@ -24,7 +24,6 @@ static void	init_def_object(t_object *obj, int id)
 	obj->origin = def;
 	def = ft_zero_3v();
 	obj->rotation = def;
-	obj->axis_rotation = 0;
 	obj->radius = 1;
 }
 
@@ -76,6 +75,21 @@ static void	change_material(t_scene *scene, t_object *obj, int value, int mat)
 	}
 }
 
+static void	make_point_list(t_pattern *p)
+{
+
+	int			i;
+	double		offset;
+	double		
+
+	if (!(p->point_arr = (t_3v *)malloc(sizeof(t_3v) * p->amount_points)))
+		error(2);
+	i = 0;
+	while (i < p->amount_points)
+	{
+	}
+}
+
 static void	get_pattern(t_scene *scene, t_object *obj, int id)
 {
 	t_pattern	*p;
@@ -92,6 +106,8 @@ static void	get_pattern(t_scene *scene, t_object *obj, int id)
 		}
 		tmp = tmp->next;
 	}
+	if (p && p->type == 1 && obj->type == 1 && p->amount_points > 0)
+		make_point_list(&(obj->pattern));
 }
 
 static void	set_values_object(t_scene *scene, t_object *obj, char *s,

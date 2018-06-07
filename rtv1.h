@@ -177,6 +177,9 @@ typedef struct	s_pattern
 	int			type;
 	int			size;
 	int			distance;
+	int			amount_lon;
+	int			amount_lat;
+	t_3v		*points_arr;
 	int			os_1;
 	int			os_2;
 }				t_pattern;

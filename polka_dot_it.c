@@ -50,6 +50,24 @@ static t_material	handle_sphere(t_object o, t_3v angle)
 	return (o.m);
 }
 
+static t_material	handle_sphere_2(t_object o, t_3v angle)
+{
+	t_3v	ref;
+	int		i;
+	double	d;
+
+	i = 0;
+	while (i < (o.pattern).amount_points)
+	{
+		ref = (o.pattern).point_arr[i];
+		d = o.radius * acos(sin(ref.v[1]) * sin(angle.v[1]) + cos(ref.v[1])
+			* cos(angle.v[1]) * cos(ref.v[2] - angle.v[2]));
+		if (d < (o.pattern).size / o.radius)
+			return (o.m2);
+	}
+	return (o.m);
+}
+
 static t_material	handle_cyl_cone(t_object o, t_3v angle, t_3v dist)
 {
 	(void)angle;
@@ -62,7 +80,7 @@ t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif)
 	if (o.type == 0)
 		return (handle_plane(o, dif));
 	else if (o.type == 1)
-		return (handle_sphere(o, angle));
+		return (handle_sphere_2(o, angle));
 	else if (o.type == 2 || o.type == 3)
 		return (handle_cyl_cone(o, angle, dif));
 	return (o.m);

@@ -53,7 +53,7 @@ object {
 		{origin, {45.0 145.0 0.0}}
 		{rotation, {20, 45, 30}}
 		{radius, {100}}
-		{pattern, {1}}
+		{pattern, {2}}
 		{material, {1}}
 		{sec_material, {4}}
 }

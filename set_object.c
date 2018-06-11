@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:20:09 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/11 18:49:34 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,17 +25,15 @@ static void	init_def_object(t_object *obj, int id)
 	def = ft_zero_3v();
 	obj->rotation = def;
 	obj->radius = 1;
+	obj->params = ft_init_3v(1.0, 1.0, 1.0);
+	obj->params_val = 1.0;
 }
 
 static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 {
 	scene->amount_obj++;
-	if (ft_strncmp(s, "plane", 5) == 0)
-	{
-		obj->f = &get_t_plane;
-		obj->type  = 0;
-	}
-	else if (ft_strncmp(s, "sphere", 6) == 0)
+
+	if (ft_strncmp(s, "sphere", 6) == 0)
 	{
 		obj->f = &get_t_sphere;
 		obj->type = 1;
@@ -50,8 +48,16 @@ static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 		obj->f = &get_t_cone;
 		obj->type = 3;
 	}
+	else if (ft_strncmp(s, "quadric", 4) == 0)
+	{
+		obj->f = &get_t_quadric;
+		obj->type = 4;
+	}
 	else
-		s_error("Object type is not valid");
+	{
+		obj->f = &get_t_plane;
+		obj->type  = 0;
+	}
 }
 
 static void	change_material(t_scene *scene, t_object *obj, int value, int mat)
@@ -75,21 +81,6 @@ static void	change_material(t_scene *scene, t_object *obj, int value, int mat)
 	}
 }
 
-static void	make_point_list(t_pattern *p)
-{
-
-	int			i;
-	double		offset;
-	double		
-
-	if (!(p->point_arr = (t_3v *)malloc(sizeof(t_3v) * p->amount_points)))
-		error(2);
-	i = 0;
-	while (i < p->amount_points)
-	{
-	}
-}
-
 static void	get_pattern(t_scene *scene, t_object *obj, int id)
 {
 	t_pattern	*p;
@@ -106,8 +97,6 @@ static void	get_pattern(t_scene *scene, t_object *obj, int id)
 		}
 		tmp = tmp->next;
 	}
-	if (p && p->type == 1 && obj->type == 1 && p->amount_points > 0)
-		make_point_list(&(obj->pattern));
 }
 
 static void	set_values_object(t_scene *scene, t_object *obj, char *s,
@@ -125,6 +114,10 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		obj->radius = ft_atod(value);
 	else if (ft_strncmp(s, "pattern", 7) == 0)
 		get_pattern(scene, obj, ft_atoi(value));
+	else if (ft_strncmp(s, "params", 6) == 0)
+		update_vector(&(obj->params), value);
+	else if (ft_strncmp(s, "params_val", 7) == 0)
+		obj->params_val = ft_atod(value);
 	else if (ft_strncmp(s, "material", 8) == 0)
 		change_material(scene, obj, ft_atoi(value), 1);
 	else if (ft_strncmp(s, "sec_material", 12) == 0)

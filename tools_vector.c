@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:15:23 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:15:24 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/11 18:49:32 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,4 +68,17 @@ t_3v	get_point(t_3v origin, t_3v coor, double s_value)
 	ft_3v_scalar_p(&dir, s_value);
 	point = ft_3v_add(point, dir);
 	return (point);
+}
+
+t_3v	entry_division(t_3v v1, t_3v v2)
+{
+	t_3v	to_return;
+
+	v2.v[0] = (fabs(v2.v[0]) < 0.001) ? 1.0 : v2.v[0];
+	v2.v[1] = (fabs(v2.v[1]) < 0.001) ? 1.0 : v2.v[1];
+	v2.v[2] = (fabs(v2.v[2]) < 0.001) ? 1.0 : v2.v[2];
+	to_return.v[0] = v1.v[0] / v2.v[0];
+	to_return.v[1] = v1.v[1] / v2.v[1];
+	to_return.v[2] = v1.v[2] / v2.v[2];
+	return (to_return);
 }

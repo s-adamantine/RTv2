@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 16:21:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 17:05:09 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/08 14:26:18 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ static void	init_def_pattern(t_pattern *p, int id)
 	p->distance = 2;
 	p->os_1 = 0;
 	p->os_2 = 0;
+	p->amount_points = 25;
 }
 
 static void		set_values_pattern(t_pattern *p, char *s, char *value)
@@ -27,7 +28,7 @@ static void		set_values_pattern(t_pattern *p, char *s, char *value)
 	if (ft_strncmp(s, "type", 4) == 0)
 		p->type = ft_atoi(value);
 	else if (ft_strncmp(s, "size", 4) == 0)
-		p->size = ft_atoi(value);
+		p->size = ft_atod(value);
 	else if (ft_strncmp(s, "distance", 8) == 0)
 		p->distance = ft_atoi(value);
 	else if (ft_strncmp(s, "amount_points", 13) == 0)
@@ -65,6 +66,8 @@ static void	add_pattern(t_scene *scene, int fd)
 	if (gnl < 0)
 		error(0);
 	free(line);
+	if (p.type == 1 && p.amount_points > 0)
+		set_point_list(&p);
 	(scene->amount_pattern)++;
 	ft_lstaddnewr(&(scene->patterns), &p, sizeof(p));
 }

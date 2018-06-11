@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/10 16:17:02 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/11 18:49:31 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,52 +84,6 @@ typedef struct	s_img
 	int			id;
 }				t_img;
 
-typedef struct	s_menu_p
-{
-	int			x;
-	int			y;
-	int			button;
-	int			id;
-	int			type_id;
-	int			type;
-	int			color;
-}				t_menu_p;
-
-typedef struct	s_sub_m
-{
-	int			y;
-	int			x;
-	int			width;
-	int			height;
-	int			color;
-	int			color_selected;
-	int			id;
-	char		**strings;
-	t_img		img;
-	int			first;
-	int			parent_id;
-	int			*child_id;
-	int			child_count;
-	int			showing;
-	int			selected;
-	int			type;
-	int			type_id;
-	int			sub_tab;
-	int			sub_tab_showing;
-	int			position;
-	int			tab_amount;
-	int			per_tab;
-	int			edge_thickness;
-	int			edge_color;
-}				t_sub_m;
-
-typedef struct	s_menu
-{
-	t_menu_p	*p;
-	t_sub_m		*sub_m;
-	int			sub_m_count;
-}				t_menu;
-
 typedef struct	s_intensity
 {
 	double		spec;
@@ -175,10 +129,9 @@ typedef struct	s_pattern
 {
 	int			id;
 	int			type;
-	int			size;
+	double		size;
 	int			distance;
-	int			amount_lon;
-	int			amount_lat;
+	int			amount_points;
 	t_3v		*points_arr;
 	int			os_1;
 	int			os_2;
@@ -195,6 +148,8 @@ typedef struct	s_object
 	double		radius;
 	double		(*f)();
 	double		axis_rotation;
+	double		params_val;
+	t_3v		params;
 	t_3v		origin;
 	t_3v		rotation;
 	t_fixed_v	**fixed_c;
@@ -265,7 +220,6 @@ typedef struct	s_event
 	void		*win;
 	t_img		img;
 	t_scene		scene;
-	t_menu		menu;
 	int			mouse_hold;
 	int			x_0;
 	int			y_0;
@@ -287,6 +241,7 @@ double			get_t_cylinder(t_fixed_v f, t_3v dir, int alt);
 double			get_t_plane(t_fixed_v f, t_3v dir, int alt);
 double			get_t_sphere(t_fixed_v f, t_3v dir, int alt);
 double			get_t_cone(t_fixed_v f, t_3v dir, int alt);
+double			get_t_quadric(t_fixed_v f, t_3v dir, int alt);
 void			*set_t_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
@@ -309,6 +264,7 @@ int				key_pressed(int key, t_event *param);
 int				get_color(t_3v c);
 t_3v			get_rel_origin(t_3v origin, t_object *obj);
 t_3v			normalize(t_3v v);
+t_3v			entry_division(t_3v v1, t_3v v2);
 t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam, int src_id);
 int				fill_square(t_img *img, int index, int size, int color);
 void			init_image(void *mlx, int width_scr, int height_scr,
@@ -323,21 +279,16 @@ int				key_hold(int key, t_event *event);
 void			set_fixed_values(t_scene *scene);
 void			set_value_refl(t_3v point, t_object *o, int r, int cam_id);
 void			set_drag_angle(t_event *event, int x, int y);
-void			set_sub_menu_pixel(t_menu *menu, t_sub_m *sub_m);
 void			init_menu(t_event *event);
-int				init_sub_menu(t_menu *menu, int parent_id);
-void			fill_menu(t_event *event, t_menu *menu);
-void			add_object_menu(t_event *event, t_sub_m *parent, t_menu *menu);
 void			add_sub_menu(t_event *event);
 char			*get_vector_string(t_3v v, int precision);
-void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
 void			menu_click(int index, t_event *event);
-void			add_child_id(t_sub_m *parent, t_sub_m *child);
 t_material		get_object_material(t_object o, t_3v p);
 t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif);
 void			change_camera(t_event *event);
 void			set_values_material(t_material *m, char *s, char *value);
 void			set_material(t_scene *scene);
 void			set_pattern(t_scene *scene);
+void			set_point_list(t_pattern *p);
 
 #endif

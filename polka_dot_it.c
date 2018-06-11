@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 16:43:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 17:13:07 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/11 11:29:22 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,27 +31,6 @@ static t_material	handle_plane(t_object o, t_3v dif)
 
 static t_material	handle_sphere(t_object o, t_3v angle)
 {
-	t_3v	angles_tmp;
-	t_3v	ref;
-	double	d;
-
-	ref = ft_init_3v(o.radius, 0, 0);
-	angles_tmp = angle;
-	angles_tmp.v[1] = fabs(fmod(angles_tmp.v[1], (o.pattern).distance)) -
-		(o.pattern).distance / 2;
-	angles_tmp.v[2] = fabs(fmod(angles_tmp.v[2], (o.pattern).distance)) -
-		(o.pattern).distance / 2;
-	angles_tmp = ft_3v_scalar(angles_tmp, 1 / DEG);
-	ref = ft_3v_scalar(ref, 1 / DEG);
-	d = o.radius * acos(sin(ref.v[1]) * sin(angles_tmp.v[1]) + cos(ref.v[1])
-			* cos(angles_tmp.v[1]) * cos(ref.v[2] - angles_tmp.v[2]));
-	if (d < (o.pattern).size / o.radius)
-		return (o.m2);
-	return (o.m);
-}
-
-static t_material	handle_sphere_2(t_object o, t_3v angle)
-{
 	t_3v	ref;
 	int		i;
 	double	d;
@@ -59,19 +38,28 @@ static t_material	handle_sphere_2(t_object o, t_3v angle)
 	i = 0;
 	while (i < (o.pattern).amount_points)
 	{
-		ref = (o.pattern).point_arr[i];
-		d = o.radius * acos(sin(ref.v[1]) * sin(angle.v[1]) + cos(ref.v[1])
+		ref = (o.pattern).points_arr[i];
+		d = acos(sin(ref.v[1]) * sin(angle.v[1]) + cos(ref.v[1])
 			* cos(angle.v[1]) * cos(ref.v[2] - angle.v[2]));
-		if (d < (o.pattern).size / o.radius)
+		if (d < (o.pattern).size)
 			return (o.m2);
+		i++;
 	}
 	return (o.m);
 }
 
 static t_material	handle_cyl_cone(t_object o, t_3v angle, t_3v dist)
 {
-	(void)angle;
+	t_3v	ref;
+	t_3v	angle_tmp;
+
+	(void)angle_tmp;
 	(void)dist;
+	(void)angle;
+	if (o.type == 2)
+		ref = ft_init_3v(o.radius, 0.0, 0.0);
+	else
+		ref = ft_init_3v(o.radius, (o.pattern).distance, 0.0);
 	return (o.m);
 }
 
@@ -80,7 +68,7 @@ t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif)
 	if (o.type == 0)
 		return (handle_plane(o, dif));
 	else if (o.type == 1)
-		return (handle_sphere_2(o, angle));
+		return (handle_sphere(o, angle));
 	else if (o.type == 2 || o.type == 3)
 		return (handle_cyl_cone(o, angle, dif));
 	return (o.m);

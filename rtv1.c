@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/10 16:16:18 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/11 14:20:19 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,6 @@ static void	usage(void)
 
 static void	run_calc(t_event *event)
 {
-//	light_inside(&(event->scene));
 	set_t_values((void *)event);
 	init_light_values((void *)event);
 	turn_on_lights(event);
@@ -65,6 +64,7 @@ int			main(int argc, char **argv)
 	t_scene		scene;
 	t_event		event;
 
+	srand(time(NULL));
 	if (argc != 2)
 		usage();
 	if ((fd = open(argv[1], O_RDONLY)) == -1)

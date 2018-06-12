@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 16:43:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/11 11:29:22 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/12 17:37:20 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static t_material	handle_sphere(t_object o, t_3v angle)
 	double	d;
 
 	i = 0;
+	if (!(o.pattern_id))
+		return (o.m);
 	while (i < (o.pattern).amount_points)
 	{
 		ref = (o.pattern).points_arr[i];

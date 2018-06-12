@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:19:43 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/11 18:49:33 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/12 19:28:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,12 +51,12 @@ double	get_t_quadric(t_fixed_v f, t_3v dir, int alt)
 	double	b;
 	double	c;
 	double	d;
-	t_3v	tmp;
+	double	tmp;
 
-	tmp = entry_division(dir, f.vec);
-	a = ft_3v_dot_product(tmp, tmp);
-	b = 2 * ft_3v_dot_product(tmp, entry_division(f.dif_c, f.vec));
-	c = f.val - f.rad_sq;
+	tmp = (f.val_3 * ft_3v_dot_product(dir, f.dir)) / f.rad;
+	a = ft_3v_dot_product(dir, dir) - tmp * tmp;
+	b = 2 * (ft_3v_dot_product(dir, f.dif_c) - tmp * f.val);
+	c = f.val_2;
 	d = b * b - 4 * a * c;
 	if (d < 0.0001)
 		return (-1);

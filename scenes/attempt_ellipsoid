@@ -15,10 +15,32 @@ light {
 		{intensity, {8 2}}
 }
 object {
+		{type, {sphere}}
+		{origin, {0.0 -100.0 0.0}}
+		{radius, {50}}
+		{material, {1}}
+}
+object {
 		{type, {quadric}}
-		{origin, {45.0 145.0 0.0}}
-		{rotation, {20, 45, 30}}
-		{params, {1.0, 1.5, 0.5}}
-		{radius, {-100}}
+		{origin, {0.0 50.0 0.0}}
+		{rotation, {0, 0, 0}}
+		{param_1, {0.0}}
+		{radius, {100}}
+		{material, {1}}
+}
+*object {
+		{type, {quadric}}
+		{origin, {0.0 100.0 0.0}}
+		{rotation, {0, 0, 0}}
+		{param_1, {30.0}}
+		{radius, {100}}
+		{material, {1}}
+}
+object {
+		{type, {quadric}}
+		{origin, {0.0 200.0 0.0}}
+		{rotation, {0, 0, 0}}
+		{param_1, {39.0}}
+		{radius, {100}}
 		{material, {1}}
 }

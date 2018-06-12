@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/11 18:49:31 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/12 17:36:56 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,6 +106,7 @@ typedef struct	s_fixed_v
 {
 	double		val;
 	double		val_2;
+	double		val_3;
 	double		rad;
 	double		rad_sq;
 	t_3v		vec;
@@ -142,16 +143,18 @@ typedef struct	s_object
 	int			id;
 	int			type;
 	int			from_inside;
+	int			pattern_id;
 	t_material	m;
 	t_material	m2;
 	t_pattern	pattern;
 	double		radius;
 	double		(*f)();
 	double		axis_rotation;
-	double		params_val;
-	t_3v		params;
+	double		param_1;
+	double		param_2;
 	t_3v		origin;
 	t_3v		rotation;
+	t_3v		dir;
 	t_fixed_v	**fixed_c;
 	t_fixed_v	**fixed_s;
 }				t_object;

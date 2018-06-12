@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/11 18:49:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/12 17:37:54 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,10 @@ static void	init_def_object(t_object *obj, int id)
 	obj->origin = def;
 	def = ft_zero_3v();
 	obj->rotation = def;
-	obj->radius = 1;
-	obj->params = ft_init_3v(1.0, 1.0, 1.0);
-	obj->params_val = 1.0;
+	obj->radius = 100.0;
+	obj->param_1 = 25.0;
+	obj->param_2 = 1.0;
+	obj->pattern_id = 0;
 }
 
 static void	set_object_type(char *s, t_object *obj, t_scene *scene)
@@ -93,6 +94,7 @@ static void	get_pattern(t_scene *scene, t_object *obj, int id)
 		if (p->id == id)
 		{
 			obj->pattern = *p;
+			obj->pattern_id = id;
 			break ;
 		}
 		tmp = tmp->next;
@@ -114,10 +116,10 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		obj->radius = ft_atod(value);
 	else if (ft_strncmp(s, "pattern", 7) == 0)
 		get_pattern(scene, obj, ft_atoi(value));
-	else if (ft_strncmp(s, "params", 6) == 0)
-		update_vector(&(obj->params), value);
-	else if (ft_strncmp(s, "params_val", 7) == 0)
-		obj->params_val = ft_atod(value);
+	else if (ft_strncmp(s, "param_1", 7) == 0)
+		obj->param_1 = ft_atod(value);
+	else if (ft_strncmp(s, "param_2", 7) == 0)
+		obj->param_2 = ft_atod(value);
 	else if (ft_strncmp(s, "material", 8) == 0)
 		change_material(scene, obj, ft_atoi(value), 1);
 	else if (ft_strncmp(s, "sec_material", 12) == 0)

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:49:54 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/11 18:49:29 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/12 19:23:34 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 static void	set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 {
 	f->dir = rotate_v(ft_init_3v(0.0, 0.0, 1.0), o->rotation);
+	o->dir = f->dir;
 	f->rad = o->radius;
 	f->rad_sq = o->radius * o->radius;
 	f->dif_c = ft_3v_subtract(origin, o->origin);
@@ -38,11 +39,10 @@ static void	set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 		f->val_2 = ft_3v_dot_product(f->dif_c, f->dir);
 	if (o->type == 4)
 	{
-		f->vec = o->params;
-		f->val = ft_3v_dot_product(entry_division(f->dif_c, f->vec),
-				entry_division(f->dif_c, f->vec));
-		f->val_2 = o->params_val;
-		printf("%f %f %f, %f, %f\n", f->vec.v[0], f->vec.v[1], f->vec.v[2], f->val, f->val_2);
+		f->val = (f->rad_sq + 2 * o->param_1 *
+			ft_3v_dot_product(f->dir, f->dif_c) - o->param_1) / (2 * f->rad);
+		f->val_2 = ft_3v_dot_product(f->dif_c, f->dif_c) - f->val * f->val;
+		f->val_3 = o->param_1;
 	}
 }
 

@@ -10,7 +10,7 @@
 #                                                                              #
 # **************************************************************************** #
 
-NAME = RTv1 
+NAME = RTv1
 INCLUDES = rtv1.h keys.h mlx_constants.h
 SRCS = 	rtv1.c\
 		set_scene.c\
@@ -27,6 +27,7 @@ SRCS = 	rtv1.c\
 		set_light_per_pixel.c\
 		get_intensity.c\
 		get_t_value.c\
+		get_t_value_2.c\
 		get_object_material.c\
 		tools_parse.c\
 		tools_vector.c\
@@ -42,9 +43,9 @@ SRCS = 	rtv1.c\
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/
 #
-# Use other $LMLXDIR by (un)commenting the following two lines 
-# if the project does not compile. 
-# 
+# Use other $LMLXDIR by (un)commenting the following two lines
+# if the project does not compile.
+#
 #LMLXDIR = minilibx_macos/
 LMLXDIR = mlx_macbook/
 LIBFT = libft.a
@@ -52,7 +53,7 @@ LIBMLX = libmlx.a
 FT = ft
 MLX = mlx
 MAKE = make
-FLAGS = -Wall -Wextra -Werror 
+FLAGS = -Wall -Wextra -Werror
 # Add before -ggdb to find out where segfault is
 SEGFAULT = -fsanitize=address
 VALGRIND = -g3

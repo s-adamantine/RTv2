@@ -24,10 +24,9 @@ static void	change_grain(t_event *event, int sharper)
 		(event->scene).grain *= 2;
 	(event->scene).step_size = (event->scene).grain > 1
 		? (event->scene).grain : (event->scene).anti_a;
-	// create_threads(event, set_t_values);
-	// init_light_values((void *)event);
-	// turn_on_lights(event);
-	create_threads(event, run_calc);
+	create_threads(event, set_t_values);
+	init_light_values((void *)event);
+	turn_on_lights(event);
 	mlx_put_image_to_window(event->mlx, event->win,
 		(event->img).img_ptr, 0, 0);
 }

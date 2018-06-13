@@ -59,10 +59,9 @@ void			change_camera(t_event *event)
 		ft_bzero(cam->pixel_set, sizeof(int) * scene->width
 			* scene->height * scene->max_anti_a * scene->max_anti_a);
 		set_fixed_values(scene);
-		// create_threads(event, set_t_values);
-		// init_light_values((void *)event);
+		create_threads(event, set_t_values);
+		init_light_values((void *)event);
 	}
-	create_threads(event, run_calc);
-	// turn_on_lights(event);
+	turn_on_lights(event);
 	event->redraw = 1;
 }

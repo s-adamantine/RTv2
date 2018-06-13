@@ -48,19 +48,16 @@ static void	usage(void)
 	exit(0);
 }
 
-// static void	run_calc(t_event *event)
-void	*run_calc(void *event)
+static void	run_calc(t_event *event)
 {
 //	light_inside(&(event->scene));
 	// printf("%d %d\n", (event->scene).anti_a, (event->scene).grain);
-	// create_threads(event, set_t_values);
-	set_t_values(event);
+	create_threads(event, set_t_values);
 	init_light_values(event);
-	turn_on_lights((t_event*)event);
-	// mlx_put_image_to_window(event->mlx, event->win,
-	// 	(event->img).img_ptr, 0, 0);
-	// init_loop(event);
-	return (NULL);
+	turn_on_lights(event);
+	mlx_put_image_to_window(event->mlx, event->win,
+		(event->img).img_ptr, 0, 0);
+	init_loop(event);
 }
 
 int			main(int argc, char **argv)
@@ -78,9 +75,5 @@ int			main(int argc, char **argv)
 		error(0);
 	set_fixed_values(&scene);
 	event = get_event(scene);
-	// run_calc(&event);
-	create_threads(&event, run_calc);
-	mlx_put_image_to_window(event.mlx, event.win,
-		(event.img).img_ptr, 0, 0);
-	init_loop(&event);
+	run_calc(&event);
 }

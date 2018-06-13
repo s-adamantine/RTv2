@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:21:38 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/13 16:25:11 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -175,8 +175,7 @@ void			*set_t_values(void *arg)
 	int			factor;
 
 	e = (t_event*)arg;
-	factor = e->scene.anti_a > e->scene.grain ?
-	e->scene.anti_a : 1;
+	factor = e->scene.max_anti_a;
 	i = ((e->scene.height * factor / THREADS) * e->scene.thread_id);
 	while (i < (e->scene.height * factor / THREADS)  * (e->scene.thread_id + 1))
 	{
@@ -189,9 +188,9 @@ void			*set_t_values(void *arg)
 				setup_pixel(p, e->scene, i, j, factor);
 				get_value(&e->scene, p);
 			}
-			j += e->scene.grain;
+			j += e->scene.step_size;
 		}
-		i += e->scene.grain;
+		i += e->scene.step_size;
 	}
 	(e->scene.cam)->init = 1;
 	return (NULL);

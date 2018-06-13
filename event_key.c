@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:21:02 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/13 18:30:31 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,13 @@ static void	change_grain(t_event *event, int sharper)
 {
 	if (sharper && (event->scene).grain >= 2 && (event->scene).anti_a == 1)
 		(event->scene).grain /= 2;
-	else if (sharper && (event->scene).anti_a < (event->scene).max_anti_a)
-		(event->scene).anti_a++;
+	else if (sharper && (event->scene).anti_a * 2 <= (event->scene).max_anti_a)
+		(event->scene).anti_a *= 2;
 	else if (!sharper && (event->scene).grain == 1 && (event->scene).anti_a >= 2)
-		(event->scene).anti_a--;
+		(event->scene).anti_a /= 2;
 	else if (!sharper)
 		(event->scene).grain *= 2;
-	(event->scene).step_size = (event->scene).grain > 1
-		? (event->scene).grain : (event->scene).anti_a;
+	(event->scene).step_size *= sharper ? .5 : 2;
 	create_threads(event, set_t_values);
 	init_light_values((void *)event);
 	turn_on_lights(event);

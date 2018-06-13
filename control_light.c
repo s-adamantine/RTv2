@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/13 13:34:58 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/13 18:37:39 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,65 +60,64 @@ static void	add_color(t_pixel *p, int id)
  * in image by calling fill_square (grainy effect).
  */
 
-static void	change_color(t_event *event, int id, int index, int factor)
+static void	change_color(t_event *event, int id, int vert, int hor)
 {
 	t_pixel	*p;
 	t_3v	temp;
 	int		i;
 	int		j;
 	int		loop_to;
+	int		index;
 
 	i = 0;
 	temp = ft_init_3v(0.0, 0.0, 0.0);
 	loop_to = (event->scene).anti_a > (event->scene).grain ?
-	(event->scene).anti_a : 1;
+		(event->scene).anti_a : 1;
+	loop_to = event->scene.max_anti_a;
+	index = (event->scene).max_anti_a * (hor + vert * (event->scene).max_anti_a
+			* (event->scene).width);
 	while (i < loop_to)
 	{
 		j = index;
 		while (j < index + loop_to)
 		{
 			p = &((((event->scene).cam)->p_array)
-			[j + (event->scene).width * factor * i]);
+				[j + (event->scene).width * i * (event->scene).max_anti_a]);
 			add_color(p, id);
-			j++;
+			j += event->scene.step_size;
 			temp = ft_3v_add(p->color, temp);
 		}
-		i++;
+		i += event->scene.step_size;
 	}
-	(temp.v)[0] /= (loop_to * loop_to);
-	(temp.v)[1] /= (loop_to * loop_to);
-	(temp.v)[2] /= (loop_to * loop_to);
-	j = index % ((event->scene).width * factor);
-	i = (index - j) / ((event->scene).width * factor);
-	fill_square(&(event->img), j / factor + (event->scene).width
-	* i / factor, ((event->scene).anti_a > (event->scene).grain)
-	? 1 : (event->scene).grain, get_color(temp));
+	(temp.v)[0] /= ((event->scene).anti_a * (event->scene).anti_a);
+	(temp.v)[1] /= ((event->scene).anti_a * (event->scene).anti_a);
+	(temp.v)[2] /= ((event->scene).anti_a * (event->scene).anti_a);
+	fill_square(&(event->img), hor + (event->scene).width * vert,
+			(event->scene).step_size / (event->scene).max_anti_a,
+			get_color(temp));
 }
 
 static void	*switch_one(void *event)
 {
 	int		i;
 	int		j;
-	int		factor;
 	t_scene	scene;
 	t_event	*e;
 
 	e = (t_event*)event;
 	scene = e->scene;
-	factor = scene.anti_a > scene.grain ?
-	scene.anti_a : 1;
-	i = ((scene.height * factor / THREADS) * scene.thread_id);
-	while (i < (scene.height * factor / THREADS)  * (scene.thread_id + 1))
+	i = ((scene.height / THREADS) * scene.thread_id);
+	while (i < (scene.height / THREADS)  * (scene.thread_id + 1))
 	{
 		j = 0;
-		while (j < scene.width * factor)
+		while (j < scene.width)
 		{
-			change_color(event, scene.source_id,
-			j + scene.width * factor * i, factor);
-			j += scene.step_size;
+			change_color(event, scene.source_id, i, j);
+			j++;
 		}
-		i += scene.step_size;
+		i++;
 	}
+	printf("%d\n", scene.anti_a);
 	return (NULL);
 }
 

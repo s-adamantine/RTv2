@@ -135,6 +135,8 @@ typedef struct	s_intensity
 {
 	double		spec;
 	double		diff;
+	double		attrition_diff;
+	double		attrition_spec;
 }				t_intensity;
 
 typedef struct	s_source

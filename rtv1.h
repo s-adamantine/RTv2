@@ -344,6 +344,5 @@ void			set_values_material(t_material *m, char *s, char *value);
 void			set_material(t_scene *scene);
 void			set_pattern(t_scene *scene);
 void			create_threads(t_event *event, void *(*f)(void*));
-void			*run_calc(void *event);
 
 #endif

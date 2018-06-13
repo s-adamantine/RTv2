@@ -132,8 +132,7 @@ void		turn_on_lights(t_event *event)
 
 	event->redraw = 1;
 	(event->scene).source_id = 0;
-	// create_threads(event, switch_one);
-	switch_one((void*)event);
+	create_threads(event, switch_one);
 	if ((event->scene).grain == 1 && event->t_select == KEY_L)
 	{
 		if (!(turn_off_or_on(&(event->scene), event->id_select)))
@@ -148,8 +147,7 @@ void		turn_on_lights(t_event *event)
 		if (event->src->type && event->src->on)
 		{
 			(event->scene).source_id = event->src->id;
-			// create_threads(event, switch_one);
-			switch_one((void*)event);
+			create_threads(event, switch_one);
 		}
 		s_lst = s_lst->next;
 	}
@@ -171,8 +169,7 @@ void		*init_light_values(void *arg)
 	{
 		event->src = (t_source *)s_lst->content;
 		if (event->src->type)
-			// create_threads(event, set_light_per_pixel);
-			set_light_per_pixel((void*)event);
+			create_threads(event, set_light_per_pixel);
 		s_lst = s_lst->next;
 	}
 	return (NULL);

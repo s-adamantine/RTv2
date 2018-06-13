@@ -18,8 +18,8 @@
 
 int	get_color(t_3v c)
 {
-	int	color;
-	int	int_value;
+	int		color;
+	int		int_value;
 
 	if (c.v[0] > 1)
 		c.v[0] = 1;

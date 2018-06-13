@@ -53,7 +53,7 @@ object {
 		{origin, {45.0 145.0 0.0}}
 		{rotation, {20, 45, 30}}
 		{radius, {100}}
-		{pattern, {2}}
+		{pattern, {1}}
 		{material, {1}}
 		{sec_material, {4}}
 }
@@ -62,7 +62,7 @@ object {
 		{origin, {100.0 -100.0 -100.0}}
 		{rotation, {0, 15, 30}}
 		{radius, {120}}
-		{pattern, {1}}
+		{pattern, {2}}
 		{material, {3}}
 		{sec_material, {2}}
 }

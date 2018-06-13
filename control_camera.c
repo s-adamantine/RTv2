@@ -50,15 +50,19 @@ void			change_camera(t_event *event)
 	if (!(cam->init))
 	{
 		if (!(cam->p_array = (t_pixel *)malloc(sizeof(t_pixel)
-					* scene->width * scene->height)) ||
+					* scene->width * scene->height *
+					scene->max_anti_a * scene->max_anti_a)) ||
 				!(cam->pixel_set = (int *)malloc(sizeof(int)
-					* scene->width * scene->height)))
+					* scene->width * scene->height
+					* scene->max_anti_a * scene->max_anti_a)))
 			error(1);
-		ft_bzero(cam->pixel_set, sizeof(int) * scene->width * scene->height);
+		ft_bzero(cam->pixel_set, sizeof(int) * scene->width
+			* scene->height * scene->max_anti_a * scene->max_anti_a);
 		set_fixed_values(scene);
-		set_t_values(event);
-		init_light_values((void *)event);
+		// create_threads(event, set_t_values);
+		// init_light_values((void *)event);
 	}
-	turn_on_lights(event);
+	create_threads(event, run_calc);
+	// turn_on_lights(event);
 	event->redraw = 1;
 }

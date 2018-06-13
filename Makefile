@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/12 17:33:50 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/11 14:58:54 by jroguszk         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,6 @@ SRCS = 	rtv1.c\
 		set_render.c\
 		set_material.c\
 		set_pattern.c\
-		set_point_list.c\
 		set_light.c\
 		set_fixed_values.c\
 		set_t_values.c\
@@ -45,8 +44,8 @@ LFTDIR = libft/
 # Use other $LMLXDIR by (un)commenting the following two lines 
 # if the project does not compile. 
 # 
-#LMLXDIR = minilibx_macos/
-LMLXDIR = mlx_macbook/
+LMLXDIR = minilibx_macos/
+#LMLXDIR = mlx_macbook/
 LIBFT = libft.a
 LIBMLX = libmlx.a
 FT = ft
@@ -61,7 +60,7 @@ FRAMEWORK = -framework OpenGL -framework AppKit
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LFTDIR)$(LIBFT) $(LMLXDIR)$(LIBMLX)
-	-@gcc $(FLAGS) -o $(NAME) $(SEGFAULT) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
+	-@gcc $(FLAGS) -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
 	 -I$(LMLXDIR) -L$(LMLXDIR) -l$(MLX) \
 	 $(FRAMEWORK)
 	-@echo "RTv1 Ready"

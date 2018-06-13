@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/11 14:20:19 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 14:35:12 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,14 +48,19 @@ static void	usage(void)
 	exit(0);
 }
 
-static void	run_calc(t_event *event)
+// static void	run_calc(t_event *event)
+void	*run_calc(void *event)
 {
-	set_t_values((void *)event);
-	init_light_values((void *)event);
-	turn_on_lights(event);
-	mlx_put_image_to_window(event->mlx, event->win,
-		(event->img).img_ptr, 0, 0);
-	init_loop(event);
+//	light_inside(&(event->scene));
+	// printf("%d %d\n", (event->scene).anti_a, (event->scene).grain);
+	// create_threads(event, set_t_values);
+	set_t_values(event);
+	init_light_values(event);
+	turn_on_lights((t_event*)event);
+	// mlx_put_image_to_window(event->mlx, event->win,
+	// 	(event->img).img_ptr, 0, 0);
+	// init_loop(event);
+	return (NULL);
 }
 
 int			main(int argc, char **argv)
@@ -64,7 +69,6 @@ int			main(int argc, char **argv)
 	t_scene		scene;
 	t_event		event;
 
-	srand(time(NULL));
 	if (argc != 2)
 		usage();
 	if ((fd = open(argv[1], O_RDONLY)) == -1)
@@ -74,5 +78,9 @@ int			main(int argc, char **argv)
 		error(0);
 	set_fixed_values(&scene);
 	event = get_event(scene);
-	run_calc(&event);
+	// run_calc(&event);
+	create_threads(&event, run_calc);
+	mlx_put_image_to_window(event.mlx, event.win,
+		(event.img).img_ptr, 0, 0);
+	init_loop(&event);
 }

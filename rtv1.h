@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/12 17:36:56 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 17:05:13 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 # define MAX_S_VALUE 50000
 # define DEG 57.2958
 # define MENU_WIDTH 500
+# define THREADS 4
 
 # define AMOUNT_INSTRUCTIONS 7
 # define AMOUNT_INFO 6
@@ -84,6 +85,52 @@ typedef struct	s_img
 	int			id;
 }				t_img;
 
+typedef struct	s_menu_p
+{
+	int			x;
+	int			y;
+	int			button;
+	int			id;
+	int			type_id;
+	int			type;
+	int			color;
+}				t_menu_p;
+
+typedef struct	s_sub_m
+{
+	int			y;
+	int			x;
+	int			width;
+	int			height;
+	int			color;
+	int			color_selected;
+	int			id;
+	char		**strings;
+	t_img		img;
+	int			first;
+	int			parent_id;
+	int			*child_id;
+	int			child_count;
+	int			showing;
+	int			selected;
+	int			type;
+	int			type_id;
+	int			sub_tab;
+	int			sub_tab_showing;
+	int			position;
+	int			tab_amount;
+	int			per_tab;
+	int			edge_thickness;
+	int			edge_color;
+}				t_sub_m;
+
+typedef struct	s_menu
+{
+	t_menu_p	*p;
+	t_sub_m		*sub_m;
+	int			sub_m_count;
+}				t_menu;
+
 typedef struct	s_intensity
 {
 	double		spec;
@@ -106,7 +153,6 @@ typedef struct	s_fixed_v
 {
 	double		val;
 	double		val_2;
-	double		val_3;
 	double		rad;
 	double		rad_sq;
 	t_3v		vec;
@@ -130,10 +176,8 @@ typedef struct	s_pattern
 {
 	int			id;
 	int			type;
-	double		size;
+	int			size;
 	int			distance;
-	int			amount_points;
-	t_3v		*points_arr;
 	int			os_1;
 	int			os_2;
 }				t_pattern;
@@ -143,20 +187,17 @@ typedef struct	s_object
 	int			id;
 	int			type;
 	int			from_inside;
-	int			pattern_id;
 	t_material	m;
 	t_material	m2;
 	t_pattern	pattern;
 	double		radius;
 	double		(*f)();
 	double		axis_rotation;
-	double		param_1;
-	double		param_2;
+	double		shape_origin;
 	t_3v		origin;
 	t_3v		rotation;
-	t_3v		dir;
-	t_fixed_v	**fixed_c;
-	t_fixed_v	**fixed_s;
+	t_fixed_v	**fixed_c[THREADS];
+	t_fixed_v	**fixed_s[THREADS];
 }				t_object;
 
 typedef struct	s_p_info
@@ -205,6 +246,8 @@ typedef struct	s_scene
 	int			cam_set;
 	int			grain;
 	int			anti_a;
+	int			max_anti_a;
+	int			step_size;
 	int			refl;
 	double		ambient;
 	double		wait;
@@ -215,6 +258,8 @@ typedef struct	s_scene
 	t_list		*materials;
 	t_list		*patterns;
 	int			all_on;
+	int			source_id;
+	int			thread_id;
 }				t_scene;
 
 typedef struct	s_event
@@ -223,6 +268,8 @@ typedef struct	s_event
 	void		*win;
 	t_img		img;
 	t_scene		scene;
+	t_menu		menu;
+	t_source	*src;
 	int			mouse_hold;
 	int			x_0;
 	int			y_0;
@@ -244,13 +291,12 @@ double			get_t_cylinder(t_fixed_v f, t_3v dir, int alt);
 double			get_t_plane(t_fixed_v f, t_3v dir, int alt);
 double			get_t_sphere(t_fixed_v f, t_3v dir, int alt);
 double			get_t_cone(t_fixed_v f, t_3v dir, int alt);
-double			get_t_quadric(t_fixed_v f, t_3v dir, int alt);
 void			*set_t_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
 void			turn_on_lights(t_event *event);
 void			light_inside(t_scene *scene);
-void			set_light_per_pixel(t_event *event, t_source src);
+void			*set_light_per_pixel(void *event);
 t_event			get_event(t_scene scene);
 t_source		*get_source(int id, t_list *lst);
 t_3v			rotate_v(t_3v dir, t_3v rotation);
@@ -267,7 +313,6 @@ int				key_pressed(int key, t_event *param);
 int				get_color(t_3v c);
 t_3v			get_rel_origin(t_3v origin, t_object *obj);
 t_3v			normalize(t_3v v);
-t_3v			entry_division(t_3v v1, t_3v v2);
 t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam, int src_id);
 int				fill_square(t_img *img, int index, int size, int color);
 void			init_image(void *mlx, int width_scr, int height_scr,
@@ -280,18 +325,25 @@ void			set_drag_angle(t_event *event, int x, int y);
 void			set_move(t_event *event, int move);
 int				key_hold(int key, t_event *event);
 void			set_fixed_values(t_scene *scene);
-void			set_value_refl(t_3v point, t_object *o, int r, int cam_id);
+void			set_value_refl(t_3v point, t_object *o, int r, int cam_id, int thread_id);
 void			set_drag_angle(t_event *event, int x, int y);
+void			set_sub_menu_pixel(t_menu *menu, t_sub_m *sub_m);
 void			init_menu(t_event *event);
+int				init_sub_menu(t_menu *menu, int parent_id);
+void			fill_menu(t_event *event, t_menu *menu);
+void			add_object_menu(t_event *event, t_sub_m *parent, t_menu *menu);
 void			add_sub_menu(t_event *event);
 char			*get_vector_string(t_3v v, int precision);
+void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
 void			menu_click(int index, t_event *event);
+void			add_child_id(t_sub_m *parent, t_sub_m *child);
 t_material		get_object_material(t_object o, t_3v p);
 t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif);
 void			change_camera(t_event *event);
 void			set_values_material(t_material *m, char *s, char *value);
 void			set_material(t_scene *scene);
 void			set_pattern(t_scene *scene);
-void			set_point_list(t_pattern *p);
+void			create_threads(t_event *event, void *(*f)(void*));
+void			*run_calc(void *event);
 
 #endif

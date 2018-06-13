@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/11 18:49:28 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/05/09 15:41:09 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static void		get_light_color(t_object *obj, t_3v point, t_source *src)
  */
 
 static double	light_reaches(t_3v dir, t_list *objects, int cam,
-		t_source *src)
+		t_source *src, int thread_id)
 {
 	double		t_value;
 	double		reached;
@@ -52,7 +52,7 @@ static double	light_reaches(t_3v dir, t_list *objects, int cam,
 	while (o_lst && o_lst->content)
 	{
 		obj = (t_object *)o_lst->content;
-		t_value = obj->f(obj->fixed_s[cam][src->id - 1], dir, 0);
+		t_value = obj->f(obj->fixed_s[thread_id][cam][src->id - 1], dir, 0);
 		if (t_value > 0.001 && t_value < 0.99999)
 			get_light_color(obj, get_point(src->origin, dir, t_value), src);
 		else if (t_value > 0.999999 && t_value < 1.000001)
@@ -148,7 +148,7 @@ static double	set_light_value(t_intensity in, t_pixel *p,
  * for this specific source.
  */
 
-static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
+static void			light_intensity(t_source src, t_pixel *p, t_scene *scene)
 {
 	t_3v			dir;
 	t_intensity		in;
@@ -165,7 +165,7 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 		dir = ft_3v_subtract(pi->point, src.origin);
 		in.diff = 0;
 		in.spec = 0;
-		if (light_reaches(dir, scene->objects, (scene->cam)->id, &src) > 0.01)
+		if (light_reaches(dir, scene->objects, (scene->cam)->id, &src, scene->thread_id) > 0.01)
 			in = get_intensity(pi, dir, *(scene->cam), src.id - 1);
 		set_light_value(in, p, src, r);
 		r++;
@@ -177,25 +177,29 @@ static void		light_intensity(t_source src, t_pixel *p, t_scene *scene)
  * influence is.
  */
 
-void		set_light_per_pixel(t_event *event, t_source src)
+void		*set_light_per_pixel(void *event)
 {
 	t_pixel		*p;
-	t_scene		scene;
+	t_event		*e;
 	int			i;
 	int			j;
+	int			factor;
 
-	i = 0;
-	scene = event->scene;
-	while (i < scene.height)
+	e = (t_event*)event;
+	factor = e->scene.anti_a > e->scene.grain ?
+	e->scene.anti_a : 1;
+	i = ((e->scene.height * factor / THREADS) * e->scene.thread_id);
+	while (i < (e->scene.height * factor / THREADS)  * (e->scene.thread_id + 1))
 	{
 		j = 0;
-		while (j < scene.width)
+		while (j < e->scene.width * factor)
 		{
-			p = &(((scene.cam)->p_array)[j + i * scene.width]);
-			p->c_per_src[src.id] = ft_zero_3v();
-			light_intensity(src, p, &scene);
-			j += (scene.cam)->grain;
+			p = &(((e->scene.cam)->p_array)[j + i * e->scene.width * factor]);
+			p->c_per_src[e->src->id] = ft_zero_3v();
+			light_intensity(*e->src, p, &e->scene);
+			j += e->scene.grain;
 		}
-		i += (scene.cam)->grain;
+		i += e->scene.grain;
 	}
+	return (NULL);
 }

@@ -24,6 +24,7 @@
 # define KEY_S 0x01
 # define KEY_A 0x00
 # define KEY_D 0x02
+# define KEY_G 0x05
 # define KEY_Z 0x06
 # define KEY_X 0x07
 # define KEY_C 0x08

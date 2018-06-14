@@ -30,15 +30,15 @@ camera {
 		{color, {0.4 0.7 1.0}}
 		{intensity, {15 0}}
 }
-*light {
+light {
 		{origin, {0.0 10.0 -50.0}}
 		{color, {0.4 0.7 1.0}}
 		{intensity, {15 0}}
 }
-light {
+*light {
 		{origin, {30.0 0.0 0.0}}
 		{color, {0.0 1.0 1.0}}
-		{intensity, {15 2}}
+		{intensity, {15 0}}
 }
 light {
 		{origin, {500.0 0.0 0.0}}

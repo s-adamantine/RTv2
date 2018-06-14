@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:40:06 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 13:55:04 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 11:44:55 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,16 +54,16 @@ t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam, int src_id)
 	t_intensity	i;
 	t_object	*obj;
 	double		angle;
-	double		distance;
+	double		distance_sq;
 
 	obj = pi->vis_obj;
 	i.diff = 0;
 	i.spec = 0;
 	if (ft_get_3v_size(pi->normal) == 0)
 		return (i);
-	distance = (sqrt(ft_3v_dot_product(dir, dir)));
-	i.attrition_diff = 1 / ((distance / 500) * (distance / 500));
-	i.attrition_spec = 1 / ((distance / 100) * (distance / 100));
+	distance_sq = ft_3v_dot_product(dir, dir);
+	i.attrition_diff = 250000 / distance_sq;
+	i.attrition_spec = 10000 / distance_sq;
 	dir = normalize(dir);
 	i.diff = (get_d(dir, pi->normal, obj)) * i.attrition_diff;
 	angle = get_s(pi, dir, cam);

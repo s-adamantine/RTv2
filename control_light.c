@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 11:21:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 11:35:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,6 @@ static void	*switch_one(void *event)
 	e = (t_event*)event;
 	scene = e->scene;
 	i = ((scene.height / THREADS) * scene.thread_id);
-	printf("%d\n", scene.source_id);
 	while (i < (scene.height / THREADS)  * (scene.thread_id + 1))
 	{
 		j = 0;

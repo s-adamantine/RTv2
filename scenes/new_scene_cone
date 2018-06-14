@@ -58,7 +58,7 @@ object {
 		{radius, {0.4}}
 		{reflection, {0.1 0.15 0.5 20}}
 }
-*object {
+object {
 		{type, {sphere}}
 		{origin, {45.0 145.0 0.0}}
 		{rotation, {20, 45, 30}}
@@ -66,7 +66,7 @@ object {
 		{material, {1}}
 		{sec_material, {4}}
 }
-*object {
+object {
 		{type, {sphere}}
 		{origin, {100.0 -100.0 -100.0}}
 		{rotation, {0, 15, 30}}

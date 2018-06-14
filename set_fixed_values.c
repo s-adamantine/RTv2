@@ -44,6 +44,15 @@ static void	set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 		f->val_2 = o->params_val;
 		printf("%f %f %f, %f, %f\n", f->vec.v[0], f->vec.v[1], f->vec.v[2], f->val, f->val_2);
 	}
+	if (o->type == 5)
+	{
+		f->vec = ft_cross_product(ft_3v_subtract(o->origin_2, o->origin),
+		 		ft_3v_subtract(o->origin_3, o->origin)); //the normal
+		f->vec = normalize(f->vec);
+		printf("%f %f %f\n", f->vec.v[0], f->vec.v[1], f->vec.v[2]);
+		f->val = ft_3v_dot_product(f->vec, origin) +
+				ft_3v_dot_product(f->vec, o->origin); //o->origin is actually the first vertex
+	}
 }
 
 /*

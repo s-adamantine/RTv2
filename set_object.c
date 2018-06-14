@@ -22,6 +22,8 @@ static void	init_def_object(t_object *obj, int id)
 	obj->f = &get_t_plane;
 	obj->axis_rotation = 0;
 	obj->origin = def;
+	obj->origin_2 = ft_init_3v(1.0, 0.0, 0.0);
+	obj->origin_3 = ft_init_3v(0.0, 1.0, 0.0);
 	def = ft_zero_3v();
 	obj->rotation = def;
 	obj->radius = 1;
@@ -52,6 +54,11 @@ static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 	{
 		obj->f = &get_t_quadric;
 		obj->type = 4;
+	}
+	else if (ft_strncmp(s, "triangle", 8) == 0)
+	{
+		obj->f = &get_t_triangle;
+		obj->type = 5;
 	}
 	else
 	{
@@ -104,6 +111,10 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 {
 	if (ft_strncmp(s, "type", 4) == 0)
 		set_object_type(value, obj, scene);
+	else if (ft_strncmp(s, "origin_2", 8) == 0)
+		update_vector(&(obj->origin_2), value);
+	else if (ft_strncmp(s, "origin_3", 8) == 0)
+		update_vector(&(obj->origin_3), value);
 	else if (ft_strncmp(s, "origin", 6) == 0)
 		update_vector(&(obj->origin), value);
 	else if (ft_strncmp(s, "rotation", 7) == 0)

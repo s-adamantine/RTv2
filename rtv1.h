@@ -33,7 +33,7 @@
 # define DEF_BUTTON_HEIGHT 30
 # define TAB_BUTTON_WIDTH 20
 # define SUB_MENU_Y (BAR_TOP_HEIGHT + 2 * DEF_BUTTON_HEIGHT + SUB_MARGIN)
-# define MENU_LINE 15 
+# define MENU_LINE 15
 # define TEXT_LIGHT 0xffffff
 # define TEXT_DARK 0x000000
 # define ALERT_COLOR 0xff3f80
@@ -109,6 +109,7 @@ typedef struct	s_fixed_v
 	double		rad;
 	double		rad_sq;
 	t_3v		vec;
+	t_3v		vec2;
 	t_3v		dif_c;
 	t_3v		dir;
 }				t_fixed_v;
@@ -151,6 +152,8 @@ typedef struct	s_object
 	double		params_val;
 	t_3v		params;
 	t_3v		origin;
+	t_3v		origin_2;
+	t_3v		origin_3;
 	t_3v		rotation;
 	t_fixed_v	**fixed_c;
 	t_fixed_v	**fixed_s;
@@ -242,6 +245,7 @@ double			get_t_plane(t_fixed_v f, t_3v dir, int alt);
 double			get_t_sphere(t_fixed_v f, t_3v dir, int alt);
 double			get_t_cone(t_fixed_v f, t_3v dir, int alt);
 double			get_t_quadric(t_fixed_v f, t_3v dir, int alt);
+double  		get_t_triangle(t_fixed_v f, t_3v dir);
 void			*set_t_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);

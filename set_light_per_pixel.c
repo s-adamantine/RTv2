@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 17:45:35 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 18:19:43 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -146,14 +146,16 @@ static double	set_light_value(t_intensity in, t_pixel *p,
  * for this specific source.
  */
 
-static void			light_intensity(t_source src, t_pixel *p, t_scene *scene)
+static double		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 {
 	t_3v			dir;
 	t_intensity		in;
 	int				r;
 	t_p_info		*pi;
+	double			max;
 
 	r = 0;
+	max = 0.0;
 	while (r < p->amount_p)
 	{
 		pi = p->pi_arr[r];
@@ -165,11 +167,12 @@ static void			light_intensity(t_source src, t_pixel *p, t_scene *scene)
 		in.spec = 0;
 		if (light_reaches(dir, scene->objects, (scene->cam)->id, &src, scene->thread_id) > 0.01)
 			in = get_intensity(pi, dir, *(scene->cam), src.id - 1);
-		if (in.diff - scene->max_intensity >= 0.001)
-			scene->max_intensity = in.diff;
+		if (in.diff > max)
+			max = in.diff;
 		set_light_value(in, p, src, r);
 		r++;
 	}
+	return (max);
 }
 
 /*
@@ -183,19 +186,20 @@ void		*set_light_per_pixel(void *event)
 	t_event		*e;
 	int			i;
 	int			j;
-	int			factor;
+	double		max;
 
 	e = (t_event*)event;
-	factor = e->scene.max_anti_a;
-	i = ((e->scene.height * factor / THREADS) * e->scene.thread_id);
-	while (i < (e->scene.height * factor / THREADS)  * (e->scene.thread_id + 1))
+	i = ((e->scene.height * e->scene.max_anti_a / THREADS) * e->scene.thread_id);
+	while (i < (e->scene.height * e->scene.max_anti_a / THREADS)  * (e->scene.thread_id + 1))
 	{
 		j = 0;
-		while (j < e->scene.width * factor)
+		while (j < e->scene.width * e->scene.max_anti_a)
 		{
-			p = &(((e->scene.cam)->p_array)[j + i * e->scene.width * factor]);
+			p = &(((e->scene.cam)->p_array)[j + i * e->scene.width * e->scene.max_anti_a]);
 			p->c_per_src[e->src->id] = ft_zero_3v();
-			light_intensity(*e->src, p, &(e->scene));
+			max = light_intensity(*e->src, p, &(e->scene));
+			if (max > (e->src)->max_intensity)
+				(e->src)->max_intensity = max;
 			j += e->scene.step_size;
 		}
 		i += e->scene.step_size;

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 15:05:40 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 18:13:34 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,6 +149,7 @@ typedef struct	s_source
 	t_3v		origin;
 	t_3v		color;
 	t_3v		tmp_color;
+	double		max_intensity;
 }				t_source;
 
 typedef struct	s_fixed_v
@@ -262,7 +263,6 @@ typedef struct	s_scene
 	int			all_on;
 	int			source_id;
 	int			thread_id;
-	double		max_intensity;
 }				t_scene;
 
 typedef struct	s_event

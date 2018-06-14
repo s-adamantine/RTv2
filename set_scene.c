@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 12:58:35 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 18:14:02 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ static void	init_def_scene(t_scene *scene)
 		scene->anti_a;
 	scene->source_id = 0;
 	scene->thread_id = 0;
-	scene->max_intensity = 0.0;
 	set_material(scene);
 	set_pattern(scene);
 }

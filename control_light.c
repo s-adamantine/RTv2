@@ -44,7 +44,7 @@ static int	turn_off_or_on(t_scene *scene, int id)
 	return (0);
 }
 
-static void	add_color(t_pixel *p, int id)
+static void	add_color(t_pixel *p, int id, t_event *event)
 {
 	if (p->pi_arr[0] && (p->pi_arr[0])->vis_obj)
 	{
@@ -52,6 +52,7 @@ static void	add_color(t_pixel *p, int id)
 			p->color = p->c_per_src[0];
 		else
 			p->color = ft_3v_add((p->c_per_src)[id], p->color);
+		p->color = ft_3v_scalar(p->color, 1 / (event->scene).max_intensity);
 	}
 }
 
@@ -83,7 +84,7 @@ static void	change_color(t_event *event, int id, int vert, int hor)
 		{
 			p = &((((event->scene).cam)->p_array)
 				[j + (event->scene).width * i * (event->scene).max_anti_a]);
-			add_color(p, id);
+			add_color(p, id, event);
 			j += event->scene.step_size;
 			temp = ft_3v_add(p->color, temp);
 		}
@@ -112,7 +113,7 @@ static void	*switch_one(void *event)
 		j = 0;
 		while (j < scene.width)
 		{
-			change_color(event, scene.source_id, i, j);
+			change_color((t_event*)event, scene.source_id, i, j);
 			j++;
 		}
 		i++;
@@ -161,7 +162,7 @@ void		*init_light_values(void *arg)
 	t_event			*event;
 	t_list			*s_lst;
 
-	event = (t_event *)arg;
+	event = (t_event*)arg;
 	s_lst = (event->scene).lights;
 	while (s_lst && s_lst->content)
 	{
@@ -170,6 +171,7 @@ void		*init_light_values(void *arg)
 			create_threads(event, set_light_per_pixel);
 		s_lst = s_lst->next;
 	}
+	// printf("%f\n", event->scene.max_intensity);
 	return (NULL);
 }
 
@@ -193,4 +195,5 @@ void	create_threads(t_event *event, void *(*f)(void*))
 		pthread_join(thread[i], NULL);
 		i++;
 	}
+	printf("%f\n", t->scene.max_intensity);
 }

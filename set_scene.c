@@ -36,6 +36,7 @@ static void	init_def_scene(t_scene *scene)
 		scene->anti_a;
 	scene->source_id = 0;
 	scene->thread_id = 0;
+	scene->max_intensity = 0.0;
 	set_material(scene);
 	set_pattern(scene);
 }

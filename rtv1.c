@@ -53,7 +53,8 @@ static void	run_calc(t_event *event)
 //	light_inside(&(event->scene));
 	// printf("%d %d\n", (event->scene).anti_a, (event->scene).grain);
 	create_threads(event, set_t_values);
-	init_light_values(event);
+	init_light_values((void*)event);
+	printf("%f\n", event->scene.max_intensity);
 	turn_on_lights(event);
 	mlx_put_image_to_window(event->mlx, event->win,
 		(event->img).img_ptr, 0, 0);

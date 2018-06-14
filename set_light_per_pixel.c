@@ -167,6 +167,8 @@ static void			light_intensity(t_source src, t_pixel *p, t_scene *scene)
 		in.spec = 0;
 		if (light_reaches(dir, scene->objects, (scene->cam)->id, &src, scene->thread_id) > 0.01)
 			in = get_intensity(pi, dir, *(scene->cam), src.id - 1);
+		if (in.diff - scene->max_intensity >= 0.001)
+			scene->max_intensity = in.diff;
 		set_light_value(in, p, src, r);
 		r++;
 	}
@@ -195,10 +197,11 @@ void		*set_light_per_pixel(void *event)
 		{
 			p = &(((e->scene.cam)->p_array)[j + i * e->scene.width * factor]);
 			p->c_per_src[e->src->id] = ft_zero_3v();
-			light_intensity(*e->src, p, &e->scene);
+			light_intensity(*e->src, p, &(e->scene));
 			j += e->scene.step_size;
 		}
 		i += e->scene.step_size;
 	}
+	// printf("%f\n", e->scene.max_intensity);
 	return (NULL);
 }

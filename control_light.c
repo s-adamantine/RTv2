@@ -170,7 +170,6 @@ void		*init_light_values(void *arg)
 			create_threads(event, set_light_per_pixel);
 		s_lst = s_lst->next;
 	}
-	// printf("%f\n", event->scene.max_intensity);
 	return (NULL);
 }
 
@@ -192,7 +191,8 @@ void	create_threads(t_event *event, void *(*f)(void*))
 	while (i < THREADS)
 	{
 		pthread_join(thread[i], NULL);
+		if (t[i].scene.max_intensity - event->scene.max_intensity >= 0.001)
+			event->scene.max_intensity = t[i].scene.max_intensity;
 		i++;
 	}
-	printf("%f\n", t->scene.max_intensity);
 }

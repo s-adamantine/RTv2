@@ -62,7 +62,7 @@ t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam, int src_id)
 	if (ft_get_3v_size(pi->normal) == 0)
 		return (i);
 	distance_sq = ft_3v_dot_product(dir, dir);
-	i.attrition_diff = 250000 / distance_sq;
+	i.attrition_diff = 10000 / distance_sq;
 	i.attrition_spec = 10000 / distance_sq;
 	dir = normalize(dir);
 	i.diff = (get_d(dir, pi->normal, obj)) * i.attrition_diff;

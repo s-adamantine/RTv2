@@ -68,8 +68,6 @@ static double	light_reaches(t_3v dir, t_list *objects, int cam,
 
 static void		check_values(t_intensity *in, t_3v o, t_source l)
 {
-	if (in->diff > 1)
-		in->diff = 1;
 	if (in->spec > 1)
 		in->spec = 1;
 	if ((o.v)[0] > 1 || (o.v)[1] > 1 || (o.v)[2] > 1
@@ -202,6 +200,5 @@ void		*set_light_per_pixel(void *event)
 		}
 		i += e->scene.step_size;
 	}
-	// printf("%f\n", e->scene.max_intensity);
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/13 16:50:13 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 11:25:45 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -193,13 +193,9 @@ void		*set_light_per_pixel(void *event)
 		j = 0;
 		while (j < e->scene.width * factor)
 		{
-			if ((e->scene.cam)->pixel_set[j + i * e->scene.width * factor] < 2)
-			{
-				p = &(((e->scene.cam)->p_array)[j + i * e->scene.width * factor]);
-				p->c_per_src[e->src->id] = ft_zero_3v();
-				light_intensity(*e->src, p, &e->scene);
-				(e->scene.cam)->pixel_set[j + i * e->scene.width * factor] += 1;
-			}
+			p = &(((e->scene.cam)->p_array)[j + i * e->scene.width * factor]);
+			p->c_per_src[e->src->id] = ft_zero_3v();
+			light_intensity(*e->src, p, &e->scene);
 			j += e->scene.step_size;
 		}
 		i += e->scene.step_size;

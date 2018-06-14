@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/12 17:36:56 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 13:47:26 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -293,5 +293,6 @@ void			set_values_material(t_material *m, char *s, char *value);
 void			set_material(t_scene *scene);
 void			set_pattern(t_scene *scene);
 void			set_point_list(t_pattern *p);
+void			init_def_object(t_object *obj, int id);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/11 14:20:19 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/13 13:48:07 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,11 @@ static void	usage(void)
 
 static void	run_calc(t_event *event)
 {
-	set_t_values((void *)event);
-	init_light_values((void *)event);
+//	light_inside(&(event->scene));
+	// printf("%d %d\n", (event->scene).anti_a, (event->scene).grain);
+	create_threads(event, set_t_values);
+	init_light_values((void*)event);
+	printf("%f\n", event->scene.max_intensity);
 	turn_on_lights(event);
 	mlx_put_image_to_window(event->mlx, event->win,
 		(event->img).img_ptr, 0, 0);
@@ -64,7 +67,6 @@ int			main(int argc, char **argv)
 	t_scene		scene;
 	t_event		event;
 
-	srand(time(NULL));
 	if (argc != 2)
 		usage();
 	if ((fd = open(argv[1], O_RDONLY)) == -1)

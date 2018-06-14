@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 14:57:28 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 15:05:08 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,26 @@
 
 static void	change_grain(t_event *event, int sharper)
 {
-	if (sharper && ((event->scene).cam)->grain >= 2)
-	{
-		((event->scene).cam)->grain /= 2;
-		set_t_values((void *)event);
-		init_light_values((void *)event);
-		turn_on_lights(event);
-		mlx_put_image_to_window(event->mlx, event->win,
-			(event->img).img_ptr, 0, 0);
-	}
-	else if (!sharper)
-		((event->scene).cam)->grain *= 2;
+	int	yes;
+
+	yes = 1;
+	if (sharper && (event->scene).anti_a * 2 > (event->scene).max_anti_a)
+		yes = 0;
+	if (yes && sharper && (event->scene).grain >= 2 && (event->scene).anti_a == 1)
+		(event->scene).grain /= 2;	
+	else if (yes && sharper && (event->scene).anti_a * 2 <= (event->scene).max_anti_a)
+		(event->scene).anti_a *= 2;
+	else if (yes && !sharper && (event->scene).grain == 1 && (event->scene).anti_a >= 2)
+		(event->scene).anti_a /= 2;
+	else if (yes && !sharper)
+		(event->scene).grain *= 2;
+	if (yes)
+		(event->scene).step_size *= sharper ? .5 : 2;
+	create_threads(event, set_t_values);
+	init_light_values((void *)event);
+	turn_on_lights(event);
+	mlx_put_image_to_window(event->mlx, event->win,
+		(event->img).img_ptr, 0, 0);
 }
 
 int			key_pressed(int key, t_event *event)
@@ -35,7 +44,7 @@ int			key_pressed(int key, t_event *event)
 		event->id_select = (key == KEY_0) ? KEY_0 : KEY_NUM_VALUE(key);
 	if (key == COMMA || key == DOT)
 		change_grain(event, (key == COMMA));
-	else if (key == KEY_C || key == KEY_O || key == KEY_L)
+	else if (key == KEY_C || key == KEY_O || key == KEY_L || key == KEY_G)
 		event->t_select = key;
 	else if (key == KEY_Q && event->t_select == KEY_L)
 		turn_on_lights(event);

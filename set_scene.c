@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/08 16:30:08 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 12:58:35 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ static void	init_def_scene(t_scene *scene)
 	scene->cam_set = 0;
 	scene->ambient = 0.5;
 	scene->grain = 1;
-	scene->anti_a = 2;
+	scene->anti_a = 1;
+	scene->max_anti_a = 2;
+	scene->step_size = scene->grain > 1 ? scene->grain :
+		scene->anti_a;
+	scene->source_id = 0;
+	scene->thread_id = 0;
+	scene->max_intensity = 0.0;
 	set_material(scene);
 	set_pattern(scene);
 }
@@ -61,4 +67,5 @@ void		set_scene(int fd, t_scene *scene)
 	if (!(scene->grain))
 		scene->grain = (scene->amount_obj && scene->amount_light) ?
 			scene->amount_obj * scene->amount_light : 1;
+	scene->step_size = scene->grain * scene->max_anti_a;
 }

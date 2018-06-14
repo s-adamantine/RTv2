@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:24:11 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:24:12 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/13 17:19:57 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ int		fill_square(t_img *img, int index, int size, int color)
 	int	j;
 
 	i = 0;
+	size = (size < 1) ? 1 : size;
 	while (i < size && (index % (*img).size_line_int) + i < (*img).width)
 	{
 		j = 0;

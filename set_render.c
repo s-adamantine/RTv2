@@ -19,7 +19,7 @@ static void	set_values_render_2(t_scene *scene, char *s, char *value)
 	else if (ft_strncmp(s, "grain", 5) == 0)
 		scene->grain = ft_atoi(value);
 	else if (ft_strncmp(s, "anti_a", 6) == 0)
-		scene->anti_a = ft_atod(value);
+		scene->max_anti_a = ft_atod(value);
 	else if (ft_strncmp(s, "wait", 4) == 0)
 		scene->wait = ft_atod(value);
 	else if (ft_strncmp(s, "reflection", 10) == 0)

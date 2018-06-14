@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/12 17:21:26 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 12:58:36 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
 		obj = (t_object *)tmp_obj->content;
 		if (p->amount_p > 0)
 			set_value_refl((p->pi_arr[p->amount_p - 1])->point, obj,
-					p->amount_p, (scene->cam)->id);
-		tmp = obj->f(obj->fixed_c[(scene->cam)->id][p->amount_p], dir, 0);
+					p->amount_p, (scene->cam)->id, scene->thread_id);
+		tmp = obj->f(obj->fixed_c[scene->thread_id][(scene->cam)->id][p->amount_p], dir, 0);
 		if (tmp > 0.001 && tmp < pi->s_value)
 		{
 			pi->s_value = tmp;
@@ -139,21 +139,26 @@ static void		get_value(t_scene *scene, t_pixel *p)
  * Initializing all variables in t_pixel.
  */
 
-static void		setup_pixel(t_pixel *p, t_scene scene, int i, int j)
+static void		setup_pixel(t_pixel *p, t_scene scene, int i, int j, int factor)
 {
 	if (scene.refl < 1)
 		scene.refl = 1;
+	if ((scene.cam)->pixel_set[j + i * scene.width * factor])
+	{
+		free(p->c_per_src);
+		free(p->pi_arr);
+	}
 	if (!(p->c_per_src = (t_3v *)malloc(sizeof(t_3v)
-					* (scene.amount_light + 1))))
+			* (scene.amount_light + 1))))
 		error(1);
 	if (!(p->pi_arr = (t_p_info **)malloc(sizeof(t_p_info *))))
 		error(1);
 	p->color = ft_zero_3v();
 	p->amount_p = 0;
-	(scene.cam)->pixel_set[j + scene.width * i] = 1;
+	(scene.cam)->pixel_set[j + scene.width * factor * i] = 1;
 	(p->coor).v[0] = -(scene.width / 2);
-	(p->coor).v[1] = (double)(j - scene.width / 2.0);
-	(p->coor).v[2] = (double)(scene.height / 2.0 - i);
+	(p->coor).v[1] = (double)((double)j / factor - scene.width / 2.0);
+	(p->coor).v[2] = (double)(scene.height / 2.0 - (double)i / factor);
 }
 
 /*
@@ -164,27 +169,29 @@ static void		setup_pixel(t_pixel *p, t_scene scene, int i, int j)
 void			*set_t_values(void *arg)
 {
 	t_pixel		*p;
-	t_scene		scene;
+	t_event		*e;
 	int			i;
 	int			j;
+	int			factor;
 
-	i = 0;
-	scene = ((t_event *)arg)->scene;
-	while (i < scene.height)
+	e = (t_event*)arg;
+	factor = e->scene.max_anti_a;
+	i = ((e->scene.height * factor / THREADS) * e->scene.thread_id);
+	while (i < (e->scene.height * factor / THREADS)  * (e->scene.thread_id + 1))
 	{
 		j = 0;
-		while (j < scene.width)
+		while (j < e->scene.width * factor)
 		{
-			if (!((scene.cam)->pixel_set[j + scene.width * i]))
+			if (!(e->scene.cam)->pixel_set[j + i * e->scene.width * factor])
 			{
-				p = &((scene.cam)->p_array[j + scene.width * i]);
-				setup_pixel(p, scene, i, j);
-				get_value(&scene, p);
+				p = &((e->scene.cam)->p_array[j + i * e->scene.width * factor]);
+				setup_pixel(p, e->scene, i, j, factor);
+				get_value(&e->scene, p);
 			}
-			j += (scene.cam)->grain;
+			j += e->scene.step_size;
 		}
-		i += (scene.cam)->grain;
+		i += e->scene.step_size;
 	}
-	(scene.cam)->init = 1;
+	(e->scene.cam)->init = 1;
 	return (NULL);
 }

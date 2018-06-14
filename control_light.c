@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:12:17 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 14:42:38 by jroguszk         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,45 +44,80 @@ static int	turn_off_or_on(t_scene *scene, int id)
 	return (0);
 }
 
-/*
- * Change the color of a pixel by adding the color value of the light. Change
- * in image by calling fill_square (grainy effect).
- */
-
-static void	change_color(t_event *event, int id, int index)
+static void	add_color(t_pixel *p, int id, t_event *event)
 {
-	t_pixel	*p;
-
-	p = &((((event->scene).cam)->p_array)[index]);
-	if ((p->pi_arr[0])->vis_obj)
+	if (p->pi_arr[0] && (p->pi_arr[0])->vis_obj)
 	{
 		if (id == 0)
 			p->color = p->c_per_src[0];
 		else
 			p->color = ft_3v_add((p->c_per_src)[id], p->color);
+		p->color = ft_3v_scalar(p->color, 1 / (event->scene).max_intensity);
 	}
-	fill_square(&(event->img), index, ((event->scene).cam)->grain,
-			get_color(p->color));
 }
 
-static void	switch_one(t_event *event, int id)
+/*
+ * Change the color of a pixel by adding the color value of the light. Change
+ * in image by calling fill_square (grainy effect).
+ */
+
+static void	change_color(t_event *event, int id, int vert, int hor)
+{
+	t_pixel	*p;
+	t_3v	temp;
+	int		i;
+	int		j;
+	int		index;
+
+	i = 0;
+	temp = ft_init_3v(0.0, 0.0, 0.0);
+	index = (event->scene).max_anti_a * (hor + vert * (event->scene).max_anti_a
+			* (event->scene).width);
+	while (i < event->scene.max_anti_a)
+	{
+		j = index;
+		while (j < index + event->scene.max_anti_a)
+		{
+			p = &((((event->scene).cam)->p_array)
+				[j + (event->scene).width * i * (event->scene).max_anti_a]);
+			add_color(p, id, event);
+			j += event->scene.step_size;
+			temp = ft_3v_add(p->color, temp);
+		}
+		i += event->scene.step_size;
+	}
+	(temp.v)[0] /= ((event->scene).anti_a * (event->scene).anti_a);
+	(temp.v)[1] /= ((event->scene).anti_a * (event->scene).anti_a);
+	(temp.v)[2] /= ((event->scene).anti_a * (event->scene).anti_a);
+	fill_square(&(event->img), hor + (event->scene).width * vert,
+			(event->scene).step_size / (event->scene).max_anti_a,
+			get_color(temp));
+}
+
+static void	*switch_one(void *event)
 {
 	int		i;
 	int		j;
+	int		grain_step;
 	t_scene	scene;
+	t_event	*e;
 
-	i = 0;
-	scene = event->scene;
-	while (i < scene.height)
+	e = (t_event*)event;
+	scene = e->scene;
+	i = ((scene.height / THREADS) * scene.thread_id);
+	grain_step = (scene.step_size > scene.max_anti_a) ? scene.step_size /
+		scene.max_anti_a : 1;
+	while (i < (scene.height / THREADS)  * (scene.thread_id + 1))
 	{
 		j = 0;
 		while (j < scene.width)
 		{
-			change_color(event, id, j + scene.width * i);
-			j += (scene.cam)->grain;
+			change_color(event, scene.source_id, i, j);
+			j += grain_step;
 		}
-		i += (scene.cam)->grain;
+		i += grain_step;
 	}
+	return (NULL);
 }
 
 /*
@@ -91,12 +126,12 @@ static void	switch_one(t_event *event, int id)
 
 void		turn_on_lights(t_event *event)
 {
-	t_source	*src;
 	t_list		*s_lst;
 
 	event->redraw = 1;
-	switch_one(event, 0);
-	if (((event->scene).cam)->grain == 1 && event->t_select == KEY_L)
+	(event->scene).source_id = 0;
+	create_threads(event, switch_one);
+	if ((event->scene).grain == 1 && event->t_select == KEY_L)
 	{
 		if (!(turn_off_or_on(&(event->scene), event->id_select)))
 			return ;
@@ -106,9 +141,12 @@ void		turn_on_lights(t_event *event)
 	s_lst = (event->scene).lights;
 	while (s_lst && s_lst->content)
 	{
-		src = (t_source *)s_lst->content;
-		if (src->type && src->on)
-			switch_one(event, src->id);
+		event->src = (t_source *)s_lst->content;
+		if (event->src->type && event->src->on)
+		{
+			(event->scene).source_id = event->src->id;
+			create_threads(event, switch_one);
+		}
 		s_lst = s_lst->next;
 	}
 }
@@ -122,16 +160,39 @@ void		*init_light_values(void *arg)
 {
 	t_event			*event;
 	t_list			*s_lst;
-	t_source		*src;
 
-	event = (t_event *)arg;
+	event = (t_event*)arg;
 	s_lst = (event->scene).lights;
 	while (s_lst && s_lst->content)
 	{
-		src = (t_source *)s_lst->content;
-		if (src->type)
-			set_light_per_pixel(event, *src);
+		event->src = (t_source *)s_lst->content;
+		if (event->src->type)
+			create_threads(event, set_light_per_pixel);
 		s_lst = s_lst->next;
 	}
+	// printf("%f\n", event->scene.max_intensity);
 	return (NULL);
+}
+
+void	create_threads(t_event *event, void *(*f)(void*))
+{
+	int			i;
+	pthread_t	thread[THREADS];
+	t_event		t[THREADS];
+
+	i = 0;
+	while (i < THREADS)
+	{
+		ft_memcpy((void*)&t[i], (void*)event, sizeof(t_event));
+		t[i].scene.thread_id = i;
+		pthread_create(&thread[i], NULL, f, &t[i]);
+		i++;
+	}
+	i = 0;
+	while (i < THREADS)
+	{
+		pthread_join(thread[i], NULL);
+		i++;
+	}
+	printf("%f\n", t->scene.max_intensity);
 }

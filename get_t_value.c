@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:19:43 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/13 11:41:23 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 15:05:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,6 @@ double	get_t_plane(t_fixed_v f, t_3v dir, int alt)
 	if (to_return > 0.0001)
 		return (to_return);
 	return (-1);
-}
-
-double	get_t_quadric(t_fixed_v f, t_3v dir, int alt)
-{
-	double	a;
-	double	b;
-	double	c;
-	double	d;
-	double	tmp;
-
-	tmp = (f.val_3 * ft_3v_dot_product(dir, f.dir)) / f.rad;
-	a = ft_3v_dot_product(dir, dir) - tmp * tmp;
-	b = 2 * (ft_3v_dot_product(dir, f.dif_c) - tmp * f.val);
-	c = f.val_2;
-	d = b * b - 4 * a * c;
-	if (d < 0.0001)
-		return (-1);
-	return (get_nearest_intersection(a, b, d, alt));
 }
 
 double	get_t_sphere(t_fixed_v f, t_3v dir, int alt)

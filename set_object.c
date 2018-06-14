@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 14:09:35 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 15:05:51 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,19 @@ void		init_def_object(t_object *obj, int id)
 	obj->axis_rotation = 0;
 	obj->origin = def;
 	obj->rotation = def;
-	obj->radius = 100.0;
-	obj->param_1 = 25.0;
-	obj->param_2 = 1.0;
-	obj->pattern_id = 0;
+	obj->axis_rotation = 0;
+	obj->radius = 1;
 }
 
 static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 {
 	scene->amount_obj++;
-
-	if (ft_strncmp(s, "sphere", 6) == 0)
+	if (ft_strncmp(s, "plane", 5) == 0)
+	{
+		obj->f = &get_t_plane;
+		obj->type  = 0;
+	}
+	else if (ft_strncmp(s, "sphere", 6) == 0)
 	{
 		obj->f = &get_t_sphere;
 		obj->type = 1;
@@ -48,16 +50,8 @@ static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 		obj->f = &get_t_cone;
 		obj->type = 3;
 	}
-	else if (ft_strncmp(s, "quadric", 4) == 0)
-	{
-		obj->f = &get_t_quadric;
-		obj->type = 4;
-	}
 	else
-	{
-		obj->f = &get_t_plane;
-		obj->type  = 0;
-	}
+		s_error("Object type is not valid");
 }
 
 static void	change_material(t_scene *scene, t_object *obj, int value, int mat)
@@ -93,7 +87,6 @@ static void	get_pattern(t_scene *scene, t_object *obj, int id)
 		if (p->id == id)
 		{
 			obj->pattern = *p;
-			obj->pattern_id = id;
 			break ;
 		}
 		tmp = tmp->next;
@@ -115,10 +108,6 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		obj->radius = ft_atod(value);
 	else if (ft_strncmp(s, "pattern", 7) == 0)
 		get_pattern(scene, obj, ft_atoi(value));
-	else if (ft_strncmp(s, "param_1", 7) == 0)
-		obj->param_1 = ft_atod(value);
-	else if (ft_strncmp(s, "param_2", 7) == 0)
-		obj->param_2 = ft_atod(value);
 	else if (ft_strncmp(s, "material", 8) == 0)
 		change_material(scene, obj, ft_atoi(value), 1);
 	else if (ft_strncmp(s, "sec_material", 12) == 0)

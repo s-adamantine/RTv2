@@ -38,12 +38,12 @@ light {
 light {
 		{origin, {30.0 0.0 0.0}}
 		{color, {0.0 1.0 1.0}}
-		{intensity, {150 0}}
+		{intensity, {1 0}}
 }
 light {
 		{origin, {0.0 10.0 -50.0}}
 		{color, {0.0 1.0 1.0}}
-		{intensity, {15 2}}
+		{intensity, {150 2}}
 }
 light {
 		{origin, {500.0 0.0 0.0}}

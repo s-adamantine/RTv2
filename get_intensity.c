@@ -54,18 +54,22 @@ t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam, int src_id)
 	t_intensity	i;
 	t_object	*obj;
 	double		angle;
+	double		distance;
 
 	obj = pi->vis_obj;
 	i.diff = 0;
 	i.spec = 0;
 	if (ft_get_3v_size(pi->normal) == 0)
 		return (i);
+	distance = (sqrt(ft_3v_dot_product(dir, dir)));
+	i.attrition_diff = 1 / ((distance / 500) * (distance / 500));
+	i.attrition_spec = 1 / ((distance / 100) * (distance / 100));
 	dir = normalize(dir);
-	i.diff = get_d(dir, pi->normal, obj);
+	i.diff = (get_d(dir, pi->normal, obj)) * i.attrition_diff;
 	angle = get_s(pi, dir, cam);
 	if (angle < 0)
 		angle = 0;
-	i.spec = (obj->m).specular * pow(angle, (obj->m).shininess);
+	i.spec = ((obj->m).specular * pow(angle, (obj->m).shininess)) * i.attrition_spec;
 	(void)src_id;
 	return (i);
 }

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 14:07:01 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 14:57:28 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ int			key_pressed(int key, t_event *event)
 		turn_on_lights(event);
 	else if (key == KEY_Q && event->t_select == KEY_C)
 		change_camera(event);
-	else if (event->t_select == KEY_O)
-		control_object(event, 0, key, ft_init_3v(0.0, 0.0, 0.0));
+//	else if (event->t_select == KEY_O)
+//		control_object(event, 0, key, ft_init_3v(0.0, 0.0, 0.0));
 	return (1);
 }
 

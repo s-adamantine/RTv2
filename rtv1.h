@@ -16,7 +16,7 @@
 # define MAX_S_VALUE 50000
 # define DEG 57.2958
 # define MENU_WIDTH 500
-# define THREADS 1
+# define THREADS 4
 
 # define AMOUNT_INSTRUCTIONS 7
 # define AMOUNT_INFO 6

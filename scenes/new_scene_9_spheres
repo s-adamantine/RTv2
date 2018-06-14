@@ -1,6 +1,7 @@
 render {
 		{name, {Scene 9 Spheres}}
 		{dimensions, {1200 1200}}
+		{ambient, {2}}
 }
 camera {
 		{origin, {1200.0 0.0 0.0}}

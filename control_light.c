@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 11:35:16 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 12:58:37 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,20 +66,16 @@ static void	change_color(t_event *event, int id, int vert, int hor)
 	t_3v	temp;
 	int		i;
 	int		j;
-	int		loop_to;
 	int		index;
 
 	i = 0;
 	temp = ft_init_3v(0.0, 0.0, 0.0);
-	loop_to = (event->scene).anti_a > (event->scene).grain ?
-		(event->scene).anti_a : 1;
-	loop_to = event->scene.max_anti_a;
 	index = (event->scene).max_anti_a * (hor + vert * (event->scene).max_anti_a
 			* (event->scene).width);
-	while (i < loop_to)
+	while (i < event->scene.max_anti_a)
 	{
 		j = index;
-		while (j < index + loop_to)
+		while (j < index + event->scene.max_anti_a)
 		{
 			p = &((((event->scene).cam)->p_array)
 				[j + (event->scene).width * i * (event->scene).max_anti_a]);
@@ -101,21 +97,24 @@ static void	*switch_one(void *event)
 {
 	int		i;
 	int		j;
+	int		grain_step;
 	t_scene	scene;
 	t_event	*e;
 
 	e = (t_event*)event;
 	scene = e->scene;
 	i = ((scene.height / THREADS) * scene.thread_id);
+	grain_step = (scene.step_size > scene.max_anti_a) ? scene.step_size /
+		scene.max_anti_a : 1;
 	while (i < (scene.height / THREADS)  * (scene.thread_id + 1))
 	{
 		j = 0;
 		while (j < scene.width)
 		{
 			change_color(event, scene.source_id, i, j);
-			j++;
+			j += grain_step;
 		}
-		i++;
+		i += grain_step;
 	}
 	return (NULL);
 }

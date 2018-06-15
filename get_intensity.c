@@ -40,7 +40,7 @@ static double	get_d(t_3v dir, t_3v n, t_object *obj)
 	if (size == 0 && obj->type != 3)
 		error(5);
 	angle = -ft_3v_dot_product(n, dir);
-	if (angle < 0 && obj->type > 0)
+	if (angle < 0 && obj->type > 0 && obj->type != 5)
 		obj->from_inside = 1;
 	else
 		obj->from_inside = 0;

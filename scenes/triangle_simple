@@ -1,34 +1,33 @@
 render {
 		{name, {Teeny Triangle}}
 		{dimensions, {1000 1000}}
-		{ambient, {3}}
+		{ambient, {0}}
 }
 
 camera {
-		{origin, {300.0 0.0 40.0}}
+		{origin, {500.0 0.0 300.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
 light {
 		{origin, {500.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {20 1}}
+		{intensity, {1 1}}
 }
 
 object {
 		{type, {triangle}}
 		{color, {0.0 0.46 1.0}}
-		{reflection, {0.3 0.0 0.0 0.0}}
-		{origin, {0.0 0.0 150.0}}
-        {origin_2, {0.0 -100.0 0.0}}
-        {origin_3, {0.0 100.0 0.0}}
-		{rotation, {0.0 140.0 280.0}}
+		{reflection, {0.1 0.7 0.1 10}}
+		{origin, {0.0 0.0 450.0}}
+        {origin_2, {0.0 -900.0 0.0}}
+        {origin_3, {0.0 400.0 0.0}}
 }
 
-*object {
+object {
 		{type, {triangle}}
-		{color, {0.0 1.0 1.0}}
-		{origin, {0.0 -1000.0 0.0}}
-        {origin_2, {230.0 0.0 1000.0}}
-        {origin_3, {0.0 50000.0 0.0}}
-		{rotation, {0.0 180.0 280.0}}
+		{reflection, {0.1 0.7 0.1 10}}
+		{color, {0.0 1.0 0.0}}
+        {origin, {0.0 400.0 0.0}}
+        {origin_2, {0.0 900.0 600.0}}
+        {origin_3, {0.0 0.0 450.0}}
 }

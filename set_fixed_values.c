@@ -46,6 +46,7 @@ static void	set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 	}
 	if (o->type == 5)
 	{
+		//pass into object first then into fixed value
 		f->vec = ft_cross_product(ft_3v_subtract(o->origin_2, o->origin),
 		 		ft_3v_subtract(o->origin_3, o->origin)); //the normal
 		f->vec = normalize(f->vec);

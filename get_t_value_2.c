@@ -17,14 +17,13 @@ double  get_t_triangle(t_fixed_v f, t_3v dir)
 {
     double  bottom;
     double  t;
-    t_3v     P;
+    t_3v    P;
     t_3v    edge0;
     t_3v    edge1;
     t_3v    edge2;
     t_3v    vp0;
     t_3v    vp1;
     t_3v    vp2;
-    t_3v    scalar;
 
     if ((bottom = ft_3v_dot_product(f.vec, dir)) > -0.01)
         return (-1); //no intersection
@@ -32,7 +31,6 @@ double  get_t_triangle(t_fixed_v f, t_3v dir)
     t = f.val/bottom * -1;
     //now we do the inside out test.
     P = ft_3v_add(f.vec2, ft_3v_scalar(dir, t)); //adding the origin w/ the raydir x t
-    scalar = ft_3v_scalar(dir, t);
     edge0 = ft_3v_subtract(f.vertex1, f.vertex0);
     edge1 = ft_3v_subtract(f.vertex2, f.vertex1);
     edge2 = ft_3v_subtract(f.vertex0, f.vertex2);

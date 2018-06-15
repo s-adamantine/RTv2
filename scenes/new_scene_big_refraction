@@ -1,6 +1,6 @@
 render {
-		{name, {Scene La La Land Large}}
-		{dimensions, {1600 1200}}
+		{name, {Refraction}}
+		{dimensions, {1200 800}}
 		{grain, {1}}
 }
 camera {
@@ -8,44 +8,48 @@ camera {
 		{rotation, {0.0 0.0 0.0}}
 }
 camera {
+		{origin, {1400.0 -400.0 0.0}}
+		{rotation, {0.0 0.0 330.0}}
+}
+camera {
 		{origin, {-2000.0 0.0 0.0}}
 		{rotation, {0.0 0.0 180.0}}
 }
 camera {
-		{origin, {1000.0 0.0 0.0}}
+		{origin, {900.0 40.0 100.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
 light {
 		{origin, {250.0 50.0 50.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {100 3}}
+		{intensity, {400 3}}
 }
 light {
 		{origin, {-2000.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {100 3}}
+		{intensity, {400 3}}
 }
 light {
 		{origin, {-500.0 -50.0 50.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {100 3}}
+		{intensity, {400 3}}
 }
 light {
-		{origin, {900.0 100.0 10.0}}
+		{origin, {1100.0 100.0 10.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {100 3}}
+		{intensity, {200 3}}
 }
 light {
-		{origin, {0.0 200.0 200.0}}
+		{origin, {1100.0 -100.0 10.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {100 3}}
+		{intensity, {200 3}}
 }
 light {
 		{origin, {100.0 100.0 100.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {100 3}}
+		{intensity, {400 3}}
 }
-object {
+*object {
 		{type, {cone}}
 		{origin, {800.0 100.0 10.0}}
 		{rotation, {150.0 0.0 0.0}}
@@ -54,25 +58,34 @@ object {
 		{reflection, {0.0 0.15 0.2 10}}
 }
 object {
+		{type, {sphere}}
+		{origin, {900.0 40.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{color, {0.6 0.8 0.0}}
+		{radius, {60}}
+		{reflection, {0.1 0.15 0.5 20}}
+}
+object {
 		{type, {cylinder}}
-		{origin, {-250.0 40.0 0.0}}
+		{origin, {900.0 40.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{color, {0.0 0.8 0.6}}
+		{radius, {120}}
+		{transparent, {1.0}}
+		{refraction, {1.52}}
+}
+object {
+		{type, {cylinder}}
+		{origin, {900.0 40.0 0.0}}
 		{rotation, {45.0 0.0 0.0}}
 		{color, {0.3 0.2 0.5}}
-		{radius, {125}}
-		{reflection, {0.0 0.15 0.1 10}}
+		{radius, {20}}
+		{transparent, {0.0}}
 }
 object {
 		{type, {sphere}}
-		{origin, {100.0 100.0 100.0}}
-		{rotation, {40.0 30.0 20.0}}
-		{radius, {40}}
-}
-object {
-		{type, {sphere}}
-		{origin, {0.0 200.0 200.0}}
+		{origin, {850.0 100.0 200.0}}
 		{rotation, {10.0 2.0 30.0}}
-		{material, {1}}
-		{sec_material, {2}}
 		{radius, {100}}
 }
 object {

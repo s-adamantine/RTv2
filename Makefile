@@ -37,7 +37,8 @@ SRCS = 	rtv1.c\
 		event_mouse.c\
 		control_light.c\
 		control_camera.c\
-		polka_dot_it.c
+		polka_dot_it.c\
+		refraction.c
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/
 #

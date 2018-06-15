@@ -173,6 +173,7 @@ typedef struct	s_material
 	double		specular;
 	double		shininess;
 	double		transparent;
+	double		refractive_index;
 }				t_material;
 
 typedef struct	s_pattern
@@ -349,5 +350,6 @@ void			set_pattern(t_scene *scene);
 void			set_point_list(t_pattern *p);
 void			init_def_object(t_object *obj, int id);
 void			create_threads(t_event *event, void *(*f)(void*));
+t_3v			refraction(t_p_info	*pi, t_3v dir, double entry_refraction);
 
 #endif

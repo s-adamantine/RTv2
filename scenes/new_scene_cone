@@ -2,7 +2,7 @@ render {
 		{name, {Scene Cone}}
 		{dimensions, {1000 720}}
 		{reflection, {1}}
-		{ambient, {2}}
+		{ambient, {0}}
 }
 camera {
 		{origin, {500.0 0.0 0.0}}
@@ -31,19 +31,19 @@ light {
 		{intensity, {150 0}}
 }
 light {
-		{origin, {0.0 10.0 -50.0}}
-		{color, {0.4 0.7 1.0}}
-		{intensity, {150 0}}
-}
-light {
 		{origin, {30.0 0.0 0.0}}
 		{color, {0.0 1.0 1.0}}
-		{intensity, {150 0}}
+		{intensity, {15 0}}
+}
+light {
+		{origin, {0.0 10.0 -50.0}}
+		{color, {0.0 1.0 1.0}}
+		{intensity, {150 2}}
 }
 light {
 		{origin, {500.0 0.0 0.0}}
 		{color, {0.0 1.0 1.0}}
-		{intensity, {80 2}}
+		{intensity, {2000 2}}
 }
 object {
 		{type, {cone}}
@@ -59,8 +59,8 @@ object {
 		{rotation, {20, 45, 30}}
 		{radius, {100}}
 		{pattern, {1}}
-		{material, {3}}
-		{sec_material, {2}}
+		{material, {1}}
+		{sec_material, {3}}
 }
 object {
 		{type, {sphere}}

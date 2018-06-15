@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 12:58:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 15:05:08 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,18 @@ int			key_pressed(int key, t_event *event)
 {
 	if (key == ESC)
 		exit(0);
-	else if (key == SPACE)
-		anti_aliasing(event);
-	else if (KEY_UP_TO_ZERO(key) || key == KEY_0)
+	if (KEY_UP_TO_ZERO(key) || key == KEY_0)
 		event->id_select = (key == KEY_0) ? KEY_0 : KEY_NUM_VALUE(key);
+	if (key == COMMA || key == DOT)
+		change_grain(event, (key == COMMA));
 	else if (key == KEY_C || key == KEY_O || key == KEY_L || key == KEY_G)
 		event->t_select = key;
 	else if (key == KEY_Q && event->t_select == KEY_L)
 		turn_on_lights(event);
 	else if (key == KEY_Q && event->t_select == KEY_C)
 		change_camera(event);
-	else if ((key == COMMA || key == DOT) && event->t_select == KEY_G)
-			change_grain(event, (key == COMMA));
+//	else if (event->t_select == KEY_O)
+//		control_object(event, 0, key, ft_init_3v(0.0, 0.0, 0.0));
 	return (1);
 }
 

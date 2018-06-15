@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:40:06 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 11:44:55 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 18:26:59 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,13 @@ t_intensity		get_intensity(t_p_info *pi, t_3v dir, t_cam cam, int src_id)
 	if (ft_get_3v_size(pi->normal) == 0)
 		return (i);
 	distance_sq = ft_3v_dot_product(dir, dir);
-	i.attrition_diff = 10000 / distance_sq;
-	i.attrition_spec = 10000 / distance_sq;
+	i.attrition_diff = 5000 / distance_sq;
 	dir = normalize(dir);
 	i.diff = (get_d(dir, pi->normal, obj)) * i.attrition_diff;
 	angle = get_s(pi, dir, cam);
 	if (angle < 0)
 		angle = 0;
-	i.spec = ((obj->m).specular * pow(angle, (obj->m).shininess)) * i.attrition_spec;
+	i.spec = ((obj->m).specular * pow(angle, (obj->m).shininess));
 	(void)src_id;
 	return (i);
 }

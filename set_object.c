@@ -6,13 +6,13 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:20:09 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/14 15:05:51 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void	init_def_object(t_object *obj, int id)
+void		init_def_object(t_object *obj, int id)
 {
 	t_3v	def;
 
@@ -22,7 +22,6 @@ static void	init_def_object(t_object *obj, int id)
 	obj->f = &get_t_plane;
 	obj->axis_rotation = 0;
 	obj->origin = def;
-	def = ft_zero_3v();
 	obj->rotation = def;
 	obj->axis_rotation = 0;
 	obj->radius = 1;

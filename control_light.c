@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 14:42:38 by jroguszk         ###   ########.fr       */
+/*   Updated: 2018/06/14 18:14:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,8 @@ static void	add_color(t_pixel *p, int id, t_event *event)
 			p->color = p->c_per_src[0];
 		else
 			p->color = ft_3v_add((p->c_per_src)[id], p->color);
-		p->color = ft_3v_scalar(p->color, 1 / (event->scene).max_intensity);
+		if ((event->src)->max_intensity > 1.0)
+			p->color = ft_3v_scalar(p->color, 1 / (event->src)->max_intensity);
 	}
 }
 
@@ -191,8 +192,6 @@ void	create_threads(t_event *event, void *(*f)(void*))
 	while (i < THREADS)
 	{
 		pthread_join(thread[i], NULL);
-		if (t[i].scene.max_intensity - event->scene.max_intensity >= 0.001)
-			event->scene.max_intensity = t[i].scene.max_intensity;
 		i++;
 	}
 }

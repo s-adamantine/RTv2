@@ -6,13 +6,34 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/15 11:46:50 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/15 17:33:17 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void		init_def_object(t_object *obj, int id)
+static void	change_material(t_scene *scene, t_object *obj, int value, int mat)
+{
+	t_material	*material;
+	t_list		*tmp;
+
+	tmp = scene->materials;
+	while (tmp && tmp->content)
+	{
+		material = (t_material *)tmp->content;
+		if (material->id == value)
+		{
+			if (mat == 0 || mat == 1)
+				obj->m = *material;
+			if (mat == 0 || mat == 2)
+				obj->m2 = *material;
+			break ;
+		}
+		tmp = tmp->next;
+	}
+}
+
+void		init_def_object(t_object *obj, int id, t_scene *scene)
 {
 	t_3v	def;
 
@@ -26,6 +47,11 @@ void		init_def_object(t_object *obj, int id)
 	obj->axis_rotation = 0;
 	obj->radius = 1;
 	obj->pattern_id = 0;
+	obj->lim_by_1 = 0;
+	obj->lim_by_2 = 0;
+	obj->limit_id = 0;
+	obj->visible = 1;
+	change_material(scene, obj, 0, 0);
 }
 
 static void	set_object_type(char *s, t_object *obj, t_scene *scene)
@@ -53,27 +79,6 @@ static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 	}
 	else
 		s_error("Object type is not valid");
-}
-
-static void	change_material(t_scene *scene, t_object *obj, int value, int mat)
-{
-	t_material	*material;
-	t_list		*tmp;
-
-	tmp = scene->materials;
-	while (tmp && tmp->content)
-	{
-		material = (t_material *)tmp->content;
-		if (material->id == value)
-		{
-			if (mat == 0 || mat == 1)
-				obj->m = *material;
-			if (mat == 0 || mat == 2)
-				obj->m2 = *material;
-			break ;
-		}
-		tmp = tmp->next;
-	}
 }
 
 static void	get_pattern(t_scene *scene, t_object *obj, int id)
@@ -114,6 +119,14 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		change_material(scene, obj, ft_atoi(value), 1);
 	else if (ft_strncmp(s, "sec_material", 12) == 0)
 		change_material(scene, obj, ft_atoi(value), 2);
+	else if (ft_strncmp(s, "limited_by_1", 12) == 0)
+		obj->lim_by_1 = ft_atoi(value);
+	else if (ft_strncmp(s, "limited_by_2", 12) == 0)
+		obj->lim_by_2 = ft_atoi(value);
+	else if (ft_strncmp(s, "limit_id", 8) == 0)
+		obj->limit_id = ft_atoi(value);
+	else if (ft_strncmp(s, "visible", 7) == 0)
+		obj->visible = ft_atoi(value);
 	else
 		set_values_material(&(obj->m), s, value);
 }
@@ -126,8 +139,7 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 	t_object	obj;
 	int			gnl;
 
-	init_def_object(&obj, id);
-	change_material(scene, &obj, 0, 0);
+	init_def_object(&obj, id, scene);
 	while ((gnl = get_next_line(fd, &line)) == 1)
 	{
 		if (*(line) == '}')

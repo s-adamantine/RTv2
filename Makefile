@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/15 11:56:06 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/15 15:46:33 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS = 	rtv1.c\
 		tools_rotate.c\
 		tools_anti_a.c\
 		tools_grain.c\
+		tools_limits.c\
 		event_key.c\
 		event_mouse.c\
 		control_light.c\
@@ -61,7 +62,7 @@ FRAMEWORK = -framework OpenGL -framework AppKit
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LFTDIR)$(LIBFT) $(LMLXDIR)$(LIBMLX)
-	-@gcc $(FLAGS) -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
+	-@gcc $(FLAGS) -o $(NAME) $(SEGFAULT) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
 	 -I$(LMLXDIR) -L$(LMLXDIR) -l$(MLX) \
 	 $(FRAMEWORK)
 	-@echo "RTv1 Ready"

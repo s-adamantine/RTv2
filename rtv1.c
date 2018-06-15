@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/13 13:48:07 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/15 10:59:42 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ int			main(int argc, char **argv)
 	t_scene		scene;
 	t_event		event;
 
+	srand(time(NULL));
 	if (argc != 2)
 		usage();
 	if ((fd = open(argv[1], O_RDONLY)) == -1)

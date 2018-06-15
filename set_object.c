@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 15:05:51 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/15 11:46:50 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void		init_def_object(t_object *obj, int id)
 	obj->rotation = def;
 	obj->axis_rotation = 0;
 	obj->radius = 1;
+	obj->pattern_id = 0;
 }
 
 static void	set_object_type(char *s, t_object *obj, t_scene *scene)
@@ -87,6 +88,7 @@ static void	get_pattern(t_scene *scene, t_object *obj, int id)
 		if (p->id == id)
 		{
 			obj->pattern = *p;
+			obj->pattern_id = id;
 			break ;
 		}
 		tmp = tmp->next;

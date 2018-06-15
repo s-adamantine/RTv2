@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_scene_new.c                                    :+:      :+:    :+:   */
+/*   set_scene.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/08 16:30:08 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/15 17:18:12 by nmanzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,14 @@ void		set_scene(int fd, t_scene *scene)
 	if (gnl < 0)
 		error(0);
 	free(line);
+
+	// JUST FOR TESTING POURPOSES!!!!!
+
+	// read_obj_file("./scenes/obj/teapot.obj");
+	read_obj_file("./scenes/obj/mine.obj");
+
+	// END TESTING PORPUSES!!!!!!!!!!!
+
 	scene->cam = (t_cam *)(scene->cameras)->content;
 	if (!(scene->grain))
 		scene->grain = (scene->amount_obj && scene->amount_light) ?

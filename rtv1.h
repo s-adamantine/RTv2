@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/11 18:49:31 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/15 17:37:33 by nmanzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -298,4 +298,11 @@ void			set_material(t_scene *scene);
 void			set_pattern(t_scene *scene);
 void			set_point_list(t_pattern *p);
 
+
+// NICOLA
+int		scan_obj_file(char *path, int *f_v_n);
+int	read_obj_file(char *path);
+int	init_faces_vertices( t_3v *vertices, t_3v **faces, int *fac_ver_num);
+int		fill_f_v_obj_file(char *path,  t_3v *vertices, t_3v **faces );
+void	get_int_from_line(int *v, char *line, int size);
 #endif

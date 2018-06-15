@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
+#    By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/08 11:14:18 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/15 15:56:53 by nmanzini         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,8 @@ SRCS = 	rtv1.c\
 		event_mouse.c\
 		control_light.c\
 		control_camera.c\
-		polka_dot_it.c
+		polka_dot_it.c\
+		get_mesh_obj.c
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/
 #

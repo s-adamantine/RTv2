@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:15:16 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:15:17 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/15 17:41:16 by nmanzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,27 @@ void	get_doubles_from_line(double *v, char *line, int size)
 	i = -1;
 	while (++i < size)
 		v[i] = ft_atod(values_str[i]);
+	ft_free_array((void **)values_str);
+}
+
+/*
+ * Get a size amount of doubles from a String.
+ */
+
+void	get_int_from_line(int *v, char *line, int size)
+{
+	char		**values_str;
+	int			i;
+
+	values_str = ft_strsplit((line), ' ');
+	i = 0;
+	while (*(values_str + i))
+		i++;
+	if (i != size)
+		s_error("Not the right amount of vector values");
+	i = -1;
+	while (++i < size)
+		v[i] = ft_atoi(values_str[i]);
 	ft_free_array((void **)values_str);
 }
 

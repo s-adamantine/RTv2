@@ -12,20 +12,6 @@
 
 #include "rtv1.h"
 
-// static int		check_inside(t_3v dir, t_object *obj, t_cam *cam)
-// {
-// 	double		t_1;
-// 	double		t_2;
-
-// 	t_1 = obj->f(obj->fixed_c[cam->id][0], dir, 0);
-// 	if (obj->type == 0 && t_1 < 0.999 && t_1 > 0.001)
-// 		return (1);
-// 	t_2 = obj->f(obj->fixed_c[cam->id][0], dir, 1);
-// 	if (t_1 < 0.999 && t_1 > 0.001 && t_2 > 1.001)
-// 		return (1);
-// 	return (0);
-// }
-
 /*
  * Gets the visible object (first, or through transparency or reflection). The
  * first if makes sure the fixed values are set for transparency and reflection.
@@ -114,6 +100,11 @@ static void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, dou
 	pi->normal = get_normal(pi->vis_obj, pi->point);
 	pi->obj_m = get_object_material(*(pi->vis_obj), pi->point);
 	(p->amount_p)++;
+	if ((pi->s_value > 0.001 && pi->s_value < 1.0)
+		|| (pi_prev != NULL && (pi_prev->vis_obj)->id != (pi->vis_obj)->id))
+		index_refract = ((pi->vis_obj)->m).refractive_index;
+	else
+		index_refract = 1.0;
 	if (((pi->vis_obj)->m).specular > 0.001 && p->amount_p < scene->refl)
 	{
 		n_dir = get_reflection_vector(pi->normal, dir);
@@ -121,11 +112,6 @@ static void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, dou
 	}
 	if (((pi->vis_obj)->m).transparent > 0.001)
 	{
-		if ((pi->s_value > 0.001 && pi->s_value < 1.0)
-			|| (pi_prev != NULL && (pi_prev->vis_obj)->id != (pi->vis_obj)->id))
-			index_refract = ((pi->vis_obj)->m).refractive_index;
-		else
-			index_refract = 1.0;
 		dir = refraction(pi, dir, index_refract);
 		get_reflections(p, scene, dir, 2, index_refract);
 	}
@@ -139,18 +125,12 @@ static void		get_value(t_scene *scene, t_pixel *p)
 {
 	t_3v		dir;
 	t_object	*obj;
-	// t_object	*tmp;
 	t_3v		color;
 	t_p_info	*pi;
 
 	p->c_per_src[0] = ft_zero_3v();
 	dir = p->coor;
 	dir = normalize(rotate_v(dir, (scene->cam)->rotation));
-	// if (check_inside(dir, scene->objects, scene->cam))
-	// {
-	// 	tmp = get_vis_obj(p, dir, scene, pi);
-	// 	dir = refraction(pi, dir, tmp->m.refractive_index);
-	// }
 	get_reflections(p, scene, dir, 0, 1.0);
 	pi = p->pi_arr[0];
 	if (!(pi->vis_obj))

@@ -43,7 +43,15 @@ t_3v	refraction(t_p_info	*pi, t_3v dir, double entry_refraction)
 	}
 	index = entry_refraction / (pi->obj_m).refractive_index;
 	k = 1.0 - index * index * (1.0 - cosi * cosi);
-	return (k < 0.0 ? ft_init_3v(0.0, 0.0, 0.0) :
+	// if (k < 0.0)
+	// 	return (1.0);
+	// else
+	// {
+	// 	*dir = ft_3v_add(ft_3v_scalar(*dir, index),
+	// 		ft_3v_scalar(n, index * cosi - sqrt(k)));
+	// 	return (2);
+	// }
+	return (k < 0.0 ? dir :
 		ft_3v_add(ft_3v_scalar(dir, index),
 			ft_3v_scalar(n, index * cosi - sqrt(k))));
 }

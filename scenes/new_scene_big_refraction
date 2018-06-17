@@ -1,7 +1,7 @@
 render {
 		{name, {Refraction}}
-		{dimensions, {1200 800}}
-		{grain, {1}}
+		{dimensions, {800 600}}
+		{ambient, {3}}
 }
 camera {
 		{origin, {2000.0 0.0 0.0}}
@@ -66,7 +66,7 @@ object {
 		{reflection, {0.1 0.15 0.5 20}}
 }
 object {
-		{type, {cylinder}}
+		{type, {cone}}
 		{origin, {900.0 40.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 		{color, {0.0 0.8 0.6}}
@@ -80,11 +80,10 @@ object {
 		{rotation, {45.0 0.0 0.0}}
 		{color, {0.3 0.2 0.5}}
 		{radius, {20}}
-		{transparent, {0.0}}
 }
 object {
 		{type, {sphere}}
-		{origin, {850.0 100.0 200.0}}
+		{origin, {400.0 0.0 0.0}}
 		{rotation, {10.0 2.0 30.0}}
 		{radius, {100}}
 }

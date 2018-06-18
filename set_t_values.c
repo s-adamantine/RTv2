@@ -69,6 +69,8 @@ static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
 	pi->s_value = MAX_S_VALUE;
 	pi->vis_obj = get_vis_obj(p, dir, scene, pi);
 	pi->type = type;
+	pi->fresnal_transparent = 1.0;
+	pi->fresnal_specular = 1.0;
 	if (!(pi->vis_obj))
 	{
 		free(pi);
@@ -82,7 +84,7 @@ static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
  * there is no visible object or the object isn't reflective or transparent.
  */
 
-static void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double index_refract)
+void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double index_refract)
 {
 	t_cam		cam;
 	t_3v		n_dir;
@@ -105,16 +107,13 @@ static void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, dou
 		index_refract = ((pi->vis_obj)->m).refractive_index;
 	else
 		index_refract = 1.0;
-	if (((pi->vis_obj)->m).specular > 0.001 && p->amount_p < scene->refl)
+	if ((((pi->vis_obj)->m).specular > 0.001 && p->amount_p < scene->refl))
 	{
 		n_dir = get_reflection_vector(pi->normal, dir);
 		get_reflections(p, scene, n_dir, 1, index_refract);
 	}
 	if (((pi->vis_obj)->m).transparent > 0.001)
-	{
-		dir = refraction(pi, dir, index_refract);
-		get_reflections(p, scene, dir, 2, index_refract);
-	}
+		refraction(pi, &dir, index_refract, p, scene);
 }
 
 /*

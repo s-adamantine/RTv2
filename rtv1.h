@@ -213,6 +213,8 @@ typedef struct	s_p_info
 	t_3v		point;
 	int			type;
 	int			is_set;
+	double		fresnal_transparent;
+	double		fresnal_specular;
 }				t_p_info;
 
 typedef struct	s_pixel
@@ -350,6 +352,8 @@ void			set_pattern(t_scene *scene);
 void			set_point_list(t_pattern *p);
 void			init_def_object(t_object *obj, int id);
 void			create_threads(t_event *event, void *(*f)(void*));
-t_3v			refraction(t_p_info	*pi, t_3v dir, double entry_refraction);
+void			refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_scene *scene);
+void			fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost);
+void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double index_refract);
 
 #endif

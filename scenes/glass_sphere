@@ -1,7 +1,8 @@
 render {
-		{name, {Refraction}}
+		{name, {Glass Sphere}}
 		{dimensions, {800 600}}
-		{ambient, {3}}
+		{ambient, {0}}
+		{reflection, {1}}
 }
 camera {
 		{origin, {2000.0 0.0 0.0}}
@@ -49,74 +50,26 @@ light {
 		{color, {1.0 1.0 1.0}}
 		{intensity, {400 3}}
 }
-*object {
-		{type, {cone}}
-		{origin, {800.0 100.0 10.0}}
-		{rotation, {150.0 0.0 0.0}}
-		{color, {0.0 0.0 0.8}}
-		{radius, {0.4}}
-		{reflection, {0.0 0.15 0.2 10}}
-}
 object {
 		{type, {sphere}}
 		{origin, {900.0 40.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
-		{color, {0.6 0.8 0.0}}
-		{radius, {60}}
-		{reflection, {0.1 0.15 0.5 20}}
-}
-object {
-		{type, {cylinder}}
-		{origin, {900.0 40.0 0.0}}
-		{rotation, {0.0 0.0 0.0}}
-		{color, {0.0 0.8 0.6}}
+		{color, {1.0 1.0 1.0}}
 		{radius, {120}}
 		{transparent, {1.0}}
 		{refraction, {1.52}}
 }
 object {
-		{type, {cylinder}}
-		{origin, {900.0 40.0 0.0}}
-		{rotation, {45.0 0.0 0.0}}
-		{color, {0.3 0.2 0.5}}
-		{radius, {20}}
-}
-object {
 		{type, {plane}}
-		{origin, {0.0 0.0 -400.0}}
+		{origin, {0.0 0.0 -120.0}}
 		{rotation, {0.0 0.0 0.0}}
 		{color, {0.0 0.9 0.5}}
-		{reflection, {0.0 0.15 0.05 40}}
-		{pattern, {1}}
-		{material, {1}}
-		{sec_material, {3}}
 }
 object {
 		{type, {plane}}
-		{origin, {0.0 0.0 400.0}}
-		{rotation, {0.0 0.0 0.0}}
+		{origin, {0.0 0.0 0.0}}
+		{rotation, {0.0 90.0 0.0}}
 		{color, {0.0 0.9 0.5}}
-		{reflection, {0.0 0.15 0.05 40}}
-		{pattern, {1}}
-		{material, {1}}
-		{sec_material, {3}}
-}
-object {
-		{type, {plane}}
-		{origin, {0.0 -650.0 0.0}}
-		{rotation, {90.0 0.0 0.0}}
-		{color, {0.0 0.9 0.5}}
-		{reflection, {0.0 0.15 0.05 40}}
-		{pattern, {1}}
-		{material, {1}}
-		{sec_material, {3}}
-}
-object {
-		{type, {plane}}
-		{origin, {0.0 650.0 0.0}}
-		{rotation, {90.0 0.0 0.0}}
-		{color, {0.0 0.9 0.5}}
-		{reflection, {0.0 0.15 0.05 40}}
 		{pattern, {1}}
 		{material, {1}}
 		{sec_material, {3}}

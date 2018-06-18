@@ -94,7 +94,8 @@ static double	get_influence(t_pixel *p, int i)
 		while (i > 0)
 		{
 			if ((p->pi_arr[i - 1])->type % 2 == 0)
-				influence *= (((p->pi_arr[i - 1])->vis_obj)->m).transparent;
+				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).transparent
+					* p->pi_arr[i - 1]->fresnal_transparent);
 			i--;
 		}
 	}
@@ -103,7 +104,8 @@ static double	get_influence(t_pixel *p, int i)
 		while (i > 0)
 		{
 			if ((p->pi_arr[i - 1])->type < 2)
-				influence *= (((p->pi_arr[i - 1])->vis_obj)->m).specular;
+				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).specular
+				* p->pi_arr[i - 1]->fresnal_specular);
 			i--;
 		}
 	}

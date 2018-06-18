@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 16:30:59 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 18:25:06 by nicola           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		set_scene(int fd, t_scene *scene)
 	// JUST FOR TESTING POURPOSES!!!!!
 
 	// read_obj_file("./scenes/obj/teapot.obj");
-	read_obj_file("./scenes/objs/mine.obj");
+	read_obj_file("./scenes/objs/teapot.obj", 1);
 
 	// END TESTING PORPUSES!!!!!!!!!!!
 

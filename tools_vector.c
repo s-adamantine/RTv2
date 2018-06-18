@@ -37,6 +37,9 @@ t_3v	get_normal(t_object *obj, t_3v point)
 	if (obj->type == 3)
 		(norm_t.v)[2] = -((norm_t.v)[0] * (norm_t.v)[0]
 			+ (norm_t.v)[1] * (norm_t.v)[1]) / (norm_t.v)[2];
+	if (obj->type == 5)
+		norm_t = ft_cross_product(ft_3v_subtract(obj->origin_2, obj->origin),
+		 		ft_3v_subtract(obj->origin_3, obj->origin));
 	size = ft_get_3v_size(norm_t);
 	if (size == 0 && obj->type != 3)
 		error(5);

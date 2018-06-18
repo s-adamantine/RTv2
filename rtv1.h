@@ -76,6 +76,9 @@ typedef struct	s_fixed_v
 	double		rad_sq;
 	t_3v		vec;
 	t_3v		vec2;
+	t_3v		vertex0;
+	t_3v		vertex1;
+	t_3v		vertex2;
 	t_3v		dif_c;
 	t_3v		dir;
 }				t_fixed_v;

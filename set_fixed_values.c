@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:49:54 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 11:09:30 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 11:17:19 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,12 @@ static void	set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 		f->vec = ft_cross_product(ft_3v_subtract(o->origin_2, o->origin),
 		 		ft_3v_subtract(o->origin_3, o->origin)); //the normal
 		f->vec = normalize(f->vec);
+		f->vec2 = origin; //used so that I can pass in the camera into get_t_triangle
 		f->val = ft_3v_dot_product(f->vec, origin) +
 				ft_3v_dot_product(f->vec, o->origin); //o->origin is actually the first vertex
+		f->vertex0 = o->origin;
+		f->vertex1 = o->origin_2;
+		f->vertex2 = o->origin_3;
 	}
 }
 

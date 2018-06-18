@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/15 11:49:31 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 11:10:11 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # define DEG 57.2958
 # define MENU_WIDTH 500
 # define THREADS 4
+
 # include "libft.h"
 
 # include "mlx.h"
@@ -74,6 +75,7 @@ typedef struct	s_fixed_v
 	double		rad;
 	double		rad_sq;
 	t_3v		vec;
+	t_3v		vec2;
 	t_3v		dif_c;
 	t_3v		dir;
 }				t_fixed_v;
@@ -116,6 +118,8 @@ typedef struct	s_object
 	double		axis_rotation;
 	double		shape_origin;
 	t_3v		origin;
+	t_3v		origin_2;
+	t_3v		origin_3;
 	t_3v		rotation;
 	t_fixed_v	**fixed_c[THREADS];
 	t_fixed_v	**fixed_s[THREADS];
@@ -211,6 +215,7 @@ double			get_t_cylinder(t_fixed_v f, t_3v dir, int alt);
 double			get_t_plane(t_fixed_v f, t_3v dir, int alt);
 double			get_t_sphere(t_fixed_v f, t_3v dir, int alt);
 double			get_t_cone(t_fixed_v f, t_3v dir, int alt);
+double  		get_t_triangle(t_fixed_v f, t_3v dir);
 void			*set_t_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);

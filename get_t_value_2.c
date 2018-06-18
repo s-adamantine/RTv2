@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   control_object.c                                   :+:      :+:    :+:   */
+/*   get_t_value_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/06/14 13:35:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 11:12:37 by mpauw            ###   ########.fr       */
+/*   Created: 2018/06/18 11:12:11 by mpauw             #+#    #+#             */
+/*   Updated: 2018/06/18 11:12:32 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void	control_object(t_event *event, int mouse, int key, t_3v coor)
+double  get_t_triangle(t_fixed_v f, t_3v dir)
 {
-	static t_object	obj;
-	static int		init = 0;
+    double  bottom;
 
-	if (!init)
-		obj = init_def_object(&obj, (event->scene).amount_obj);
-	init = 1;
-	if (mouse)
-		handle_mouse(coor);
-	if (KEY_UP_TO_FOUR(key))
-		obj.type = KEY_NUM_VALUE(key) - 1;
+    if ((bottom = ft_3v_dot_product(f.vec, dir)) < 0.01)
+        return (-1); //no intersection
+    bottom = ft_3v_dot_product(f.vec, dir);
+    return (f.val/bottom * -1); //if t is negative then it's behind the camera
 }

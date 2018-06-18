@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:49:54 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 15:06:01 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 11:09:30 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,14 @@ static void	set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 	}
 	if (o->type == 3)
 		f->val_2 = ft_3v_dot_product(f->dif_c, f->dir);
+	if (o->type == 5)
+	{
+		f->vec = ft_cross_product(ft_3v_subtract(o->origin_2, o->origin),
+		 		ft_3v_subtract(o->origin_3, o->origin)); //the normal
+		f->vec = normalize(f->vec);
+		f->val = ft_3v_dot_product(f->vec, origin) +
+				ft_3v_dot_product(f->vec, o->origin); //o->origin is actually the first vertex
+	}
 }
 
 /*

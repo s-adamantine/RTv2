@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+         #
+#    By: nicola <nicola@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/15 15:56:53 by nmanzini         ###   ########.fr        #
+#    Updated: 2018/06/18 15:09:58 by nicola           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -54,7 +54,7 @@ LIBMLX = libmlx.a
 FT = ft
 MLX = mlx
 MAKE = make
-FLAGS = -Wall -Wextra -Werror
+FLAGS = #-Wall -Wextra -Werror
 # Add before -ggdb to find out where segfault is
 SEGFAULT = -fsanitize=address
 VALGRIND = -g3

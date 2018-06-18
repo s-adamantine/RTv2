@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_mesh_obj.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:52:14 by nmanzini          #+#    #+#             */
-/*   Updated: 2018/06/15 17:44:01 by nmanzini         ###   ########.fr       */
+/*   Updated: 2018/06/18 15:39:55 by nicola           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ int	read_obj_file(char *path)
 	int fac_ver_num[2];
 	if(!scan_obj_file(path,fac_ver_num))
 	{
+		// can be shortened with printf;
 		ft_putstr("Error reading obj file at:");
 		ft_putstr(path);
 		ft_putchar('\n');
@@ -35,7 +36,7 @@ int	read_obj_file(char *path)
 	t_3v vertices;
 	t_3v *faces;
 	init_faces_vertices(&vertices, &faces, fac_ver_num);
-	fill_f_v_obj_file(path, &vertices, &faces);
+	fill_f_v_obj_file(path, &vertices);
 	return(1);
 }
 
@@ -45,16 +46,15 @@ int	init_faces_vertices( t_3v *vertices, t_3v **faces, int *fac_ver_num)
 
 	i = -1;
 	vertices = (t_3v *)malloc((fac_ver_num[1] + 1) * sizeof(t_3v));
-	faces = (t_3v **)malloc((fac_ver_num[0] + 1) * sizeof(t_3v*));
-	faces[fac_ver_num[0]] = NULL;
-	while (++i < fac_ver_num[0])
-	{
-		faces[i] = (t_3v *)malloc((3 * sizeof(t_3v)));
-	}
+	// faces = (t_3v **)malloc((fac_ver_num[0] + 1) * sizeof(t_3v*));
+	// while (++i < fac_ver_num[0])
+	// {
+	// 	faces[i] = (t_3v *)malloc((3 * sizeof(t_3v)));
+	// }
 	return(1);
 }
 
-int		fill_f_v_obj_file(char *path,  t_3v *vertices, t_3v **faces )
+int		fill_f_v_obj_file(char *path,  t_3v *vertices )
 {
 	int		fd;
 	char	*line;
@@ -64,7 +64,7 @@ int		fill_f_v_obj_file(char *path,  t_3v *vertices, t_3v **faces )
 
 	char *str;
 
-	v_i = 0;
+	v_i = -1;
 	f_i = 0;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
@@ -73,20 +73,12 @@ int		fill_f_v_obj_file(char *path,  t_3v *vertices, t_3v **faces )
 	{
 		if (*line == 'v'  && line[1] == ' ')
 		{
-			get_doubles_from_line(vertices[v_i++].v,&line[2],3);
-			str = get_vector_string(vertices[v_i - 1], 5);
+			// update_vector(&vertices[++v_i],&line[2]);
+			get_doubles_from_line(vertices[++v_i].v, &line[2],3);
+			str = get_vector_string(vertices[v_i], 5);
 			ft_putendl(str);
 		}
-		// else if (*line == 'f' && line[1] == ' ')
-		// {
-		// 	// get_int_from_line(ver_order,&line[2],3);
-		// 	// ft_putnbr(ver_order[0]);
-		// 	// ft_putnbr(ver_order[1]);
-		// 	// ft_putnbr(ver_order[2]);
-		// }
 		free(line);
-		if(faces)
-			;
 	}
 	free(line);
 

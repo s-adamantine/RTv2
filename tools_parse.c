@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tools_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:15:16 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/15 17:41:16 by nmanzini         ###   ########.fr       */
+/*   Updated: 2018/06/18 14:58:16 by nicola           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	get_doubles_from_line(double *v, char *line, int size)
 }
 
 /*
- * Get a size amount of doubles from a String.
+ * Get a size amount of int from a String.
  */
 
 void	get_int_from_line(int *v, char *line, int size)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_scene.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/15 17:18:12 by nmanzini         ###   ########.fr       */
+/*   Updated: 2018/06/18 13:17:56 by nicola           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void		set_scene(int fd, t_scene *scene)
 	// JUST FOR TESTING POURPOSES!!!!!
 
 	// read_obj_file("./scenes/obj/teapot.obj");
-	read_obj_file("./scenes/obj/mine.obj");
+	read_obj_file("./scenes/objs/mine.obj");
 
 	// END TESTING PORPUSES!!!!!!!!!!!
 

@@ -12,7 +12,7 @@
 
 #include "rtv1.h"
 
-static void	init_def_object(t_object *obj, int id)
+void		init_def_object(t_object *obj, int id)
 {
 	t_3v	def;
 
@@ -170,6 +170,6 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 		error(0);
 	free(line);
 	if (obj.type == 6)
-		printf("the path is: %s\n", obj.path);
+		create_mesh(objects, &obj, scene);
 	ft_lstaddnewr(objects, &obj, sizeof(obj));
 }

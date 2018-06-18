@@ -17,6 +17,7 @@ SRCS = 	rtv1.c\
 		set_object.c\
 		set_camera.c\
 		set_render.c\
+		set_mesh.c\
 		set_material.c\
 		set_pattern.c\
 		set_point_list.c\
@@ -41,6 +42,7 @@ SRCS = 	rtv1.c\
 		control_camera.c\
 		polka_dot_it.c\
 		get_mesh_obj.c
+			
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/
 #

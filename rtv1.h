@@ -160,6 +160,7 @@ typedef struct	s_object
 	t_3v		rotation;
 	t_fixed_v	**fixed_c;
 	t_fixed_v	**fixed_s;
+	char		*path;
 }				t_object;
 
 typedef struct	s_p_info
@@ -306,5 +307,8 @@ void	get_int_from_line(int *v, char *line, int size);
 int		scan_obj_file(char *path, int *fac_ver_num_0, int *fac_ver_num_1);
 int		fill_triangle(char *line, t_3v **faces, int f_i, t_3v *vertices);
 int		printf_triangle(t_3v *triangle, int i);
+
+void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);
+void	init_def_object(t_object *obj, int id);
 
 #endif

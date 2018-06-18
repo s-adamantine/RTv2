@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:52:50 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 10:58:27 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 12:04:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,12 @@ static int	within_planes(t_object *p1, t_object *p2, t_3v point)
 	return (1);
 }
 
-int	within_limits(t_object *obj, t_3v point, double b)
+double	within_limits(t_object *obj, t_3v point, double b)
 {
 	int	c;
 
 	if (!(obj->visible))
 		return (-1);
-	c = 1;
 	if (obj->lim_by_1 <= 0 || obj->lim_by_2 <= 0)
 		return (b);
 	c = within_planes(obj->obj_lim_1, obj->obj_lim_2, point);

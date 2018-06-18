@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 15:40:06 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 18:26:59 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 11:48:01 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,10 +40,6 @@ static double	get_d(t_3v dir, t_3v n, t_object *obj)
 	if (size == 0 && obj->type != 3)
 		error(5);
 	angle = -ft_3v_dot_product(n, dir);
-	if (angle < 0 && obj->type > 0)
-		obj->from_inside = 1;
-	else
-		obj->from_inside = 0;
 	angle = fabs(angle);
 	d = ((obj->m).diffuse / M_PI) * angle;
 	return (d);

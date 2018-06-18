@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 10:35:19 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 12:04:23 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # define MAX_S_VALUE 50000
 # define DEG 57.2958
 # define MENU_WIDTH 500
-# define THREADS 4
+# define THREADS 4 
 # include "libft.h"
 
 # include "mlx.h"
@@ -107,7 +107,6 @@ typedef struct	s_object
 {
 	int				id;
 	int				type;
-	int				from_inside;
 	int				pattern_id;
 	int				lim_by_1;
 	int				lim_by_2;
@@ -267,6 +266,6 @@ void			set_pattern(t_scene *scene);
 void			set_point_list(t_pattern *p);
 void			init_def_object(t_object *obj, int id, t_scene *scene);
 void			create_threads(t_event *event, void *(*f)(void*));
-int				within_limits(t_object *obj, t_3v point, double b);
+double			within_limits(t_object *obj, t_3v point, double b);
 
 #endif

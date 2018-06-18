@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/15 17:33:13 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 10:35:19 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,6 +267,6 @@ void			set_pattern(t_scene *scene);
 void			set_point_list(t_pattern *p);
 void			init_def_object(t_object *obj, int id, t_scene *scene);
 void			create_threads(t_event *event, void *(*f)(void*));
-int				within_limits(t_object *obj, t_3v point);
+int				within_limits(t_object *obj, t_3v point, double b);
 
 #endif

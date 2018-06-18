@@ -8,22 +8,22 @@ camera {
 		{origin, {500.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
-light {
+*light {
 		{origin, {100.0 -100.0 -100.0}}
 		{color, {0.4 0.7 1.0}}
 		{intensity, {150 0}}
 }
-light {
+*light {
 		{origin, {45.0 145.0 0.0}}
 		{color, {0.4 0.7 1.0}}
 		{intensity, {150 0}}
 }
-light {
+*light {
 		{origin, {30.0 0.0 0.0}}
 		{color, {0.0 1.0 1.0}}
 		{intensity, {15 0}}
 }
-light {
+*light {
 		{origin, {0.0 -10.0 50.0}}
 		{color, {0.0 1.0 1.0}}
 		{intensity, {150 2}}
@@ -41,7 +41,7 @@ object {
 		{radius, {0.4}}
 		{limited_by_1, {1}}
 		{limited_by_2, {2}}
-		{reflection, {0.1 0.15 0.5 20}}
+		{reflection, {0.5 0.15 0.5 20}}
 }
 object {
 		{type, {plane}}
@@ -61,5 +61,5 @@ object {
 		{limit_id, {2}}
 		{visible, {0}}
 		{origin, {0.0 0.0 200.0}}
-		{rotation, {0.0 0.0 0.0}}
+		{rotation, {45.0 -45.0 0.0}}
 }

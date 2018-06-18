@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:19:43 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/15 17:33:14 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 11:05:12 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static double	get_nearest_intersection(double a, double b, double d, int alt)
 
 double	get_t_plane(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 {
-	double	to_return;
+	double	c;
 	double	tmp;
 
 	if (!(obj->visible))
@@ -41,9 +41,9 @@ double	get_t_plane(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 	(void)alt;
 	if (fabs((tmp = ft_3v_dot_product(dir, f.dir))) < 0.00001)
 		return (-1);
-	to_return = -(f.val / tmp);
-	if (to_return > 0.0001 && within_limits(obj, get_point(f.origin, dir, to_return)) > 0)
-		return (to_return);
+	c = -(f.val / tmp);
+	if (c > 0.0001)
+		return (within_limits(obj, get_point(f.origin, dir, c), c));
 	return (-1);
 }
 
@@ -63,13 +63,13 @@ double	get_t_sphere(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 	if (d < 0.0001)
 		return (-1);
 	c = get_nearest_intersection(a, b, d, alt);
-	if (c > 0.001 && within_limits(obj, get_point(f.origin, dir, c)) > 0)
-		return (c);
+	if (c > 0.001)
+		return (within_limits(obj, get_point(f.origin, dir, c), c));
 	else
 	{
 		c = get_nearest_intersection(a, b, d, 1);
-		if (c > 0.001 && within_limits(obj, get_point(f.origin, dir, c)) > 0)
-			return (c);
+		if (c > 0.001)
+			return (within_limits(obj, get_point(f.origin, dir, c), c));
 	}
 	return (-1);
 }
@@ -93,13 +93,13 @@ double	get_t_cylinder(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 	if (d < 0.0001)
 		return (-1);
 	c = get_nearest_intersection(a, b, d, alt);
-	if (c > 0.001 && within_limits(obj, get_point(f.origin, dir, c)) > 0)
-		return (c);
+	if (c > 0.001)
+		return (within_limits(obj, get_point(f.origin, dir, c), c));
 	else
 	{
 		c = get_nearest_intersection(a, b, d, 1);
-		if (c > 0.001 && within_limits(obj, get_point(f.origin, dir, c)) > 0)
-			return (c);
+		if (c > 0.001)
+			return (within_limits(obj, get_point(f.origin, dir, c), c));
 	}
 	return (-1);
 }
@@ -128,13 +128,15 @@ double	get_t_cone(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 	if (d < 0.0001)
 		return (-1);
 	c = get_nearest_intersection(a, b, d, alt);
-	if (c > 0.001 && within_limits(obj, get_point(f.origin, dir, c)) > 0)
+	if (c > 0.001)
+		return (within_limits(obj, get_point(f.origin, dir, c), c));
+	if (c > 0.001 && (c = within_limits(obj, get_point(f.origin, dir, c), c)) > 0)
 		return (c);
 	else
 	{
 		c = get_nearest_intersection(a, b, d, 1);
-		if (c > 0.001 && within_limits(obj, get_point(f.origin, dir, c)) > 0)
-			return (c);
+		if (c > 0.001)
+			return (within_limits(obj, get_point(f.origin, dir, c), c));
 	}
 	return (-1);
 }

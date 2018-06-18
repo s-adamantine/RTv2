@@ -6,13 +6,13 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 11:12:11 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 11:12:32 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 14:53:53 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-double  get_t_triangle(t_fixed_v f, t_3v dir)
+double  get_t_triangle(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 {
     double  bottom;
     double  t;
@@ -24,6 +24,8 @@ double  get_t_triangle(t_fixed_v f, t_3v dir)
     t_3v    vp1;
     t_3v    vp2;
 
+	(void)alt;
+	(void)obj;
     if ((bottom = ft_3v_dot_product(f.vec, dir)) > -0.01)
         return (-1); //no intersection
     bottom = ft_3v_dot_product(f.vec, dir);

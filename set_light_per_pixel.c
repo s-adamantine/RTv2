@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 18:19:43 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 12:04:58 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,8 +52,8 @@ static double	light_reaches(t_3v dir, t_list *objects, int cam,
 	while (o_lst && o_lst->content)
 	{
 		obj = (t_object *)o_lst->content;
-		t_value = obj->f(obj->fixed_s[thread_id][cam][src->id - 1], dir, 0);
-		if (t_value > 0.001 && t_value < 0.99999)
+		t_value = obj->f(obj->fixed_s[thread_id][cam][src->id - 1], dir, 0, obj);
+		if (t_value > 0.001 && t_value < 0.99999 && obj->visible)
 			get_light_color(obj, get_point(src->origin, dir, t_value), src);
 		else if (t_value > 0.999999 && t_value < 1.000001)
 			reached = 1;
@@ -93,6 +93,8 @@ static double	get_influence(t_pixel *p, int i)
 	{
 		while (i > 0)
 		{
+
+	if (((p->pi_arr[i])->vis_obj->id) == 0)
 			if ((p->pi_arr[i - 1])->type % 2 == 0)
 				influence *= (((p->pi_arr[i - 1])->vis_obj)->m).transparent;
 			i--;
@@ -125,8 +127,8 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	o = ((p->pi_arr[i])->obj_m).color;
 	c = &(p->c_per_src[l.id]);
 	influence = get_influence(p, i);
-	if (((p->pi_arr[i])->vis_obj)->from_inside)
-		influence *= ((p->pi_arr[i])->obj_m).transparent;
+//	if (((p->pi_arr[i])->vis_obj)->from_inside)
+//		influence *= ((p->pi_arr[i])->obj_m).transparent;
 	in.diff = in.diff * (l.intensity).diff;
 	in.spec = in.spec * (l.intensity).spec;
 	check_values(&in, o, l);

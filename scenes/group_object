@@ -1,0 +1,87 @@
+render {
+		{name, {Finite Object}}
+		{dimensions, {1000 720}}
+		{reflection, {1}}
+		{ambient, {2}}
+}
+camera {
+		{origin, {2000.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+light {
+		{origin, {500.0 0.0 0.0}}
+		{color, {0.0 1.0 1.0}}
+		{intensity, {2000 2}}
+}
+object {
+		{type, {cone}}
+		{origin, {0.0 0.0 -150.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{transparent, {0.6}}
+		{color, {0.3 0.2 0.5}}
+		{radius, {0.9}}
+		{limited_by_1, {1}}
+		{limited_by_2, {2}}
+		{reflection, {0.5 0.15 0.5 20}}
+		{group_id, {1}}
+}
+object {
+		{type, {cylinder}}
+		{origin, {0.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{transparent, {0.6}}
+		{color, {0.8 0.2 0.2}}
+		{radius, {50}}
+		{limited_by_1, {2}}
+		{limited_by_2, {3}}
+		{reflection, {0.5 0.15 0.5 20}}
+		{group_id, {1}}
+		{is_group_main, {1}}
+		{group_rotation, {30.0 0.0 0.0}}
+		{group_origin, {0.0 500.0 0.0}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 0.0 410.0}}
+		{color, {0.8 0.2 0.2}}
+		{transparent, {0.6}}
+		{radius, {210}}
+		{limited_by_1, {3}}
+		{limited_by_2, {4}}
+		{reflection, {0.5 0.15 0.5 20}}
+		{group_id, {1}}
+}
+*object {
+		{type, {plane}}
+		{origin, {-200.0 0.0 0.0}}
+		{rotation, {0.0 90.0 0.0}}
+		{reflection, {0.3 0.15 0.1 20}}
+}
+object {
+		{limit_id, {1}}
+		{visible, {0}}
+		{origin, {0.0 0.0 -320.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{group_id, {1}}
+}
+object {
+		{limit_id, {2}}
+		{visible, {0}}
+		{origin, {0.0 0.0 -190.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{group_id, {1}}
+}
+object {
+		{limit_id, {3}}
+		{visible, {0}}
+		{origin, {0.0 0.0 200.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{group_id, {1}}
+}
+object {
+		{limit_id, {4}}
+		{visible, {0}}
+		{origin, {0.0 0.0 500.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{group_id, {1}}
+}

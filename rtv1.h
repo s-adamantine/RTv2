@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 11:10:11 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 14:52:48 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ typedef struct	s_fixed_v
 	t_3v		vertex2;
 	t_3v		dif_c;
 	t_3v		dir;
+	t_3v		origin;
 }				t_fixed_v;
 
 typedef struct	s_material
@@ -109,23 +110,32 @@ typedef struct	s_pattern
 
 typedef struct	s_object
 {
-	int			id;
-	int			type;
-	int			from_inside;
-	int			pattern_id;
-	t_material	m;
-	t_material	m2;
-	t_pattern	pattern;
-	double		radius;
-	double		(*f)();
-	double		axis_rotation;
-	double		shape_origin;
-	t_3v		origin;
-	t_3v		origin_2;
-	t_3v		origin_3;
-	t_3v		rotation;
-	t_fixed_v	**fixed_c[THREADS];
-	t_fixed_v	**fixed_s[THREADS];
+	int				id;
+	int				type;
+	int				pattern_id;
+	int				lim_by_1;
+	int				lim_by_2;
+	int				limit_id;
+	int				visible;
+	int				group_id;
+	int				is_group_main;
+	struct s_object	*obj_lim_1;
+	struct s_object	*obj_lim_2;
+	t_material		m;
+	t_material		m2;
+	t_pattern		pattern;
+	double			radius;
+	double			(*f)();
+	double			axis_rotation;
+	t_3v			origin;
+	t_3v			origin_2;
+	t_3v			origin_3;
+	t_3v			rotation;
+	t_3v			dir;
+	t_3v			group_origin;
+	t_3v			group_rotation;
+	t_fixed_v		**fixed_c[THREADS];
+	t_fixed_v		**fixed_s[THREADS];
 }				t_object;
 
 typedef struct	s_p_info
@@ -214,11 +224,11 @@ void			get_doubles_from_line(double *vector, char *line, int size);
 void			add_light(t_scene *scene, int fd);
 void			set_render(t_scene *scene, int fd);
 void			set_camera(t_scene *scene, int fd);
-double			get_t_cylinder(t_fixed_v f, t_3v dir, int alt);
-double			get_t_plane(t_fixed_v f, t_3v dir, int alt);
-double			get_t_sphere(t_fixed_v f, t_3v dir, int alt);
-double			get_t_cone(t_fixed_v f, t_3v dir, int alt);
-double  		get_t_triangle(t_fixed_v f, t_3v dir);
+double  		get_t_triangle(t_fixed_v f, t_3v dir, int alt, t_object *obj);
+double			get_t_cylinder(t_fixed_v f, t_3v dir, int alt, t_object *obj);
+double			get_t_plane(t_fixed_v f, t_3v dir, int alt, t_object *obj);
+double			get_t_sphere(t_fixed_v f, t_3v dir, int alt, t_object *obj);
+double			get_t_cone(t_fixed_v f, t_3v dir, int alt, t_object *obj);
 void			*set_t_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
@@ -253,7 +263,8 @@ void			set_drag_angle(t_event *event, int x, int y);
 void			set_move(t_event *event, int move);
 int				key_hold(int key, t_event *event);
 void			set_fixed_values(t_scene *scene);
-void			set_value_refl(t_3v point, t_object *o, int r, int cam_id, int thread_id);
+void			set_value_refl(t_3v point, t_object *o, int r, int cam_id,
+		int thread_id);
 void			set_drag_angle(t_event *event, int x, int y);
 char			*get_vector_string(t_3v v, int precision);
 t_material		get_object_material(t_object o, t_3v p);
@@ -263,7 +274,9 @@ void			set_values_material(t_material *m, char *s, char *value);
 void			set_material(t_scene *scene);
 void			set_pattern(t_scene *scene);
 void			set_point_list(t_pattern *p);
-void			init_def_object(t_object *obj, int id);
+void			init_def_object(t_object *obj, int id, t_scene *scene);
 void			create_threads(t_event *event, void *(*f)(void*));
+double			within_limits(t_object *obj, t_3v point, double b);
+void			set_finish(t_scene *scene);
 
 #endif

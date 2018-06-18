@@ -1,0 +1,172 @@
+f:get_intensity.c:	if (size == 0 && obj->type != 3)
+f:get_intensity.c:	d = ((obj->m).diffuse / M_PI) * angle;
+f:get_intensity.c:	i.spec = ((obj->m).specular * pow(angle, (obj->m).shininess));
+f:get_t_value.c:	if (!(obj->visible))
+f:get_t_value.c:	if (!(obj->visible))
+f:get_t_value.c:	if (!(obj->visible))
+f:get_t_value.c:	if (!(obj->visible))
+f:set_light_per_pixel.c:	if ((obj->pattern).type == 0)
+f:set_light_per_pixel.c:		(src->tmp_color).v[0] *= (obj->m).transparent * ((obj->m).color).v[0];
+f:set_light_per_pixel.c:		(src->tmp_color).v[1] *= (obj->m).transparent * ((obj->m).color).v[1];
+f:set_light_per_pixel.c:		(src->tmp_color).v[2] *= (obj->m).transparent * ((obj->m).color).v[2];
+f:set_light_per_pixel.c:		t_value = obj->f(obj->fixed_s[thread_id][cam][src->id - 1], dir, 2, obj);
+f:set_light_per_pixel.c:		if (obj->type == 1)
+f:set_light_per_pixel.c:		if (t_value > 0.001 && t_value < 0.99999 && obj->visible)
+f:set_light_per_pixel.c:	if (((p->pi_arr[i])->vis_obj->id) == 0)
+f:set_object.c:				obj->m = *material;
+f:set_object.c:				obj->m2 = *material;
+f:set_object.c:	obj->id = id;
+f:set_object.c:	obj->type = 0;
+f:set_object.c:	obj->f = &get_t_plane;
+f:set_object.c:	obj->axis_rotation = 0;
+f:set_object.c:	obj->origin = def;
+f:set_object.c:	obj->rotation = def;
+f:set_object.c:	obj->axis_rotation = 0;
+f:set_object.c:	obj->radius = 1;
+f:set_object.c:	obj->pattern_id = 0;
+f:set_object.c:	obj->lim_by_1 = 0;
+f:set_object.c:	obj->lim_by_2 = 0;
+f:set_object.c:	obj->limit_id = 0;
+f:set_object.c:	obj->visible = 1;
+f:set_object.c:		obj->f = &get_t_plane;
+f:set_object.c:		obj->type  = 0;
+f:set_object.c:		obj->f = &get_t_sphere;
+f:set_object.c:		obj->type = 1;
+f:set_object.c:		obj->f = &get_t_cylinder;
+f:set_object.c:		obj->type = 2;
+f:set_object.c:		obj->f = &get_t_cone;
+f:set_object.c:		obj->type = 3;
+f:set_object.c:			obj->pattern = *p;
+f:set_object.c:			obj->pattern_id = id;
+f:set_object.c:		update_vector(&(obj->origin), value);
+f:set_object.c:		update_vector(&(obj->rotation), value);
+f:set_object.c:		obj->axis_rotation = ft_atod(value);
+f:set_object.c:		obj->radius = ft_atod(value);
+f:set_object.c:		obj->lim_by_1 = ft_atoi(value);
+f:set_object.c:		obj->lim_by_2 = ft_atoi(value);
+f:set_object.c:		obj->limit_id = ft_atoi(value);
+f:set_object.c:		obj->visible = ft_atoi(value);
+f:set_object.c:		set_values_material(&(obj->m), s, value);
+f:set_scene.c:	while (tmp_obj && tmp_obj->content)
+f:set_scene.c:		obj = (t_object *)tmp_obj->content;
+f:set_scene.c:		if (obj->limit_id == lim_id_1 && ++set)
+f:set_scene.c:		else if (obj->limit_id == lim_id_2 && ++set)
+f:set_scene.c:		tmp_obj = tmp_obj->next;
+f:set_scene.c:	while (tmp_obj && tmp_obj->content)
+f:set_scene.c:		obj = (t_object *)tmp_obj->content;
+f:set_scene.c:		if (obj->lim_by_1 > 0 && obj->lim_by_2 > 0)
+f:set_scene.c:			get_limit_object(scene->objects, obj->lim_by_1,
+f:set_scene.c:					obj->lim_by_2, obj);
+f:set_scene.c:		tmp_obj = tmp_obj->next;
+f:set_t_values.c:	while (tmp_obj && tmp_obj->content)
+f:set_t_values.c:		obj = (t_object *)tmp_obj->content;
+f:set_t_values.c:		tmp = obj->f(obj->fixed_c[sc->thread_id][(sc->cam)->id][p->amount_p], dir, 0, obj);
+f:set_t_values.c:		tmp_obj = tmp_obj->next;
+f:set_t_values.c:	p->color = ft_init_3v((color.v)[0] * (obj->m).ambient * scene->ambient,
+f:set_t_values.c:			(color.v)[1] * (obj->m).ambient * scene->ambient,
+f:set_t_values.c:			(color.v)[2] * (obj->m).ambient * scene->ambient);
+f:tools_limits.c:	if (!(obj->visible))
+f:tools_limits.c:	if (obj->lim_by_1 <= 0 || obj->lim_by_2 <= 0)
+f:tools_limits.c:	c = within_planes(obj->obj_lim_1, obj->obj_lim_2, point);
+f:tools_limits.c:	obj->currently_visible = c;
+f:tools_vector.c:	if (obj->type == 0)
+f:tools_vector.c:		return (rotate_v(ft_get_3v_unit(2), obj->rotation));
+f:tools_vector.c:		norm_t = ft_3v_subtract(point, obj->origin);
+f:tools_vector.c:	norm_t = rotate_v_inv(norm_t, obj->rotation);
+f:tools_vector.c:	if (obj->type == 2)
+f:tools_vector.c:	if (obj->type == 3)
+f:tools_vector.c:	if (size == 0 && obj->type != 3)
+f:tools_vector.c:	norm_t = rotate_v(norm_t, obj->rotation);
+get_intensity.c:	if (size == 0 && obj->type != 3)
+get_intensity.c:	d = ((obj->m).diffuse / M_PI) * angle;
+get_intensity.c:	i.spec = ((obj->m).specular * pow(angle, (obj->m).shininess));
+get_t_value.c:	if (!(obj->visible))
+get_t_value.c:	if (!(obj->visible))
+get_t_value.c:	if (!(obj->visible))
+get_t_value.c:	if (!(obj->visible))
+set_finish.c:	while (tmp_obj && tmp_obj->content)
+set_finish.c:		obj = (t_object *)tmp_obj->content;
+set_finish.c:		if (obj->group_id == group_id && obj->is_group_main)
+set_finish.c:			obj_to_set->group_origin = obj->group_origin;
+set_finish.c:			obj_to_set->group_rotation = obj->group_rotation;
+set_finish.c:		tmp_obj = tmp_obj->next;
+set_finish.c:	while (tmp_obj && tmp_obj->content)
+set_finish.c:		obj = (t_object *)tmp_obj->content;
+set_finish.c:		if (obj->limit_id == lim_id_1 && ++set)
+set_finish.c:		else if (obj->limit_id == lim_id_2 && ++set)
+set_finish.c:		tmp_obj = tmp_obj->next;
+set_finish.c:	while (tmp_obj && tmp_obj->content)
+set_finish.c:		obj = (t_object *)tmp_obj->content;
+set_finish.c:		if (obj->lim_by_1 > 0 && obj->lim_by_2 > 0)
+set_finish.c:			set_limit_object(scene->objects, obj->lim_by_1,
+set_finish.c:					obj->lim_by_2, obj);
+set_finish.c:		if (obj->group_id > 0)
+set_finish.c:			set_group_object(scene->objects, obj->group_id, obj);
+set_finish.c:		tmp_obj = tmp_obj->next;
+set_light_per_pixel.c:	if ((obj->pattern).type == 0)
+set_light_per_pixel.c:		(src->tmp_color).v[0] *= (obj->m).transparent * ((obj->m).color).v[0];
+set_light_per_pixel.c:		(src->tmp_color).v[1] *= (obj->m).transparent * ((obj->m).color).v[1];
+set_light_per_pixel.c:		(src->tmp_color).v[2] *= (obj->m).transparent * ((obj->m).color).v[2];
+set_light_per_pixel.c:		t_value = obj->f(obj->fixed_s[thread_id][cam][src->id - 1], dir, 0, obj);
+set_light_per_pixel.c:		if (t_value > 0.001 && t_value < 0.99999 && obj->visible)
+set_light_per_pixel.c:	if (((p->pi_arr[i])->vis_obj->id) == 0)
+set_object.c:				obj->m = *material;
+set_object.c:				obj->m2 = *material;
+set_object.c:	obj->id = id;
+set_object.c:	obj->type = 0;
+set_object.c:	obj->f = &get_t_plane;
+set_object.c:	obj->axis_rotation = 0;
+set_object.c:	obj->origin = def;
+set_object.c:	obj->group_origin = def;
+set_object.c:	obj->group_rotation = def;
+set_object.c:	obj->group_id = 0;
+set_object.c:	obj->is_group_main = 0;
+set_object.c:	obj->rotation = def;
+set_object.c:	obj->axis_rotation = 0;
+set_object.c:	obj->radius = 1;
+set_object.c:	obj->pattern_id = 0;
+set_object.c:	obj->lim_by_1 = 0;
+set_object.c:	obj->lim_by_2 = 0;
+set_object.c:	obj->limit_id = 0;
+set_object.c:	obj->visible = 1;
+set_object.c:		obj->f = &get_t_plane;
+set_object.c:		obj->type  = 0;
+set_object.c:		obj->f = &get_t_sphere;
+set_object.c:		obj->type = 1;
+set_object.c:		obj->f = &get_t_cylinder;
+set_object.c:		obj->type = 2;
+set_object.c:		obj->f = &get_t_cone;
+set_object.c:		obj->type = 3;
+set_object.c:			obj->pattern = *p;
+set_object.c:			obj->pattern_id = id;
+set_object.c:		update_vector(&(obj->origin), value);
+set_object.c:		update_vector(&(obj->group_origin), value);
+set_object.c:		update_vector(&(obj->rotation), value);
+set_object.c:		update_vector(&(obj->group_rotation), value);
+set_object.c:		obj->axis_rotation = ft_atod(value);
+set_object.c:		obj->radius = ft_atod(value);
+set_object.c:		obj->lim_by_1 = ft_atoi(value);
+set_object.c:		obj->lim_by_2 = ft_atoi(value);
+set_object.c:		obj->limit_id = ft_atoi(value);
+set_object.c:		obj->group_id = ft_atoi(value);
+set_object.c:		(obj->is_group_main)++;
+set_object.c:		obj->visible = ft_atoi(value);
+set_object.c:		set_values_material(&(obj->m), s, value);
+set_t_values.c:	while (tmp_obj && tmp_obj->content)
+set_t_values.c:		obj = (t_object *)tmp_obj->content;
+set_t_values.c:		tmp = obj->f(obj->fixed_c[sc->thread_id][(sc->cam)->id][p->amount_p], dir, 0, obj);
+set_t_values.c:		tmp_obj = tmp_obj->next;
+set_t_values.c:	p->color = ft_init_3v((color.v)[0] * (obj->m).ambient * scene->ambient,
+set_t_values.c:			(color.v)[1] * (obj->m).ambient * scene->ambient,
+set_t_values.c:			(color.v)[2] * (obj->m).ambient * scene->ambient);
+tools_limits.c:	if (!(obj->visible))
+tools_limits.c:	if (obj->lim_by_1 <= 0 || obj->lim_by_2 <= 0)
+tools_limits.c:	c = within_planes(obj->obj_lim_1, obj->obj_lim_2, point);
+tools_vector.c:	if (obj->type == 0)
+tools_vector.c:		return (rotate_v(ft_get_3v_unit(2), obj->rotation));
+tools_vector.c:		norm_t = ft_3v_subtract(point, obj->origin);
+tools_vector.c:	norm_t = rotate_v_inv(norm_t, obj->rotation);
+tools_vector.c:	if (obj->type == 2)
+tools_vector.c:	if (obj->type == 3)
+tools_vector.c:	if (size == 0 && obj->type != 3)
+tools_vector.c:	norm_t = rotate_v(norm_t, obj->rotation);

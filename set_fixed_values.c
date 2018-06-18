@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:49:54 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 11:17:19 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 14:50:10 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,11 @@
 static void	set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 {
 	f->dir = rotate_v(ft_init_3v(0.0, 0.0, 1.0), o->rotation);
+	o->dir = f->dir;
 	f->rad = o->radius;
 	f->rad_sq = o->radius * o->radius;
 	f->dif_c = ft_3v_subtract(origin, o->origin);
+	f->origin = origin;
 	if (o->type == 0)
 		f->val = ft_3v_dot_product(f->dir, f->dif_c);
 	else if (o->type == 1)

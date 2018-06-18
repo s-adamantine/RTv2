@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:52:14 by nmanzini          #+#    #+#             */
-/*   Updated: 2018/06/18 15:39:55 by nicola           ###   ########.fr       */
+/*   Updated: 2018/06/18 16:31:29 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,31 +21,37 @@ read number of lines
 
 // main reading function per obj
 
-int	read_obj_file(char *path)
+void	read_obj_file(char *path)
 {
-	int fac_ver_num[2];
-	if(!scan_obj_file(path,fac_ver_num))
+//	int fac_ver_num[2];
+	int	fac_ver_num_0;
+	int	fac_ver_num_1;
+
+	fac_ver_num_0 = 0;
+	fac_ver_num_1 = 0;
+	if(!scan_obj_file(path,&fac_ver_num_0,&fac_ver_num_1))
 	{
 		// can be shortened with printf;
 		ft_putstr("Error reading obj file at:");
 		ft_putstr(path);
 		ft_putchar('\n');
-		return (0);
+		exit(0);
 	}
-
-	t_3v vertices;
+	t_3v *vertices;
 	t_3v *faces;
-	init_faces_vertices(&vertices, &faces, fac_ver_num);
-	fill_f_v_obj_file(path, &vertices);
-	return(1);
+	vertices = (t_3v *)malloc((fac_ver_num_1 + 1) * sizeof(t_3v));
+	init_faces_vertices(vertices, &faces, fac_ver_num_1);
+	fill_f_v_obj_file(path, vertices);
 }
 
-int	init_faces_vertices( t_3v *vertices, t_3v **faces, int *fac_ver_num)
+int	init_faces_vertices( t_3v *vertices, t_3v **faces, int fac_ver_num_1)
 {
 	int i;
 
+	(void)faces;
+	(void)vertices;
+	(void)fac_ver_num_1;
 	i = -1;
-	vertices = (t_3v *)malloc((fac_ver_num[1] + 1) * sizeof(t_3v));
 	// faces = (t_3v **)malloc((fac_ver_num[0] + 1) * sizeof(t_3v*));
 	// while (++i < fac_ver_num[0])
 	// {
@@ -64,7 +70,7 @@ int		fill_f_v_obj_file(char *path,  t_3v *vertices )
 
 	char *str;
 
-	v_i = -1;
+	v_i = 0;
 	f_i = 0;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
@@ -73,10 +79,11 @@ int		fill_f_v_obj_file(char *path,  t_3v *vertices )
 	{
 		if (*line == 'v'  && line[1] == ' ')
 		{
-			// update_vector(&vertices[++v_i],&line[2]);
-			get_doubles_from_line(vertices[++v_i].v, &line[2],3);
+			vertices[v_i] = ft_zero_3v();
+			update_vector(&(vertices[v_i]), &(line[2]));
 			str = get_vector_string(vertices[v_i], 5);
 			ft_putendl(str);
+			v_i++;
 		}
 		free(line);
 	}
@@ -90,38 +97,36 @@ int		fill_f_v_obj_file(char *path,  t_3v *vertices )
 
 // scanner
 
-int		scan_obj_file(char *path, int *fac_ver_num)
+int		scan_obj_file(char *path, int *fac_ver_num_0, int *fac_ver_num_1)
 {
 	int		fd;
 	char	*line;
 
-	fac_ver_num[0] = 0;
-	fac_ver_num[1] = 0;
 	fd = open(path, O_RDONLY);
 	if (fd == -1)
 		return (0);
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (*line == 'v'  && line[1] == ' ')
-			fac_ver_num[1]++;
+			(*fac_ver_num_1)++;
 		else if (*line == 'f' && line[1] == ' ')
-			fac_ver_num[0]++;
+			(*fac_ver_num_0)++;
 		free(line);
 	}
 	free(line);
 
 	// TESTING OUTPUT
 	ft_putstr("Faces number = ");
-	ft_putnbr(fac_ver_num[0]);
+	ft_putnbr(*fac_ver_num_0);
 	ft_putchar(10);
 	ft_putstr("Vertex number = ");
-	ft_putnbr(fac_ver_num[1]);
+	ft_putnbr(*fac_ver_num_1);
 	ft_putchar(10);
 	// 
 
 	if (close(fd) == -1)
 		return (0);
-	if (fac_ver_num[0] < 1 || fac_ver_num[1] < 3)
+	if (*fac_ver_num_0 < 1 || *fac_ver_num_1 < 3)
 		return (0);
 	return (1);
 }

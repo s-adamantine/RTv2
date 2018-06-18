@@ -6,7 +6,7 @@
 #    By: nicola <nicola@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/18 15:09:58 by nicola           ###   ########.fr        #
+#    Updated: 2018/06/18 16:15:23 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,14 +47,14 @@ LFTDIR = libft/
 # Use other $LMLXDIR by (un)commenting the following two lines
 # if the project does not compile.
 #
-#LMLXDIR = minilibx_macos/
-LMLXDIR = mlx_macbook/
+LMLXDIR = minilibx_macos/
+#LMLXDIR = mlx_macbook/
 LIBFT = libft.a
 LIBMLX = libmlx.a
 FT = ft
 MLX = mlx
 MAKE = make
-FLAGS = #-Wall -Wextra -Werror
+FLAGS = -Wall -Wextra -Werror
 # Add before -ggdb to find out where segfault is
 SEGFAULT = -fsanitize=address
 VALGRIND = -g3
@@ -63,7 +63,7 @@ FRAMEWORK = -framework OpenGL -framework AppKit
 all : $(NAME)
 
 $(NAME): $(OBJ) $(LFTDIR)$(LIBFT) $(LMLXDIR)$(LIBMLX)
-	-@gcc $(FLAGS) -o $(NAME) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
+	-@gcc $(FLAGS) -o $(NAME) $(SEGFAULT) -ggdb $(OBJ) -I$(LFTDIR) -L$(LFTDIR) -l$(FT) \
 	 -I$(LMLXDIR) -L$(LMLXDIR) -l$(MLX) \
 	 $(FRAMEWORK)
 	-@echo "RTv1 Ready"

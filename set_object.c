@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/15 17:33:17 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 14:07:49 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ void		init_def_object(t_object *obj, int id, t_scene *scene)
 	obj->f = &get_t_plane;
 	obj->axis_rotation = 0;
 	obj->origin = def;
+	obj->group_origin = def;
+	obj->group_rotation = def;
+	obj->group_id = 0;
+	obj->is_group_main = 0;
 	obj->rotation = def;
 	obj->axis_rotation = 0;
 	obj->radius = 1;
@@ -107,8 +111,12 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		set_object_type(value, obj, scene);
 	else if (ft_strncmp(s, "origin", 6) == 0)
 		update_vector(&(obj->origin), value);
+	else if (ft_strncmp(s, "group_origin", 12) == 0)
+		update_vector(&(obj->group_origin), value);
 	else if (ft_strncmp(s, "rotation", 7) == 0)
 		update_vector(&(obj->rotation), value);
+	else if (ft_strncmp(s, "group_rotation", 13) == 0)
+		update_vector(&(obj->group_rotation), value);
 	else if (ft_strncmp(s, "axis_rotation", 11) == 0)
 		obj->axis_rotation = ft_atod(value);
 	else if (ft_strncmp(s, "radius", 6) == 0)
@@ -125,6 +133,10 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		obj->lim_by_2 = ft_atoi(value);
 	else if (ft_strncmp(s, "limit_id", 8) == 0)
 		obj->limit_id = ft_atoi(value);
+	else if (ft_strncmp(s, "group_id", 8) == 0)
+		obj->group_id = ft_atoi(value);
+	else if (ft_strncmp(s, "is_group_main", 13) == 0)
+		(obj->is_group_main)++;
 	else if (ft_strncmp(s, "visible", 7) == 0)
 		obj->visible = ft_atoi(value);
 	else

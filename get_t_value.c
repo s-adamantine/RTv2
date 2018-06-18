@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:19:43 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 12:05:05 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 12:25:01 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ double	get_t_sphere(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 	if (d < 0.0001)
 		return (-1);
 	c = get_nearest_intersection(a, b, d, alt);
-	if (c > 0.001)
+	if (c > 0.001 && (c = within_limits(obj, get_point(f.origin, dir, c), c)) > 0)
 		return (within_limits(obj, get_point(f.origin, dir, c), c));
 	else
 	{
@@ -93,7 +93,7 @@ double	get_t_cylinder(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 	if (d < 0.0001)
 		return (-1);
 	c = get_nearest_intersection(a, b, d, alt);
-	if (c > 0.001)
+	if (c > 0.001 && (c = within_limits(obj, get_point(f.origin, dir, c), c)) > 0)
 		return (within_limits(obj, get_point(f.origin, dir, c), c));
 	else
 	{
@@ -128,8 +128,6 @@ double	get_t_cone(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 	if (d < 0.0001)
 		return (-1);
 	c = get_nearest_intersection(a, b, d, alt);
-//	if (c > 0.001)
-//		return (within_limits(obj, get_point(f.origin, dir, c), c));
 	if (c > 0.001 && (c = within_limits(obj, get_point(f.origin, dir, c), c)) > 0)
 		return (c);
 	else

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 12:04:23 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 14:08:50 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,8 @@ typedef struct	s_object
 	int				lim_by_2;
 	int				limit_id;
 	int				visible;
-	int				currently_visible;
+	int				group_id;
+	int				is_group_main;
 	struct s_object	*obj_lim_1;
 	struct s_object	*obj_lim_2;
 	t_material		m;
@@ -121,10 +122,11 @@ typedef struct	s_object
 	double			radius;
 	double			(*f)();
 	double			axis_rotation;
-	double			shape_origin;
 	t_3v			origin;
 	t_3v			rotation;
 	t_3v			dir;
+	t_3v			group_origin;
+	t_3v			group_rotation;
 	t_fixed_v		**fixed_c[THREADS];
 	t_fixed_v		**fixed_s[THREADS];
 }				t_object;
@@ -267,5 +269,6 @@ void			set_point_list(t_pattern *p);
 void			init_def_object(t_object *obj, int id, t_scene *scene);
 void			create_threads(t_event *event, void *(*f)(void*));
 double			within_limits(t_object *obj, t_3v point, double b);
+void			set_finish(t_scene *scene);
 
 #endif

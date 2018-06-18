@@ -33,7 +33,7 @@ light {
 		{color, {0.0 1.0 1.0}}
 		{intensity, {2000 2}}
 }
-object {
+*object {
 		{type, {cone}}
 		{origin, {0.0 0.0 -150.0}}
 		{rotation, {0.0 0.0 0.0}}
@@ -50,9 +50,9 @@ object {
 		{rotation, {0.0 0.0 0.0}}
 		{transparent, {0.6}}
 		{color, {0.8 0.2 0.2}}
-		{radius, {50}}
-		{limited_by_1, {2}}
-		{limited_by_2, {3}}
+		{radius, {150}}
+		{limited_by_1, {1}}
+		{limited_by_2, {2}}
 		{reflection, {0.5 0.15 0.5 20}}
 }
 object {
@@ -61,8 +61,8 @@ object {
 		{color, {0.8 0.2 0.2}}
 		{transparent, {0.6}}
 		{radius, {210}}
-		{limited_by_1, {3}}
-		{limited_by_2, {4}}
+		{limited_by_1, {1}}
+		{limited_by_2, {2}}
 		{reflection, {0.5 0.15 0.5 20}}
 }
 *object {
@@ -74,24 +74,12 @@ object {
 object {
 		{limit_id, {1}}
 		{visible, {0}}
-		{origin, {0.0 0.0 -320.0}}
-		{rotation, {0.0 0.0 0.0}}
+		{origin, {0.0 -1500.0 0.0}}
+		{rotation, {90.0 0.0 0.0}}
 }
 object {
 		{limit_id, {2}}
 		{visible, {0}}
-		{origin, {0.0 0.0 -190.0}}
-		{rotation, {0.0 0.0 0.0}}
-}
-object {
-		{limit_id, {3}}
-		{visible, {0}}
-		{origin, {0.0 0.0 200.0}}
-		{rotation, {0.0 0.0 0.0}}
-}
-object {
-		{limit_id, {4}}
-		{visible, {0}}
-		{origin, {0.0 0.0 500.0}}
-		{rotation, {0.0 0.0 0.0}}
+		{origin, {0.0 100.0 0.0}}
+		{rotation, {90.0 0.0 0.0}}
 }

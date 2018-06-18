@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/15 15:46:33 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/18 14:12:34 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCS = 	rtv1.c\
 		set_pattern.c\
 		set_light.c\
 		set_point_list.c\
+		set_finish.c\
 		set_fixed_values.c\
 		set_t_values.c\
 		get_event.c\

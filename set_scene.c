@@ -61,7 +61,7 @@ void		set_scene(int fd, t_scene *scene)
 	// JUST FOR TESTING POURPOSES!!!!!
 
 	// read_obj_file("./scenes/obj/teapot.obj");
-	read_obj_file("./scenes/objs/teapot.obj", 1);
+	// read_obj_file("./scenes/objs/teapot.obj", 1);
 
 	// END TESTING PORPUSES!!!!!!!!!!!
 

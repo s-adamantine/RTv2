@@ -60,6 +60,10 @@ static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 		obj->f = &get_t_triangle;
 		obj->type = 5;
 	}
+	else if (ft_strncmp(s, "mesh", 4) == 0)
+	{
+		obj->type = 6;
+	}
 	else
 	{
 		obj->f = &get_t_plane;
@@ -133,6 +137,8 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		change_material(scene, obj, ft_atoi(value), 1);
 	else if (ft_strncmp(s, "sec_material", 12) == 0)
 		change_material(scene, obj, ft_atoi(value), 2);
+	else if (ft_strncmp(s, "path", 4) == 0)
+		obj->path = ft_strdup(value);
 	else
 		set_values_material(&(obj->m), s, value);
 }
@@ -163,5 +169,7 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 	if (gnl < 0)
 		error(0);
 	free(line);
+	if (obj.type == 6)
+		printf("the path is: %s\n", obj.path);
 	ft_lstaddnewr(objects, &obj, sizeof(obj));
 }

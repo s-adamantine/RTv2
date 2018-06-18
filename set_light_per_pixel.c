@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 12:04:58 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 17:49:24 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static void		get_light_color(t_object *obj, t_3v point, t_source *src)
  * objects or not).
  */
 
-static double	light_reaches(t_3v dir, t_list *objects, int cam,
+static double	light_reaches(t_3v d, t_list *objects, int cam,
 		t_source *src, int thread_id)
 {
-	double		t_value;
+	double		t_1;
 	double		reached;
 	t_list		*o_lst;
 	t_object	*obj;
@@ -52,10 +52,10 @@ static double	light_reaches(t_3v dir, t_list *objects, int cam,
 	while (o_lst && o_lst->content)
 	{
 		obj = (t_object *)o_lst->content;
-		t_value = obj->f(obj->fixed_s[thread_id][cam][src->id - 1], dir, 0, obj);
-		if (t_value > 0.001 && t_value < 0.99999 && obj->visible)
-			get_light_color(obj, get_point(src->origin, dir, t_value), src);
-		else if (t_value > 0.999999 && t_value < 1.000001)
+		t_1 = obj->f(obj->fixed_s[thread_id][cam][src->id - 1], d, 0, obj);
+		if (t_1 > 0.001 && t_1 < 0.99999 && obj->visible)
+			get_light_color(obj, get_point(src->origin, d, t_1), src);
+		else if (t_1 > 0.999999 && t_1 < 1.000001)
 			reached = 1;
 		o_lst = o_lst->next;
 	}

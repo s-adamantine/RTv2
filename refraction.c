@@ -43,7 +43,7 @@ void	refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_
 	n1 = entry_refraction;
 	n2 = (pi->obj_m).refractive_index;
 	n = ft_init_3v(pi->normal.v[0], pi->normal.v[1], pi->normal.v[2]);
-	cosi = ft_clamp(-1.0, 1.0, ft_3v_dot_product(pi->normal, *dir));
+	cosi = ft_clamp(-1.0, 1.0, ft_3v_dot_product(n, *dir));
 	if (cosi < 0.0)
 		cosi = cosi * -1.0;
 	else
@@ -54,7 +54,7 @@ void	refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_
 	index = n1 / n2;
 	k = 1.0 - index * index * (1.0 - cosi * cosi);
 	fresnal(pi, n1, n2, cosi, k);
-	if (k < 0.0)
+	if (k < 0.001)
 	{
 		*dir = get_reflection_vector(n, *dir);
 		get_reflections(p, scene, *dir, 1, n1);

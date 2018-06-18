@@ -87,6 +87,7 @@ static void		check_values(t_intensity *in, t_3v o, t_source l)
 static double	get_influence(t_pixel *p, int i)
 {
 	double	influence;
+	double	spec;
 
 	influence = 1 - (((p->pi_arr[i])->vis_obj)->m).transparent;
 	if ((p->pi_arr[i])->type == 2)
@@ -94,8 +95,10 @@ static double	get_influence(t_pixel *p, int i)
 		while (i > 0)
 		{
 			if ((p->pi_arr[i - 1])->type % 2 == 0)
+			{
 				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).transparent
 					* p->pi_arr[i - 1]->fresnal_transparent);
+			}
 			i--;
 		}
 	}
@@ -104,8 +107,17 @@ static double	get_influence(t_pixel *p, int i)
 		while (i > 0)
 		{
 			if ((p->pi_arr[i - 1])->type < 2)
-				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).specular
-				* p->pi_arr[i - 1]->fresnal_specular);
+			{
+				if (p->pi_arr[i - 1]->fresnal_specular > 0.001 &&
+					(((p->pi_arr[i - 1])->vis_obj)->m).specular < 0.001)
+					spec = p->pi_arr[i - 1]->fresnal_specular;
+				else if (p->pi_arr[i - 1]->fresnal_specular < 0.001)
+					spec = (((p->pi_arr[i - 1])->vis_obj)->m).specular;
+				else
+					spec = p->pi_arr[i - 1]->fresnal_specular
+				* p->pi_arr[i - 1]->fresnal_specular;
+				influence *= spec;
+			}
 			i--;
 		}
 	}

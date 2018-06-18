@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 13:23:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 14:21:43 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 14:47:31 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,8 @@ static void	set_group_object(t_list *lst, int group_id, t_object *obj_to_set)
 	}
 	obj_to_set->rotation = ft_3v_add(obj_to_set->rotation,
 			obj_to_set->group_rotation);
-	obj_to_set->origin = rotate_v(ft_3v_subtract(obj_to_set->origin,
-				obj_to_set->group_origin), obj_to_set->group_rotation);
+	obj_to_set->origin = rotate_v(obj_to_set->origin, obj_to_set->group_rotation);
+	obj_to_set->origin = ft_3v_add(obj_to_set->origin, obj_to_set->group_origin);
 }
 
 static void	set_limit_object(t_list *lst, int lim_id_1, int lim_id_2,

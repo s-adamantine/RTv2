@@ -19,6 +19,8 @@ static void	create_triangle(t_list **objects, t_object *parent, t_scene *scene, 
 	scene->amount_obj++;
 	init_def_object(&obj, scene->amount_obj);
 	//inherit all previous properties from parent
+	obj.type = 5;
+	obj.f = &get_t_triangle;
 	obj.m = parent->m;
 	obj.m2 = parent->m2;
 	obj.pattern = parent->pattern;
@@ -38,7 +40,7 @@ void	create_mesh(t_list **objects, t_object *parent, t_scene *scene)
 
 	i = 0;
 	coordinates = read_obj_file(parent->path, 0);
-	while (i < 1) //actually ver_faces in read_obj_file
+	while (i < 2) //actually ver_faces in read_obj_file
 	{
 		create_triangle(objects, parent, scene, coordinates[i]);
 		i++;

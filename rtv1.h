@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 18:13:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/19 10:57:12 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,46 +18,8 @@
 # define MENU_WIDTH 500
 # define THREADS 4
 
-# define AMOUNT_INSTRUCTIONS 7
-# define AMOUNT_INFO 6
-
-# define AMT_SUB_M 5
-# define AMT_BUT 5
-# define AMT_B_ROW 2
-# define AMT_B_P_ROW 3
-# define MENU_MARGIN 20
-# define SUB_MARGIN 10
-# define INFO_MARGIN 130
-# define SUB_SUB_MARGIN 5
-# define BAR_TOP_HEIGHT 60
-# define OBJ_SUB_M_HEIGHT 125
-# define DEF_BUTTON_HEIGHT 30
-# define TAB_BUTTON_WIDTH 20
-# define SUB_MENU_Y (BAR_TOP_HEIGHT + 2 * DEF_BUTTON_HEIGHT + SUB_MARGIN)
-# define MENU_LINE 15 
-# define TEXT_LIGHT 0xffffff
-# define TEXT_DARK 0x000000
-# define ALERT_COLOR 0xff3f80
-# define PRIMARY_COLOR 0x66bb6a
-# define PRIMARY_DARK 0x338a3e
-# define PRIMARY_LIGHT 0x98ee99
-
-# define MAIN_MENU 0x00
-# define OBJECT_MENU 0x01
-# define LIGHT_MENU 0x02
-# define CAM_MENU 0x03
-# define MAN_MENU 0x04
-# define SUB_MENU 0x06
-# define SUB_SUB_MENU 0x07
-# define MAIN_BUTTON 0x10
-# define OBJECT_BUTTON 0x11
-# define LIGHT_BUTTON 0x12
-# define CAM_BUTTON 0x13
-# define MAN_BUTTON 0x14
-# define SUB_MENU_BUTTON 0x15
-# define TAB_BUTTON 0x20
-
 # include "libft.h"
+
 # include "mlx.h"
 # include "keys.h"
 # include "mlx_constants.h"
@@ -84,52 +46,6 @@ typedef struct	s_img
 	int			endian;
 	int			id;
 }				t_img;
-
-typedef struct	s_menu_p
-{
-	int			x;
-	int			y;
-	int			button;
-	int			id;
-	int			type_id;
-	int			type;
-	int			color;
-}				t_menu_p;
-
-typedef struct	s_sub_m
-{
-	int			y;
-	int			x;
-	int			width;
-	int			height;
-	int			color;
-	int			color_selected;
-	int			id;
-	char		**strings;
-	t_img		img;
-	int			first;
-	int			parent_id;
-	int			*child_id;
-	int			child_count;
-	int			showing;
-	int			selected;
-	int			type;
-	int			type_id;
-	int			sub_tab;
-	int			sub_tab_showing;
-	int			position;
-	int			tab_amount;
-	int			per_tab;
-	int			edge_thickness;
-	int			edge_color;
-}				t_sub_m;
-
-typedef struct	s_menu
-{
-	t_menu_p	*p;
-	t_sub_m		*sub_m;
-	int			sub_m_count;
-}				t_menu;
 
 typedef struct	s_intensity
 {
@@ -159,8 +75,13 @@ typedef struct	s_fixed_v
 	double		rad;
 	double		rad_sq;
 	t_3v		vec;
+	t_3v		vec2;
+	t_3v		vertex0;
+	t_3v		vertex1;
+	t_3v		vertex2;
 	t_3v		dif_c;
 	t_3v		dir;
+	t_3v		origin;
 }				t_fixed_v;
 
 typedef struct	s_material
@@ -180,7 +101,9 @@ typedef struct	s_pattern
 {
 	int			id;
 	int			type;
-	int			size;
+	double		size;
+	int			amount_points;
+	t_3v		*points_arr;
 	int			distance;
 	int			os_1;
 	int			os_2;
@@ -188,20 +111,32 @@ typedef struct	s_pattern
 
 typedef struct	s_object
 {
-	int			id;
-	int			type;
-	int			from_inside;
-	t_material	m;
-	t_material	m2;
-	t_pattern	pattern;
-	double		radius;
-	double		(*f)();
-	double		axis_rotation;
-	double		shape_origin;
-	t_3v		origin;
-	t_3v		rotation;
-	t_fixed_v	**fixed_c[THREADS];
-	t_fixed_v	**fixed_s[THREADS];
+	int				id;
+	int				type;
+	int				pattern_id;
+	int				lim_by_1;
+	int				lim_by_2;
+	int				limit_id;
+	int				visible;
+	int				group_id;
+	int				is_group_main;
+	struct s_object	*obj_lim_1;
+	struct s_object	*obj_lim_2;
+	t_material		m;
+	t_material		m2;
+	t_pattern		pattern;
+	double			radius;
+	double			(*f)();
+	double			axis_rotation;
+	t_3v			origin;
+	t_3v			origin_2;
+	t_3v			origin_3;
+	t_3v			rotation;
+	t_3v			dir;
+	t_3v			group_origin;
+	t_3v			group_rotation;
+	t_fixed_v		**fixed_c[THREADS];
+	t_fixed_v		**fixed_s[THREADS];
 }				t_object;
 
 typedef struct	s_p_info
@@ -211,6 +146,7 @@ typedef struct	s_p_info
 	t_object	*vis_obj;
 	t_material	obj_m;
 	t_3v		point;
+	t_3v		dir;
 	int			type;
 	int			is_set;
 	int			is_inside;
@@ -276,7 +212,6 @@ typedef struct	s_event
 	void		*win;
 	t_img		img;
 	t_scene		scene;
-	t_menu		menu;
 	t_source	*src;
 	int			mouse_hold;
 	int			x_0;
@@ -295,10 +230,11 @@ void			get_doubles_from_line(double *vector, char *line, int size);
 void			add_light(t_scene *scene, int fd);
 void			set_render(t_scene *scene, int fd);
 void			set_camera(t_scene *scene, int fd);
-double			get_t_cylinder(t_fixed_v f, t_3v dir, int alt);
-double			get_t_plane(t_fixed_v f, t_3v dir, int alt);
-double			get_t_sphere(t_fixed_v f, t_3v dir, int alt);
-double			get_t_cone(t_fixed_v f, t_3v dir, int alt);
+double  		get_t_triangle(t_fixed_v f, t_3v dir, int alt, t_object *obj);
+double			get_t_cylinder(t_fixed_v f, t_3v dir, int alt, t_object *obj);
+double			get_t_plane(t_fixed_v f, t_3v dir, int alt, t_object *obj);
+double			get_t_sphere(t_fixed_v f, t_3v dir, int alt, t_object *obj);
+double			get_t_cone(t_fixed_v f, t_3v dir, int alt, t_object *obj);
 void			*set_t_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
@@ -333,18 +269,10 @@ void			set_drag_angle(t_event *event, int x, int y);
 void			set_move(t_event *event, int move);
 int				key_hold(int key, t_event *event);
 void			set_fixed_values(t_scene *scene);
-void			set_value_refl(t_3v point, t_object *o, int r, int cam_id, int thread_id);
+void			set_value_refl(t_3v point, t_object *o, int r, int cam_id,
+		int thread_id);
 void			set_drag_angle(t_event *event, int x, int y);
-void			set_sub_menu_pixel(t_menu *menu, t_sub_m *sub_m);
-void			init_menu(t_event *event);
-int				init_sub_menu(t_menu *menu, int parent_id);
-void			fill_menu(t_event *event, t_menu *menu);
-void			add_object_menu(t_event *event, t_sub_m *parent, t_menu *menu);
-void			add_sub_menu(t_event *event);
 char			*get_vector_string(t_3v v, int precision);
-void			set_sub_tab_number(t_sub_m *parent, t_sub_m *child, int i);
-void			menu_click(int index, t_event *event);
-void			add_child_id(t_sub_m *parent, t_sub_m *child);
 t_material		get_object_material(t_object o, t_3v p);
 t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif);
 void			change_camera(t_event *event);
@@ -352,10 +280,12 @@ void			set_values_material(t_material *m, char *s, char *value);
 void			set_material(t_scene *scene);
 void			set_pattern(t_scene *scene);
 void			set_point_list(t_pattern *p);
-void			init_def_object(t_object *obj, int id);
+void			init_def_object(t_object *obj, int id, t_scene *scene);
 void			create_threads(t_event *event, void *(*f)(void*));
 void			refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_scene *scene);
 void			fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost);
 void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double index_refract);
+double			within_limits(t_object *obj, t_3v point, double b);
+void			set_finish(t_scene *scene);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 18:14:16 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/19 13:52:39 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,14 +46,18 @@ static int	turn_off_or_on(t_scene *scene, int id)
 
 static void	add_color(t_pixel *p, int id, t_event *event)
 {
+	(void)event;
 	if (p->pi_arr[0] && (p->pi_arr[0])->vis_obj)
 	{
 		if (id == 0)
 			p->color = p->c_per_src[0];
 		else
+		{
+			if ((event->src)->max_intensity > 1.0)
+				(p->c_per_src)[id] = ft_3v_scalar((p->c_per_src)[id],
+						1 / (event->src)->max_intensity);
 			p->color = ft_3v_add((p->c_per_src)[id], p->color);
-		if ((event->src)->max_intensity > 1.0)
-			p->color = ft_3v_scalar(p->color, 1 / (event->src)->max_intensity);
+		}
 	}
 }
 

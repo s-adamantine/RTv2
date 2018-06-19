@@ -33,7 +33,7 @@ light {
 light {
 		{origin, {900.0 100.0 10.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {100 3}}
+		{intensity, {200 3}}
 }
 light {
 		{origin, {0.0 200.0 200.0}}

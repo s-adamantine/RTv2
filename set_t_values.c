@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 12:58:36 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 15:45:03 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
  */
 
 static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
-		t_scene *scene, t_p_info *pi)
+		t_scene *sc, t_p_info *pi)
 {
 	double		tmp;
 	t_list		*tmp_obj;
@@ -26,14 +26,14 @@ static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
 	t_object	*visible_object;
 
 	visible_object = NULL;
-	tmp_obj = scene->objects;
+	tmp_obj = sc->objects;
 	while (tmp_obj && tmp_obj->content)
 	{
 		obj = (t_object *)tmp_obj->content;
 		if (p->amount_p > 0)
 			set_value_refl((p->pi_arr[p->amount_p - 1])->point, obj,
-					p->amount_p, (scene->cam)->id, scene->thread_id);
-		tmp = obj->f(obj->fixed_c[scene->thread_id][(scene->cam)->id][p->amount_p], dir, 0);
+					p->amount_p, (sc->cam)->id, sc->thread_id);
+		tmp = obj->f(obj->fixed_c[sc->thread_id][(sc->cam)->id][p->amount_p], dir, 0, obj);
 		if (tmp > 0.001 && tmp < pi->s_value)
 		{
 			pi->s_value = tmp;

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:27:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 17:05:14 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/15 10:56:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,22 @@ static t_3v	get_angle(t_object o, t_3v p)
 	p = rotate_v_inv(p, o.rotation);
 	k.v[0] = o.radius;
 	if (o.type == 1)
-		k.v[1] = 90 - DEG * acos(p.v[2] / o.radius);
+		k.v[1] = M_PI / 2 - acos(p.v[2] / o.radius);
+	else if (o.type == 2)
+		k.v[1] = p.v[2];
 	else
-		k.v[1] = 90;
+		k.v[1] = p.v[2] / cos(o.radius);
 	rot_axis = ft_zero_3v();
 	rot_axis.v[2] = o.axis_rotation;
 	p = rotate_v(p, rot_axis);
 	k.v[2] = 0;
 	if (p.v[0] == 0)
 		return (k);
-	k.v[2] = DEG * atan2(p.v[1], p.v[0]);
+	k.v[2] = atan2(p.v[1], p.v[0]);
 	return (k);
 }
 
-t_material		get_object_material(t_object o, t_3v p)
+t_material	get_object_material(t_object o, t_3v p)
 {
 	t_3v	dif;
 	t_3v	angle;

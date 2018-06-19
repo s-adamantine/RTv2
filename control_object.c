@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 13:35:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 13:52:55 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/18 11:12:37 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,5 +24,4 @@ void	control_object(t_event *event, int mouse, int key, t_3v coor)
 		handle_mouse(coor);
 	if (KEY_UP_TO_FOUR(key))
 		obj.type = KEY_NUM_VALUE(key) - 1;
-	
 }

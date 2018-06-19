@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 18:19:43 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/19 13:27:06 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,10 +39,10 @@ static void		get_light_color(t_object *obj, t_3v point, t_source *src)
  * objects or not).
  */
 
-static double	light_reaches(t_3v dir, t_list *objects, int cam,
+static double	light_reaches(t_3v d, t_list *objects, int cam,
 		t_source *src, int thread_id)
 {
-	double		t_value;
+	double		t_1;
 	double		reached;
 	t_list		*o_lst;
 	t_object	*obj;
@@ -52,10 +52,10 @@ static double	light_reaches(t_3v dir, t_list *objects, int cam,
 	while (o_lst && o_lst->content)
 	{
 		obj = (t_object *)o_lst->content;
-		t_value = obj->f(obj->fixed_s[thread_id][cam][src->id - 1], dir, 0);
-		if (t_value > 0.001 && t_value < 0.99999)
-			get_light_color(obj, get_point(src->origin, dir, t_value), src);
-		else if (t_value > 0.999999 && t_value < 1.000001)
+		t_1 = obj->f(obj->fixed_s[thread_id][cam][src->id - 1], d, 0, obj);
+		if (t_1 > 0.001 && t_1 < 0.99999 && obj->visible)
+			get_light_color(obj, get_point(src->origin, d, t_1), src);
+		else if (t_1 > 0.999999 && t_1 < 1.000001)
 			reached = 1;
 		o_lst = o_lst->next;
 	}
@@ -93,6 +93,8 @@ static double	get_influence(t_pixel *p, int i)
 	{
 		while (i > 0)
 		{
+
+	if (((p->pi_arr[i])->vis_obj->id) == 0)
 			if ((p->pi_arr[i - 1])->type % 2 == 0)
 				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).transparent
 					* p->pi_arr[i - 1]->fresnal_transparent);
@@ -122,13 +124,15 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 {
 	t_3v		*c;
 	t_3v		o;
+	t_p_info	*pi;
 	double		influence;
 
-	o = ((p->pi_arr[i])->obj_m).color;
+	pi = p->pi_arr[i];
+	o = (pi->obj_m).color;
 	c = &(p->c_per_src[l.id]);
 	influence = get_influence(p, i);
-	if (((p->pi_arr[i])->vis_obj)->from_inside)
-		influence *= ((p->pi_arr[i])->obj_m).transparent;
+	if ((pi->vis_obj)->type % 5 && ft_3v_dot_product(pi->dir, pi->normal) > 0)
+		influence *= (pi->obj_m).transparent;
 	in.diff = in.diff * (l.intensity).diff;
 	in.spec = in.spec * (l.intensity).spec;
 	check_values(&in, o, l);
@@ -167,6 +171,7 @@ static double		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 		if (!(pi->vis_obj))
 			break ;
 		dir = ft_3v_subtract(pi->point, src.origin);
+		pi->dir = dir;
 		in.diff = 0;
 		in.spec = 0;
 		if (light_reaches(dir, scene->objects, (scene->cam)->id, &src, scene->thread_id) > 0.01)

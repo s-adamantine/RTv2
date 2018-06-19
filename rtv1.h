@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 14:52:48 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/19 10:57:12 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -145,6 +145,7 @@ typedef struct	s_p_info
 	t_object	*vis_obj;
 	t_material	obj_m;
 	t_3v		point;
+	t_3v		dir;
 	int			type;
 	int			is_set;
 }				t_p_info;

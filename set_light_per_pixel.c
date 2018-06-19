@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 17:49:24 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/19 11:12:46 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,13 +122,15 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 {
 	t_3v		*c;
 	t_3v		o;
+	t_p_info	*pi;
 	double		influence;
 
-	o = ((p->pi_arr[i])->obj_m).color;
+	pi = p->pi_arr[i];
+	o = (pi->obj_m).color;
 	c = &(p->c_per_src[l.id]);
 	influence = get_influence(p, i);
-//	if (((p->pi_arr[i])->vis_obj)->from_inside)
-//		influence *= ((p->pi_arr[i])->obj_m).transparent;
+	if ((pi->vis_obj)->type % 5 && ft_3v_dot_product(pi->dir, pi->normal) > 0)
+		influence *= (pi->obj_m).transparent;
 	in.diff = in.diff * (l.intensity).diff;
 	in.spec = in.spec * (l.intensity).spec;
 	check_values(&in, o, l);
@@ -165,6 +167,7 @@ static double		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 		if (!(pi->vis_obj))
 			break ;
 		dir = ft_3v_subtract(pi->point, src.origin);
+		pi->dir = dir;
 		in.diff = 0;
 		in.spec = 0;
 		if (light_reaches(dir, scene->objects, (scene->cam)->id, &src, scene->thread_id) > 0.01)

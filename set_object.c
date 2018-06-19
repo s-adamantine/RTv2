@@ -62,6 +62,7 @@ static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 	}
 	else if (ft_strncmp(s, "mesh", 4) == 0)
 	{
+		obj->f = &get_t_mesh;
 		obj->type = 6;
 	}
 	else

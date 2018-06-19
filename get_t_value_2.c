@@ -25,9 +25,8 @@ double  get_t_triangle(t_fixed_v f, t_3v dir)
     t_3v    vp1;
     t_3v    vp2;
 
-    if ((bottom = ft_3v_dot_product(f.vec, dir)) > -0.01)
+    if (fabs(bottom = ft_3v_dot_product(f.vec, dir)) < 0.00001)
         return (-1); //no intersection
-    bottom = ft_3v_dot_product(f.vec, dir);
     t = f.val/bottom * -1;
     //now we do the inside out test.
     P = ft_3v_add(f.vec2, ft_3v_scalar(dir, t)); //adding the origin w/ the raydir x t
@@ -41,4 +40,12 @@ double  get_t_triangle(t_fixed_v f, t_3v dir)
         || ft_3v_dot_product(f.vec, vp2) < 0)
         return (-1);
     return (f.val/bottom * -1); //if t is negative then it's behind the camera
+}
+
+double  get_t_mesh(t_fixed_v f, t_3v dir)
+{
+    (void)f;
+    (void)dir;
+
+    return (-1);
 }

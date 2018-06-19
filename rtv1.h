@@ -104,6 +104,7 @@ typedef struct	s_source
 
 typedef struct	s_fixed_v
 {
+	int			obj_id;
 	double		val;
 	double		val_2;
 	double		rad;
@@ -250,6 +251,7 @@ double			get_t_sphere(t_fixed_v f, t_3v dir, int alt);
 double			get_t_cone(t_fixed_v f, t_3v dir, int alt);
 double			get_t_quadric(t_fixed_v f, t_3v dir, int alt);
 double  		get_t_triangle(t_fixed_v f, t_3v dir);
+double  		get_t_mesh(t_fixed_v f, t_3v dir);
 void			*set_t_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);

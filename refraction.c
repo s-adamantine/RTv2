@@ -58,7 +58,6 @@ void	refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_
 	fresnal(pi, n1, n2, cosi, k);
 	if (k < 0.0)
 	{
-		// if (k < 0), total internal reflection has occurred.
 		if (p->amount_refl < scene->refl)
 		{
 			n_dir = get_reflection_vector(n, *dir);

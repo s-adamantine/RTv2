@@ -17,8 +17,15 @@ double	ft_atod(const char *s)
 	int		before_dot;
 	int		after_dot;
 	int		i;
+	int		neg;
 	double	to_return;
 
+	neg = 1;
+	if (*s == '-')
+	{
+		neg = -1;
+		s++;
+	}
 	if (*s == '.')
 		before_dot = 0;
 	else
@@ -36,5 +43,5 @@ double	ft_atod(const char *s)
 	after_dot = ft_atoi(s);
 	to_return = (double)before_dot + ((double)after_dot /
 			(double)ft_power(10, i));
-	return (to_return);
+	return (neg * to_return);
 }

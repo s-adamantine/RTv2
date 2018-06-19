@@ -1,40 +1,47 @@
 render {
 		{name, {Teeny Triangle}}
-		{dimensions, {1000 1000}}
-		{ambient, {0}}
+		{dimensions, {600 600}}
+		{ambient, {1}}
 }
 
 camera {
-		{origin, {500.0 0.0 300.0}}
-		{rotation, {0.0 0.0 0.0}}
+		{origin, {2.0 2.0 4.0}}
+		{rotation, {0 -60.0 45.0}}
 }
 light {
-		{origin, {500.0 0.0 0.0}}
+		{origin, {10.0 10.0 10}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {1 1}}
-}
-
-*object {
-		{type, {triangle}}
-		{color, {0.0 0.46 1.0}}
-		{reflection, {0.1 0.7 0.1 10}}
-		{origin, {0.0 0.0 450.0}}
-        {origin_2, {0.0 -900.0 0.0}}
-        {origin_3, {0.0 400.0 0.0}}
-}
-
-*object {
-		{type, {triangle}}
-		{reflection, {0.1 0.7 0.1 10}}
-		{color, {0.0 1.0 0.0}}
-        {origin, {0.0 400.0 0.0}}
-        {origin_2, {0.0 900.0 600.0}}
-        {origin_3, {0.0 0.0 450.0}}
+		{intensity, {10 10}}
 }
 
 object {
 		{type, {mesh}}
-		{path, {./scenes/objs/two.obj}}
-		{reflection, {0.1 0.7 0.1 10}}
+		{path, {./scenes/objs/cube.obj}}
+		{reflection, {0.1 0.15 0.1 10}}
 		{color, {0.0 1.0 0.0}}
+}
+
+object {
+		{type, {cylinder}}
+		{origin, {0 0 0}}
+		{rotation, {0 0.0 0}}
+		{color, {1 0 0}}
+		{radius, {0.1}}
+		{reflection, {0.1 0.15 0.1 10}}
+}
+object {
+		{type, {cylinder}}
+		{origin, {0 0 0}}
+		{rotation, {90 0 0}}
+		{color, {0 1 0}}
+		{radius, {0.1}}
+		{reflection, {0.1 0.15 0.1 10}}
+}
+object {
+		{type, {cylinder}}
+		{origin, {0 0 0}}
+		{rotation, {0 90 0}}
+		{color, {0 0 1}}
+		{radius, {0.1}}
+		{reflection, {0.1 0.15 0.1 10}}
 }

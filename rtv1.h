@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 18:24:33 by nicola           ###   ########.fr       */
+/*   Updated: 2018/06/20 00:20:39 by nicola           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -304,10 +304,10 @@ void			set_point_list(t_pattern *p);
 
 // NICOLA
 t_3v	**read_obj_file(char *path, int verbose);
-int		fill_f_v_obj_file(char *path,  t_3v *vertices , t_3v **faces);
+int		fill_f_v_obj_file(char *path,  t_3v *vertices , t_3v **faces, int ver_num);
 void	get_int_from_line(int *v, char *line, int size);
 int		scan_obj_file(char *path, int *fac_ver_num_0, int *fac_ver_num_1);
-int		fill_triangle(char *line, t_3v **faces, int f_i, t_3v *vertices);
+int		fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices);
 int		printf_triangle(t_3v *triangle, int i);
 
 void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);

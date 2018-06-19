@@ -24,6 +24,7 @@ SRCS = 	rtv1.c\
 		set_finish.c\
 		set_fixed_values.c\
 		set_t_values.c\
+		set_texture.c\
 		get_event.c\
 		set_light_per_pixel.c\
 		get_intensity.c\

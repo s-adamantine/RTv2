@@ -50,7 +50,7 @@ static void	set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 		f->vertex0 = o->origin;
 		f->vertex1 = o->origin_2;
 		f->vertex2 = o->origin_3;
-		f->val_2 = ft_3v_area(f->vertex0, f->vertex1, f->vertex2) / 2;
+		f->val_2 = ft_3v_area(f->vertex0, f->vertex1, f->vertex2) / 2; //the area of the triangle
 	}
 }
 

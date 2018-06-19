@@ -84,6 +84,13 @@ typedef struct	s_fixed_v
 	t_3v		origin;
 }				t_fixed_v;
 
+typedef struct	s_triangle_p
+{
+	t_3v		vp0;
+	t_3v		vp1;
+	t_3v		vp2;
+}				t_triangle_p;
+
 typedef struct	s_material
 {
 	int			id;
@@ -198,6 +205,7 @@ typedef struct	s_scene
 	int			all_on;
 	int			source_id;
 	int			thread_id;
+	t_img		*texture;
 }				t_scene;
 
 typedef struct	s_event
@@ -278,5 +286,7 @@ void			init_def_object(t_object *obj, int id, t_scene *scene);
 void			create_threads(t_event *event, void *(*f)(void*));
 double			within_limits(t_object *obj, t_3v point, double b);
 void			set_finish(t_scene *scene);
+
+void			set_texture(t_scene *scene);
 
 #endif

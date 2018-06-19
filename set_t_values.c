@@ -45,7 +45,7 @@ static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
 }
 
 /*
- * t_p_info contains information for every object visible at a certain pixel. 
+ * t_p_info contains information for every object visible at a certain pixel.
  * This function dynamically allocates memory, because we don't know in advance
  * how many objects will be visible.
  */
@@ -110,7 +110,7 @@ static void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type)
 }
 
 /*
- * Some preparations to get the first visible object for this pixel. 
+ * Some preparations to get the first visible object for this pixel.
  */
 
 static void		get_value(t_scene *scene, t_pixel *p)

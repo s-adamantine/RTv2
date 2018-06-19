@@ -5,8 +5,8 @@ render {
 }
 
 camera {
-		{origin, {2.0 2.0 4.0}}
-		{rotation, {0 -60.0 45.0}}
+		{origin, {2.0 2.0 1.0}}
+		{rotation, {0 -30.0 45.0}}
 }
 light {
 		{origin, {10.0 10.0 10}}
@@ -17,7 +17,7 @@ light {
 object {
 		{type, {mesh}}
 		{path, {./scenes/objs/cube.obj}}
-		{reflection, {0.1 0.15 0.1 10}}
+		{reflection, {0.1 0 0. 10}}
 		{color, {0.0 1.0 0.0}}
 }
 
@@ -26,7 +26,7 @@ object {
 		{origin, {0 0 0}}
 		{rotation, {0 0.0 0}}
 		{color, {1 0 0}}
-		{radius, {0.1}}
+		{radius, {0.05}}
 		{reflection, {0.1 0.15 0.1 10}}
 }
 object {
@@ -34,7 +34,7 @@ object {
 		{origin, {0 0 0}}
 		{rotation, {90 0 0}}
 		{color, {0 1 0}}
-		{radius, {0.1}}
+		{radius, {0.05}}
 		{reflection, {0.1 0.15 0.1 10}}
 }
 object {
@@ -42,6 +42,55 @@ object {
 		{origin, {0 0 0}}
 		{rotation, {0 90 0}}
 		{color, {0 0 1}}
-		{radius, {0.1}}
+		{radius, {0.05}}
 		{reflection, {0.1 0.15 0.1 10}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {1 1 1}}
+		{radius, {0.1}}
+		{color, {1 1 1}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {0 1 1}}
+		{radius, {0.1}}
+		{color, {1 1 1}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {1 0 1}}
+		{radius, {0.1}}
+		{color, {1 1 1}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {1 1 0}}
+		{radius, {0.1}}
+		{color, {1 1 1}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {1 0 0}}
+		{radius, {0.1}}
+		{color, {1 1 1}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {0 1 0}}
+		{radius, {0.1}}
+		{color, {1 1 1}}
+}
+
+object {
+		{type, {sphere}}
+		{origin, {0 0 1}}
+		{radius, {0.1}}
+		{color, {1 1 1}}
 }

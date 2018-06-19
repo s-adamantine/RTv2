@@ -43,7 +43,7 @@ light {
 light {
 		{origin, {500.0 0.0 0.0}}
 		{color, {0.0 1.0 1.0}}
-		{intensity, {2000 2}}
+		{intensity, {800 2}}
 }
 object {
 		{type, {cone}}
@@ -67,7 +67,7 @@ object {
 		{origin, {100.0 -100.0 -100.0}}
 		{rotation, {0, 15, 30}}
 		{radius, {120}}
-		{pattern, {2}}
+		{pattern, {1}}
 		{material, {3}}
-		{sec_material, {3}}
+		{sec_material, {4}}
 }

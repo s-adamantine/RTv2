@@ -110,17 +110,12 @@ void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double ind
 		index_refract = ((pi->vis_obj)->m).refractive_index;
 	else
 		index_refract = 1.0;
+	if (((pi->vis_obj)->m).transparent > 0.001)
+		refraction(pi, &dir, index_refract, p, scene);
 	if ((((pi->vis_obj)->m).specular > 0.001 && p->amount_refl < scene->refl))
 	{
 		n_dir = get_reflection_vector(pi->normal, dir);
 		get_reflections(p, scene, n_dir, 1, index_refract);
-	}
-	if (((pi->vis_obj)->m).transparent > 0.001)
-	{
-		if (((pi->vis_obj)->m).refractive_index == 1.0)
-			get_reflections(p, scene, dir, 2, index_refract);
-		else
-			refraction(pi, &dir, index_refract, p, scene);
 	}
 }
 

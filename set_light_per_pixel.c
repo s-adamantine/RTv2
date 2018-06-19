@@ -89,26 +89,26 @@ static double	get_influence(t_pixel *p, int i)
 	double	influence;
 
 	influence = 1 - (((p->pi_arr[i])->vis_obj)->m).transparent;
-	if ((p->pi_arr[i])->type == 2)
+	if ((p->pi_arr[i])->type)
 	{
 		while (i > 0)
 		{
 			if ((p->pi_arr[i - 1])->type % 2 == 0)
 				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).transparent
 					* p->pi_arr[i - 1]->fresnal_transparent);
-			i--;
-		}
-	}
-	else if ((p->pi_arr[i])->type == 1)
-	{
-		while (i > 0)
-		{
 			if ((p->pi_arr[i - 1])->type < 2)
-				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).specular
-				* p->pi_arr[i - 1]->fresnal_specular);
+				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).specular);
 			i--;
 		}
 	}
+	// else if ((p->pi_arr[i])->type == 1)
+	// {
+	// 	while (i > 0)
+	// 	{
+
+	// 		i--;
+	// 	}
+	// }
 	return (influence);
 }
 
@@ -160,6 +160,8 @@ static double		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 	max = 0.0;
 	while (r < p->amount_p)
 	{
+		if (((p->pi_arr[0])->vis_obj)->type == 1)
+			printf("%d\n", p->amount_p);
 		pi = p->pi_arr[r];
 		src.tmp_color = src.color;
 		if (!(pi->vis_obj))

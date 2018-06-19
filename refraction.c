@@ -39,6 +39,7 @@ void	refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_
 	double	n1;
 	double	n2;
 	t_3v	n;
+	t_3v	n_dir;
 
 	n1 = entry_refraction;
 	n2 = (pi->obj_m).refractive_index;
@@ -48,16 +49,21 @@ void	refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_
 		cosi = cosi * -1.0;
 	else
 	{
+		pi->is_inside = 1;
 		ft_swap_double(&n1, &n2);
 		n = ft_3v_scalar(n, -1);
 	}
 	index = n1 / n2;
-	k = 1.0 - index * index * (1.0 - cosi * cosi);
+	k = 1 - index * index * (1.0 - cosi * cosi);
 	fresnal(pi, n1, n2, cosi, k);
 	if (k < 0.0)
 	{
-		*dir = get_reflection_vector(n, *dir);
-		get_reflections(p, scene, *dir, 1, n1);
+		// if (k < 0), total internal reflection has occurred.
+		if (p->amount_refl < scene->refl)
+		{
+			n_dir = get_reflection_vector(n, *dir);
+			get_reflections(p, scene, n_dir, 1, n1);
+		}
 	}
 	else
 	{
@@ -86,4 +92,8 @@ void	fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost)
 		pi->fresnal_specular = (rs * rs + rp * rp) / 2;
 		pi->fresnal_transparent = 1 - pi->fresnal_specular;
 	}
+	if (pi->is_inside == 1)
+		((pi->vis_obj)->m).specular = pi->fresnal_specular;
+	else
+		((pi->vis_obj)->m).specular *= pi->fresnal_specular;
 }

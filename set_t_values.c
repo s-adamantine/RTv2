@@ -71,6 +71,7 @@ static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
 	pi->type = type;
 	pi->fresnal_transparent = 1.0;
 	pi->fresnal_specular = 1.0;
+	pi->is_inside = 0;
 	if (!(pi->vis_obj))
 	{
 		free(pi);
@@ -102,12 +103,14 @@ void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double ind
 	pi->normal = get_normal(pi->vis_obj, pi->point);
 	pi->obj_m = get_object_material(*(pi->vis_obj), pi->point);
 	(p->amount_p)++;
+	if (type == 1)
+		(p->amount_refl)++;
 	if ((pi->s_value > 0.001 && pi->s_value < 1.0)
 		|| (pi_prev != NULL && (pi_prev->vis_obj)->id != (pi->vis_obj)->id))
 		index_refract = ((pi->vis_obj)->m).refractive_index;
 	else
 		index_refract = 1.0;
-	if ((((pi->vis_obj)->m).specular > 0.001 && p->amount_p < scene->refl))
+	if ((((pi->vis_obj)->m).specular > 0.001 && p->amount_refl < scene->refl))
 	{
 		n_dir = get_reflection_vector(pi->normal, dir);
 		get_reflections(p, scene, n_dir, 1, index_refract);
@@ -162,6 +165,7 @@ static void		setup_pixel(t_pixel *p, t_scene scene, int i, int j, int factor)
 		error(1);
 	p->color = ft_zero_3v();
 	p->amount_p = 0;
+	p->amount_refl = 0;
 	(scene.cam)->pixel_set[j + scene.width * factor * i] = 1;
 	(p->coor).v[0] = -(scene.width / 2);
 	(p->coor).v[1] = (double)((double)j / factor - scene.width / 2.0);

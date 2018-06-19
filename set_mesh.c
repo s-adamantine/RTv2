@@ -40,7 +40,7 @@ void	create_mesh(t_list **objects, t_object *parent, t_scene *scene)
 
 	i = 0;
 	coordinates = read_obj_file(parent->path, 0);
-	while (i < 2) //actually ver_faces in read_obj_file
+	while (coordinates[i])
 	{
 		create_triangle(objects, parent, scene, coordinates[i]);
 		i++;

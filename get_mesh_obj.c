@@ -38,7 +38,7 @@ t_3v	**read_obj_file(char *path, int verbose)
 	}
 
 	vertices = (t_3v *)malloc((ver_num) * sizeof(t_3v));
-	faces = (t_3v **)malloc((fac_num) * sizeof(t_3v*));
+	faces = (t_3v **)malloc((fac_num + 1) * sizeof(t_3v*));
 	fill_f_v_obj_file(path, vertices, faces);
 
 	if( verbose)
@@ -49,6 +49,7 @@ t_3v	**read_obj_file(char *path, int verbose)
 		while(++ver_num < fac_num)
 			printf_triangle(faces[ver_num],ver_num);
 	}
+	faces[fac_num] = NULL;
 	return(faces);
 }
 

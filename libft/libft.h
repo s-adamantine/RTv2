@@ -127,4 +127,5 @@ void				ft_realloc(void **s, size_t old_size, size_t new_size);
 char				*ft_strcat_alloc(char *s1, const char *s2);
 char				*ft_dtoa(double d, int precision);
 
+double 				 ft_3v_area(t_3v vertex_0, t_3v vertex_1, t_3v vertex_2);
 #endif

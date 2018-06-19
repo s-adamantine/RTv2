@@ -25,6 +25,7 @@ double	get_t_triangle(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 	if ((bottom = ft_3v_dot_product(f.vec, dir)) > -0.01)
 		return (-1);
 	p = ft_3v_add(f.vec2, ft_3v_scalar(dir, f.val / bottom * -1));
+	//so you have the point, now you have to precompute its barycentric coordinates
 	vp0 = ft_cross_product(ft_3v_subtract(f.vertex1, f.vertex0),
 		ft_3v_subtract(p, f.vertex0));
 	vp1 = ft_cross_product(ft_3v_subtract(f.vertex2, f.vertex1),

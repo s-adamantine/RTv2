@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 14:09:05 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/19 14:25:33 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/20 16:27:33 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void	add_color(t_pixel *p, int id, t_event *event, t_3v *t)
 				(p->c_per_src)[id] = ft_3v_scalar((p->c_per_src)[id],
 						1 / (event->src)->max_intensity);
 			p->color = ft_3v_add((p->c_per_src)[id], p->color);
+			p->color = ft_3v_scalar(p->color, (event->src)->int_factor);
 		}
 	}
 	*t = ft_3v_add(p->color, *t);
@@ -132,7 +133,7 @@ void		turn_on_lights(t_event *event)
 	event->redraw = 1;
 	(event->scene).source_id = 0;
 	create_threads(event, switch_one);
-	if ((event->scene).grain == 1 && event->t_select == KEY_L)
+	if ((event->scene).grain == 1 && event->t_select == KEY_L && event->execute)
 	{
 		if (!(turn_off_or_on(&(event->scene), event->id_select)))
 			return ;
@@ -151,5 +152,3 @@ void		turn_on_lights(t_event *event)
 		s_lst = s_lst->next;
 	}
 }
-
-

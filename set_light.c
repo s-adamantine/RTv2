@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:01:31 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/14 18:00:43 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/20 16:24:22 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static t_source	init_light(t_scene *scene)
 	light.id = scene->amount_light;
 	light.type = 1;
 	light.max_intensity = 0.01;
+	light.int_factor = 1.0;
 	return (light);
 }
 

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/19 10:57:12 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/20 16:23:41 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,7 @@ typedef struct	s_source
 	t_3v		color;
 	t_3v		tmp_color;
 	double		max_intensity;
+	double		int_factor;
 }				t_source;
 
 typedef struct	s_fixed_v
@@ -214,6 +215,7 @@ typedef struct	s_event
 	int			t_select;
 	int			id_select;
 	int			redraw;
+	int			execute;
 }				t_event;
 
 void			error(int err);
@@ -237,7 +239,6 @@ void			turn_on_lights(t_event *event);
 void			light_inside(t_scene *scene);
 void			*set_light_per_pixel(void *event);
 t_event			get_event(t_scene scene);
-t_source		*get_source(int id, t_list *lst);
 t_3v			rotate_v(t_3v dir, t_3v rotation);
 t_3v			rotate_v_inv(t_3v dir, t_3v rotation);
 t_3v			get_point(t_3v origin, t_3v coor, double s_value);
@@ -279,5 +280,6 @@ void			init_def_object(t_object *obj, int id, t_scene *scene);
 void			create_threads(t_event *event, void *(*f)(void*));
 double			within_limits(t_object *obj, t_3v point, double b);
 void			set_finish(t_scene *scene);
+void			change_light(t_event *event, int brighter);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/20 10:44:41 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/20 16:26:07 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,22 @@
  * For every light, determine the influence it has on every pixel by calling
  * set_light_per_pixel.
  */
+
+static	t_source	*get_source(t_list *lst, int id)
+{
+	t_list		*s_lst;
+	t_source	*src;
+
+	s_lst = lst;
+	while (s_lst && s_lst->content)
+	{
+		src = (t_source *)s_lst->content;
+		if (src->type && src->id == id)
+			return (src);
+		s_lst = s_lst->next;
+	}
+	return (NULL);
+}
 
 void	*init_light_values(void *arg)
 {
@@ -33,9 +49,18 @@ void	*init_light_values(void *arg)
 	}
 	return (NULL);
 }
-/*
+
 void	change_light(t_event *event, int brighter)
 {
+	t_source	*src;
 
+	src = get_source((event->scene).lights, event->id_select);
+	if (!src)
+		return ;
+	if (brighter)
+		src->int_factor += 0.05;
+	else if (src->int_factor >= 0.05)
+		src->int_factor -= 0.05;
+	turn_on_lights(event);
 }
-*/
+

@@ -4,7 +4,7 @@ render {
 		{grain, {1}}
 }
 camera {
-		{origin, {2000.0 0.0 0.0}}
+		{origin, {1500.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
 camera {
@@ -12,13 +12,23 @@ camera {
 		{rotation, {0.0 0.0 180.0}}
 }
 camera {
-		{origin, {1000.0 0.0 0.0}}
-		{rotation, {0.0 0.0 0.0}}
+		{origin, {550.0 550.0 0.0}}
+		{rotation, {0.0 -45.0 0.0}}
 }
 light {
-		{origin, {900.0 100.0 10.0}}
+		{origin, {200.0 100.0 10.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {2000 3}}
+		{intensity, {1000 1}}
+}
+light {
+		{origin, {200.0 0.0 10.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {1000 1}}
+}
+light {
+		{origin, {200.0 -100.0 10.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {1000 1}}
 }
 object {
 		{type, {cylinder}}
@@ -27,7 +37,16 @@ object {
 		{color, {0.3 0.2 0.5}}
 		{transparent, {0.9}}
 		{radius, {125}}
-		{reflection, {0.0 0.15 0.1 10}}
+		{reflection, {0.0 0.15 0.0 10}}
+}
+object {
+		{type, {cylinder}}
+		{origin, {-200.0 0.0 0.0}}
+		{rotation, {45.0 0.0 0.0}}
+		{color, {0.0 1.0 0.5}}
+		{transparent, {0.3}}
+		{radius, {65}}
+		{reflection, {0.0 0.15 0.0 10}}
 }
 object {
 		{type, {sphere}}

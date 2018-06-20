@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 14:09:05 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/20 15:37:05 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/20 15:49:02 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	add_color(t_pixel *p, int id, t_event *event, t_3v *t)
 		{
 			if ((event->src)->max_intensity > 1.0)
 				(p->c_per_src)[id] = ft_3v_scalar((p->c_per_src)[id],
-						1 / (event->src)->max_intensity);
+						1.0 / (event->src)->max_intensity);
 			p->color = ft_3v_add((p->c_per_src)[id], p->color);
 		}
 	}

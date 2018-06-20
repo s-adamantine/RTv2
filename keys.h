@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/07 13:45:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/08 11:10:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/19 14:04:24 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@
 # define DOT 0x2f
 # define SQ_BR_L 0x21
 # define SQ_BR_R 0x1e
+# define MINUS 0x1b
+# define PLUS 0x18
 
 # define KEY_UP_TO_TWO(x) (x == KEY_1 || x == KEY_2) ? 1 : 0
 # define KEY_UP_TO_THREE(x) (KEY_UP_TO_TWO(x) || x == KEY_3) ? 1 : 0

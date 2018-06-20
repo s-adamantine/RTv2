@@ -19,17 +19,17 @@ camera {
 		{origin, {900.0 40.0 100.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
-light {
+*light {
 		{origin, {250.0 50.0 50.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {400 3}}
 }
-light {
+*light {
 		{origin, {-2000.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {400 3}}
 }
-light {
+*light {
 		{origin, {-500.0 -50.0 50.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {400 3}}
@@ -39,12 +39,12 @@ light {
 		{color, {1.0 1.0 1.0}}
 		{intensity, {200 3}}
 }
-light {
+*light {
 		{origin, {1100.0 -100.0 10.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {200 3}}
 }
-light {
+*light {
 		{origin, {100.0 100.0 100.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {400 3}}
@@ -57,21 +57,21 @@ light {
 		{radius, {0.4}}
 		{reflection, {0.0 0.15 0.2 10}}
 }
-object {
+*object {
 		{type, {sphere}}
 		{origin, {900.0 40.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 		{color, {0.6 0.8 0.0}}
 		{radius, {60}}
-		{reflection, {0.1 0.15 0.5 20}}
 }
 object {
 		{type, {cylinder}}
 		{origin, {900.0 40.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 		{color, {0.0 0.8 0.6}}
+		{reflection, {0.1 0.3 0.0 20}}
 		{radius, {120}}
-		{transparent, {1.0}}
+		{transparent, {0.9}}
 		{refraction, {1.52}}
 }
 object {
@@ -79,9 +79,10 @@ object {
 		{origin, {900.0 40.0 0.0}}
 		{rotation, {45.0 0.0 0.0}}
 		{color, {0.3 0.2 0.5}}
-		{radius, {20}}
+		{radius, {60}}
+		{reflection, {0.0 0.3 0.0 20}}
 }
-object {
+*object {
 		{type, {plane}}
 		{origin, {0.0 0.0 -400.0}}
 		{rotation, {0.0 0.0 0.0}}
@@ -91,7 +92,7 @@ object {
 		{material, {1}}
 		{sec_material, {3}}
 }
-object {
+*object {
 		{type, {plane}}
 		{origin, {0.0 0.0 400.0}}
 		{rotation, {0.0 0.0 0.0}}
@@ -101,7 +102,7 @@ object {
 		{material, {1}}
 		{sec_material, {3}}
 }
-object {
+*object {
 		{type, {plane}}
 		{origin, {0.0 -650.0 0.0}}
 		{rotation, {90.0 0.0 0.0}}
@@ -111,7 +112,7 @@ object {
 		{material, {1}}
 		{sec_material, {3}}
 }
-object {
+*object {
 		{type, {plane}}
 		{origin, {0.0 650.0 0.0}}
 		{rotation, {90.0 0.0 0.0}}

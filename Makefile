@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/18 14:54:22 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/20 10:50:28 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,9 +37,11 @@ SRCS = 	rtv1.c\
 		tools_anti_a.c\
 		tools_grain.c\
 		tools_limits.c\
+		tools_thread.c\
 		event_key.c\
 		event_mouse.c\
 		control_light.c\
+		control_light_2.c\
 		control_camera.c\
 		polka_dot_it.c
 OBJ = $(SRCS:%.c=%.o)

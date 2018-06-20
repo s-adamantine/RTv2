@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/19 14:48:14 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/20 10:44:41 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,9 @@ void	*init_light_values(void *arg)
 	}
 	return (NULL);
 }
-
+/*
 void	change_light(t_event *event, int brighter)
 {
 
 }
+*/

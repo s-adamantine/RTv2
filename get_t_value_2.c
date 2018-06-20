@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 11:12:11 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 15:35:08 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/20 16:31:30 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,13 @@ double	get_t_triangle(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 		|| ft_3v_dot_product(f.vec, vp2) < 0)
 		return (-1);
 	return (f.val / bottom * -1);
+}
+
+double  get_t_mesh(t_fixed_v f, t_3v dir, int alt)
+{
+    (void)f;
+    (void)dir;
+	(void)alt;
+
+    return (-1);
 }

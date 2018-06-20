@@ -1,15 +1,16 @@
 render {
-		{name, {Teeny Triangle}}
-		{dimensions, {100 100}}
-		{ambient, {4}}
+		{name, {Teeny Teapot}}
+		{dimensions, {500 500}}
+		{ambient, {2}}
 }
 
 camera {
-		{origin, {5.0 0.0 0.0}}
-		{rotation, {0.0 0.0 0.0}}
+		{origin, {3.0 0.0 11.0}}
+		{rotation, {-90.0 -60.0 0.0}}
 }
+
 light {
-		{origin, {10.0 10.0 10}}
+		{origin, {5.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 10}}
 }
@@ -17,6 +18,6 @@ light {
 object {
 		{type, {mesh}}
 		{path, {./scenes/objs/teapot.obj}}
-		{reflection, {0.1 0 0. 10}}
-		{color, {0.0 1.0 0.0}}
+		{reflection, {0.1 0.3 0.2 10}}
+		{color, {0.0 0.5 1.0}}
 }

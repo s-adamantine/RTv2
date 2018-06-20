@@ -27,9 +27,6 @@ static void	create_triangle(t_list **objects, t_object *parent, t_scene *scene, 
 	obj.origin = coordinates[0];
 	obj.origin_2 = coordinates[1];
 	obj.origin_3 = coordinates[2];
-	printf("origin: %f %f %f\n", coordinates[0].v[0], coordinates[0].v[1], coordinates[0].v[2]);
-	printf("origin2: %f %f %f\n", coordinates[1].v[0], coordinates[1].v[1], coordinates[1].v[2]);
-	printf("origin3: %f %f %f\n\n", coordinates[2].v[0], coordinates[2].v[1], coordinates[2].v[2]);
 	ft_lstaddnewr(objects, &obj, sizeof(obj));
 }
 

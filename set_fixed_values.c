@@ -46,14 +46,12 @@ static void	set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 	}
 	if (o->type == 5)
 	{
-		//pass into object first then into fixed value
 		f->vec = ft_cross_product(ft_3v_subtract(o->origin_2, o->origin),
 		 		ft_3v_subtract(o->origin_3, o->origin)); //the normal
 		f->vec = normalize(f->vec);
 		f->vec2 = origin; //used so that I can pass in the camera into get_t_triangle
 		//f->val is the top value
-		f->val = ft_3v_dot_product(f->vec, origin) +
-				ft_3v_dot_product(f->vec, o->origin); //o->origin is actually the first vertex
+		f->val = ft_3v_dot_product(f->vec, f->dif_c);
 		f->vertex0 = o->origin;
 		f->vertex1 = o->origin_2;
 		f->vertex2 = o->origin_3;

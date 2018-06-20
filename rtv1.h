@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/19 10:57:12 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/20 10:27:17 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,7 @@ typedef struct	s_material
 	double		specular;
 	double		shininess;
 	double		transparent;
+	double		refractive_index;
 }				t_material;
 
 typedef struct	s_pattern
@@ -148,12 +149,16 @@ typedef struct	s_p_info
 	t_3v		dir;
 	int			type;
 	int			is_set;
+	int			is_inside;
+	double		fresnal_transparent;
+	double		fresnal_specular;
 }				t_p_info;
 
 typedef struct	s_pixel
 {
 	int			status;
 	int			amount_p;
+	int			amount_refl;
 	t_3v		*c_per_src;
 	t_3v		coor;
 	t_3v		color;
@@ -277,6 +282,9 @@ void			set_pattern(t_scene *scene);
 void			set_point_list(t_pattern *p);
 void			init_def_object(t_object *obj, int id, t_scene *scene);
 void			create_threads(t_event *event, void *(*f)(void*));
+void			refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_scene *scene);
+void			fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost);
+void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double index_refract);
 double			within_limits(t_object *obj, t_3v point, double b);
 void			set_finish(t_scene *scene);
 

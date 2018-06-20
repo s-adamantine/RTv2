@@ -6,7 +6,7 @@
 #    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/20 10:50:28 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/20 10:56:17 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -43,7 +43,8 @@ SRCS = 	rtv1.c\
 		control_light.c\
 		control_light_2.c\
 		control_camera.c\
-		polka_dot_it.c
+		polka_dot_it.c\
+		refraction.c
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/
 #

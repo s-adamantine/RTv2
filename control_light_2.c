@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 14:09:05 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/19 14:25:33 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/20 15:37:05 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,8 @@ static void	change_color(t_event *event, int id, int vert, int hor)
 		}
 		i += event->scene.step_size;
 	}
-	t = ft_3v_scalar(t, 1 / ((event->scene).anti_a * (event->scene).anti_a));
+	t = ft_3v_scalar(t, 1.0 / ((event->scene).anti_a * (event->scene).anti_a));
+//	printf("%f %f %f\n", t.v[0], t.v[1], t.v[2]);
 	fill_square(&(event->img), hor + (event->scene).width * vert,
 			(event->scene).step_size / (event->scene).max_anti_a, get_color(t));
 }

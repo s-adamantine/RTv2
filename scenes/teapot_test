@@ -1,0 +1,23 @@
+render {
+		{name, {Teeny Teapot}}
+		{dimensions, {500 500}}
+		{ambient, {2}}
+}
+
+camera {
+		{origin, {3.0 0.0 11.0}}
+		{rotation, {-90.0 -60.0 0.0}}
+}
+
+light {
+		{origin, {5.0 0.0 0.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {10 10}}
+}
+
+object {
+		{type, {mesh}}
+		{path, {./scenes/objs/teapot.obj}}
+		{reflection, {0.1 0.3 0.2 10}}
+		{color, {0.0 0.5 1.0}}
+}

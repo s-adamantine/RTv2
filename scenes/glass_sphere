@@ -63,10 +63,10 @@ object {
 		{type, {sphere}}
 		{origin, {900.0 280.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
-		{color, {0.5 0.5 0.0}}
+		{color, {1.0 1.0 1.0}}
 		{radius, {120}}
-		{transparent, {0.9}}
-		{refraction, {1.33}}
+		{transparent, {0.3}}
+		{refraction, {1.0}}
 }
 object {
 		{type, {sphere}}

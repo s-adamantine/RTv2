@@ -12,6 +12,20 @@
 
 #include "rtv1.h"
 
+static double	get_influence_specular(t_pixel *p, int i)
+{
+	if ((((p->pi_arr[i - 1])->vis_obj)->m).transparent > 0.001
+		&& ((p->pi_arr[i - 1])->is_inside == 1 ||
+			(((p->pi_arr[i - 1])->vis_obj)->m).specular < 0.001))
+		return ((p->pi_arr[i - 1])->fresnal_specular);
+	else if ((((p->pi_arr[i - 1])->vis_obj)->m).transparent > 0.001 &&
+		(((p->pi_arr[i - 1])->vis_obj)->m).specular > 0.001)
+		return ((((p->pi_arr[i - 1])->vis_obj)->m).specular
+			* (p->pi_arr[i - 1])->fresnal_specular);
+	else
+		return ((((p->pi_arr[i - 1])->vis_obj)->m).specular);
+}
+
 /*
  * Get type of material light reaches, based on pattern. If transparent: deal
  * with it.
@@ -94,8 +108,10 @@ static double	get_influence(t_pixel *p, int i)
 		while (i > 0)
 		{
 			if ((p->pi_arr[i - 1])->type % 2 == 0)
+			{
 				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).transparent
 					* p->pi_arr[i - 1]->fresnal_transparent);
+			}
 			i--;
 		}
 	}
@@ -104,7 +120,7 @@ static double	get_influence(t_pixel *p, int i)
  		while (i > 0)
 	 	{
 			if ((p->pi_arr[i - 1])->type < 2)
-				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).specular);
+				influence *= get_influence_specular(p, i);
 			i--;
 		}
 	}

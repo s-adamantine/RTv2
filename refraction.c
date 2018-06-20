@@ -91,8 +91,8 @@ void	fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost)
 		pi->fresnal_specular = (rs * rs + rp * rp) / 2;
 		pi->fresnal_transparent = 1 - pi->fresnal_specular;
 	}
-	if (pi->is_inside == 1)
-		((pi->vis_obj)->m).specular = pi->fresnal_specular;
-	else
-		((pi->vis_obj)->m).specular *= pi->fresnal_specular;
+	// if (pi->is_inside == 1)
+	// 	((pi->vis_obj)->m).specular = pi->fresnal_specular;
+	// else
+	// 	((pi->vis_obj)->m).specular *= pi->fresnal_specular;
 }

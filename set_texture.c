@@ -24,22 +24,26 @@ static t_img	  *new_xpm_image(t_event *event, char *name, int w, int h)
 		&(xpm->size_line), &(xpm->endian));
 	xpm->bitmap = (int *)mlx_get_data_addr(xpm->img_ptr, &(xpm->bpp),
 		&(xpm->size_line), &(xpm->endian)); //he uses a char * array, protect against null.
-	//need to grab color
 	return (xpm);
 }
 
 /*
 ** load texture from file to array.
 */
-void        set_texture(t_event *event, t_scene *scene)
+void        set_texture(t_event *event)
 {
 	t_img	*texture;
 
 	if (!(texture = ft_memalloc(sizeof(t_img))))
 		error(2);
-    if (scene)
-        texture = new_xpm_image(event, "textures/bananas.xpm", 649, 275);
-	event->texture = texture;
-	mlx_put_image_to_window(event->mlx, event->win, event->texture->img_ptr,
-		0, 0);
+    texture = new_xpm_image(event, "textures/bananas.xpm", 649, 275);
+	event->texture = texture; //don't think this'll segfault, but jic when it
+	//all loads set t_img * to t_img
+	// mlx_put_image_to_window(event->mlx, event->win, event->texture->img_ptr,
+		// 0, 0); in case I need to check that the image really is loading
+}
+
+void		texturize_it()
+{
+
 }

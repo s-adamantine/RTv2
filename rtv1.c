@@ -77,6 +77,6 @@ int			main(int argc, char **argv)
 	set_finish(&scene);
 	set_fixed_values(&scene);
 	event = get_event(scene);
-	set_texture(&event, &scene);
+	set_texture(&event);
 	run_calc(&event);
 }

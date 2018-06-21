@@ -47,5 +47,7 @@ t_material	get_object_material(t_object o, t_3v p, t_scene *scene)
 	angle = get_angle(o, dif);
 	if ((o.pattern).type == 1)
 		return (polka_dot_it(o, angle, dif));
+	// if ((o.pattern).type == 4)
+	// 	return (texturize_it(o, angle, dif));
 	return (o.m);
 }

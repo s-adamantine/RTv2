@@ -18,7 +18,7 @@
  ** converts an int rgb into his color vector.
 */
 
-void    ft_rgb(t_3v *c, int rgb)
+void    ft_rgb(t_3v *c, int color)
 {
 	c->v[0] = color % 256;
 	color /= 256;
@@ -27,21 +27,21 @@ void    ft_rgb(t_3v *c, int rgb)
 	c->v[2] = color;
 }
 
-void	clear_image(t_image *img)
+void	clear_image(t_img *img)
 {
-	ft_bzero(img->bitmap, img->sline * img->h);
+	ft_bzero(img->bitmap, img->size_line * img->height);
 }
 
-void	insert_bitmap(t_image *img, int x, int y, unsigned int color)
+void	insert_bitmap(t_img *img, int x, int y, unsigned int color)
 {
-	if (x < 0 || x >= img->w || y < 0 || y >= img->h)
+	if (x < 0 || x >= img->width || y < 0 || y >= img->height)
 		return ;
-	img->bitmap[(y * img->w + x)] = color;
+	img->bitmap[(y * img->width + x)] = color;
 }
 
-void	get_color(t_3v *c, t_image *img, int x, int y)
+void	get_tex_color(t_3v *c, t_img *img, int x, int y)
 {
     x *= img->width;
     x *= img->height;
-	return (ft_rgb(c, img->bitmap[(y * img->w + x)]));
+	return (ft_rgb(c, img->bitmap[(y * img->width + x)]));
 }

@@ -12,20 +12,6 @@
 
 #include "rtv1.h"
 
-static double	get_influence_specular(t_pixel *p, int i)
-{
-	if ((((p->pi_arr[i - 1])->vis_obj)->m).transparent > 0.001
-		&& ((p->pi_arr[i - 1])->is_inside == 1 ||
-			(((p->pi_arr[i - 1])->vis_obj)->m).specular < 0.001))
-		return ((p->pi_arr[i - 1])->fresnal_specular);
-	else if ((((p->pi_arr[i - 1])->vis_obj)->m).transparent > 0.001 &&
-		(((p->pi_arr[i - 1])->vis_obj)->m).specular > 0.001)
-		return ((((p->pi_arr[i - 1])->vis_obj)->m).specular
-			* (p->pi_arr[i - 1])->fresnal_specular);
-	else
-		return ((((p->pi_arr[i - 1])->vis_obj)->m).specular);
-}
-
 /*
  * Get type of material light reaches, based on pattern. If transparent: deal
  * with it.
@@ -34,18 +20,29 @@ static double	get_influence_specular(t_pixel *p, int i)
 static void		get_light_color(t_object *obj, t_3v point, t_source *src)
 {
 	t_material	m;
-
 	if ((obj->pattern).type == 0)
 	{
+		(src->tmp_color).v[0] = .5 * (1 - (obj->m).transparent) *
+			((obj->m).color).v[0] + (obj->m).transparent * src->tmp_color.v[0];
+		(src->tmp_color).v[1] = .5 * (1 - (obj->m).transparent) *
+			((obj->m).color).v[1] + (obj->m).transparent * src->tmp_color.v[1];
+		(src->tmp_color).v[2] = .5 * (1 - (obj->m).transparent) *
+			((obj->m).color).v[2] + (obj->m).transparent * src->tmp_color.v[2];
 		(src->tmp_color).v[0] *= (obj->m).transparent * ((obj->m).color).v[0];
 		(src->tmp_color).v[1] *= (obj->m).transparent * ((obj->m).color).v[1];
 		(src->tmp_color).v[2] *= (obj->m).transparent * ((obj->m).color).v[2];
 		return ;
 	}	
 	m = get_object_material(*obj, point);
-	(src->tmp_color).v[0] *= m.transparent * (m.color).v[0];
-	(src->tmp_color).v[1] *= m.transparent * (m.color).v[1];
-	(src->tmp_color).v[2] *= m.transparent * (m.color).v[2];
+	(src->tmp_color).v[0] = .5 * (1 - m.transparent) * (m.color).v[0] +
+		m.transparent * src->tmp_color.v[0];
+	(src->tmp_color).v[1] = .5 * (1 - m.transparent) * (m.color).v[1] +
+		m.transparent * src->tmp_color.v[1];
+	(src->tmp_color).v[2] = .5 * (1 - m.transparent) * (m.color).v[2] +
+		m.transparent * src->tmp_color.v[2];
+	(src->tmp_color).v[0] *= m.transparent;
+	(src->tmp_color).v[1] *= m.transparent;
+	(src->tmp_color).v[2] *= m.transparent;
 }
 
 /*
@@ -94,40 +91,6 @@ static void		check_values(t_intensity *in, t_3v o, t_source l)
 }
 
 /*
- * Based on transparency/specular reflection, determine how much influence this
- * object has on the color of this pixel.
- */
-
-static double	get_influence(t_pixel *p, int i)
-{
-	double	influence;
-	influence = 1 - (((p->pi_arr[i])->vis_obj)->m).transparent;
-
-	if ((p->pi_arr[i])->type == 2)
-	{
-		while (i > 0)
-		{
-			if ((p->pi_arr[i - 1])->type % 2 == 0)
-			{
-				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).transparent
-					* p->pi_arr[i - 1]->fresnal_transparent);
-			}
-			i--;
-		}
-	}
-	else if ((p->pi_arr[i])->type == 1)
-	{
- 		while (i > 0)
-	 	{
-			if ((p->pi_arr[i - 1])->type < 2)
-				influence *= get_influence_specular(p, i);
-			i--;
-		}
-	}
-	return (influence);
-}
-
-/*
  * Change the value for this specific light based on intensity, influence,
  * color, etc..
  */
@@ -143,7 +106,7 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	pi = p->pi_arr[i];
 	o = (pi->obj_m).color;
 	c = &(p->c_per_src[l.id]);
-	influence = get_influence(p, i);
+	influence = p->pi_arr[i]->influence;
 	if ((pi->vis_obj)->type % 5 && ft_3v_dot_product(pi->dir, pi->normal) > 0)
 		influence *= (pi->obj_m).transparent;
 	in.diff = in.diff * (l.intensity).diff;
@@ -151,16 +114,12 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	check_values(&in, o, l);
 	in.diff *= (influence * (1 - in.spec));
 	in.spec *= influence;
-	if (pi->vis_obj->id == 0)
-		printf("%f\n", pi->vis_obj->m.transparent);
-	(c->v)[0] += in.diff * ((l.tmp_color).v)[0] * (o.v)[0];// * pi->beer.v[0]);
-	(c->v)[1] += in.diff * ((l.tmp_color).v)[1] * (o.v)[1];// * pi->beer.v[1]);
-	(c->v)[2] += in.diff * ((l.tmp_color).v)[2] * (o.v)[2];// * pi->beer.v[2]);
+	(c->v)[0] += in.diff * ((l.tmp_color).v)[0] * ((o.v)[0] * pi->beer.v[0]);
+	(c->v)[1] += in.diff * ((l.tmp_color).v)[1] * ((o.v)[1] * pi->beer.v[1]);
+	(c->v)[2] += in.diff * ((l.tmp_color).v)[2] * ((o.v)[2] * pi->beer.v[2]);
 	(c->v)[0] += in.spec * ((l.tmp_color).v)[0];
 	(c->v)[1] += in.spec * ((l.tmp_color).v)[1];
 	(c->v)[2] += in.spec * ((l.tmp_color).v)[2];
-	// if (pi->vis_obj->id == 1 && (c->v)[0] + (c->v)[1] + (c->v)[2] > 0.99)
-	// 	printf("%f\t%f\t%f\n", (c->v)[0], (c->v)[1], (c->v)[2]);
 	return ((c->v)[0] + (c->v)[1] + (c->v)[2]);
 }
 

@@ -95,6 +95,7 @@ typedef struct	s_material
 	double		shininess;
 	double		transparent;
 	double		refractive_index;
+	t_3v		beer;
 }				t_material;
 
 typedef struct	s_pattern
@@ -152,6 +153,7 @@ typedef struct	s_p_info
 	int			is_inside;
 	double		fresnal_transparent;
 	double		fresnal_specular;
+	double		influence;
 	t_3v		beer;
 }				t_p_info;
 
@@ -288,5 +290,7 @@ void			fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost);
 void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double index_refract);
 double			within_limits(t_object *obj, t_3v point, double b);
 void			set_finish(t_scene *scene);
+double			get_influence_specular(t_pixel *p, int i);
+double			get_influence(t_pixel *p, int i);
 
 #endif

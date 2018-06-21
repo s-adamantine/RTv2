@@ -31,7 +31,18 @@ static double	ft_clamp(double min, double max, double x)
 		return (x);
 }
 
-void	refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_scene *scene)
+static void		beer(t_p_info *pi)
+{
+	if (pi->beer.v[0] < 0.99 && pi->beer.v[1] < 0.99 && pi->beer.v[2] < 0.99)
+	{
+		pi->beer = ft_3v_scalar(pi->beer, -1.0);
+		pi->beer.v[0] = (exp(pi->beer.v[0] * (pi->s_value / 70)));
+		pi->beer.v[1] = (exp(pi->beer.v[1] * (pi->s_value / 70)));
+		pi->beer.v[2] = (exp(pi->beer.v[2] * (pi->s_value / 70)));
+	}
+}
+
+void			refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_scene *scene)
 {
 	double	cosi;
 	double	index;
@@ -52,10 +63,11 @@ void	refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_
 		pi->is_inside = 1;
 		ft_swap_double(&n1, &n2);
 		n = ft_3v_scalar(n, -1);
+		beer(pi);
 	}
 	index = n1 / n2;
 	k = 1 - index * index * (1.0 - cosi * cosi);
-	// fresnal(pi, n1, n2, cosi, k);
+	fresnal(pi, n1, n2, cosi, k);
 	if (k < 0.0)
 	{
 		if (p->amount_refl < scene->refl)
@@ -66,17 +78,13 @@ void	refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_
 	}
 	else
 	{
-		// pi->beer = ft_init_3v(-8.0, -2.0, -0.1);
-		// pi->beer.v[0] = exp(pi->beer.v[0] * (pi->s_value / 100));
-		// pi->beer.v[1] = exp(pi->beer.v[1] * (pi->s_value / 100));
-		// pi->beer.v[2] = exp(pi->beer.v[2] * (pi->s_value / 100));
 		*dir = ft_3v_add(ft_3v_scalar(*dir, index),
 			ft_3v_scalar(n, index * cosi - sqrt(k)));
 		get_reflections(p, scene, *dir, 2, n1);
 	}
 }
 
-void	fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost)
+void			fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost)
 {
 	double	rs;
 	double	rp;

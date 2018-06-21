@@ -77,7 +77,8 @@ static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
 		free(pi);
 		return (NULL);
 	}
-	pi->beer = ft_init_3v(1.0, 1.0, 1.0);
+	pi->beer = ft_init_3v(pi->vis_obj->m.beer.v[0],
+		pi->vis_obj->m.beer.v[1], pi->vis_obj->m.beer.v[2]);
 	return (pi);
 }
 
@@ -130,7 +131,9 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	t_object	*obj;
 	t_3v		color;
 	t_p_info	*pi;
+	int			i;
 
+	i = 0;
 	p->c_per_src[0] = ft_zero_3v();
 	dir = p->coor;
 	dir = normalize(rotate_v(dir, (scene->cam)->rotation));
@@ -138,12 +141,16 @@ static void		get_value(t_scene *scene, t_pixel *p)
 	pi = p->pi_arr[0];
 	if (!(pi->vis_obj))
 		return ;
+	while (i < p->amount_p)
+	{
+		p->pi_arr[i]->influence = get_influence(p, i);
+		i++;
+	}
 	obj = pi->vis_obj;
 	color = (pi->obj_m).color;
 	p->color = ft_init_3v((color.v)[0] * (obj->m).ambient * scene->ambient,
 			(color.v)[1] * (obj->m).ambient * scene->ambient,
 			(color.v)[2] * (obj->m).ambient * scene->ambient);
-	p->c_per_src[0] = p->color;
 }
 
 /*

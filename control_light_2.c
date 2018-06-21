@@ -90,7 +90,7 @@ static void	change_color(t_event *event, int id, int vert, int hor)
 		}
 		i += event->scene.step_size;
 	}
-	t = ft_3v_scalar(t, 1 / ((event->scene).anti_a * (event->scene).anti_a));
+	t = ft_3v_scalar(t, 1.0 / ((event->scene).anti_a * (event->scene).anti_a));
 	fill_square(&(event->img), hor + (event->scene).width * vert,
 			(event->scene).step_size / (event->scene).max_anti_a, get_color(t));
 }

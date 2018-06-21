@@ -2,8 +2,8 @@ pattern {
 		{id, {1}}
 		{description, {Polka Dots}}
 		{type, {1}}
-		{size, {0.01}}
-		{amount_points {150}}
+		{size, {0.02}}
+		{amount_points {40}}
 }
 pattern {
 		{id, {2}}

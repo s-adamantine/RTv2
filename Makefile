@@ -40,6 +40,7 @@ SRCS = 	rtv1.c\
 		tools_grain.c\
 		tools_limits.c\
 		tools_thread.c\
+		tools_image.c\
 		event_key.c\
 		event_mouse.c\
 		control_light.c\

@@ -317,4 +317,10 @@ int		printf_triangle(t_3v *triangle, int i);
 
 void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 
+// IMAGES
+void			insert_bitmap(t_image *img, int x, int y, unsigned int color);
+void			get_color(t_3v *c, t_image *img, int x, int y);
+void			clear_image(t_image *img);
+void  			ft_rgb(t_3v *c, int rgb);
+
 #endif

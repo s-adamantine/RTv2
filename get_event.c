@@ -30,10 +30,10 @@ void		init_loop(t_event *event)
 	mlx_mouse_hook(event->win, &mouse_click, event);
 //	mlx_hook(event->win, MOTION_NOTIFY, POINTER_MOTION_MASK,
 //			&drag_scene, event);
-//	mlx_hook(event->win, BUTTON_RELEASE, BUTTON_RELEASE_MASK,
-//			&toggle_button, event);
-//	mlx_hook(event->win, KEY_PRESS, KEY_PRESS_MASK,
-//			&key_hold, event);
+	// mlx_hook(event->win, BUTTON_RELEASE, BUTTON_RELEASE_MASK,
+	// 		&toggle_button, event);
+	mlx_hook(event->win, KEY_PRESS, KEY_PRESS_MASK,
+			&key_hold, event);
 	mlx_loop(event->mlx);
 }
 

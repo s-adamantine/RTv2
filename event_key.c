@@ -57,15 +57,29 @@ int			key_pressed(int key, t_event *event)
 	return (1);
 }
 
+static void	set_move(t_event *event, int key)
+{
+	if (key == -1)
+		event->scene.cam->origin.v[2] += 100;
+	else if (key == 1)
+		event->scene.cam->origin.v[2] -= 100;
+	else if (key == 2)
+		event->scene.cam->origin.v[1] += 100;
+	else
+		event->scene.cam->origin.v[1] -= 100;
+}
+
 int			key_hold(int key, t_event *event)
 {
 	if (key == KEY_W || key == KEY_S || key == KEY_A || key == KEY_D)
 	{
-//		if (key == KEY_W || key == KEY_S)
-//			set_move(event, (key == KEY_W ? -1 : 1));
-//		else
-//			set_move(event, (key == KEY_A ? -2 : 2));
-//		raytracer(event, &(event->scene), 0);
+		if (key == KEY_W || key == KEY_S)
+			set_move(event, (key == KEY_W ? -1 : 1));
+		else
+			set_move(event, (key == KEY_A ? -2 : 2));
+		create_threads(event, set_t_values);
+		init_light_values((void *)event);
+		turn_on_lights(event);
 		mlx_put_image_to_window(event->mlx, event->win,
 		(event->img).img_ptr, 0, 0);
 	}

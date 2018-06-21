@@ -269,7 +269,6 @@ int				drag_scene(int x, int y, t_event *event);
 int				mouse_click(int button, int x, int y, t_event *event);
 int				toggle_button(int button, int x, int y, t_event *event);
 void			set_drag_angle(t_event *event, int x, int y);
-void			set_move(t_event *event, int move);
 int				key_hold(int key, t_event *event);
 void			set_fixed_values(t_scene *scene);
 void			set_value_refl(t_3v point, t_object *o, int r, int cam_id,

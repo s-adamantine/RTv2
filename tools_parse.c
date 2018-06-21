@@ -3,18 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   tools_parse.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:15:16 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 14:58:16 by nicola           ###   ########.fr       */
+/*   Updated: 2018/06/21 18:21:14 by nmanzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
 /*
- * Updates values in a vector by reading from a String.
- */
+** Updates values in a vector by reading from a String.
+*/
 
 void	update_vector(t_3v *vector, char *line)
 {
@@ -33,9 +33,22 @@ void	update_vector(t_3v *vector, char *line)
 	free(tmp);
 }
 
+void	update_vector_xyz(t_3v *vector, char *line)
+{
+	double	*tmp;
+
+	if (!(tmp = (double *)malloc(3 * sizeof(double))))
+		error(0);
+	get_doubles_from_line(tmp, line, 3);
+	(vector->v)[0] = tmp[2];
+	(vector->v)[1] = tmp[0];
+	(vector->v)[2] = tmp[1];
+	free(tmp);
+}
+
 /*
- * Get a size amount of doubles from a String.
- */
+** Get a size amount of doubles from a String.
+*/
 
 void	get_doubles_from_line(double *v, char *line, int size)
 {
@@ -55,8 +68,8 @@ void	get_doubles_from_line(double *v, char *line, int size)
 }
 
 /*
- * Get a size amount of int from a String.
- */
+** Get a size amount of int from a String.
+*/
 
 void	get_int_from_line(int *v, char *line, int size)
 {
@@ -76,8 +89,8 @@ void	get_int_from_line(int *v, char *line, int size)
 }
 
 /*
- * Get a String of vector values.
- */
+** Get a String of vector values.
+*/
 
 char	*get_vector_string(t_3v v, int precision)
 {

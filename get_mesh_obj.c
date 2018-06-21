@@ -3,16 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   get_mesh_obj.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:52:14 by nmanzini          #+#    #+#             */
-/*   Updated: 2018/06/20 00:27:20 by nicola           ###   ########.fr       */
+/*   Updated: 2018/06/21 18:19:56 by nmanzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-
 
 /*
 ** takes a path of an obj file and returns a list of triangles
@@ -22,35 +20,31 @@
 
 t_3v	**read_obj_file(char *path, int verbose)
 {
-	int	fac_num;
-	int	ver_num;
-	t_3v *vertices;
-	t_3v **faces;
+	int		fac_num;
+	int		ver_num;
+	t_3v	*vertices;
+	t_3v	**faces;
 
 	fac_num = 0;
 	ver_num = 0;
-	if(!scan_obj_file(path, &fac_num, &ver_num))
+	if (!scan_obj_file(path, &fac_num, &ver_num))
 	{
-		// can be shortened with printf;
 		ft_putstr("Error reading obj file at: ");
 		ft_putendl(path);
 		exit(0);
 	}
-
 	vertices = (t_3v *)malloc((ver_num) * sizeof(t_3v));
 	faces = (t_3v **)malloc((fac_num + 1) * sizeof(t_3v*));
 	fill_f_v_obj_file(path, vertices, faces, fac_num);
-
-	if( verbose)
+	if (verbose)
 	{
-		printf("number of vertices = %d\n",ver_num);
-		printf("number of faces = %d\n",fac_num);
+		printf("number of vert = %d\nnumber of faces = %d\n", ver_num, fac_num);
 		ver_num = -1;
-		while(++ver_num < fac_num)
-			printf_triangle(faces[ver_num],ver_num);
+		while (++ver_num < fac_num)
+			printf_triangle(faces[ver_num], ver_num);
 	}
 	faces[fac_num] = NULL;
-	return(faces);
+	return (faces);
 }
 
 /*
@@ -58,7 +52,7 @@ t_3v	**read_obj_file(char *path, int verbose)
 ** vetecies
 */
 
-int		fill_f_v_obj_file(char *path,  t_3v *vertices , t_3v **faces, int ver_num)
+int		fill_f_v_obj_file(char *path, t_3v *vertices, t_3v **faces, int ver_num)
 {
 	int		fd;
 	char	*line;
@@ -73,12 +67,11 @@ int		fill_f_v_obj_file(char *path,  t_3v *vertices , t_3v **faces, int ver_num)
 		return (0);
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (*line == 'v'  && line[1] == ' ')
+		if (*line == 'v' && line[1] == ' ')
 		{
-			// vertices[++v_i] = ft_zero_3v();
-			update_vector(&(vertices[++v_i]), &(line[2]));
+			update_vector_xyz(&(vertices[++v_i]), &(line[2]));
 		}
-		else if (*line == 'f'  && line[1] == ' ')
+		else if (*line == 'f' && line[1] == ' ')
 			fill_triangle(line, faces, f_i, vertices);
 		free(line);
 	}
@@ -104,14 +97,13 @@ int		scan_obj_file(char *path, int *fac_num, int *ver_num)
 		return (0);
 	while (get_next_line(fd, &line) > 0)
 	{
-		if (*line == 'v'  && line[1] == ' ')
+		if (*line == 'v' && line[1] == ' ')
 			(*ver_num)++;
 		else if (*line == 'f' && line[1] == ' ')
 			(*fac_num)++;
 		free(line);
 	}
 	free(line);
-
 	if (close(fd) == -1)
 		return (0);
 	if (*fac_num < 1 || *ver_num < 3)
@@ -130,11 +122,11 @@ int		fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices)
 
 	get_int_from_line(ver_order, &(line[2]), 3);
 	if (ver_order[0] != ver_order[1] &&
-	 	ver_order[0] != ver_order[2] &&
-	 	ver_order[1] != ver_order[2] &&
-	 	ver_order[0] <= f_i[1] && ver_order[0] >= 0 &&
-	 	ver_order[1] <= f_i[1] && ver_order[1] >= 0 &&
-	 	ver_order[2] <= f_i[1] && ver_order[2] >= 0)
+		ver_order[0] != ver_order[2] &&
+		ver_order[1] != ver_order[2] &&
+		ver_order[0] <= f_i[1] && ver_order[0] >= 0 &&
+		ver_order[1] <= f_i[1] && ver_order[1] >= 0 &&
+		ver_order[2] <= f_i[1] && ver_order[2] >= 0)
 	{
 		f_i[0] += 1;
 		faces[*f_i] = (t_3v *)malloc(3 * sizeof(t_3v));
@@ -147,8 +139,7 @@ int		fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices)
 		ft_putstr("error in the obj file in line:\n");
 		ft_putendl(line);
 	}
-
-	return(0);
+	return (0);
 }
 
 /*
@@ -157,15 +148,15 @@ int		fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices)
 
 int		printf_triangle(t_3v *triangle, int i)
 {
-	char *str;
-	int j;
+	char	*str;
+	int		j;
 
 	printf("trianagle %d:\n", i);
 	j = -1;
-	while(++j <3)
+	while (++j < 3)
 	{
 		str = get_vector_string(triangle[j], 3);
 		printf("\t%s\n", str);
 	}
-	return(0);
+	return (0);
 }

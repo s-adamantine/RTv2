@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/20 16:29:03 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/21 18:19:58 by nmanzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -295,10 +295,13 @@ void			set_finish(t_scene *scene);
 // NICOLA
 t_3v	**read_obj_file(char *path, int verbose);
 int		fill_f_v_obj_file(char *path,  t_3v *vertices , t_3v **faces, int ver_num);
-void	get_int_from_line(int *v, char *line, int size);
+
 int		scan_obj_file(char *path, int *fac_ver_num_0, int *fac_ver_num_1);
 int		fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices);
 int		printf_triangle(t_3v *triangle, int i);
+
+void	get_int_from_line(int *v, char *line, int size);
+void	update_vector_xyz(t_3v *vector, char *line);
 
 void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 

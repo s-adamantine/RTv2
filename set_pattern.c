@@ -21,6 +21,7 @@ static void	init_def_pattern(t_pattern *p, int id)
 	p->os_1 = 0;
 	p->os_2 = 0;
 	p->amount_points = 25;
+	p->path = NULL;
 }
 
 static void		set_values_pattern(t_pattern *p, char *s, char *value)
@@ -37,6 +38,8 @@ static void		set_values_pattern(t_pattern *p, char *s, char *value)
 		p->os_1 = ft_atoi(value);
 	else if (ft_strncmp(s, "offset_2", 8) == 0)
 		p->os_2 = ft_atoi(value);
+	else if (ft_strncmp(s, "path", 4) == 0)
+		p->path = ft_strdup(value);
 	if (p->distance <= 0)
 		p->distance = 2;
 }

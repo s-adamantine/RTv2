@@ -34,10 +34,6 @@
 # include <pthread.h>
 # include <time.h>
 
-// typedef struct	s_texture
-// {
-//
-// }				t_texture;
 
 typedef struct	s_img
 {
@@ -121,6 +117,7 @@ typedef struct	s_pattern
 	int			distance;
 	int			os_1;
 	int			os_2;
+	char		*path;
 }				t_pattern;
 
 typedef struct	s_object
@@ -151,6 +148,8 @@ typedef struct	s_object
 	t_3v			group_rotation;
 	t_fixed_v		**fixed_c[THREADS];
 	t_fixed_v		**fixed_s[THREADS];
+	double			u;
+	double			v;
 	char		*path;
 }				t_object;
 
@@ -227,7 +226,6 @@ typedef struct	s_event
 	void		*mlx;
 	void		*win;
 	t_img		img;
-	t_img		*texture;
 	t_scene		scene;
 	t_source	*src;
 	int			mouse_hold;
@@ -319,9 +317,10 @@ void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 
 // IMAGES
 void			insert_bitmap(t_img *img, int x, int y, unsigned int color);
-void			get_tex_color(t_3v *c, t_img *img, int x, int y);
+void			get_tex_color(t_3v c, t_img *img, int x, int y);
 void			clear_image(t_img *img);
-void  			ft_rgb(t_3v *c, int color);
-void			set_texture(t_event *event);
+void  			ft_rgb(t_3v c, int color);
+void			set_texture(t_scene *scene, t_event *event);
+t_material		texturize_it(t_object o, t_scene *scene);
 
 #endif

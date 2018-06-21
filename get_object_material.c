@@ -43,11 +43,16 @@ t_material	get_object_material(t_object o, t_3v p, t_scene *scene)
 	t_3v	angle;
 
 	(void)scene;
+	printf("type: %d, pattern id:: %d\n", o.type, o.pattern.id);
 	dif = ft_3v_subtract(p, o.origin);
 	angle = get_angle(o, dif);
 	if ((o.pattern).type == 1)
 		return (polka_dot_it(o, angle, dif));
-	// if ((o.pattern).type == 4)
-	// 	return (texturize_it(o, angle, dif));
+	if ((o.pattern).type == 4)
+	{
+		printf("am I even reading the pattern type?\n");
+		return (texturize_it(o, scene)); //doesn't actually need to return anything, but
+	}
+		//I suppose since this is the format...
 	return (o.m);
 }

@@ -12,3 +12,8 @@ pattern {
 		{size, {0.1}}
 		{amount_points {40}}
 }
+pattern {
+		{id, {6}}
+		{description, {Image Texture}}
+		{type, {4}}
+}

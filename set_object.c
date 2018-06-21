@@ -58,6 +58,8 @@ void		init_def_object(t_object *obj, int id, t_scene *scene)
 	obj->lim_by_2 = 0;
 	obj->limit_id = 0;
 	obj->visible = 1;
+	obj->u = 0;
+	obj->v = 0;
 	change_material(scene, obj, 0, 0);
 }
 

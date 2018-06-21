@@ -101,7 +101,7 @@ void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double ind
 		(scene->cam)->rotation;
 	pi->point = get_point(cam.origin, dir, pi->s_value);
 	pi->normal = get_normal(pi->vis_obj, pi->point);
-	pi->obj_m = get_object_material(*(pi->vis_obj), pi->point);
+	pi->obj_m = get_object_material(*(pi->vis_obj), pi->point, scene);
 	(p->amount_p)++;
 	if (type == 1)
 		(p->amount_refl)++;

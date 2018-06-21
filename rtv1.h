@@ -291,7 +291,7 @@ void			set_value_refl(t_3v point, t_object *o, int r, int cam_id,
 		int thread_id);
 void			set_drag_angle(t_event *event, int x, int y);
 char			*get_vector_string(t_3v v, int precision);
-t_material		get_object_material(t_object o, t_3v p);
+t_material		get_object_material(t_object o, t_3v p, t_scene *scene);
 t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif);
 void			change_camera(t_event *event);
 void			set_values_material(t_material *m, char *s, char *value);
@@ -305,7 +305,7 @@ void			fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost);
 void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double index_refract);
 double			within_limits(t_object *obj, t_3v point, double b);
 void			set_finish(t_scene *scene);
-void			set_texture(t_event* event, t_scene *scene);
+void			load_texture(t_event* event);
 
 // NICOLA
 t_3v	**read_obj_file(char *path, int verbose);
@@ -317,10 +317,5 @@ int		printf_triangle(t_3v *triangle, int i);
 
 void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 
-// IMAGES
-void			insert_bitmap(t_image *img, int x, int y, unsigned int color);
-void			get_color(t_3v *c, t_image *img, int x, int y);
-void			clear_image(t_image *img);
-void  			ft_rgb(t_3v *c, int rgb);
 
 #endif

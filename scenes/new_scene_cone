@@ -56,6 +56,9 @@ object {
 		{rotation, {20.0 0.0 0.0}}
 		{color, {0.3 0.2 0.5}}
 		{radius, {0.4}}
+		{pattern, {4}}
+		{material, {5}}
+		{sec_material, {3}}
 		{reflection, {0.1 0.15 0.5 20}}
 }
 object {
@@ -63,7 +66,7 @@ object {
 		{origin, {45.0 145.0 0.0}}
 		{rotation, {20, 45, 30}}
 		{radius, {100}}
-		{pattern, {1}}
+		{pattern, {3}}
 		{material, {1}}
 		{sec_material, {3}}
 }
@@ -75,5 +78,14 @@ object {
 		{transparent, {0.9}}
 		{pattern, {1}}
 		{material, {3}}
+		{sec_material, {4}}
+}
+object {
+		{type, {plane}}
+		{origin, {-100.0 -150.0 -100.0}}
+		{rotation, {0, 90, 0}}
+		{transparent, {0.1}}
+		{pattern, {5}}
+		{material, {1}}
 		{sec_material, {4}}
 }

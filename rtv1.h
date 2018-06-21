@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/20 16:29:03 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/21 16:58:29 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,9 +105,9 @@ typedef struct	s_pattern
 	double		size;
 	int			amount_points;
 	t_3v		*points_arr;
-	int			distance;
-	int			os_1;
-	int			os_2;
+	double		distance;
+	double		os_1;
+	double		os_2;
 }				t_pattern;
 
 typedef struct	s_object
@@ -278,6 +278,7 @@ void			set_drag_angle(t_event *event, int x, int y);
 char			*get_vector_string(t_3v v, int precision);
 t_material		get_object_material(t_object o, t_3v p);
 t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif);
+t_material		stripe_it(t_object o, t_3v angle, t_3v dif);
 void			change_camera(t_event *event);
 void			set_values_material(t_material *m, char *s, char *value);
 void			set_material(t_scene *scene);

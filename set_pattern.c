@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 16:21:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/15 11:47:05 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/21 17:12:19 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	init_def_pattern(t_pattern *p, int id)
 {
 	p->id = id;
 	p->type = 0;
-	p->size = 1;
+	p->size = 0.05;
 	p->distance = 2;
 	p->os_1 = 0;
 	p->os_2 = 0;
@@ -30,13 +30,13 @@ static void		set_values_pattern(t_pattern *p, char *s, char *value)
 	else if (ft_strncmp(s, "size", 4) == 0)
 		p->size = ft_atod(value);
 	else if (ft_strncmp(s, "distance", 8) == 0)
-		p->distance = ft_atoi(value);
+		p->distance = ft_atod(value);
 	else if (ft_strncmp(s, "amount_points", 13) == 0)
 		p->amount_points = ft_atoi(value);
 	else if (ft_strncmp(s, "offset_1", 8) == 0)
-		p->os_1 = ft_atoi(value);
+		p->os_1 = ft_atod(value);
 	else if (ft_strncmp(s, "offset_2", 8) == 0)
-		p->os_2 = ft_atoi(value);
+		p->os_2 = ft_atod(value);
 	if (p->distance <= 0)
 		p->distance = 2;
 }

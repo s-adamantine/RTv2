@@ -6,7 +6,7 @@
 #    By: nicola <nicola@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/20 16:34:57 by sadamant         ###   ########.fr        #
+#    Updated: 2018/06/21 16:20:00 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -45,6 +45,7 @@ SRCS = 	rtv1.c\
 		control_light_2.c\
 		control_camera.c\
 		polka_dot_it.c\
+		stripe_it.c\
 		refraction.c\
 		get_mesh_obj.c
 

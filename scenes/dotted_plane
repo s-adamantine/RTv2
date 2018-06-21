@@ -1,0 +1,23 @@
+render {
+		{name, {Scene Plane}}
+		{dimensions, {1000 700}}
+		{ambient, {5}}
+}
+camera {
+		{origin, {100.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+light {
+		{origin, {100.0 0.0 0.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {10 0}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{pattern, {3}}
+		{radius, {40}}
+		{material, {1}}
+		{sec_material, {4}}
+}

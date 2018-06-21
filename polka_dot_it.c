@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 16:43:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/15 10:53:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/21 16:15:58 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,19 @@
 
 static t_material	handle_plane(t_object o, t_3v dif)
 {
-	double	dist_1;
-	double	dist_2;
-	double	corr_size;
-	double	corr_dist;
+	double	d_1;
+	double	d_2;
+	double	tmp_size;
+	int		row;
 
-	corr_size = (o.pattern).size / 10;
-	corr_dist = (o.pattern).distance * 10;
-	dist_1 = fabs(fmod(dif.v[1], corr_dist)) - corr_dist / 2;
-	dist_2 = fabs(fmod(dif.v[2], corr_dist)) - corr_dist / 2;
-	dist_1 = sqrt(dist_1 * dist_1 + dist_2 * dist_2);
-	if (dist_1 < corr_size)
+	tmp_size = o.pattern.size * 100;
+	dif = rotate_v_inv(dif, o.rotation);
+	d_1 = fmod(fabs(dif.v[0]) + tmp_size, o.pattern.distance)
+		- tmp_size;
+	row = floor((dif.v[0] + tmp_size) / o.pattern.distance);
+	d_2 = fmod(fabs(dif.v[1] + row * o.pattern.os_1) + tmp_size,
+			o.pattern.distance) - tmp_size;
+	if (d_1 * d_1 + d_2 * d_2 < tmp_size * tmp_size)
 		return (o.m2);
 	return (o.m);
 }
@@ -50,28 +52,11 @@ static t_material	handle_sphere(t_object o, t_3v angle)
 	return (o.m);
 }
 
-static t_material	handle_cyl_cone(t_object o, t_3v angle, t_3v dist)
-{
-	t_3v	ref;
-	t_3v	angle_tmp;
-
-	(void)angle_tmp;
-	(void)dist;
-	(void)angle;
-	if (o.type == 2)
-		ref = ft_init_3v(o.radius, 0.0, 0.0);
-	else
-		ref = ft_init_3v(o.radius, (o.pattern).distance, 0.0);
-	return (o.m);
-}
-
 t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif)
 {
 	if (o.type == 0)
 		return (handle_plane(o, dif));
 	else if (o.type == 1)
 		return (handle_sphere(o, angle));
-	else if (o.type == 2 || o.type == 3)
-		return (handle_cyl_cone(o, angle, dif));
 	return (o.m);
 }

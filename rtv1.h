@@ -152,6 +152,7 @@ typedef struct	s_p_info
 	int			is_inside;
 	double		fresnal_transparent;
 	double		fresnal_specular;
+	t_3v		beer;
 }				t_p_info;
 
 typedef struct	s_pixel

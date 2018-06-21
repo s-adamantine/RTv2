@@ -101,8 +101,8 @@ static void		check_values(t_intensity *in, t_3v o, t_source l)
 static double	get_influence(t_pixel *p, int i)
 {
 	double	influence;
-
 	influence = 1 - (((p->pi_arr[i])->vis_obj)->m).transparent;
+
 	if ((p->pi_arr[i])->type == 2)
 	{
 		while (i > 0)
@@ -151,12 +151,16 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	check_values(&in, o, l);
 	in.diff *= (influence * (1 - in.spec));
 	in.spec *= influence;
-	(c->v)[0] += in.diff * ((l.tmp_color).v)[0] * (o.v)[0];
-	(c->v)[1] += in.diff * ((l.tmp_color).v)[1] * (o.v)[1];
-	(c->v)[2] += in.diff * ((l.tmp_color).v)[2] * (o.v)[2];
+	if (pi->vis_obj->id == 0)
+		printf("%f\n", pi->vis_obj->m.transparent);
+	(c->v)[0] += in.diff * ((l.tmp_color).v)[0] * (o.v)[0];// * pi->beer.v[0]);
+	(c->v)[1] += in.diff * ((l.tmp_color).v)[1] * (o.v)[1];// * pi->beer.v[1]);
+	(c->v)[2] += in.diff * ((l.tmp_color).v)[2] * (o.v)[2];// * pi->beer.v[2]);
 	(c->v)[0] += in.spec * ((l.tmp_color).v)[0];
 	(c->v)[1] += in.spec * ((l.tmp_color).v)[1];
 	(c->v)[2] += in.spec * ((l.tmp_color).v)[2];
+	// if (pi->vis_obj->id == 1 && (c->v)[0] + (c->v)[1] + (c->v)[2] > 0.99)
+	// 	printf("%f\t%f\t%f\n", (c->v)[0], (c->v)[1], (c->v)[2]);
 	return ((c->v)[0] + (c->v)[1] + (c->v)[2]);
 }
 

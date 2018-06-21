@@ -70,13 +70,14 @@ static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
 	pi->vis_obj = get_vis_obj(p, dir, scene, pi);
 	pi->type = type;
 	pi->fresnal_transparent = 1.0;
-	pi->fresnal_specular = 1.0;
+	pi->fresnal_specular = 0.0;
 	pi->is_inside = 0;
 	if (!(pi->vis_obj))
 	{
 		free(pi);
 		return (NULL);
 	}
+	pi->beer = ft_init_3v(1.0, 1.0, 1.0);
 	return (pi);
 }
 

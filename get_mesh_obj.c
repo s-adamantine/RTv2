@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:52:14 by nmanzini          #+#    #+#             */
-/*   Updated: 2018/06/21 18:19:56 by nmanzini         ###   ########.fr       */
+/*   Updated: 2018/06/21 18:26:31 by nmanzini         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,7 @@ t_3v	**read_obj_file(char *path, int verbose)
 	faces = (t_3v **)malloc((fac_num + 1) * sizeof(t_3v*));
 	fill_f_v_obj_file(path, vertices, faces, fac_num);
 	if (verbose)
-	{
-		printf("number of vert = %d\nnumber of faces = %d\n", ver_num, fac_num);
-		ver_num = -1;
-		while (++ver_num < fac_num)
-			printf_triangle(faces[ver_num], ver_num);
-	}
+		;
 	faces[fac_num] = NULL;
 	return (faces);
 }

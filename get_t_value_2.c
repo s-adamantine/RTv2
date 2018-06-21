@@ -40,7 +40,7 @@ double	get_t_triangle(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 	//ft_get_3v_size is find the distance
 	u = (ft_get_3v_size(vp0) / 2) / f.val_2;
 	v = (ft_get_3v_size(vp2) / 2) / f.val_2;
-	printf("u: %f, v:%f, u + v: %f\n", u, v, u + v);
+	// printf("u: %f, v:%f, u + v: %f\n", u, v, u + v);
 	//at that p value, grab the respective color from the texture map.
 	//going to pretend that it's purple!
 	obj->m.color.v[0] = 1.0;

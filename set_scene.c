@@ -47,7 +47,6 @@ void		set_scene(int fd, t_scene *scene)
 	int		gnl;
 
 	init_def_scene(scene);
-	set_texture(scene);
 	while ((gnl = get_next_line(fd, &line)) == 1)
 	{
 		if (ft_strncmp(line, "render {", 8) == 0)

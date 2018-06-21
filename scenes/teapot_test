@@ -12,7 +12,7 @@ camera {
 light {
 		{origin, {5.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {10 10}}
+		{intensity, {7 7}}
 }
 
 object {

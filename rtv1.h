@@ -34,10 +34,16 @@
 # include <pthread.h>
 # include <time.h>
 
+// typedef struct	s_texture
+// {
+//
+// }				t_texture;
+
 typedef struct	s_img
 {
 	void		*img_ptr;
 	char		*img_arr;
+	int			*bitmap;
 	int			width;
 	int			height;
 	int			bpp;
@@ -221,6 +227,7 @@ typedef struct	s_event
 	void		*mlx;
 	void		*win;
 	t_img		img;
+	t_img		*texture;
 	t_scene		scene;
 	t_source	*src;
 	int			mouse_hold;
@@ -298,7 +305,7 @@ void			fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost);
 void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double index_refract);
 double			within_limits(t_object *obj, t_3v point, double b);
 void			set_finish(t_scene *scene);
-void			set_texture(t_scene *scene);
+void			set_texture(t_event* event, t_scene *scene);
 
 // NICOLA
 t_3v	**read_obj_file(char *path, int verbose);

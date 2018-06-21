@@ -1,0 +1,254 @@
+Norme: ./-
+Warning: Not a valid file
+Norme: ./checker_it.c
+Norme: ./control_object.c
+Norme: ./control_light.c
+Error (line 15): comment not well formatted
+Error (line 36): comment not well formatted
+Norme: ./event_mouse.c
+Error (line 19): C++ comment
+Error (line 22): C++ comment
+Error (line 23): C++ comment
+Error (line 24): C++ comment
+Error (line 25): C++ comment
+Error (line 26, col 1): no empty line before block
+Error (line 41): C++ comment
+Error (line 42): C++ comment
+Error (line 43): C++ comment
+Norme: ./control_camera.c
+Error (line 15): comment not well formatted
+Error (line 19): declarations in get_selected_cam are bad aligned
+Error (line 39): function change_camera has 26 lines
+Norme: ./event_key.c
+Error (line 22): line has 83 characters
+Error (line 23): spaces at the end of line
+Error (line 23, col 27): bad character after ;
+Error (line 24): line has 87 characters
+Error (line 26): line has 89 characters
+Error (line 51): C++ comment
+Error (line 52): C++ comment
+Error (line 55): C++ comment
+Error (line 56): C++ comment
+Error (line 64): C++ comment
+Error (line 65): C++ comment
+Error (line 66): C++ comment
+Error (line 67): C++ comment
+Error (line 68): C++ comment
+Norme: ./get_intensity.c
+Norme: ./get_event.c
+Error (line 31): C++ comment
+Error (line 32): C++ comment
+Error (line 33): C++ comment
+Error (line 34): C++ comment
+Error (line 35): C++ comment
+Error (line 36): C++ comment
+Error (line 70): line has 88 characters
+Error (line 72): line has 86 characters
+Error (line 74): line has 118 characters
+Norme: ./control_light_2.c
+Error: file must end with a single empty line
+Error (line 15): comment not well formatted
+Error (line 64): comment not well formatted
+Error (line 69): function change_color has 26 lines
+Error (line 94): C++ comment
+Error (line 112, col 36): bad spacing
+Error (line 125): comment not well formatted
+Error (line 156): multiple empty lines
+Norme: ./get_t_value_2.c
+Error (line 40): Space before function name
+Error (line 40): Space before function name
+Error (line 40, col 6): bad spacing
+Error (line 42): bad indentation
+Error (line 42): must begin only by tabulations
+Error (line 43): bad indentation
+Error (line 43): must begin only by tabulations
+Error (line 45): Empty line
+Error (line 46): bad indentation
+Error (line 46): must begin only by tabulations
+Norme: ./get_object_material.c
+Norme: ./get_mesh_obj.c
+Error (line 15): multiple empty lines
+Error (line 16): multiple empty lines
+Error (line 23): declarations in read_obj_file are bad aligned
+Error (line 23): function read_obj_file has 29 lines
+Error (line 32, col 1): missing space after if
+Error (line 34): bad indentation
+Error (line 34): C++ comment
+Error (line 39): Empty line
+Error (line 43): Empty line
+Error (line 44, col 1): missing space after if
+Error (line 44, col 3): space after (
+Error (line 46, col 36): bad character after ,
+Error (line 47, col 33): bad character after ,
+Error (line 49, col 2): missing space after while
+Error (line 50, col 33): bad character after ,
+Error (line 53, col 1): missing space after return
+Error (line 61): function fill_f_v_obj_file has 26 lines
+Error (line 61): line has 83 characters
+Error (line 61, col 34): bad spacing
+Error (line 61, col 51): space before ,
+Error (line 76, col 18): bad spacing
+Error (line 78): bad indentation
+Error (line 78): C++ comment
+Error (line 81, col 23): bad spacing
+Error (line 107, col 18): bad spacing
+Error (line 114): Empty line
+Error (line 133): must begin only by tabulations
+Error (line 134): must begin only by tabulations
+Error (line 135): must begin only by tabulations
+Error (line 136): must begin only by tabulations
+Error (line 137): must begin only by tabulations
+Error (line 150): Empty line
+Error (line 151, col 1): missing space after return
+Error (line 158): declarations in printf_triangle are bad aligned
+Error (line 165, col 1): missing space after while
+Error (line 165, col 11): missing space around <
+Error (line 170, col 1): missing space after return
+Norme: ./polka_dot_it.c
+Error: global scope bad aligned
+Norme: ./rtv1.c
+Error (line 53): C++ comment
+Error (line 54): bad indentation
+Error (line 54): C++ comment
+Norme: ./refraction.c
+Error: global scope bad aligned
+Error: file must end with a single empty line
+Error (line 34): refraction have 5 parameters
+Error (line 34): function refraction has 37 lines
+Error (line 34): Bad spacing for argument pi
+Error (line 34): line has 97 characters
+Error (line 34, col 0): refraction has 7 variables
+Error (line 75): fresnal have 5 parameters
+Error (line 94): C++ comment
+Error (line 95): C++ comment
+Error (line 96): C++ comment
+Error (line 97): C++ comment
+Error (line 98, col 0): no newline after block
+Norme: ./get_t_value.c
+Error: global scope bad aligned
+Error (line 66): line has 83 characters
+Error (line 77): function get_t_cylinder has 26 lines
+Error (line 96): line has 83 characters
+Error (line 107): function get_t_cone has 31 lines
+Error (line 131): line has 83 characters
+Norme: ./set_camera.c
+Error (line 36): Space before function name
+Error (line 36, col 11): bad spacing
+Norme: ./set_light.c
+Norme: ./set_finish.c
+Error (line 33): line has 83 characters
+Error (line 34): line has 82 characters
+Norme: ./set_mesh.c
+Error: global scope bad aligned
+Error (line 15): line has 99 characters
+Error (line 21): C++ comment
+Norme: ./set_material.c
+Norme: ./set_fixed_values.c
+Error (line 15): comment not well formatted
+Error (line 21): function set_fixed_value has 30 lines
+Error (line 44): must begin only by tabulations
+Error (line 44): C++ comment
+Error (line 46): C++ comment
+Error (line 46): line has 86 characters
+Error (line 47): C++ comment
+Error (line 55): comment not well formatted
+Error (line 59): set_value_refl have 5 parameters
+Error (line 59): line has 86 characters
+Error (line 77): comment not well formatted
+Error (line 89): line has 91 characters
+Error (line 108): comment not well formatted
+Error (line 113): function set_fixed_values has 27 lines
+Error (line 130): line has 99 characters
+Error (line 133): line has 99 characters
+Error (line 135): line has 93 characters
+Norme: ./set_pattern.c
+Error: global scope bad aligned
+Error (line 44): function add_pattern has 27 lines
+Norme: ./set_preview.c
+Error (line 13): .c included
+Error (line 35, col 48): bad spacing
+Norme: ./set_render.c
+Norme: ./set_scene.c
+Error (line 43): function set_scene has 33 lines
+Error (line 65): Empty line
+Error (line 66): C++ comment
+Error (line 67): Empty line
+Error (line 68): C++ comment
+Error (line 69): C++ comment
+Error (line 70): Empty line
+Error (line 71): C++ comment
+Error (line 72): Empty line
+Norme: ./set_object.c
+Error: 6 functions in the file
+Error (line 64): function set_object_type has 33 lines
+Error (line 70, col 11): bad spacing
+Error (line 120): function set_values_object has 40 lines
+Error (line 165): function set_object has 26 lines
+Norme: ./stripe_it.c
+Error: global scope bad aligned
+Error (line 42): Empty line
+Error (line 43, col 0): no empty line before block
+Error (line 52, col 6): missing space after if
+Norme: ./tools_anti_a.c
+Error (line 81): line has 101 characters
+Norme: ./tools_color.c
+Error (line 15): comment not well formatted
+Norme: ./tools_grain.c
+Error (line 15): comment not well formatted
+Norme: ./tools_limits.c
+Error: global scope bad aligned
+Norme: ./set_light_per_pixel.c
+Error: global scope bad aligned
+Error: 8 functions in the file
+Error (line 29): comment not well formatted
+Error (line 50): spaces at the end of line
+Error (line 50, col 1): no newline after block
+Error (line 63): comment not well formatted
+Error (line 68): light_reaches have 5 parameters
+Error (line 91): comment not well formatted
+Error (line 108): comment not well formatted
+Error (line 132): bad indentation
+Error (line 132): must begin only by tabulations
+Error (line 133): bad indentation
+Error (line 133): must begin only by tabulations
+Error (line 142): comment not well formatted
+Error (line 175): comment not well formatted
+Error (line 180): function light_intensity has 26 lines
+Error (line 200): line has 97 characters
+Error (line 210): comment not well formatted
+Error (line 224): line has 82 characters
+Error (line 225): line has 94 characters
+Error (line 225, col 61): bad spacing
+Error (line 230): line has 92 characters
+Norme: ./tools_rotate.c
+Norme: ./set_point_list.c
+Norme: ./set_t_values.c
+Error: global scope bad aligned
+Error: 6 functions in the file
+Error (line 15): comment not well formatted
+Error (line 36): line has 92 characters
+Error (line 47): comment not well formatted
+Error (line 48): spaces at the end of line
+Error (line 53): function init_p_info has 26 lines
+Error (line 60, col 8): Spacing after call to error
+Error (line 67, col 8): Spacing after call to error
+Error (line 83): comment not well formatted
+Error (line 88): get_reflections have 5 parameters
+Error (line 88): function get_reflections has 30 lines
+Error (line 88): line has 98 characters
+Error (line 122): comment not well formatted
+Error (line 123): spaces at the end of line
+Error (line 148): comment not well formatted
+Error (line 152): setup_pixel have 5 parameters
+Error (line 175): comment not well formatted
+Error (line 180): function set_t_values has 26 lines
+Error (line 191, col 48): bad spacing
+Norme: ./tools_thread.c
+Norme: ./tools_vector.c
+Error: global scope bad aligned
+Error (line 54): must begin only by tabulations
+Norme: ./tools_parse.c
+Error (line 15): comment not well formatted
+Error (line 36): comment not well formatted
+Error (line 57): comment not well formatted
+Error (line 78): comment not well formatted

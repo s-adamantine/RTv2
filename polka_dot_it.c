@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 16:43:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 16:15:58 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/21 18:12:48 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ static t_material	handle_plane(t_object o, t_3v dif)
 	int		row;
 
 	tmp_size = o.pattern.size * 100;
-	dif = rotate_v_inv(dif, o.rotation);
 	d_1 = fmod(fabs(dif.v[0]) + tmp_size, o.pattern.distance)
 		- tmp_size;
 	row = floor((dif.v[0] + tmp_size) / o.pattern.distance);
@@ -52,9 +51,9 @@ static t_material	handle_sphere(t_object o, t_3v angle)
 	return (o.m);
 }
 
-t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif)
+t_material			polka_dot_it(t_object o, t_3v angle, t_3v dif)
 {
-	if (o.type == 0)
+	if (o.type % 5 == 0)
 		return (handle_plane(o, dif));
 	else if (o.type == 1)
 		return (handle_sphere(o, angle));

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:24:17 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:24:18 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/21 18:23:58 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,8 @@ void			anti_aliasing(t_event *event)
 		j = 0;
 		while (j < tmp.width)
 		{
-			((int *)(old_img.img_arr))[j + i * tmp.width] = take_average(event, event->scene, i, j);
+			((int *)(old_img.img_arr))[j + i * tmp.width] =
+				take_average(event, event->scene, i, j);
 			j++;
 		}
 		i++;

@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 16:58:29 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/21 18:40:39 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -291,6 +291,7 @@ void			fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost);
 void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double index_refract);
 double			within_limits(t_object *obj, t_3v point, double b);
 void			set_finish(t_scene *scene);
+void			set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f);
 
 
 // NICOLA

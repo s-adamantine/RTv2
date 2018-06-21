@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:35:35 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:36:53 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/21 18:07:46 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,11 +66,13 @@ t_event		get_event(t_scene scene)
 	event.t_select = KEY_L;
 	event.id_select = KEY_0;
 	event.redraw = 0;
-	if (!((scene.cam)->p_array = (t_pixel *)malloc(sizeof(t_pixel)
-				* scene.width * scene.height * scene.max_anti_a * scene.max_anti_a)) ||
-			!((scene.cam)->pixel_set = (int *)malloc(sizeof(int)
-				* scene.width * scene.height * scene.max_anti_a * scene.max_anti_a)))
+	if (!((scene.cam)->p_array = (t_pixel *)malloc(sizeof(t_pixel) *
+					scene.width * scene.height * scene.max_anti_a *
+					scene.max_anti_a)) || !((scene.cam)->pixel_set =
+					(int *)malloc(sizeof(int) * scene.width * scene.height *
+						scene.max_anti_a * scene.max_anti_a)))
 		error(1);
-	ft_bzero((scene.cam)->pixel_set, sizeof(int) * scene.width * scene.height * scene.max_anti_a * scene.max_anti_a);
+	ft_bzero((scene.cam)->pixel_set, sizeof(int) * scene.width * scene.height *
+			scene.max_anti_a * scene.max_anti_a);
 	return (event);
 }

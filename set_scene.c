@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/20 16:23:34 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/21 18:25:58 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,14 +62,6 @@ void		set_scene(int fd, t_scene *scene)
 	if (gnl < 0)
 		error(0);
 	free(line);
-
-	// JUST FOR TESTING POURPOSES!!!!!
-
-	// read_obj_file("./scenes/obj/teapot.obj");
-	// read_obj_file("./scenes/objs/teapot.obj", 1);
-
-	// END TESTING PORPUSES!!!!!!!!!!!
-
 	scene->cam = (t_cam *)(scene->cameras)->content;
 	if (!(scene->grain))
 		scene->grain = (scene->amount_obj && scene->amount_light) ?

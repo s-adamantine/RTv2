@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 12:22:06 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/22 16:26:42 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,24 @@
 # define THREADS 4
 
 # define MENU_WIDTH 500
+# define MENU_HEIGHT 1000
 # define PRIMARY 0x9c27b0
+# define SECONDARY 0x388e3c
 # define P_LIGHT 0xd05ce3
 # define P_DARK 0x6a0080
-# define TEXT 0xffffff
+# define TEXT_L 0xffffff
+# define TEXT_D 0x000000
+# define GRAY 0xeceff1
+# define TOP_BAR 100
+# define MARGIN 20
+# define SUB_MARGIN 10
+# define INFO_MARGIN 150
+# define MENU_LINE 20
+# define OBJ_HEIGHT 140
+# define CAM_HEIGHT 80
+# define LIGHT_HEIGHT 120
+# define AMOUNT_INSTRUCTIONS 7
+# define AMOUNT_INFO 8
 
 # include "libft.h"
 
@@ -51,6 +65,13 @@ typedef struct	s_img
 	int			endian;
 	int			id;
 }				t_img;
+
+typedef struct	s_menu
+{
+	char		**info;
+	char		**types;
+	char		**man;
+}				t_menu;
 
 typedef struct	s_intensity
 {
@@ -182,6 +203,7 @@ typedef struct	s_cam
 	t_pixel		*p_array;
 	double		*light_vis;
 	int			*pixel_set;
+	int			selected;
 }				t_cam;
 
 typedef struct	s_scene
@@ -217,8 +239,10 @@ typedef struct	s_event
 {
 	void		*mlx;
 	void		*win;
+	void		*menu_win;
 	t_img		img;
 	t_img		menu_img;
+	t_menu		menu;
 	t_scene		scene;
 	t_source	*src;
 	int			mouse_hold;
@@ -226,6 +250,7 @@ typedef struct	s_event
 	int			y_0;
 	int			t_select;
 	int			id_select;
+	int			instructions;
 	int			redraw;
 }				t_event;
 
@@ -298,6 +323,13 @@ void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double in
 double			within_limits(t_object *obj, t_3v point, double b);
 void			set_finish(t_scene *scene);
 void			set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f);
+void			set_menu(t_event *event);
+void			set_object_menu(t_event *event);
+void			set_strings(t_menu *menu);
+void			init_menu(t_event *event);
+void			change_menu(t_event *event);
+void			set_cam_menu(t_event *event);
+void			set_light_menu(t_event *event);
 
 
 // NICOLA

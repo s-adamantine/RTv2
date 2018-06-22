@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:01 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 18:04:36 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/22 15:47:03 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,11 @@ static t_cam	*get_selected_cam(t_scene *scene, int id)
 	{
 		cam = (t_cam *)tmp_cam->content;
 		if (cam->id == id)
+		{
+			(scene->cam)->selected = 0;
+			cam->selected = 1;
 			return (cam);
+		}
 		tmp_cam = tmp_cam->next;
 	}
 	return (NULL);

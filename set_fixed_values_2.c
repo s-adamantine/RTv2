@@ -6,17 +6,17 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 18:33:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 18:40:38 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/22 14:40:41 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
 /*
- * The fixed values are values that are specific for every object, relative to
- * a camera, light source or reflection/transparent point. Instead of
- * calculating them at every pixel, we fix them for every object.
- */
+** The fixed values are values that are specific for every object, relative to
+** a camera, light source or reflection/transparent point. Instead of
+** calculating them at every pixel, we fix them for every object.
+**/
 
 static void set_fixed_value_2(t_3v origin, t_object *o, t_fixed_v *f)
 {
@@ -53,5 +53,3 @@ void		set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f)
 	if (o->type == 5)
 		set_fixed_value_2(origin, o, f);
 }
-
-

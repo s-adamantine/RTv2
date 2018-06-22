@@ -6,7 +6,7 @@
 #    By: nicola <nicola@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/21 18:40:36 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/22 16:00:34 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,6 +18,11 @@ SRCS = 	rtv1.c\
 		set_camera.c\
 		set_render.c\
 		set_mesh.c\
+		set_menu.c\
+		set_object_menu.c\
+		set_camera_menu.c\
+		set_light_menu.c\
+		set_strings.c\
 		set_material.c\
 		set_pattern.c\
 		set_light.c\

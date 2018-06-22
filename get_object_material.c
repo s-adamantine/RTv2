@@ -37,7 +37,7 @@ static t_3v	get_angle(t_object o, t_3v p)
 	return (k);
 }
 
-t_material	get_object_material(t_object o, t_3v p)
+t_material	get_object_material(t_object o, t_3v p, t_scene *scene)
 {
 	t_3v	dif;
 	t_3v	angle;
@@ -49,5 +49,7 @@ t_material	get_object_material(t_object o, t_3v p)
 		return (polka_dot_it(o, angle, dif));
 	else if ((o.pattern).type == 2)
 		return (stripe_it(o, angle, dif));
+	if (scene->filter > 0)
+		return (filter_it(o, scene->filter));
 	return (o.m);
 }

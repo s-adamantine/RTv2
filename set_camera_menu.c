@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 15:14:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 16:15:52 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/22 16:34:38 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,9 @@ static void	add_info(t_cam *cam, t_event *event, int x, int y)
 	i = 0;
 	j = 0;
 	color = get_text_color(cam, event);
-	while (i < 6)
+	while (i < AMOUNT_INFO)
 	{
-		if (i == 2 || i == 3 || i > 4)
+		if (i > 2)
 		{
 			i++;
 			continue ;

@@ -45,7 +45,7 @@ static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
 }
 
 /*
- * t_p_info contains information for every object visible at a certain pixel. 
+ * t_p_info contains information for every object visible at a certain pixel.
  * This function dynamically allocates memory, because we don't know in advance
  * how many objects will be visible.
  */
@@ -101,7 +101,7 @@ void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double ind
 		(scene->cam)->rotation;
 	pi->point = get_point(cam.origin, dir, pi->s_value);
 	pi->normal = get_normal(pi->vis_obj, pi->point);
-	pi->obj_m = get_object_material(*(pi->vis_obj), pi->point);
+	pi->obj_m = get_object_material(*(pi->vis_obj), pi->point, scene);
 	(p->amount_p)++;
 	if (type == 1)
 		(p->amount_refl)++;
@@ -120,7 +120,7 @@ void		get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double ind
 }
 
 /*
- * Some preparations to get the first visible object for this pixel. 
+ * Some preparations to get the first visible object for this pixel.
  */
 
 static void		get_value(t_scene *scene, t_pixel *p)

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 15:55:21 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 16:15:59 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/22 16:32:14 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ static char *get_value(t_source *src, int i)
 		return (ft_itoa(((int)(src->intensity).diff)));
 	if (i == 7)
 		return (ft_itoa(((int)(src->intensity).spec)));
-	printf("%s\n", ft_itoa(src->intensity.diff));
 	return (ft_itoa(src->id));
 }
 
@@ -35,7 +34,7 @@ static int	get_text_color(t_source *src, t_event *event)
 	if (src->on)
 		return (SECONDARY);
 	else
-		return (TEXT_D);
+		return (GRAY_2);
 }
 
 static void	add_info(t_source *src, t_event *event, int x, int y)

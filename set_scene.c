@@ -27,6 +27,7 @@ static void	init_def_scene(t_scene *scene)
 	scene->height = 800;
 	scene->wait = 0.5;
 	scene->refl = 2;
+	scene->filter = 0;
 	scene->cam_set = 0;
 	scene->ambient = 0.5;
 	scene->grain = 1;

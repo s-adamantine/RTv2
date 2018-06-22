@@ -31,7 +31,8 @@ static double	get_influence_specular(t_pixel *p, int i)
  * with it.
  */
 
-static void		get_light_color(t_object *obj, t_3v point, t_source *src)
+static void		get_light_color(t_object *obj, t_3v point, t_source *src,
+	t_scene *scene)
 {
 	t_material	m;
 
@@ -47,8 +48,8 @@ static void		get_light_color(t_object *obj, t_3v point, t_source *src)
 		(src->tmp_color).v[1] *= (obj->m).transparent * ((obj->m).color).v[1];
 		(src->tmp_color).v[2] *= (obj->m).transparent * ((obj->m).color).v[2];
 		return ;
-	}	
-	m = get_object_material(*obj, point);
+	}
+	m = get_object_material(*obj, point, scene);
 	(src->tmp_color).v[0] = .5 * (1 - m.transparent) * (m.color).v[0] +
 		m.transparent * src->tmp_color.v[0];
 	(src->tmp_color).v[1] = .5 * (1 - m.transparent) * (m.color).v[1] +
@@ -65,22 +66,21 @@ static void		get_light_color(t_object *obj, t_3v point, t_source *src)
  * objects or not).
  */
 
-static double	light_reaches(t_3v d, t_list *objects, int cam,
-		t_source *src, int thread_id)
+static double	light_reaches(t_3v d, t_scene *scene, t_source *src)
 {
 	double		t_1;
 	double		reached;
 	t_list		*o_lst;
 	t_object	*obj;
 
-	o_lst = objects;
+	o_lst = scene->objects;
 	reached = 0;
 	while (o_lst && o_lst->content)
 	{
 		obj = (t_object *)o_lst->content;
-		t_1 = obj->f(obj->fixed_s[thread_id][cam][src->id - 1], d, 0, obj);
+		t_1 = obj->f(obj->fixed_s[scene->thread_id][scene->cam->id][src->id - 1], d, 0, obj);
 		if (t_1 > 0.001 && t_1 < 0.99999 && obj->visible)
-			get_light_color(obj, get_point(src->origin, d, t_1), src);
+			get_light_color(obj, get_point(src->origin, d, t_1), src, scene);
 		else if (t_1 > 0.999999 && t_1 < 1.000001)
 			reached = 1;
 		o_lst = o_lst->next;
@@ -197,7 +197,7 @@ static double		light_intensity(t_source src, t_pixel *p, t_scene *scene)
 		pi->dir = dir;
 		in.diff = 0;
 		in.spec = 0;
-		if (light_reaches(dir, scene->objects, (scene->cam)->id, &src, scene->thread_id) > 0.01)
+		if (light_reaches(dir, scene, &src) > 0.01)
 			in = get_intensity(pi, dir, *(scene->cam), src.id - 1);
 		if (in.diff > max)
 			max = in.diff;

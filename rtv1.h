@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 18:40:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/22 12:22:06 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,13 @@
 
 # define MAX_S_VALUE 50000
 # define DEG 57.2958
-# define MENU_WIDTH 500
 # define THREADS 4
+
+# define MENU_WIDTH 500
+# define PRIMARY 0x9c27b0
+# define P_LIGHT 0xd05ce3
+# define P_DARK 0x6a0080
+# define TEXT 0xffffff
 
 # include "libft.h"
 
@@ -213,6 +218,7 @@ typedef struct	s_event
 	void		*mlx;
 	void		*win;
 	t_img		img;
+	t_img		menu_img;
 	t_scene		scene;
 	t_source	*src;
 	int			mouse_hold;

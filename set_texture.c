@@ -39,8 +39,12 @@ void        set_texture(t_scene *scene, t_event *event)
     texture = new_xpm_image(event, "textures/bananas.xpm", 649, 275);
 	scene->texture = texture; //don't think this'll segfault, but jic when it
 	//all loads set t_img * to t_img
-	// mlx_put_image_to_window(event->mlx, event->win, event->texture->img_ptr,
-		// 0, 0); in case I need to check that the image really is loading
+	if (scene->texture)
+		printf("I swear I exist.\n");
+	else
+		printf("I never got initialized.\n");
+	mlx_put_image_to_window(event->mlx, event->win, texture->img_ptr,
+		0, 0);// in case I need to check that the image really is loading
 }
 
 void		get_triangle_texture(t_object *obj)
@@ -55,7 +59,12 @@ t_material	texturize_it(t_object o, t_scene* scene)
 	{
 		get_triangle_texture(&o);
 	}
-	printf("o.u and o.v: %f, %f\n", o.u, o.v);
-	get_tex_color(o.m.color, scene->texture, o.u, o.v);
+	// if (o.u > 0 && o.v > 0)
+	// {
+	// 	if (o.u + o.v > 1)
+	// 		printf("o.u and o.v: %f, %f %f\n", o.u, o.v, o.u + o.v); //is this looking for o.u and o.v for everything tho
+	// }
+	// if (o.u + o.v < 1 && o.u + o.v > 0)
+		get_tex_color(o.m.color, scene->texture, o.u, o.v);
 	return (o.m); //idk what m and m2 are
 }

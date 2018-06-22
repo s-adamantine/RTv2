@@ -20,11 +20,14 @@
 
 void    ft_rgb(t_3v c, int color)
 {
-	c.v[0] = color % 256;
-	color /= 256;
-	c.v[1] = color % 256;
-	color /= 256;
-	c.v[2] = color;
+	// c.v[0] = color % 256;
+	// color /= 256;
+	// c.v[1] = color % 256;
+	// color /= 256;
+	// c.v[2] = color;
+	(void)c;
+	(void)color;
+	printf("making sure it gets into ft_rgb\n");
 }
 
 void	clear_image(t_img *img)
@@ -41,7 +44,14 @@ void	insert_bitmap(t_img *img, int x, int y, unsigned int color)
 
 void	get_tex_color(t_3v c, t_img *img, int x, int y)
 {
-    x *= img->width;
-    x *= img->height;
-	return (ft_rgb(c, img->bitmap[(y * img->width + x)]));
+
+    // x *= img->width;
+    // y *= img->height;
+	// if (img)
+	// 	printf("%f %f %f %d %d\n", c.v[0], c.v[1], c.v[2], x, y);
+	// if (!img)
+	// 	printf("mh");
+	// else
+	// 	printf("I guess it doesn't exist.\n");
+	ft_rgb(c, img->bitmap[(y * img->width + x)]);
 }

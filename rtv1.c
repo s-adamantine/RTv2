@@ -74,9 +74,9 @@ int			main(int argc, char **argv)
 	set_scene(fd, &scene);
 	if (!(scene.cam_set))
 		error(0);
-	set_finish(&scene);
-	set_fixed_values(&scene);
 	event = get_event(scene);
 	set_texture(&scene, &event);
+	set_finish(&scene);
+	set_fixed_values(&scene);
 	run_calc(&event);
 }

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_scene_new.c                                    :+:      :+:    :+:   */
+/*   set_scene.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/20 10:23:50 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/21 18:25:58 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ static void	init_def_scene(t_scene *scene)
 	scene->height = 800;
 	scene->wait = 0.5;
 	scene->refl = 2;
+	scene->filter = 0;
 	scene->cam_set = 0;
 	scene->ambient = 0.5;
 	scene->grain = 1;

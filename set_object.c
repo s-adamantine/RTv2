@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 14:49:50 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/20 16:24:19 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,11 @@ static void	set_object_type(char *s, t_object *obj, t_scene *scene)
 		obj->f = &get_t_triangle;
 		obj->type = 5;
 	}
+	else if (ft_strncmp(s, "mesh", 4) == 0)
+	{
+		obj->f = &get_t_mesh;
+		obj->type = 6;
+	}
 	else
 		s_error("Object type is not valid");
 }
@@ -151,6 +156,8 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		(obj->is_group_main)++;
 	else if (ft_strncmp(s, "visible", 7) == 0)
 		obj->visible = ft_atoi(value);
+	else if (ft_strncmp(s, "path", 4) == 0)
+		obj->path = ft_strdup(value);
 	else
 		set_values_material(&(obj->m), s, value);
 }
@@ -180,5 +187,7 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 	if (gnl < 0)
 		error(0);
 	free(line);
+	if (obj.type == 6)
+		create_mesh(objects, &obj, scene);
 	ft_lstaddnewr(objects, &obj, sizeof(obj));
 }

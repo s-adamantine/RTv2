@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 14:09:05 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/19 14:25:33 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/21 18:09:11 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void	add_color(t_pixel *p, int id, t_event *event, t_3v *t)
 		{
 			if ((event->src)->max_intensity > 1.0)
 				(p->c_per_src)[id] = ft_3v_scalar((p->c_per_src)[id],
-						1 / (event->src)->max_intensity);
+						1.0 / (event->src)->max_intensity);
 			p->color = ft_3v_add((p->c_per_src)[id], p->color);
 		}
 	}
@@ -108,7 +108,7 @@ static void	*switch_one(void *event)
 	i = ((scene.height / THREADS) * scene.thread_id);
 	grain_step = (scene.step_size > scene.max_anti_a) ? scene.step_size /
 		scene.max_anti_a : 1;
-	while (i < (scene.height / THREADS)  * (scene.thread_id + 1))
+	while (i < (scene.height / THREADS) * (scene.thread_id + 1))
 	{
 		j = 0;
 		while (j < scene.width)
@@ -151,5 +151,3 @@ void		turn_on_lights(t_event *event)
 		s_lst = s_lst->next;
 	}
 }
-
-

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpauw <marvin@42.fr>                       +#+  +:+       +#+         #
+#    By: nicola <nicola@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/20 10:56:17 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/22 16:00:34 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,12 +17,19 @@ SRCS = 	rtv1.c\
 		set_object.c\
 		set_camera.c\
 		set_render.c\
+		set_mesh.c\
+		set_menu.c\
+		set_object_menu.c\
+		set_camera_menu.c\
+		set_light_menu.c\
+		set_strings.c\
 		set_material.c\
 		set_pattern.c\
 		set_light.c\
 		set_point_list.c\
 		set_finish.c\
 		set_fixed_values.c\
+		set_fixed_values_2.c\
 		set_t_values.c\
 		get_event.c\
 		set_light_per_pixel.c\
@@ -44,7 +51,11 @@ SRCS = 	rtv1.c\
 		control_light_2.c\
 		control_camera.c\
 		polka_dot_it.c\
-		refraction.c
+		stripe_it.c\
+		refraction.c\
+		get_mesh_obj.c\
+		filter_it.c\
+
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/
 #
@@ -53,6 +64,7 @@ LMLXDIR = minilibx_macos/
 # Use other $LMLXDIR by (un)commenting the following two lines
 # if the project does not compile.
 #
+LMLXDIR = minilibx_macos/
 #LMLXDIR = mlx_macbook/
 LIBFT = libft.a
 LIBMLX = libmlx.a

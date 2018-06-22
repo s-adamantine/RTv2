@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:27:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/15 10:56:44 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/21 18:12:35 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,19 @@ static t_3v	get_angle(t_object o, t_3v p)
 	return (k);
 }
 
-t_material	get_object_material(t_object o, t_3v p)
+t_material	get_object_material(t_object o, t_3v p, t_scene *scene)
 {
 	t_3v	dif;
 	t_3v	angle;
 
 	dif = ft_3v_subtract(p, o.origin);
+	dif = rotate_v_inv(dif, o.rotation);
 	angle = get_angle(o, dif);
 	if ((o.pattern).type == 1)
 		return (polka_dot_it(o, angle, dif));
+	else if ((o.pattern).type == 2)
+		return (stripe_it(o, angle, dif));
+	if (scene->filter > 0)
+		return (filter_it(o, scene->filter));
 	return (o.m);
 }

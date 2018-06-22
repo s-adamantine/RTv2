@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 13:23:14 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/22 16:35:51 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,5 +77,6 @@ int			main(int argc, char **argv)
 	set_finish(&scene);
 	set_fixed_values(&scene);
 	event = get_event(scene);
+	init_menu(&event);
 	run_calc(&event);
 }

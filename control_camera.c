@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:01 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:25:24 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/22 15:47:03 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,8 @@
 
 static t_cam	*get_selected_cam(t_scene *scene, int id)
 {
-	t_list	*tmp_cam;
-	t_cam	*cam;
+	t_list		*tmp_cam;
+	t_cam		*cam;
 	static int	a = 0;
 
 	a++;
@@ -30,7 +30,11 @@ static t_cam	*get_selected_cam(t_scene *scene, int id)
 	{
 		cam = (t_cam *)tmp_cam->content;
 		if (cam->id == id)
+		{
+			(scene->cam)->selected = 0;
+			cam->selected = 1;
 			return (cam);
+		}
 		tmp_cam = tmp_cam->next;
 	}
 	return (NULL);
@@ -39,24 +43,22 @@ static t_cam	*get_selected_cam(t_scene *scene, int id)
 void			change_camera(t_event *event)
 {
 	t_scene	*scene;
-	t_cam	*cam;
 
 	scene = &(event->scene);
 	if ((scene->cam)->id == event->id_select - 1)
 		return ;
-	if (!(cam = get_selected_cam(scene, event->id_select - 1)))
+	if (!(scene->cam = get_selected_cam(scene, event->id_select - 1)))
 		return ;
-	scene->cam = cam;
-	if (!(cam->init))
+	if (!((scene->cam)->init))
 	{
-		if (!(cam->p_array = (t_pixel *)malloc(sizeof(t_pixel)
+		if (!((scene->cam)->p_array = (t_pixel *)malloc(sizeof(t_pixel)
 					* scene->width * scene->height *
 					scene->max_anti_a * scene->max_anti_a)) ||
-				!(cam->pixel_set = (int *)malloc(sizeof(int)
+				!((scene->cam)->pixel_set = (int *)malloc(sizeof(int)
 					* scene->width * scene->height
 					* scene->max_anti_a * scene->max_anti_a)))
 			error(1);
-		ft_bzero(cam->pixel_set, sizeof(int) * scene->width
+		ft_bzero((scene->cam)->pixel_set, sizeof(int) * scene->width
 			* scene->height * scene->max_anti_a * scene->max_anti_a);
 		set_fixed_values(scene);
 		create_threads(event, set_t_values);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/20 10:27:17 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/22 17:05:23 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,28 @@
 
 # define MAX_S_VALUE 50000
 # define DEG 57.2958
-# define MENU_WIDTH 500
 # define THREADS 4
+
+# define MENU_WIDTH 500
+# define MENU_HEIGHT 1400
+# define PRIMARY 0x9c27b0
+# define SECONDARY 0x388e3c
+# define P_LIGHT 0xd05ce3
+# define P_DARK 0x6a0080
+# define TEXT_L 0xffffff
+# define TEXT_D 0x000000
+# define GRAY 0xeceff1
+# define GRAY_2 0xcfd8dc 
+# define TOP_BAR 100
+# define MARGIN 20
+# define SUB_MARGIN 10
+# define INFO_MARGIN 150
+# define MENU_LINE 20
+# define OBJ_HEIGHT 160
+# define CAM_HEIGHT 80
+# define LIGHT_HEIGHT 120
+# define AMOUNT_INSTRUCTIONS 7
+# define AMOUNT_INFO 8
 
 # include "libft.h"
 
@@ -47,6 +67,13 @@ typedef struct	s_img
 	int			id;
 }				t_img;
 
+typedef struct	s_menu
+{
+	char		**info;
+	char		**types;
+	char		**man;
+}				t_menu;
+
 typedef struct	s_intensity
 {
 	double		spec;
@@ -70,6 +97,7 @@ typedef struct	s_source
 
 typedef struct	s_fixed_v
 {
+	int			obj_id;
 	double		val;
 	double		val_2;
 	double		rad;
@@ -105,9 +133,9 @@ typedef struct	s_pattern
 	double		size;
 	int			amount_points;
 	t_3v		*points_arr;
-	int			distance;
-	int			os_1;
-	int			os_2;
+	double		distance;
+	double		os_1;
+	double		os_2;
 }				t_pattern;
 
 typedef struct	s_object
@@ -138,6 +166,7 @@ typedef struct	s_object
 	t_3v			group_rotation;
 	t_fixed_v		**fixed_c[THREADS];
 	t_fixed_v		**fixed_s[THREADS];
+	char		*path;
 }				t_object;
 
 typedef struct	s_p_info
@@ -178,6 +207,7 @@ typedef struct	s_cam
 	t_pixel		*p_array;
 	double		*light_vis;
 	int			*pixel_set;
+	int			selected;
 }				t_cam;
 
 typedef struct s_keys
@@ -204,6 +234,7 @@ typedef struct	s_scene
 	int			max_anti_a;
 	int			step_size;
 	int			refl;
+	int			filter;
 	double		ambient;
 	double		wait;
 	t_cam		*cam;
@@ -222,7 +253,10 @@ typedef struct	s_event
 {
 	void		*mlx;
 	void		*win;
+	void		*menu_win;
 	t_img		img;
+	t_img		menu_img;
+	t_menu		menu;
 	t_scene		scene;
 	t_source	*src;
 	t_keys		key;
@@ -231,6 +265,7 @@ typedef struct	s_event
 	int			y_0;
 	int			t_select;
 	int			id_select;
+	int			instructions;
 	int			redraw;
 }				t_event;
 
@@ -248,6 +283,7 @@ double			get_t_cylinder(t_fixed_v f, t_3v dir, int alt, t_object *obj);
 double			get_t_plane(t_fixed_v f, t_3v dir, int alt, t_object *obj);
 double			get_t_sphere(t_fixed_v f, t_3v dir, int alt, t_object *obj);
 double			get_t_cone(t_fixed_v f, t_3v dir, int alt, t_object *obj);
+double  		get_t_mesh(t_fixed_v f, t_3v dir, int alt);
 void			*set_t_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
@@ -285,8 +321,9 @@ void			set_value_refl(t_3v point, t_object *o, int r, int cam_id,
 		int thread_id);
 void			set_drag_angle(t_event *event, int x, int y);
 char			*get_vector_string(t_3v v, int precision);
-t_material		get_object_material(t_object o, t_3v p);
+t_material		get_object_material(t_object o, t_3v p, t_scene *scene);
 t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif);
+t_material		stripe_it(t_object o, t_3v angle, t_3v dif);
 void			change_camera(t_event *event);
 void			set_values_material(t_material *m, char *s, char *value);
 void			set_material(t_scene *scene);
@@ -304,5 +341,26 @@ double			get_influence(t_pixel *p, int i);
 int				key_release(int key, t_event *event);
 int				move(t_event *event);
 int				loop_hook(t_event *event);
+void			set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f);
+void			set_menu(t_event *event);
+void			set_object_menu(t_event *event);
+void			set_strings(t_menu *menu);
+void			init_menu(t_event *event);
+void			change_menu(t_event *event);
+void			set_cam_menu(t_event *event);
+void			set_light_menu(t_event *event);
+
+
+// NICOLA
+t_3v	**read_obj_file(char *path, int verbose);
+int		fill_f_v_obj_file(char *path,  t_3v *vertices , t_3v **faces, int ver_num);
+void	get_int_from_line(int *v, char *line, int size);
+int		scan_obj_file(char *path, int *fac_ver_num_0, int *fac_ver_num_1);
+int		fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices);
+int		printf_triangle(t_3v *triangle, int i);
+
+void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);
+
+t_material		filter_it(t_object o, int id);
 
 #endif

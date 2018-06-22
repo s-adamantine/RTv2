@@ -2,13 +2,44 @@ pattern {
 		{id, {1}}
 		{description, {Polka Dots}}
 		{type, {1}}
-		{size, {0.01}}
-		{amount_points {150}}
+		{size, {0.015}}
+		{amount_points, {100}}
+		{distance, {10}}
+		{offset_1, {5}}
 }
 pattern {
 		{id, {2}}
 		{description, {Polka Dots}}
 		{type, {1}}
 		{size, {0.1}}
-		{amount_points {40}}
+		{amount_points, {40}}
+		{size, {3}}
+		{distance, {3}}
+}
+pattern {
+		{id, {3}}
+		{description, {Stripes}}
+		{type, {2}}
+		{size, {0.1}}
+		{distance, {0.4}}
+		{offset_1, {3}}
+		{offset_2, {0.0}}
+}
+pattern {
+		{id, {4}}
+		{description, {Stripes}}
+		{type, {2}}
+		{size, {0.1}}
+		{distance, {0.8}}
+		{offset_1, {8}}
+		{offset_2, {0.0}}
+}
+pattern {
+		{id, {5}}
+		{description, {Polka Dots}}
+		{type, {1}}
+		{size, {0.1}}
+		{amount_points, {100}}
+		{distance, {30}}
+		{offset_1, {5}}
 }

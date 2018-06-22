@@ -1,6 +1,6 @@
 render {
 		{name, {Scene Plane}}
-		{dimensions, {2000 1400}}
+		{dimensions, {1000 700}}
 		{ambient, {5}}
 }
 camera {

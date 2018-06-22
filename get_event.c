@@ -12,8 +12,10 @@
 
 #include "rtv1.h"
 
-static int	loop_hook(t_event *event)
+int			loop_hook(t_event *event)
 {
+	if (event->t_select == KEY_M)
+		move(event);
 	if (event->redraw)
 	{
 		mlx_put_image_to_window(event->mlx, event->win,
@@ -25,15 +27,20 @@ static int	loop_hook(t_event *event)
 
 void		init_loop(t_event *event)
 {
-	mlx_key_hook(event->win, &key_pressed, event);
+	// mlx_key_hook(event->win, &key_pressed, event);
+	mlx_hook(event->win, KEY_PRESS, KEY_PRESS_MASK,
+		&key_hold, event);
+	mlx_hook(event->win, BUTTON_RELEASE, BUTTON_RELEASE_MASK,
+		&key_release, event);
 	mlx_loop_hook(event->mlx, &loop_hook, event);
 	mlx_mouse_hook(event->win, &mouse_click, event);
 //	mlx_hook(event->win, MOTION_NOTIFY, POINTER_MOTION_MASK,
 //			&drag_scene, event);
+	// mlx_hook(event->win, KEY_PRESS, KEY_PRESS_MASK,
+	// 		&key_hold, event);
 	// mlx_hook(event->win, BUTTON_RELEASE, BUTTON_RELEASE_MASK,
-	// 		&toggle_button, event);
-	mlx_hook(event->win, KEY_PRESS, KEY_PRESS_MASK,
-			&key_hold, event);
+	// 		&key_release, event);
+	// mlx_loop_hook(event->mlx, &move, event);
 	mlx_loop(event->mlx);
 }
 

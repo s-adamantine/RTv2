@@ -180,6 +180,14 @@ typedef struct	s_cam
 	int			*pixel_set;
 }				t_cam;
 
+typedef struct s_keys
+{
+	double		w;
+	double		a;
+	double		s;
+	double		d;
+}				t_keys;
+
 typedef struct	s_scene
 {
 	char		*name;
@@ -207,6 +215,7 @@ typedef struct	s_scene
 	int			all_on;
 	int			source_id;
 	int			thread_id;
+	int			set;
 }				t_scene;
 
 typedef struct	s_event
@@ -216,6 +225,7 @@ typedef struct	s_event
 	t_img		img;
 	t_scene		scene;
 	t_source	*src;
+	t_keys		key;
 	int			mouse_hold;
 	int			x_0;
 	int			y_0;
@@ -291,5 +301,8 @@ double			within_limits(t_object *obj, t_3v point, double b);
 void			set_finish(t_scene *scene);
 double			get_influence_specular(t_pixel *p, int i);
 double			get_influence(t_pixel *p, int i);
+int				key_release(int key, t_event *event);
+int				move(t_event *event);
+int				loop_hook(t_event *event);
 
 #endif

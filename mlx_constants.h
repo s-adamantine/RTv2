@@ -19,6 +19,6 @@
 # define KEY_PRESS_MASK (1L<<0)
 # define MOTION_NOTIFY 6
 # define KEY_PRESS 2
-# define BUTTON_RELEASE 5
+# define BUTTON_RELEASE 3
 
 #endif

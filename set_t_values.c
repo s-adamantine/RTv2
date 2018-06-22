@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 15:45:03 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/22 17:30:53 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -161,12 +161,9 @@ static void		setup_pixel(t_pixel *p, t_scene scene, int i, int j, int factor)
 {
 	if (scene.refl < 1)
 		scene.refl = 1;
-	if (!(p->c_per_src))
-	{
-		if (!(p->c_per_src = (t_3v *)malloc(sizeof(t_3v)
-				* (scene.amount_light + 1))))
-			error(1);
-	}
+	if (!(p->c_per_src = (t_3v *)malloc(sizeof(t_3v)
+		* (scene.amount_light + 1))))
+	error(1);
 	if (!(p->pi_arr = (t_p_info **)malloc(sizeof(t_p_info *))))
 		error(1);
 	p->color = ft_zero_3v();
@@ -176,12 +173,6 @@ static void		setup_pixel(t_pixel *p, t_scene scene, int i, int j, int factor)
 	(p->coor).v[0] = -(scene.width / 2);
 	(p->coor).v[1] = (double)((double)j / factor - scene.width / 2.0);
 	(p->coor).v[2] = (double)(scene.height / 2.0 - (double)i / factor);
-}
-
-static void		reset_pixel(t_pixel *p, t_scene scene, int i, int j, int factor)
-{
-	free(*p->pi_arr);
-	(scene.cam)->pixel_set[j + scene.width * factor * i] = 0;
 }
 
 /*
@@ -205,9 +196,6 @@ void			*set_t_values(void *arg)
 		j = 0;
 		while (j < e->scene.width * factor)
 		{
-			if (e->scene.set == 1 && (e->scene.cam)->pixel_set[j + i * e->scene.width * factor])
-				reset_pixel(&((e->scene.cam)->p_array[j + i * e->scene.width * factor]),
-					e->scene, i, j, factor);
 			if (!(e->scene.cam)->pixel_set[j + i * e->scene.width * factor])
 			{
 				p = &((e->scene.cam)->p_array[j + i * e->scene.width * factor]);

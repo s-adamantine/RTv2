@@ -73,6 +73,7 @@ static void	change_color(t_event *event, int id, int vert, int hor)
 	int		i;
 	int		j;
 	int		index;
+	int		color;
 
 	i = 0;
 	t = ft_init_3v(0.0, 0.0, 0.0);
@@ -91,8 +92,10 @@ static void	change_color(t_event *event, int id, int vert, int hor)
 		i += event->scene.step_size;
 	}
 	t = ft_3v_scalar(t, 1.0 / ((event->scene).anti_a * (event->scene).anti_a));
+	color = (event->scene.filter > 0) ? get_color(color_filter_it(t,
+		event->scene.filter)) : get_color(t);
 	fill_square(&(event->img), hor + (event->scene).width * vert,
-			(event->scene).step_size / (event->scene).max_anti_a, get_color(t));
+			(event->scene).step_size / (event->scene).max_anti_a, color);
 }
 
 static void	*switch_one(void *event)

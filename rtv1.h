@@ -312,5 +312,6 @@ int		printf_triangle(t_3v *triangle, int i);
 void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 
 t_material		filter_it(t_object o, int id);
+t_3v			color_filter_it(t_3v color, int id);
 
 #endif

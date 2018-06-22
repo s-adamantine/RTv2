@@ -77,6 +77,5 @@ int			main(int argc, char **argv)
 	set_finish(&scene);
 	set_fixed_values(&scene);
 	event = get_event(scene);
-	set_menu(&event);
 	run_calc(&event);
 }

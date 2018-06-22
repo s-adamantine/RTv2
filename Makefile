@@ -48,7 +48,8 @@ SRCS = 	rtv1.c\
 		polka_dot_it.c\
 		stripe_it.c\
 		refraction.c\
-		get_mesh_obj.c
+		get_mesh_obj.c\
+		filter_it.c\
 
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/

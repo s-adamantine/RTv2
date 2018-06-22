@@ -200,6 +200,7 @@ typedef struct	s_scene
 	int			max_anti_a;
 	int			step_size;
 	int			refl;
+	int			filter;
 	double		ambient;
 	double		wait;
 	t_cam		*cam;
@@ -282,7 +283,7 @@ void			set_value_refl(t_3v point, t_object *o, int r, int cam_id,
 		int thread_id);
 void			set_drag_angle(t_event *event, int x, int y);
 char			*get_vector_string(t_3v v, int precision);
-t_material		get_object_material(t_object o, t_3v p);
+t_material		get_object_material(t_object o, t_3v p, t_scene *scene);
 t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif);
 t_material		stripe_it(t_object o, t_3v angle, t_3v dif);
 void			change_camera(t_event *event);
@@ -309,5 +310,7 @@ int		fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices);
 int		printf_triangle(t_3v *triangle, int i);
 
 void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);
+
+t_material		filter_it(t_object o, int id);
 
 #endif

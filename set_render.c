@@ -41,6 +41,8 @@ static void	set_values_render(t_scene *scene, char *s, char *value)
 			ft_strncmp(s, "anti_a", 6) == 0 || ft_strncmp(s, "wait", 4) == 0
 		|| ft_strncmp(s, "reflection", 10) == 0)
 		set_values_render_2(scene, s, value);
+	else if (ft_strncmp(s, "filter", 6) == 0)
+		scene->filter = ft_atoi(value);
 	else if (ft_strncmp(s, "dimensions", 10) == 0)
 	{
 		if (!(tmp = (double *)malloc(2 * sizeof(double))))

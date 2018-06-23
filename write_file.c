@@ -12,40 +12,63 @@
 
 #include "rtv1.h"
 
-//need to protect against reading an empty file
+//need to protect against reading an empty file/one that doesn't exist
 //protect against reading image that's too big
 //protect against a file format that isn't width and height and a number in the header
 void	read_image(t_event *event)
 {
 	FILE	*fp;
 	char	*line;
-	char	**params;
+	// char	**params;
+	int		i;
 
+	i = 0;
 	ft_putstr("Which image would you like to load? ");
 	get_next_line(0, &line);
 	fp = fopen(line, "r");
-	params = ft_strsplit(fgets(line, 100, fp), ' ');
-	//do I have to init an image?
-	event->img.width = ft_atoi(params[1]);
-	event->img.height = ft_atoi(params[3]);
-	event->
+	// params = ft_strsplit(fgets(line, 100, fp), ' ');
+	// event->img->id = mlx_new_image(e->mlx, ft_atoi(params[1]), ft_atoi(params[3]));
+	// event->img.bitmap = (int *)mlx_get_data_addr(event->img->id, &(event->img->bpp), &(event->img->sline), &(event->img->endian));
+	// event->img.width = ft_atoi(params[1]);
+	// event->img.height = ft_atoi(params[3]);
+	// while (i < (event->img.width * event->img.height))
+	// 	event->img.bitmap[i++] = ft_atoi(fgets(line, 10, fp));
+	// mlx_put_image_to_window(event->mlx, event->win,
+	// 	(event->img).img_ptr, 0, 0);
+	init_loop(event);
 }
 
-void	write_file(t_event *event)
+void	save_image(t_event *event)
 {
 	FILE	*fp;
 	char	*name;
+	char	*input;
 	int		*data;
 	int		i;
 
 	i = 0;
-	//need to protect against rewriting a file
-	ft_putstr("Saving scene.\nFile name: ");
+	ft_putstr("Saving scene.\nWhat name should I save it to? ");
 	get_next_line(0, &name);
+	if (open(name, O_RDONLY) > 0)
+	{
+		ft_putstr("The file already exists. Are you sure you want to overwrite it? y/n\n");
+		get_next_line(0, &input);
+		if (ft_strncmp(input, "n", 1) == 0)
+		{
+			ft_putstr("Scene not saved.\n");
+			return ;
+		}
+		else if (ft_strncmp(input, "y", 1) != 0)
+		{
+			ft_putstr("Invalid input.\n");
+			return ;			
+		}
+	}
 	fp = fopen(name, "w");
 	data = (int *)event->img.img_arr;
 	fprintf(fp, "width: %d height: %d\n", event->img.width, event->img.height);
-	while (data[i])
-		fprintf(fp, "%d ", data[i++]);
+	while (i < (event->img.width * event->img.height))
+		fprintf(fp, "%08d ", data[i++]);
+	ft_putstr("File successfully saved.\n");
 	fclose(fp);
 }

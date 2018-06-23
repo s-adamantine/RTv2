@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 15:54:21 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/23 18:11:41 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	change_grain(t_event *event, int sharper)
 	if (sharper && (event->scene).anti_a * 2 > (event->scene).max_anti_a)
 		yes = 0;
 	if (yes && sharper && (event->scene).grain >= 2 && (event->scene).anti_a == 1)
-		(event->scene).grain /= 2;	
+		(event->scene).grain /= 2;
 	else if (yes && sharper && (event->scene).anti_a * 2 <= (event->scene).max_anti_a)
 		(event->scene).anti_a *= 2;
 	else if (yes && !sharper && (event->scene).grain == 1 && (event->scene).anti_a >= 2)
@@ -40,6 +40,10 @@ int			key_pressed(int key, t_event *event)
 {
 	if (key == ESC)
 		exit(0);
+	if (key == KEY_S)
+		save_image(event);
+	if (key == KEY_W) //change to something else
+		read_image(event);
 	if (key == KEY_I)
 	{
 		event->instructions = (event->instructions) ? 0 : 1;
@@ -54,7 +58,7 @@ int			key_pressed(int key, t_event *event)
 		change_grain(event, (key == COMMA));
 	else if (key == KEY_C || key == KEY_O || key == KEY_L || key == KEY_G)
 	{
-		event->t_select = key;	
+		event->t_select = key;
 		change_menu(event);
 	}
 	else if (key == KEY_Q && event->t_select == KEY_L)

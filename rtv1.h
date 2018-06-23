@@ -26,7 +26,7 @@
 # define TEXT_L 0xffffff
 # define TEXT_D 0x000000
 # define GRAY 0xeceff1
-# define GRAY_2 0xcfd8dc 
+# define GRAY_2 0xcfd8dc
 # define TOP_BAR 100
 # define MARGIN 20
 # define SUB_MARGIN 10
@@ -58,6 +58,7 @@ typedef struct	s_img
 {
 	void		*img_ptr;
 	char		*img_arr;
+	int			*bitmap;
 	int			width;
 	int			height;
 	int			bpp;
@@ -345,5 +346,8 @@ int		printf_triangle(t_3v *triangle, int i);
 void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 
 t_material		filter_it(t_object o, int id);
+
+void			save_image(t_event *event);
+void			read_image(t_event *event);
 
 #endif

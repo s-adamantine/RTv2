@@ -66,15 +66,17 @@ void	save_image(t_event *event)
 {
 	FILE	*fp;
 	char	*name;
+	char	*path;
 	int		*data;
 	int		i;
 
 	i = 0;
 	ft_putstr("Saving scene.\nWhat name should I save it to? ");
 	get_next_line(0, &name);
-	if (!file_exists(name))
+	path = ft_strcat_alloc("./images/", name);
+	if (!file_exists(path))
 	{
-		fp = fopen(name, "w");
+		fp = fopen(path, "w");
 		data = (int *)event->img.img_arr;
 		fprintf(fp, "width: %d height: %d\n", event->img.width,
 			event->img.height);

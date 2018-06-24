@@ -24,7 +24,7 @@ static int	file_exists(char *name)
 		get_next_line(0, &input);
 		if (ft_strncmp(input, "n", 1) == 0)
 		{
-			ft_putstr("Scene not saved.");
+			ft_putstr("Scene not saved.\n");
 			return (1);
 		}
 		else if (ft_strncmp(input, "y", 1) != 0)
@@ -43,22 +43,22 @@ void	read_image(t_event *event)
 	char	*line;
 	char	**params;
 	int		i;
+	t_img	img;
 
 	i = 0;
 	ft_putstr("Which image would you like to load? ");
 	get_next_line(0, &line);
 	fp = fopen(line, "r");
 	params = ft_strsplit(fgets(line, 100, fp), ' ');
-	event->img.img_ptr = mlx_new_image(event->mlx, ft_atoi(params[1]),
+	img.img_ptr = mlx_new_image(event->mlx, ft_atoi(params[1]),
 		ft_atoi(params[3]));
-	event->img.bitmap = (int *)mlx_get_data_addr(event->img.img_ptr,
-		&(event->img.bpp), &(event->img.size_line), &(event->img.endian));
-	event->img.width = ft_atoi(params[1]);
-	event->img.height = ft_atoi(params[3]);
-	while (i < (event->img.width * event->img.height))
-		event->img.bitmap[i++] = ft_atoi(fgets(line, 10, fp));
-	mlx_put_image_to_window(event->mlx, event->win,
-		(event->img).img_ptr, 0, 0);
+	img.bitmap = (int *)mlx_get_data_addr(img.img_ptr,
+		&(img.bpp), &(img.size_line), &(img.endian));
+	img.width = ft_atoi(params[1]);
+	img.height = ft_atoi(params[3]);
+	while (i < (img.width * img.height))
+		img.bitmap[i++] = ft_atoi(fgets(line, 10, fp));
+	mlx_put_image_to_window(event->mlx, event->win, img.img_ptr, 0, 0);
 	init_loop(event);
 }
 
@@ -80,7 +80,7 @@ void	save_image(t_event *event)
 			event->img.height);
 		while (i < (event->img.width * event->img.height))
 			fprintf(fp, "%08d ", data[i++]);
-		ft_putstr("File successfully saved.\n");
 		fclose(fp);
+		ft_putstr("File successfully saved.\n");
 	}
 }

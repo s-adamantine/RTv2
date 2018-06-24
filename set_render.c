@@ -50,6 +50,8 @@ static void	set_values_render(t_scene *scene, char *s, char *value)
 		get_doubles_from_line(tmp, value, 2);
 		scene->width = (int)(tmp[0]);
 		scene->height = (int)(tmp[1]);
+		if (scene->width > 2048 || scene->height > 2048)
+			s_error("Are you sure you want your window to be that big?");
 		free(tmp);
 	}
 }

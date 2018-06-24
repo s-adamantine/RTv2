@@ -12,8 +12,30 @@
 
 #include "rtv1.h"
 
-//need to protect against reading an empty file/one that doesn't exist
-//protect against reading image that's too big
+static int	file_exists(char *name)
+{
+	int		fd;
+	char	*input;
+
+	if ((fd = open(name, O_RDONLY)) > 0)
+	{
+		ft_putstr("A file with that name already exists.\n");
+		ft_putstr("Would you like to overwrite it? y/n\n");
+		get_next_line(0, &input);
+		if (ft_strncmp(input, "n", 1) == 0)
+		{
+			ft_putstr("Scene not saved.");
+			return (1);
+		}
+		else if (ft_strncmp(input, "y", 1) != 0)
+		{
+			ft_putstr("Error: Invalid input.\n");
+			return (1);
+		}
+	}
+	return (0);
+}
+
 //protect against a file format that isn't width and height and a number in the header
 void	read_image(t_event *event)
 {
@@ -44,33 +66,21 @@ void	save_image(t_event *event)
 {
 	FILE	*fp;
 	char	*name;
-	char	*input;
 	int		*data;
 	int		i;
 
 	i = 0;
 	ft_putstr("Saving scene.\nWhat name should I save it to? ");
 	get_next_line(0, &name);
-	if (open(name, O_RDONLY) > 0)
+	if (!file_exists(name))
 	{
-		ft_putstr("The file already exists. Are you sure you want to overwrite it? y/n\n");
-		get_next_line(0, &input);
-		if (ft_strncmp(input, "n", 1) == 0)
-		{
-			ft_putstr("Scene not saved.\n");
-			return ;
-		}
-		else if (ft_strncmp(input, "y", 1) != 0)
-		{
-			ft_putstr("Invalid input.\n");
-			return ;
-		}
+		fp = fopen(name, "w");
+		data = (int *)event->img.img_arr;
+		fprintf(fp, "width: %d height: %d\n", event->img.width,
+			event->img.height);
+		while (i < (event->img.width * event->img.height))
+			fprintf(fp, "%08d ", data[i++]);
+		ft_putstr("File successfully saved.\n");
+		fclose(fp);
 	}
-	fp = fopen(name, "w");
-	data = (int *)event->img.img_arr;
-	fprintf(fp, "width: %d height: %d\n", event->img.width, event->img.height);
-	while (i < (event->img.width * event->img.height))
-		fprintf(fp, "%08d ", data[i++]);
-	ft_putstr("File successfully saved.\n");
-	fclose(fp);
 }

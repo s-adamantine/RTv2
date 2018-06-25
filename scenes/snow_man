@@ -25,17 +25,28 @@ light {
 		{color, {1.0 1.0 1.0}}
 		{intensity, {4000 1}}
 }
+
 object {
-		{type, {composite}}
-		{path, {./scenes/objs/snow_man}}
-		{origin, {0.0 200.0 -200.0}}
-		{rotation, {0.0 0.0 0.0}}
-		{size, {1.8}}
+		{type, {sphere}}
+		{origin, {0.0 0.0 100.0}}
+		{color, {1.0 1.0 1.0}}
+		{transparent, {0.0}}
+		{radius, {100}}
+		{reflection, {0.05 0.25 0.05 20}}
 }
 object {
-		{type, {composite}}
-		{path, {./scenes/objs/snow_man}}
-		{origin, {-30.0 -200.0 -200.0}}
-		{rotation, {0.0 0.0 0.0}}
-		{size, {1.2}}
+		{type, {sphere}}
+		{origin, {0.0 0.0 255.0}}
+		{color, {1.0 1.0 1.0}}
+		{transparent, {0.0}}
+		{radius, {89}}
+		{reflection, {0.05 0.25 0.05 20}}
+}
+object {
+		{type, {sphere}}
+		{origin, {0.0 0.0 385.0}}
+		{color, {1.0 1.0 1.0}}
+		{transparent, {0.0}}
+		{radius, {70}}
+		{reflection, {0.05 0.25 0.05 20}}
 }

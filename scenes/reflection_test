@@ -71,8 +71,9 @@ object {
 		{rotation, {0.0 0.0 0.0}}
 		{color, {1.0, 1.0, 1.0}}
 		{radius, {120}}
-		{transparent, {1.0}}
-		{refraction, {1.52}}
+		{transparent, {0.4}}
+		{reflection, {0.1 0.15 1.0 20}}
+		{beer {0.3 0.9 0.1}}
 }
 object {
 		{type, {cylinder}}
@@ -80,8 +81,9 @@ object {
 		{rotation, {0.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{radius, {120}}
-		{transparent, {0.6}}
+		{reflection, {0.1 0.15 1.0 20}}
 		{refraction, {1.51}}
+		{transparent, {0.4}}
 		{beer {0.3 0.9 0.1}}
 }
 object {
@@ -89,12 +91,6 @@ object {
 		{origin, {-500.0 0.0 -120.0}}
 		{rotation, {0.0 0.0 0.0}}
 		{color, {0.0 0.9 0.5}}
-}
-object {
-		{type, {plane}}
-		{origin, {0.0 -200.0 0.0}}
-		{rotation, {0.0 90.0 0.0}}
-		{color, {0.5 0.5 0.5}}
 }
 object {
 		{type, {plane}}

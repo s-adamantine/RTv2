@@ -45,7 +45,8 @@ void			change_camera(t_event *event)
 	t_scene	*scene;
 
 	scene = &(event->scene);
-	if ((scene->cam)->id == event->id_select - 1)
+	if ((scene->cam)->id == event->id_select - 1
+		|| event->id_select > scene->cam_set || event->id_select == 0)
 		return ;
 	if (!(scene->cam = get_selected_cam(scene, event->id_select - 1)))
 		return ;

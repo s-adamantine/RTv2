@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 10:15:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 19:10:22 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 19:34:40 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** first if makes sure the fixed values are set for transparency and reflection.
 */
 
-static t_object	*get_vis_obj(t_pixel *p, t_3v dir, t_scene *sc, t_p_info *pi)
+static t_object	*get_vis_obj(t_pixel *p, t_3v dir, t_scene sc, t_p_info *pi)
 {
 	double		tmp;
 	int			var[3];
@@ -26,14 +26,14 @@ static t_object	*get_vis_obj(t_pixel *p, t_3v dir, t_scene *sc, t_p_info *pi)
 	t_object	*visible_object;
 
 	visible_object = NULL;
-	tmp_obj = sc->objects;
+	tmp_obj = sc.objects;
 	while (tmp_obj && tmp_obj->content)
 	{
 		obj = (t_object *)tmp_obj->content;
-		set_var(var, p->amount_p, (sc->cam)->id, sc->thread_id);
+		set_var(var, p->amount_p, (sc.cam)->id, sc.thread_id);
 		if (p->amount_p > 0)
 			set_value_refl((p->pi_arr[p->amount_p - 1])->point, obj, var);
-		tmp = obj->f(obj->fixed_c[sc->thread_id][(sc->cam)->id][p->amount_p],
+		tmp = obj->f(obj->fixed_c[sc.thread_id][(sc.cam)->id][p->amount_p],
 				dir, 0, obj);
 		if (tmp > 0.001 && tmp < pi->s_value)
 		{
@@ -57,7 +57,7 @@ static t_p_info	*pi_no_vis_obj(t_p_info *pi)
 ** how many objects will be visible.
 */
 
-static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
+static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene scene, int type)
 {
 	t_p_info	*pi;
 	t_p_info	**tmp;
@@ -86,14 +86,14 @@ static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
 	return (pi);
 }
 
-static void		refrect_or_reflect(t_pixel *p, t_scene *scene, t_3v dir,
+static void		refrect_or_reflect(t_pixel *p, t_scene scene, t_3v dir,
 		t_p_info *pi)
 {
 	t_3v		n_dir;
 
 	if (((pi->vis_obj)->m).transparent > 0.001)
 		refraction(pi, &dir, p, scene);
-	if ((((pi->vis_obj)->m).specular > 0.001 && p->amount_refl < scene->refl))
+	if ((((pi->vis_obj)->m).specular > 0.001 && p->amount_refl < scene.refl))
 	{
 		n_dir = get_reflection_vector(pi->normal, dir);
 		p->type = 1;
@@ -106,7 +106,7 @@ static void		refrect_or_reflect(t_pixel *p, t_scene *scene, t_3v dir,
 ** there is no visible object or the object isn't reflective or transparent.
 */
 
-void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir)
+void			get_reflections(t_pixel *p, t_scene scene, t_3v dir)
 {
 	t_cam		cam;
 	t_p_info	*pi;
@@ -116,9 +116,9 @@ void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir)
 	if (!pi)
 		return ;
 	pi_prev = (p->amount_p > 0) ? p->pi_arr[p->amount_p - 1] : NULL;
-	cam.origin = (p->amount_p > 0) ? pi_prev->point : (scene->cam)->origin;
+	cam.origin = (p->amount_p > 0) ? pi_prev->point : (scene.cam)->origin;
 	cam.rotation = (p->amount_p > 0) ? (pi_prev->vis_obj)->rotation :
-		(scene->cam)->rotation;
+		(scene.cam)->rotation;
 	pi->point = get_point(cam.origin, dir, pi->s_value);
 	pi->normal = get_normal(pi->vis_obj, pi->point);
 	pi->obj_m = get_object_material(*(pi->vis_obj), pi->point, scene);

@@ -6,7 +6,7 @@
 /*   By: jroguszk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 11:37:43 by jroguszk          #+#    #+#             */
-/*   Updated: 2018/06/25 10:46:14 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 19:34:31 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,12 +45,12 @@ static void		fresnal(t_p_info *pi, double *n_value, double cosi,
 	}
 }
 
-static void		call_recursion(t_scene *scene, t_pixel *p, t_3v *dir,
+static void		call_recursion(t_scene scene, t_pixel *p, t_3v *dir,
 		double *n_value)
 {
 	if (n_value[2] < 0.0)
 	{
-		if (p->amount_refl < scene->refl)
+		if (p->amount_refl < scene.refl)
 		{
 			p->type = 1;
 			p->index_refract = n_value[0];
@@ -65,7 +65,7 @@ static void		call_recursion(t_scene *scene, t_pixel *p, t_3v *dir,
 	}
 }
 
-void			refraction(t_p_info *pi, t_3v *dir, t_pixel *p, t_scene *scene)
+void			refraction(t_p_info *pi, t_3v *dir, t_pixel *p, t_scene scene)
 {
 	double	cosi;
 	double	index;

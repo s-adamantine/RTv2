@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 19:00:29 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 19:36:15 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -282,7 +282,6 @@ void			*set_t_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
 void			turn_on_lights(t_event *event);
-void			light_inside(t_scene *scene);
 void			*set_light_per_pixel(void *event);
 t_event			get_event(t_scene scene);
 t_source		*get_source(int id, t_list *lst);
@@ -315,7 +314,7 @@ void			set_fixed_values(t_scene *scene);
 void			set_value_refl(t_3v point, t_object *o, int *var);
 void			set_drag_angle(t_event *event, int x, int y);
 char			*get_vector_string(t_3v v, int precision);
-t_material		get_object_material(t_object o, t_3v p, t_scene *scene);
+t_material		get_object_material(t_object o, t_3v p, t_scene scene);
 t_material		polka_dot_it(t_object o, t_3v angle, t_3v dif);
 t_material		stripe_it(t_object o, t_3v angle, t_3v dif);
 void			change_camera(t_event *event);
@@ -326,8 +325,8 @@ void			set_point_list(t_pattern *p);
 void			init_def_object(t_object *obj, int id, t_scene *scene,
 		t_object *param);
 void			create_threads(t_event *event, void *(*f)(void*));
-void			refraction(t_p_info	*pi, t_3v *dir, t_pixel *p, t_scene *scene);
-void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir);
+void			refraction(t_p_info	*pi, t_3v *dir, t_pixel *p, t_scene scene);
+void			get_reflections(t_pixel *p, t_scene scene, t_3v dir);
 double			within_limits(t_object *obj, t_3v point, double b);
 void			set_finish(t_scene *scene);
 void			set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f);

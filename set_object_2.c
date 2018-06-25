@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 11:20:53 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 15:25:08 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 20:04:54 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void		change_material(t_scene *scene, t_object *obj, int value, int mat)
 	t_list		*tmp;
 
 	tmp = scene->materials;
+	obj->m = *((t_material *)tmp->content);
+	obj->m2 = *((t_material *)tmp->content);
 	while (tmp && tmp->content)
 	{
 		material = (t_material *)tmp->content;

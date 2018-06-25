@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 11:03:55 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 11:15:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 19:35:25 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ static void		get_light_color(t_object *obj, t_3v point, t_source *src,
 		(src->tmp_color).v[2] *= (obj->m).transparent * ((obj->m).color).v[2];
 		return ;
 	}
-	m = get_object_material(*obj, point, scene);
+	m = get_object_material(*obj, point, *scene);
 	(src->tmp_color).v[0] = .5 * (1 - m.transparent) * (m.color).v[0] +
 		m.transparent * src->tmp_color.v[0];
 	(src->tmp_color).v[1] = .5 * (1 - m.transparent) * (m.color).v[1] +

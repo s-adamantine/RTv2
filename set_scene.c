@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 18:25:58 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 14:46:08 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,7 @@ void		set_scene(int fd, t_scene *scene)
 		else if (ft_strncmp(line, "light {", 7) == 0)
 			add_light(scene, fd);
 		else if (ft_strncmp(line, "object {", 8) == 0)
-			set_object(&(scene->objects), scene,
-					scene->amount_obj, fd);
+			set_object(scene, scene->amount_obj, fd, NULL);
 		free(line);
 	}
 	if (gnl < 0)

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 11:03:36 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 18:58:12 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ static void		get_value(t_scene *scene, t_pixel *p)
 
 static void		setup_pixel(t_pixel *p, t_scene *scene, int i, int j)
 {
-	if (scene->refl < 1)
-		scene->refl = 1;
+	if (scene->refl < 0)
+		scene->refl = 0;
 	if ((scene->cam)->pixel_set[j + i * scene->width * scene->max_anti_a])
 	{
 		free(p->c_per_src);

@@ -1,0 +1,41 @@
+render {
+		{name, {Snow Man}}
+		{dimensions, {1600 1200}}
+		{ambient, {1}}
+		{reflection, {0}}
+}
+camera {
+		{origin, {200.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+camera {
+		{origin, {1000.0 -400.0 0.0}}
+		{rotation, {0.0 0.0 330.0}}
+}
+camera {
+		{origin, {-1000.0 0.0 0.0}}
+		{rotation, {0.0 0.0 180.0}}
+}
+camera {
+		{origin, {900.0 40.0 100.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+light {
+		{origin, {2000.0 100.0 200.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {4000 1}}
+}
+object {
+		{type, {composite}}
+		{path, {./scenes/objs/snow_man}}
+		{origin, {0.0 200.0 -200.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{size, {1.8}}
+}
+object {
+		{type, {composite}}
+		{path, {./scenes/objs/snow_man}}
+		{origin, {-30.0 -200.0 -200.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{size, {1.2}}
+}

@@ -6,7 +6,7 @@
 /*   By: sadamant <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 21:59:09 by sadamant          #+#    #+#             */
-/*   Updated: 2018/06/25 13:00:44 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 15:00:47 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	create_triangle(t_list **objects, t_object *parent, t_scene *scene,
 	t_object	obj;
 
 	scene->amount_obj++;
-	init_def_object(&obj, scene->amount_obj, scene);
+	init_def_object(&obj, scene->amount_obj, scene, NULL);
 	obj.type = 5;
 	obj.f = &get_t_triangle;
 	obj.m = parent->m;

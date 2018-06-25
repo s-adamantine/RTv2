@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 11:20:53 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 13:01:13 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 15:25:08 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,17 @@ static void	set_object_type_2(char *s, t_object *obj)
 		obj->f = &get_t_mesh;
 		obj->type = 6;
 	}
+	else if (ft_strncmp(s, "composite", 9) == 0)
+	{
+		obj->f = &get_t_mesh;
+		obj->type = 7;
+	}
 	else
 		s_error("Object type is not valid");
 }
 
-void		set_object_type(char *s, t_object *obj, t_scene *scene)
+void		set_object_type(char *s, t_object *obj)
 {
-	scene->amount_obj++;
 	if (ft_strncmp(s, "plane", 5) == 0)
 	{
 		obj->f = &get_t_plane;

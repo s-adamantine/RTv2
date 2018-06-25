@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 19:00:29 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 17:44:13 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define MAX_S_VALUE 50000
 # define DEG 57.2958
-# define THREADS 4 
+# define THREADS 4
 # define LIMIT_CORR 100
 
 # define MENU_WIDTH 500

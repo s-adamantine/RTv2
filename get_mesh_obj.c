@@ -6,40 +6,41 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:52:14 by nmanzini          #+#    #+#             */
-/*   Updated: 2018/06/25 13:08:51 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 16:29:26 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
 /*
-** takes a path of an obj file and returns a list of triangles
-** every triangle is a list of 3 vector t_3v
-** if verbose == 1 then prints out al the triangle (debug mode)
+** takes a string and fills the i_f[0] triangle with the vertex in the string
+** i_f[1] is the number of vertices, so it is the maximum callable value.
 */
 
-t_3v	**read_obj_file(char *path, int verbose)
+static int	fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices)
 {
-	int		fac_num;
-	int		ver_num;
-	t_3v	*vertices;
-	t_3v	**faces;
+	int		ver_order[3];
 
-	fac_num = 0;
-	ver_num = 0;
-	if (!scan_obj_file(path, &fac_num, &ver_num))
+	get_int_from_line(ver_order, &(line[2]), 3);
+	if (ver_order[0] != ver_order[1] &&
+		ver_order[0] != ver_order[2] &&
+		ver_order[1] != ver_order[2] &&
+		ver_order[0] <= f_i[1] && ver_order[0] >= 0 &&
+		ver_order[1] <= f_i[1] && ver_order[1] >= 0 &&
+		ver_order[2] <= f_i[1] && ver_order[2] >= 0)
 	{
-		ft_putstr("Error reading obj file at: ");
-		ft_putendl(path);
-		exit(0);
+		f_i[0] += 1;
+		faces[*f_i] = (t_3v *)malloc(3 * sizeof(t_3v));
+		faces[*f_i][0] = vertices[ver_order[0] - 1];
+		faces[*f_i][1] = vertices[ver_order[1] - 1];
+		faces[*f_i][2] = vertices[ver_order[2] - 1];
 	}
-	vertices = (t_3v *)malloc((ver_num) * sizeof(t_3v));
-	faces = (t_3v **)malloc((fac_num + 1) * sizeof(t_3v*));
-	fill_f_v_obj_file(path, vertices, faces, fac_num);
-	if (verbose)
-		;
-	faces[fac_num] = NULL;
-	return (faces);
+	else
+	{
+		ft_putstr("error in the obj file in line:\n");
+		ft_putendl(line);
+	}
+	return (0);
 }
 
 /*
@@ -47,7 +48,8 @@ t_3v	**read_obj_file(char *path, int verbose)
 ** vetecies
 */
 
-int		fill_f_v_obj_file(char *path, t_3v *vertices, t_3v **faces, int ver_num)
+static int	fill_f_v_obj_file(char *path, t_3v *vertices, t_3v **faces,
+		int ver_num)
 {
 	int		fd;
 	char	*line;
@@ -82,7 +84,7 @@ int		fill_f_v_obj_file(char *path, t_3v *vertices, t_3v **faces, int ver_num)
 ** checks also that the number of faces and vertex is > than minimum
 */
 
-int		scan_obj_file(char *path, int *fac_num, int *ver_num)
+static int	scan_obj_file(char *path, int *fac_num, int *ver_num)
 {
 	int		fd;
 	char	*line;
@@ -107,32 +109,32 @@ int		scan_obj_file(char *path, int *fac_num, int *ver_num)
 }
 
 /*
-** takes a string and fills the i_f[0] triangle with the vertex in the string
-** i_f[1] is the number of vertices, so it is the maximum callable value.
+** takes a path of an obj file and returns a list of triangles
+** every triangle is a list of 3 vector t_3v
+** if verbose == 1 then prints out al the triangle (debug mode)
 */
 
-int		fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices)
+t_3v		**read_obj_file(char *path, int verbose)
 {
-	int		ver_order[3];
+	int		fac_num;
+	int		ver_num;
+	t_3v	*vertices;
+	t_3v	**faces;
 
-	get_int_from_line(ver_order, &(line[2]), 3);
-	if (ver_order[0] != ver_order[1] &&
-		ver_order[0] != ver_order[2] &&
-		ver_order[1] != ver_order[2] &&
-		ver_order[0] <= f_i[1] && ver_order[0] >= 0 &&
-		ver_order[1] <= f_i[1] && ver_order[1] >= 0 &&
-		ver_order[2] <= f_i[1] && ver_order[2] >= 0)
+	fac_num = 0;
+	ver_num = 0;
+	if (!scan_obj_file(path, &fac_num, &ver_num))
 	{
-		f_i[0] += 1;
-		faces[*f_i] = (t_3v *)malloc(3 * sizeof(t_3v));
-		faces[*f_i][0] = vertices[ver_order[0] - 1];
-		faces[*f_i][1] = vertices[ver_order[1] - 1];
-		faces[*f_i][2] = vertices[ver_order[2] - 1];
+		ft_putstr("Error reading obj file at: ");
+		ft_putendl(path);
+		exit(0);
 	}
-	else
-	{
-		ft_putstr("error in the obj file in line:\n");
-		ft_putendl(line);
-	}
-	return (0);
+	vertices = (t_3v *)malloc((ver_num) * sizeof(t_3v));
+	faces = (t_3v **)malloc((fac_num + 1) * sizeof(t_3v*));
+	fill_f_v_obj_file(path, vertices, faces, fac_num);
+	if (verbose)
+		;
+	faces[fac_num] = NULL;
+	return (faces);
 }
+

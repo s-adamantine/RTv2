@@ -1,0 +1,73 @@
+render {
+		{name, {Wine Glass}}
+		{dimensions, {800 600}}
+		{ambient, {1}}
+		{reflection, {1}}
+}
+camera {
+		{origin, {1200.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+camera {
+		{origin, {1000.0 -400.0 0.0}}
+		{rotation, {0.0 0.0 330.0}}
+}
+camera {
+		{origin, {-1000.0 0.0 0.0}}
+		{rotation, {0.0 0.0 180.0}}
+}
+camera {
+		{origin, {900.0 40.0 100.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+light {
+		{origin, {500.0 100.0 200.0}}
+		{color, {0.9 0.2 0.5}}
+		{intensity, {2000 1}}
+}
+light {
+		{origin, {2000.0 100.0 200.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {4000 1}}
+}
+object {
+		{type, {composite}}
+		{path, {./scenes/objs/wine_glass}}
+		{origin, {300.0 400.0 -200.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{size, {0.5}}
+}
+object {
+		{type, {composite}}
+		{path, {./scenes/objs/wine_glass}}
+		{origin, {100.0 -300.0 -200.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{size, {0.5}}
+}
+object {
+		{type, {composite}}
+		{path, {./scenes/objs/bottle}}
+		{origin, {100.0 0.0 -200.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{size, {1.0}}
+}
+object {
+		{type, {plane}}
+		{origin, {0.0 0.0 -200.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{color, {0.1 0.7 0.9}}
+		{reflection, {0.1, 0.1, 0.01, 5}}
+}
+*object {
+		{type, {sphere}}
+		{origin, {-500.0, -100.0, 100.0}}
+		{color, {0.07, 0.72, 0.99}}
+		{transparent, {.4}}
+}
+object {
+		{type, {plane}}
+		{origin, {-10000.0 0.0 0.0}}
+		{rotation, {0.0 90.0 0.0}}
+		{color, {0.92 0.81 0.52}}
+		{reflection, {0.8, 0.0, 0.0, 0}}
+}

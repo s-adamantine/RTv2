@@ -1,5 +1,5 @@
 render {
-		{name, {Teeny Teapot}}
+		{name, {Cow in a room by N. Manzini}}
 		{dimensions, {512 512}}
 		{ambient, {2}}
 		{grain, {16}}

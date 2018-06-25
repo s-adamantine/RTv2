@@ -6,30 +6,30 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 11:35:54 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 15:58:25 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void		init_def_object(t_object *obj, int id, t_scene *scene)
+void		init_def_object(t_object *obj, int id, t_scene *scene,
+		t_object *parent)
 {
-	t_3v	def;
-
-	def = ft_zero_3v();
+	if (parent)
+		parent->is_group_main = 1;
+	obj->group_id = (parent) ? parent->group_id : 0;
+	obj->group_rotation = (parent) ? parent->rotation : ft_zero_3v();
+	obj->group_origin = (parent) ? parent->origin : ft_zero_3v();
+	obj->size = (parent) ? parent->size : 1.0;
 	obj->id = id;
 	obj->type = 0;
 	obj->f = &get_t_plane;
 	obj->axis_rotation = 0;
-	obj->origin = def;
+	obj->origin = ft_zero_3v();
 	obj->origin_2 = ft_init_3v(1.0, 0.0, 0.0);
 	obj->origin_3 = ft_init_3v(0.0, 1.0, 0.0);
-	def = ft_zero_3v();
-	obj->group_origin = def;
-	obj->group_rotation = def;
-	obj->group_id = 0;
 	obj->is_group_main = 0;
-	obj->rotation = def;
+	obj->rotation = ft_zero_3v();
 	obj->axis_rotation = 0;
 	obj->radius = 1;
 	obj->pattern_id = 0;
@@ -37,7 +37,9 @@ void		init_def_object(t_object *obj, int id, t_scene *scene)
 	obj->lim_by_2 = 0;
 	obj->limit_id = 0;
 	obj->visible = 1;
+	obj->path = NULL;
 	change_material(scene, obj, 0, 0);
+	scene->amount_obj++;
 }
 
 static void	get_pattern(t_scene *scene, t_object *obj, int id)
@@ -65,11 +67,11 @@ static void	set_values_object_2(t_scene *scene, t_object *obj, char *s,
 	if (ft_strncmp(s, "sec_material", 12) == 0)
 		change_material(scene, obj, ft_atoi(value), 2);
 	else if (ft_strncmp(s, "limited_by_1", 12) == 0)
-		obj->lim_by_1 = ft_atoi(value);
+		obj->lim_by_1 = ft_atoi(value) + (obj->group_id * LIMIT_CORR);
 	else if (ft_strncmp(s, "limited_by_2", 12) == 0)
-		obj->lim_by_2 = ft_atoi(value);
+		obj->lim_by_2 = ft_atoi(value) + (obj->group_id * LIMIT_CORR);
 	else if (ft_strncmp(s, "limit_id", 8) == 0)
-		obj->limit_id = ft_atoi(value);
+		obj->limit_id = ft_atoi(value) + (obj->group_id * LIMIT_CORR);
 	else if (ft_strncmp(s, "group_id", 8) == 0)
 		obj->group_id = ft_atoi(value);
 	else if (ft_strncmp(s, "is_group_main", 13) == 0)
@@ -78,6 +80,8 @@ static void	set_values_object_2(t_scene *scene, t_object *obj, char *s,
 		obj->visible = ft_atoi(value);
 	else if (ft_strncmp(s, "path", 4) == 0)
 		obj->path = ft_strdup(value);
+	else if (ft_strncmp(s, "size", 4) == 0)
+		obj->size = ft_atod(value);
 	else
 		set_values_material(&(obj->m), s, value);
 }
@@ -86,19 +90,15 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		char *value)
 {
 	if (ft_strncmp(s, "type", 4) == 0)
-		set_object_type(value, obj, scene);
+		set_object_type(value, obj);
 	else if (ft_strncmp(s, "origin_2", 8) == 0)
 		update_vector(&(obj->origin_2), value);
 	else if (ft_strncmp(s, "origin_3", 8) == 0)
 		update_vector(&(obj->origin_3), value);
 	else if (ft_strncmp(s, "origin", 6) == 0)
 		update_vector(&(obj->origin), value);
-	else if (ft_strncmp(s, "group_origin", 12) == 0)
-		update_vector(&(obj->group_origin), value);
 	else if (ft_strncmp(s, "rotation", 7) == 0)
 		update_vector(&(obj->rotation), value);
-	else if (ft_strncmp(s, "group_rotation", 13) == 0)
-		update_vector(&(obj->group_rotation), value);
 	else if (ft_strncmp(s, "axis_rotation", 11) == 0)
 		obj->axis_rotation = ft_atod(value);
 	else if (ft_strncmp(s, "radius", 6) == 0)
@@ -111,7 +111,7 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		set_values_object_2(scene, obj, s, value);
 }
 
-void		set_object(t_list **objects, t_scene *scene, int id, int fd)
+void		set_object(t_scene *scene, int id, int fd, t_object *parent)
 {
 	char		*line;
 	char		*s;
@@ -119,7 +119,7 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 	t_object	obj;
 	int			gnl;
 
-	init_def_object(&obj, id, scene);
+	init_def_object(&obj, id, scene, parent);
 	while ((gnl = get_next_line(fd, &line)) == 1)
 	{
 		if (*(line) == '}')
@@ -136,5 +136,6 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 	if (gnl < 0)
 		error(0);
 	free(line);
-	ft_lstaddnewr(objects, &obj, sizeof(obj));
+	check_for_composite(scene, &obj);
+	ft_lstaddnewr(&(scene->objects), &obj, sizeof(obj));
 }

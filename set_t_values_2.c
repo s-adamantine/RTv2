@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 10:15:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 12:23:27 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 19:10:22 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@
 ** first if makes sure the fixed values are set for transparency and reflection.
 */
 
-static t_object	*get_vis_obj(t_pixel *p, t_3v dir,
-		t_scene *sc, t_p_info *pi)
+static t_object	*get_vis_obj(t_pixel *p, t_3v dir, t_scene *sc, t_p_info *pi)
 {
 	double		tmp;
 	int			var[3];

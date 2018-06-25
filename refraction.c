@@ -12,23 +12,15 @@
 
 #include "rtv1.h"
 
-static void		ft_swap_double(double *a, double *b)
+static void		beer(t_p_info *pi)
 {
-	double	temp;
-
-	temp = *a;
-	*a = *b;
-	*b = temp;
-}
-
-static double	ft_clamp(double min, double max, double x)
-{
-	if (x - min < 0.001)
-		return (min);
-	else if (x - max > 0.001)
-		return (max);
-	else
-		return (x);
+	if (pi->beer.v[0] < 0.99 && pi->beer.v[1] < 0.99 && pi->beer.v[2] < 0.99)
+	{
+		pi->beer = ft_3v_scalar(pi->beer, -1.0);
+		pi->beer.v[0] = (exp(pi->beer.v[0] * (pi->s_value / 70)));
+		pi->beer.v[1] = (exp(pi->beer.v[1] * (pi->s_value / 70)));
+		pi->beer.v[2] = (exp(pi->beer.v[2] * (pi->s_value / 70)));
+	}
 }
 
 static void		fresnal(t_p_info *pi, double *n_value, double cosi,
@@ -51,10 +43,6 @@ static void		fresnal(t_p_info *pi, double *n_value, double cosi,
 		pi->fresnal_specular = (rs * rs + rp * rp) / 2;
 		pi->fresnal_transparent = 1 - pi->fresnal_specular;
 	}
-	// if (pi->is_inside == 1)
-	// 	((pi->vis_obj)->m).specular = pi->fresnal_specular;
-	// else
-	// 	((pi->vis_obj)->m).specular *= pi->fresnal_specular;
 }
 
 static void		call_recursion(t_scene *scene, t_pixel *p, t_3v *dir,
@@ -95,6 +83,7 @@ void			refraction(t_p_info *pi, t_3v *dir, t_pixel *p, t_scene *scene)
 		pi->is_inside = 1;
 		ft_swap_double(&n_value[0], &n_value[1]);
 		n = ft_3v_scalar(n, -1);
+		beer(pi);
 	}
 	index = n_value[0] / n_value[1];
 	n_value[2] = 1 - index * index * (1.0 - cosi * cosi);

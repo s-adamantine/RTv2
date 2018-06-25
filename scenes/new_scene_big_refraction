@@ -89,7 +89,7 @@ object {
 		{rotation, {0.0 0.0 0.0}}
 		{color, {0.0 0.9 0.5}}
 		{reflection, {0.0 0.15 0.05 40}}
-		{pattern, {1}}
+		{pattern, {5}}
 		{material, {1}}
 		{sec_material, {3}}
 }
@@ -99,7 +99,7 @@ object {
 		{rotation, {0.0 0.0 0.0}}
 		{color, {0.0 0.9 0.5}}
 		{reflection, {0.0 0.15 0.05 40}}
-		{pattern, {1}}
+		{pattern, {5}}
 		{material, {1}}
 		{sec_material, {3}}
 }
@@ -109,7 +109,7 @@ object {
 		{rotation, {90.0 0.0 0.0}}
 		{color, {0.0 0.9 0.5}}
 		{reflection, {0.0 0.15 0.05 40}}
-		{pattern, {1}}
+		{pattern, {5}}
 		{material, {1}}
 		{sec_material, {3}}
 }
@@ -119,7 +119,7 @@ object {
 		{rotation, {90.0 0.0 0.0}}
 		{color, {0.0 0.9 0.5}}
 		{reflection, {0.0 0.15 0.05 40}}
-		{pattern, {1}}
+		{pattern, {5}}
 		{material, {1}}
 		{sec_material, {3}}
 }

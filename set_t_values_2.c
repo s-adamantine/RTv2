@@ -82,6 +82,8 @@ static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene *scene, int type)
 	pi->is_inside = 0;
 	if (!(pi->vis_obj))
 		return (pi_no_vis_obj(pi));
+	pi->beer = ft_init_3v(pi->vis_obj->m.beer.v[0],
+		pi->vis_obj->m.beer.v[1], pi->vis_obj->m.beer.v[2]);
 	return (pi);
 }
 

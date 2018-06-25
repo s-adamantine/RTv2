@@ -126,5 +126,7 @@ char				*ft_brace_content(char *input, char o, char c);
 void				ft_realloc(void **s, size_t old_size, size_t new_size);
 char				*ft_strcat_alloc(char *s1, const char *s2);
 char				*ft_dtoa(double d, int precision);
+void				ft_swap_double(double *a, double *b);
+double				ft_clamp(double min, double max, double x);
 
 #endif

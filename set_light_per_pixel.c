@@ -87,9 +87,9 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	check_values(&in, o, l);
 	in.diff *= (influence * (1 - in.spec));
 	in.spec *= influence;
-	(c->v)[0] += in.diff * ((l.tmp_color).v)[0] * (o.v)[0];
-	(c->v)[1] += in.diff * ((l.tmp_color).v)[1] * (o.v)[1];
-	(c->v)[2] += in.diff * ((l.tmp_color).v)[2] * (o.v)[2];
+	(c->v)[0] += in.diff * ((l.tmp_color).v)[0] * ((o.v)[0] * pi->beer.v[0]);
+	(c->v)[1] += in.diff * ((l.tmp_color).v)[1] * ((o.v)[1] * pi->beer.v[1]);
+	(c->v)[2] += in.diff * ((l.tmp_color).v)[2] * ((o.v)[2] * pi->beer.v[2]);
 	(c->v)[0] += in.spec * ((l.tmp_color).v)[0];
 	(c->v)[1] += in.spec * ((l.tmp_color).v)[1];
 	(c->v)[2] += in.spec * ((l.tmp_color).v)[2];

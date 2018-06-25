@@ -15,6 +15,7 @@
 static void	init_def_material(t_material *m, int id)
 {
 	m->color = ft_init_3v(1.0, 1.0, 0.0);
+	m->beer = ft_init_3v(1.0, 1.0, 1.0);
 	m->id = id;
 	m->pattern = 0;
 	m->diffuse = 0.2;
@@ -31,6 +32,8 @@ void		set_values_material(t_material *m, char *s, char *value)
 
 	if (ft_strncmp(s, "color", 5) == 0)
 		update_vector(&(m->color), value);
+	else if (ft_strncmp(s, "beer", 4) == 0)
+		update_vector(&(m->beer), value);
 	else if (ft_strncmp(s, "transparent", 11) == 0)
 		m->transparent = ft_atod(value);
 	else if (ft_strncmp(s, "refraction", 10) == 0)

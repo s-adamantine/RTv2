@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 16:31:15 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 19:25:16 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -334,7 +334,6 @@ void			change_menu(t_event *event);
 void			set_cam_menu(t_event *event);
 void			set_light_menu(t_event *event);
 
-
 // NICOLA
 t_3v	**read_obj_file(char *path, int verbose);
 int		fill_f_v_obj_file(char *path,  t_3v *vertices , t_3v **faces, int ver_num);
@@ -347,7 +346,9 @@ void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 
 t_material		filter_it(t_object o, int id);
 
-void			save_image(t_event *event);
-void			read_image(t_event *event);
+void			save_image_file(t_event *event);
+void			read_image_file(t_event *event);
+int				file_exists(char *name);
+int				file_exists_save(char *name);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:11:17 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 18:24:52 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 11:16:47 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static t_material	handle_cyl_cone(t_object o, t_3v angle, t_3v dif)
 	return (o.m);
 }
 
-t_material	stripe_it(t_object o, t_3v angle, t_3v dif)
+t_material			stripe_it(t_object o, t_3v angle, t_3v dif)
 {
 	if (o.type == 0)
 		return (handle_plane(o, dif));

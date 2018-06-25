@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
+/*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 16:31:15 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 13:08:50 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # define TEXT_L 0xffffff
 # define TEXT_D 0x000000
 # define GRAY 0xeceff1
-# define GRAY_2 0xcfd8dc 
+# define GRAY_2 0xcfd8dc
 # define TOP_BAR 100
 # define MARGIN 20
 # define SUB_MARGIN 10
@@ -165,7 +165,7 @@ typedef struct	s_object
 	t_3v			group_rotation;
 	t_fixed_v		**fixed_c[THREADS];
 	t_fixed_v		**fixed_s[THREADS];
-	char		*path;
+	char			*path;
 }				t_object;
 
 typedef struct	s_p_info
@@ -188,6 +188,8 @@ typedef struct	s_pixel
 	int			status;
 	int			amount_p;
 	int			amount_refl;
+	int			type;
+	double		index_refract;
 	t_3v		*c_per_src;
 	t_3v		coor;
 	t_3v		color;
@@ -265,12 +267,12 @@ void			get_doubles_from_line(double *vector, char *line, int size);
 void			add_light(t_scene *scene, int fd);
 void			set_render(t_scene *scene, int fd);
 void			set_camera(t_scene *scene, int fd);
-double  		get_t_triangle(t_fixed_v f, t_3v dir, int alt, t_object *obj);
+double			get_t_triangle(t_fixed_v f, t_3v dir, int alt, t_object *obj);
 double			get_t_cylinder(t_fixed_v f, t_3v dir, int alt, t_object *obj);
 double			get_t_plane(t_fixed_v f, t_3v dir, int alt, t_object *obj);
 double			get_t_sphere(t_fixed_v f, t_3v dir, int alt, t_object *obj);
 double			get_t_cone(t_fixed_v f, t_3v dir, int alt, t_object *obj);
-double  		get_t_mesh(t_fixed_v f, t_3v dir, int alt);
+double			get_t_mesh(t_fixed_v f, t_3v dir, int alt);
 void			*set_t_values(void *arg);
 void			*get_light_value(void *arg);
 void			*init_light_values(void *arg);
@@ -305,8 +307,7 @@ void			set_drag_angle(t_event *event, int x, int y);
 void			set_move(t_event *event, int move);
 int				key_hold(int key, t_event *event);
 void			set_fixed_values(t_scene *scene);
-void			set_value_refl(t_3v point, t_object *o, int r, int cam_id,
-		int thread_id);
+void			set_value_refl(t_3v point, t_object *o, int *var);
 void			set_drag_angle(t_event *event, int x, int y);
 char			*get_vector_string(t_3v v, int precision);
 t_material		get_object_material(t_object o, t_3v p, t_scene *scene);
@@ -319,9 +320,8 @@ void			set_pattern(t_scene *scene);
 void			set_point_list(t_pattern *p);
 void			init_def_object(t_object *obj, int id, t_scene *scene);
 void			create_threads(t_event *event, void *(*f)(void*));
-void			refraction(t_p_info	*pi, t_3v *dir, double entry_refraction, t_pixel *p, t_scene *scene);
-void			fresnal(t_p_info *pi, double n1, double n2, double cosi, double cost);
-void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir, int type, double index_refract);
+void			refraction(t_p_info	*pi, t_3v *dir, t_pixel *p, t_scene *scene);
+void			get_reflections(t_pixel *p, t_scene *scene, t_3v dir);
 double			within_limits(t_object *obj, t_3v point, double b);
 void			set_finish(t_scene *scene);
 void			set_fixed_value(t_3v origin, t_object *o, t_fixed_v *f);
@@ -332,17 +332,24 @@ void			init_menu(t_event *event);
 void			change_menu(t_event *event);
 void			set_cam_menu(t_event *event);
 void			set_light_menu(t_event *event);
-
+double			light_reaches(t_3v d, t_scene *scene, t_source *src);
+double			get_influence_specular(t_pixel *p, int i);
+void			change_material(t_scene *scene, t_object *obj, int value,
+		int mat);
+void			set_object_type(char *s, t_object *obj, t_scene *scene);
+double			get_nearest_intersection(double a, double b, double d, int alt);
+void			set_var(int *var, int amount_p, int cam_id, int thread_id);
 
 // NICOLA
-t_3v	**read_obj_file(char *path, int verbose);
-int		fill_f_v_obj_file(char *path,  t_3v *vertices , t_3v **faces, int ver_num);
-void	get_int_from_line(int *v, char *line, int size);
-int		scan_obj_file(char *path, int *fac_ver_num_0, int *fac_ver_num_1);
-int		fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices);
-int		printf_triangle(t_3v *triangle, int i);
+t_3v			**read_obj_file(char *path, int verbose);
+int				fill_f_v_obj_file(char *path,  t_3v *vertices , t_3v **faces, int ver_num);
 
-void	create_mesh(t_list **objects, t_object *parent, t_scene *scene);
+int				scan_obj_file(char *path, int *fac_ver_num_0, int *fac_ver_num_1);
+int				fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices);
+void			get_int_from_line(int *v, char *line, int size);
+void			update_vector_xyz(t_3v *vector, char *line);
+
+void			create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 
 t_material		filter_it(t_object o, int id);
 

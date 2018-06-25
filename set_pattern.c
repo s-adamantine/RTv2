@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 16:21:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 17:12:19 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 12:06:37 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	init_def_pattern(t_pattern *p, int id)
 	p->amount_points = 25;
 }
 
-static void		set_values_pattern(t_pattern *p, char *s, char *value)
+static void	set_values_pattern(t_pattern *p, char *s, char *value)
 {
 	if (ft_strncmp(s, "type", 4) == 0)
 		p->type = ft_atoi(value);
@@ -39,6 +39,8 @@ static void		set_values_pattern(t_pattern *p, char *s, char *value)
 		p->os_2 = ft_atod(value);
 	if (p->distance <= 0)
 		p->distance = 2;
+	free(s);
+	free(value);
 }
 
 static void	add_pattern(t_scene *scene, int fd)
@@ -60,8 +62,6 @@ static void	add_pattern(t_scene *scene, int fd)
 			error(0);
 		set_values_pattern(&p, s, value);
 		free(line);
-		free(s);
-		free(value);
 	}
 	if (gnl < 0)
 		error(0);

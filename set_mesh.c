@@ -6,19 +6,19 @@
 /*   By: sadamant <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 21:59:09 by sadamant          #+#    #+#             */
-/*   Updated: 2018/06/20 16:37:08 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/25 13:00:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static void	create_triangle(t_list **objects, t_object *parent, t_scene *scene, t_3v *coordinates)
+static void	create_triangle(t_list **objects, t_object *parent, t_scene *scene,
+		t_3v *coordinates)
 {
 	t_object	obj;
 
 	scene->amount_obj++;
 	init_def_object(&obj, scene->amount_obj, scene);
-	//inherit all previous properties from parent
 	obj.type = 5;
 	obj.f = &get_t_triangle;
 	obj.m = parent->m;
@@ -30,7 +30,7 @@ static void	create_triangle(t_list **objects, t_object *parent, t_scene *scene, 
 	ft_lstaddnewr(objects, &obj, sizeof(obj));
 }
 
-void	create_mesh(t_list **objects, t_object *parent, t_scene *scene)
+void		create_mesh(t_list **objects, t_object *parent, t_scene *scene)
 {
 	int		i;
 	t_3v	**coordinates;

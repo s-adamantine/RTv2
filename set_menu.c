@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 12:22:49 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 16:00:25 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 13:01:58 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static void	print_instructions(t_event *event)
 	}
 }
 
-void	set_menu(t_event *event)
+void		set_menu(t_event *event)
 {
 	int		i;
 	int		j;
@@ -46,7 +46,7 @@ void	set_menu(t_event *event)
 			if (i < TOP_BAR)
 				((int *)(img->img_arr))[j + i * img->size_line_int] = PRIMARY;
 			else if (i < TOP_BAR + MARGIN || i > MENU_HEIGHT - MARGIN
-				   || j < MARGIN || j > MENU_WIDTH - MARGIN)	
+					|| j < MARGIN || j > MENU_WIDTH - MARGIN)
 				((int *)(img->img_arr))[j + i * img->size_line_int] = GRAY;
 			else
 				((int *)(img->img_arr))[j + i * img->size_line_int] = TEXT_L;
@@ -58,7 +58,7 @@ void	set_menu(t_event *event)
 			MARGIN, MARGIN, TEXT_L, event->scene.name);
 }
 
-void	change_menu(t_event *event)
+void		change_menu(t_event *event)
 {
 	set_menu(event);
 	if (event->instructions)
@@ -69,10 +69,9 @@ void	change_menu(t_event *event)
 		set_light_menu(event);
 	else if (event->t_select == KEY_C)
 		set_cam_menu(event);
-		
 }
 
-void	init_menu(t_event *event)
+void		init_menu(t_event *event)
 {
 	event->instructions = 1;
 	set_strings(&(event->menu));

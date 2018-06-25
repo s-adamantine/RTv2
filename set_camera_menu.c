@@ -6,13 +6,13 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 15:14:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 16:34:38 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 12:58:05 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static char *get_value(t_cam *cam, int i)
+static char	*get_value(t_cam *cam, int i)
 {
 	if (i == 0)
 		return (ft_itoa(cam->id + 1));
@@ -60,7 +60,8 @@ static void	add_info(t_cam *cam, t_event *event, int x, int y)
 		j++;
 	}
 }
-void	set_cam_menu(t_event *event)
+
+void		set_cam_menu(t_event *event)
 {
 	t_list		*lst;
 	t_cam		*cam;

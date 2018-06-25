@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/04/09 11:35:58 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 16:09:25 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 11:18:19 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static void	set_info(t_menu *menu)
 	char	**info;
 
 	if (!(menu->info = (char **)malloc(sizeof(char *) * AMOUNT_INFO)))
-		error (1);
+		error(1);
 	info = menu->info;
 	info[0] = ft_strdup("ID: ");
 	info[1] = ft_strdup("Origin: ");
@@ -34,7 +34,7 @@ static void	set_types(t_menu *menu)
 	char	**types;
 
 	if (!(menu->types = (char **)malloc(sizeof(char *) * 7)))
-		error (1);
+		error(1);
 	types = menu->types;
 	types[0] = ft_strdup("Plane");
 	types[1] = ft_strdup("Sphere");
@@ -51,7 +51,7 @@ static void	set_instructions(t_menu *menu)
 
 	if (!(menu->man = (char **)malloc(sizeof(char *) *
 					AMOUNT_INSTRUCTIONS)))
-		error (1);
+		error(1);
 	man = menu->man;
 	man[0] = ft_strdup("- Press ESC to exit.");
 	man[1] = ft_strdup("- Press O, L or C to control object");
@@ -62,7 +62,7 @@ static void	set_instructions(t_menu *menu)
 	man[6] = ft_strdup("- + or - to in-/decrease light.");
 }
 
-void	set_strings(t_menu *menu)
+void		set_strings(t_menu *menu)
 {
 	set_instructions(menu);
 	set_types(menu);

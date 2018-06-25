@@ -6,7 +6,7 @@
 #    By: nicola <nicola@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/22 16:00:34 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/25 12:03:43 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,6 +15,7 @@ INCLUDES = rtv1.h keys.h mlx_constants.h
 SRCS = 	rtv1.c\
 		set_scene.c\
 		set_object.c\
+		set_object_2.c\
 		set_camera.c\
 		set_render.c\
 		set_mesh.c\
@@ -31,8 +32,10 @@ SRCS = 	rtv1.c\
 		set_fixed_values.c\
 		set_fixed_values_2.c\
 		set_t_values.c\
+		set_t_values_2.c\
 		get_event.c\
 		set_light_per_pixel.c\
+		set_light_per_pixel_2.c\
 		get_intensity.c\
 		get_t_value.c\
 		get_t_value_2.c\

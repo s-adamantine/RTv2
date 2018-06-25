@@ -6,15 +6,15 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:01 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 15:47:03 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 09:44:09 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
 /*
- * Change the camera. If it has not been initialized: initialize!
- */
+** Change the camera. If it has not been initialized: initialize!
+*/
 
 static t_cam	*get_selected_cam(t_scene *scene, int id)
 {

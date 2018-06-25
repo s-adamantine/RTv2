@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 15:54:21 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 10:27:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,14 @@ static void	change_grain(t_event *event, int sharper)
 	yes = 1;
 	if (sharper && (event->scene).anti_a * 2 > (event->scene).max_anti_a)
 		yes = 0;
-	if (yes && sharper && (event->scene).grain >= 2 && (event->scene).anti_a == 1)
+	if (yes && sharper && (event->scene).grain >= 2 &&
+			(event->scene).anti_a == 1)
 		(event->scene).grain /= 2;	
-	else if (yes && sharper && (event->scene).anti_a * 2 <= (event->scene).max_anti_a)
+	else if (yes && sharper && (event->scene).anti_a *
+			2 <= (event->scene).max_anti_a)
 		(event->scene).anti_a *= 2;
-	else if (yes && !sharper && (event->scene).grain == 1 && (event->scene).anti_a >= 2)
+	else if (yes && !sharper && (event->scene).grain == 1
+			&& (event->scene).anti_a >= 2)
 		(event->scene).anti_a /= 2;
 	else if (yes && !sharper)
 		(event->scene).grain *= 2;

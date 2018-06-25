@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:01:31 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/19 16:30:12 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 13:08:49 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ static void		set_values_source(t_source *src, char *s, char *value)
 	double	*tmp;
 
 	if (ft_strncmp(s, "origin", 6) == 0)
-	{
 		update_vector(&(src->origin), value);
-		printf("%f\n", (src->origin).v[0]);
-	}
 	else if (ft_strncmp(s, "color", 5) == 0)
 		update_vector(&(src->color), value);
 	else if (ft_strncmp(s, "intensity", 9) == 0)

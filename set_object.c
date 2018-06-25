@@ -6,32 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/20 16:24:19 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/25 11:35:54 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-static void	change_material(t_scene *scene, t_object *obj, int value, int mat)
-{
-	t_material	*material;
-	t_list		*tmp;
-
-	tmp = scene->materials;
-	while (tmp && tmp->content)
-	{
-		material = (t_material *)tmp->content;
-		if (material->id == value)
-		{
-			if (mat == 0 || mat == 1)
-				obj->m = *material;
-			if (mat == 0 || mat == 2)
-				obj->m2 = *material;
-			break ;
-		}
-		tmp = tmp->next;
-	}
-}
 
 void		init_def_object(t_object *obj, int id, t_scene *scene)
 {
@@ -61,43 +40,6 @@ void		init_def_object(t_object *obj, int id, t_scene *scene)
 	change_material(scene, obj, 0, 0);
 }
 
-static void	set_object_type(char *s, t_object *obj, t_scene *scene)
-{
-	scene->amount_obj++;
-	if (ft_strncmp(s, "plane", 5) == 0)
-	{
-		obj->f = &get_t_plane;
-		obj->type  = 0;
-	}
-	else if (ft_strncmp(s, "sphere", 6) == 0)
-	{
-		obj->f = &get_t_sphere;
-		obj->type = 1;
-	}
-	else if (ft_strncmp(s, "cylinder", 8) == 0)
-	{
-		obj->f = &get_t_cylinder;
-		obj->type = 2;
-	}
-	else if (ft_strncmp(s, "cone", 4) == 0)
-	{
-		obj->f = &get_t_cone;
-		obj->type = 3;
-	}
-	else if (ft_strncmp(s, "triangle", 8) == 0)
-	{
-		obj->f = &get_t_triangle;
-		obj->type = 5;
-	}
-	else if (ft_strncmp(s, "mesh", 4) == 0)
-	{
-		obj->f = &get_t_mesh;
-		obj->type = 6;
-	}
-	else
-		s_error("Object type is not valid");
-}
-
 static void	get_pattern(t_scene *scene, t_object *obj, int id)
 {
 	t_pattern	*p;
@@ -115,6 +57,29 @@ static void	get_pattern(t_scene *scene, t_object *obj, int id)
 		}
 		tmp = tmp->next;
 	}
+}
+
+static void	set_values_object_2(t_scene *scene, t_object *obj, char *s,
+		char *value)
+{
+	if (ft_strncmp(s, "sec_material", 12) == 0)
+		change_material(scene, obj, ft_atoi(value), 2);
+	else if (ft_strncmp(s, "limited_by_1", 12) == 0)
+		obj->lim_by_1 = ft_atoi(value);
+	else if (ft_strncmp(s, "limited_by_2", 12) == 0)
+		obj->lim_by_2 = ft_atoi(value);
+	else if (ft_strncmp(s, "limit_id", 8) == 0)
+		obj->limit_id = ft_atoi(value);
+	else if (ft_strncmp(s, "group_id", 8) == 0)
+		obj->group_id = ft_atoi(value);
+	else if (ft_strncmp(s, "is_group_main", 13) == 0)
+		(obj->is_group_main)++;
+	else if (ft_strncmp(s, "visible", 7) == 0)
+		obj->visible = ft_atoi(value);
+	else if (ft_strncmp(s, "path", 4) == 0)
+		obj->path = ft_strdup(value);
+	else
+		set_values_material(&(obj->m), s, value);
 }
 
 static void	set_values_object(t_scene *scene, t_object *obj, char *s,
@@ -142,24 +107,8 @@ static void	set_values_object(t_scene *scene, t_object *obj, char *s,
 		get_pattern(scene, obj, ft_atoi(value));
 	else if (ft_strncmp(s, "material", 8) == 0)
 		change_material(scene, obj, ft_atoi(value), 1);
-	else if (ft_strncmp(s, "sec_material", 12) == 0)
-		change_material(scene, obj, ft_atoi(value), 2);
-	else if (ft_strncmp(s, "limited_by_1", 12) == 0)
-		obj->lim_by_1 = ft_atoi(value);
-	else if (ft_strncmp(s, "limited_by_2", 12) == 0)
-		obj->lim_by_2 = ft_atoi(value);
-	else if (ft_strncmp(s, "limit_id", 8) == 0)
-		obj->limit_id = ft_atoi(value);
-	else if (ft_strncmp(s, "group_id", 8) == 0)
-		obj->group_id = ft_atoi(value);
-	else if (ft_strncmp(s, "is_group_main", 13) == 0)
-		(obj->is_group_main)++;
-	else if (ft_strncmp(s, "visible", 7) == 0)
-		obj->visible = ft_atoi(value);
-	else if (ft_strncmp(s, "path", 4) == 0)
-		obj->path = ft_strdup(value);
 	else
-		set_values_material(&(obj->m), s, value);
+		set_values_object_2(scene, obj, s, value);
 }
 
 void		set_object(t_list **objects, t_scene *scene, int id, int fd)
@@ -187,7 +136,5 @@ void		set_object(t_list **objects, t_scene *scene, int id, int fd)
 	if (gnl < 0)
 		error(0);
 	free(line);
-	if (obj.type == 6)
-		create_mesh(objects, &obj, scene);
 	ft_lstaddnewr(objects, &obj, sizeof(obj));
 }

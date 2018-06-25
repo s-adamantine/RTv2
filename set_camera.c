@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:43:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 15:21:12 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 12:58:28 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static void		set_values_camera(t_cam *cam, char *s, char *value)
 		update_vector(&(cam->rotation), value);
 }
 
-static void 	add_as_light(t_scene *scene, t_cam cam)
+static void		add_as_light(t_scene *scene, t_cam cam)
 {
 	t_source	light;
 	t_intensity	i;

@@ -6,38 +6,44 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:49:54 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 18:40:41 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 12:52:43 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-/*
- * Set fixed values for reflective and transparent points (work as new camera).
- */
+void		set_var(int *var, int amount_p, int cam_id, int thread_id)
+{
+	(var)[0] = amount_p;
+	(var)[1] = cam_id;
+	(var)[2] = thread_id;
+}
 
-void		set_value_refl(t_3v point, t_object *o, int r, int cam_id,
-		int thread_id)
+/*
+** Set fixed values for reflective and transparent points (work as new camera).
+*/
+
+void		set_value_refl(t_3v point, t_object *o, int *var)
 {
 	t_fixed_v	*tmp;
 	int			i;
 
-	if (!(tmp = (t_fixed_v *)malloc(sizeof(t_fixed_v) * (r + 1))))
+	if (!(tmp = (t_fixed_v *)malloc(sizeof(t_fixed_v) * (var[0] + 1))))
 		error(1);
 	i = 0;
-	while (i < r)
+	while (i < var[0])
 	{
-		tmp[i] = o->fixed_c[thread_id][cam_id][i];
+		tmp[i] = o->fixed_c[var[2]][var[1]][i];
 		i++;
 	}
-	free(o->fixed_c[thread_id][cam_id]);
-	o->fixed_c[thread_id][cam_id] = tmp;
-	set_fixed_value(point, o, &(o->fixed_c[thread_id][cam_id][r]));
+	free(o->fixed_c[var[2]][var[1]]);
+	o->fixed_c[var[2]][var[1]] = tmp;
+	set_fixed_value(point, o, &(o->fixed_c[var[2]][var[1]][var[0]]));
 }
 
 /*
- * Set fixed values for the sources.
- */
+** Set fixed values for the sources.
+*/
 
 static void	set_src(t_scene *scene, t_object *o, int first)
 {
@@ -68,9 +74,9 @@ static void	set_src(t_scene *scene, t_object *o, int first)
 }
 
 /*
- * Set fixed values for a camera, only allocate memory if it's the first call to
- * the function.
- */
+** Set fixed values for a camera, only allocate memory if it's the first call to
+** the function.
+*/
 
 void		init_arrays(int first, t_object *o, t_scene *scene, t_cam *cam)
 {

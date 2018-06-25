@@ -6,15 +6,15 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 14:09:05 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 18:09:11 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 11:39:49 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
 /*
- * Determines whether a source should be turned off or on.
- */
+** Determines whether a source should be turned off or on.
+*/
 
 static int	turn_off_or_on(t_scene *scene, int id)
 {
@@ -62,9 +62,9 @@ static void	add_color(t_pixel *p, int id, t_event *event, t_3v *t)
 }
 
 /*
- * Change the color of a pixel by adding the color value of the light. Change
- * in image by calling fill_square (grainy effect).
- */
+** Change the color of a pixel by adding the color value of the light. Change
+** in image by calling fill_square (grainy effect).
+*/
 
 static void	change_color(t_event *event, int id, int vert, int hor)
 {
@@ -122,8 +122,8 @@ static void	*switch_one(void *event)
 }
 
 /*
- * Turn on light or multiple lights.
- */
+** Turn on light or multiple lights.
+*/
 
 void		turn_on_lights(t_event *event)
 {

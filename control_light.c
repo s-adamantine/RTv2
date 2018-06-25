@@ -6,16 +6,16 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/20 10:44:41 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 09:45:42 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
 /*
- * For every light, determine the influence it has on every pixel by calling
- * set_light_per_pixel.
- */
+** For every light, determine the influence it has on every pixel by calling
+** set_light_per_pixel.
+*/
 
 void	*init_light_values(void *arg)
 {
@@ -33,9 +33,3 @@ void	*init_light_values(void *arg)
 	}
 	return (NULL);
 }
-/*
-void	change_light(t_event *event, int brighter)
-{
-
-}
-*/

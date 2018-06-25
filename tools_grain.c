@@ -6,16 +6,16 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:24:11 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/13 17:19:57 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 10:14:34 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
 /*
- * Fill a square in the image with one color, so we can make the program
- * quicker by using the grainy effect.
- */
+** Fill a square in the image with one color, so we can make the program
+** quicker by using the grainy effect.
+*/
 
 int		fill_square(t_img *img, int index, int size, int color)
 {

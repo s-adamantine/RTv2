@@ -6,13 +6,13 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 15:55:21 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/22 16:32:14 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 13:00:07 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-static char *get_value(t_source *src, int i)
+static char	*get_value(t_source *src, int i)
 {
 	if (i == 0)
 		return (ft_itoa(src->id));
@@ -64,7 +64,8 @@ static void	add_info(t_source *src, t_event *event, int x, int y)
 		j++;
 	}
 }
-void	set_light_menu(t_event *event)
+
+void		set_light_menu(t_event *event)
 {
 	t_list		*lst;
 	t_source	*src;

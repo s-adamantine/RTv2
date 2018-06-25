@@ -58,6 +58,7 @@ SRCS = 	rtv1.c\
 		refraction.c\
 		get_mesh_obj.c\
 		filter_it.c\
+		write_file.c
 
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/

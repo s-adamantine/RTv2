@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:49:09 by mpauw             #+#    #+#             */
-/*   Updated: 2018/02/06 08:36:36 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 13:19:43 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,10 @@ static void	set_values_render_2(t_scene *scene, char *s, char *value)
 		scene->refl = ft_atoi(value);
 }
 
-static void	set_values_render(t_scene *scene, char *s, char *value)
+static void	set_value_render_2(t_scene *scene, char *s, char *value)
 {
 	double	*tmp;
 
-	if (ft_strncmp(s, "name", 4) == 0)
-	{
-		if (!(scene->name = (char *)malloc(sizeof(char) *
-						(ft_strlen(value) + 1))))
-			error(1);
-		ft_strcpy(scene->name, (const char *)value);
-	}
 	if (ft_strncmp(s, "ambient", 7) == 0 || ft_strncmp(s, "grain", 5) == 0 ||
 			ft_strncmp(s, "anti_a", 6) == 0 || ft_strncmp(s, "wait", 4) == 0
 		|| ft_strncmp(s, "reflection", 10) == 0)
@@ -50,8 +43,22 @@ static void	set_values_render(t_scene *scene, char *s, char *value)
 		get_doubles_from_line(tmp, value, 2);
 		scene->width = (int)(tmp[0]);
 		scene->height = (int)(tmp[1]);
+		if (scene->width > 2048 || scene->height > 2048)
+			s_error("Are you sure you want your window to be that big?");
 		free(tmp);
 	}
+}
+
+static void	set_values_render(t_scene *scene, char *s, char *value)
+{
+	if (ft_strncmp(s, "name", 4) == 0)
+	{
+		if (!(scene->name = (char *)malloc(sizeof(char) *
+						(ft_strlen(value) + 1))))
+			error(1);
+		ft_strcpy(scene->name, (const char *)value);
+	}
+	set_value_render_2(scene, s, value);
 }
 
 void		set_render(t_scene *scene, int fd)

@@ -58,6 +58,7 @@ typedef struct	s_img
 {
 	void		*img_ptr;
 	char		*img_arr;
+	int			*bitmap;
 	int			width;
 	int			height;
 	int			bpp;
@@ -352,5 +353,8 @@ void			update_vector_xyz(t_3v *vector, char *line);
 void			create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 
 t_material		filter_it(t_object o, int id);
+
+void			save_image(t_event *event);
+void			read_image(t_event *event);
 
 #endif

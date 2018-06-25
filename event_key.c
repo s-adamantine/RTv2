@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 10:27:16 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 13:11:07 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,10 @@ int			key_pressed(int key, t_event *event)
 {
 	if (key == ESC)
 		exit(0);
+	if (key == KEY_S)
+		save_image(event);
+	if (key == KEY_W) //change to something else
+		read_image(event);
 	if (key == KEY_I)
 	{
 		event->instructions = (event->instructions) ? 0 : 1;
@@ -57,7 +61,7 @@ int			key_pressed(int key, t_event *event)
 		change_grain(event, (key == COMMA));
 	else if (key == KEY_C || key == KEY_O || key == KEY_L || key == KEY_G)
 	{
-		event->t_select = key;	
+		event->t_select = key;
 		change_menu(event);
 	}
 	else if (key == KEY_Q && event->t_select == KEY_L)

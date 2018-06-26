@@ -6,11 +6,11 @@
 /*   By: sadamant <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/23 18:12:10 by sadamant          #+#    #+#             */
-/*   Updated: 2018/06/25 13:20:22 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:51:00 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static int	file_exists(char *name)
 {

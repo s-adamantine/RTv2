@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:39:34 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 12:04:44 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:51:58 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static char	*get_value(t_object *obj, int i)
 {

@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 14:09:05 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 11:39:49 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:49:01 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 /*
 ** Determines whether a source should be turned off or on.

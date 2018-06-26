@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 13:23:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:13:45 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:47:40 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	set_group_object(t_object *obj_to_set)
 {

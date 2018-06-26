@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:49:09 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 10:12:29 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:52:33 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	set_values_render_3(t_scene *scene, char *s, char *value)
 {

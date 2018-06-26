@@ -6,11 +6,11 @@
 /*   By: sadamant <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:04:45 by sadamant          #+#    #+#             */
-/*   Updated: 2018/06/26 10:18:53 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:49:30 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static t_material	rgb_filter_it(t_material m, int id)
 {

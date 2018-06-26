@@ -6,11 +6,11 @@
 /*   By: sadamant <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 21:59:09 by sadamant          #+#    #+#             */
-/*   Updated: 2018/06/25 15:00:47 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:51:37 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	create_triangle(t_list **objects, t_object *parent, t_scene *scene,
 		t_3v *coordinates)

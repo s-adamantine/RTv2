@@ -6,11 +6,11 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:52:14 by nmanzini          #+#    #+#             */
-/*   Updated: 2018/06/26 11:38:23 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:50:01 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 /*
 ** takes a string and fills the i_f[0] triangle with the vertex in the string

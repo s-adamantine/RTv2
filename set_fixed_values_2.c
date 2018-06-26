@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 18:33:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:39:07 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:47:49 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 /*
 ** The fixed values are values that are specific for every object, relative to

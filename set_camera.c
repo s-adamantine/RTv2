@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:43:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 12:58:28 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:47:17 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static t_cam	init_def_cam(t_scene *scene)
 {

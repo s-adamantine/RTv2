@@ -6,11 +6,11 @@
 /*   By: sadamant <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 19:29:49 by sadamant          #+#    #+#             */
-/*   Updated: 2018/06/25 19:31:34 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/26 11:49:55 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void		reinitialize_screen(t_event *event, int w, int h)
 {

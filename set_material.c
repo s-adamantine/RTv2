@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 11:51:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:35:07 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:52:25 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	init_def_material(t_material *m, int id)
 {

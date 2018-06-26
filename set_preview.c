@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/14 14:10:17 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 18:26:35 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:52:15 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	get_value(t_scene *scene, int i, int j)
 {

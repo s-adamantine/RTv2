@@ -6,11 +6,11 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:15:16 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 18:21:14 by nmanzini         ###   ########.fr       */
+/*   Updated: 2018/06/26 11:50:36 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 /*
 ** Updates values in a vector by reading from a String.

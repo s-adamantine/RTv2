@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/21 16:11:17 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 11:16:47 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:49:36 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static t_material	handle_plane(t_object o, t_3v dif)
 {

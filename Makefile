@@ -6,13 +6,13 @@
 #    By: nicola <nicola@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/26 11:36:19 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/26 11:45:34 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = RTv1
-INCLUDES = rtv1.h keys.h mlx_constants.h
-SRCS = 	rtv1.c\
+NAME = RT
+INCLUDES = rt.h keys.h mlx_constants.h
+SRCS = 	rt.c\
 		set_scene.c\
 		set_object.c\
 		set_object_2.c\

@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 12:22:49 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 13:01:58 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:51:34 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	print_instructions(t_event *event)
 {

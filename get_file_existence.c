@@ -6,11 +6,11 @@
 /*   By: sadamant <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 19:19:32 by sadamant          #+#    #+#             */
-/*   Updated: 2018/06/25 19:28:41 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/26 11:49:51 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void		put_error(const char *s)
 {

@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 13:57:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 15:23:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:47:31 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	set_composite(int fd, t_scene *scene, t_object *obj)
 {

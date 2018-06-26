@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 11:20:53 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:15:52 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:51:56 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void		change_material(t_scene *scene, t_object *obj, int value, int mat)
 {

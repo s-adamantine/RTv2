@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:35:35 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:40:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:49:48 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static int	loop_hook(t_event *event)
 {

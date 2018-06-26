@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 10:15:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 09:32:05 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:53:03 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 /*
 ** Gets the visible object (first, or through transparency or reflection). The

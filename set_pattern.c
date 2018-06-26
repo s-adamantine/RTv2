@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 16:21:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 12:06:37 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:52:09 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	init_def_pattern(t_pattern *p, int id)
 {

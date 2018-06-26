@@ -6,16 +6,16 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:27:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 12:33:11 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/26 13:40:48 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static t_3v	get_angle(t_object o, t_3v p)
+static t_3v		get_angle(t_object o, t_3v p)
 {
-	t_3v	k;
-	t_3v	rot_axis;
+	t_3v		k;
+	t_3v		rot_axis;
 
 	if (o.type == 0)
 		return (p);
@@ -45,7 +45,7 @@ static void	wavy_it(t_material *m, t_3v angle, int type)
 		m->wave_value = 1 - fabs(cos(angle.v[2] * m->freq)) * m->amp;
 }
 
-t_material	get_object_material(t_object o, t_3v p, t_scene scene)
+t_material		get_object_material(t_object o, t_3v p, t_scene scene)
 {
 	t_3v		dif;
 	t_3v		angle;

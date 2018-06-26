@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/10 12:20:56 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 17:08:46 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 17:30:43 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	ft_lstaddright(t_list **alst, t_list *new)
 	{
 		free(*alst);
 		*alst = new;
+		return ;
 	}
-	while (tmp && tmp->next)
+	while (tmp->next)
 		tmp = tmp->next;
-	if (tmp)
-		tmp->next = new;
+	tmp->next = new;
 }

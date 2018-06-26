@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:49:09 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:52:33 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 13:19:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,11 @@ static void	set_values_render_3(t_scene *scene, char *s, char *value)
 	if (ft_strncmp(s, "ambient", 7) == 0)
 		scene->ambient = ft_atod(value);
 	else if (ft_strncmp(s, "grain", 5) == 0)
-		scene->grain = ft_atoi(value);
+		scene->grain = (ft_atoi(value) > 4) ? 4 : ft_power(2, ft_atoi(value));
 	else if (ft_strncmp(s, "wait", 4) == 0)
 		scene->wait = ft_atod(value);
 	else if (ft_strncmp(s, "reflection", 10) == 0)
-	{
-		if (ft_atoi(value) > 3)
-			scene->refl = 3;
-		else
-			scene->refl = ft_atoi(value);
-	}
+		scene->refl = (ft_atoi(value) > 3) ? 3 : ft_atoi(value);
 }
 
 static void	set_values_render_2(t_scene *scene, char *s, char *value)

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 12:58:39 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 13:24:34 by mpauw            ###   ########.fr       */
 /*   Updated: 2018/06/26 11:49:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -42,13 +42,7 @@ static void	change_grain(t_event *event, int sharper)
 
 static void	key_pressed_2(int key, t_event *event)
 {
-	event->execute = 0;
-	if (key == ESC)
-		exit(0);
-	if (KEY_UP_TO_ZERO(key) || key == KEY_0)
-		event->id_select = (key == KEY_0) ? KEY_0 : KEY_NUM_VALUE(key);
-	if (key == KEY_Q)
-		event->execute = 1;
+
 	if (key == COMMA || key == DOT)
 		change_grain(event, (key == COMMA));
 	else if (key == KEY_C || key == KEY_O || key == KEY_L || key == KEY_G)
@@ -71,6 +65,8 @@ static void	key_pressed_2(int key, t_event *event)
 		change_camera(event);
 		change_menu(event);
 	}
+	else
+		return ;
 }
 
 int			key_pressed(int key, t_event *event)
@@ -91,6 +87,13 @@ int			key_pressed(int key, t_event *event)
 		event->id_select = (key == KEY_0) ? KEY_0 : KEY_NUM_VALUE(key);
 		change_menu(event);
 	}
+	event->execute = 0;
+	if (key == ESC)
+		exit(0);
+	if (KEY_UP_TO_ZERO(key) || key == KEY_0)
+		event->id_select = (key == KEY_0) ? KEY_0 : KEY_NUM_VALUE(key);
+	if (key == KEY_Q)
+		event->execute = 1;
 	key_pressed_2(key, event);
 	return (1);
 }

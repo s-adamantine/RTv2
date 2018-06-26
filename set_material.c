@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 11:51:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 10:47:21 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:35:07 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,25 @@ static void	init_def_material(t_material *m, int id)
 	m->freq = 20;
 }
 
-void		set_values_material(t_material *m, char *s, char *value)
+static void	set_values_material_2(t_material *m, char *s, char *value)
 {
 	double	*tmp;
 
+	if (ft_strncmp(s, "reflection", 10) == 0)
+	{
+		if (!(tmp = (double *)malloc(4 * sizeof(double))))
+			error(0);
+		get_doubles_from_line(tmp, value, 4);
+		m->ambient = tmp[0];
+		m->diffuse = tmp[1];
+		m->specular = tmp[2];
+		m->shininess = tmp[3];
+		free(tmp);
+	}
+}
+
+void		set_values_material(t_material *m, char *s, char *value)
+{
 	if (ft_strncmp(s, "color", 5) == 0)
 		update_vector(&(m->color), value);
 	else if (ft_strncmp(s, "beer", 4) == 0)
@@ -48,17 +63,7 @@ void		set_values_material(t_material *m, char *s, char *value)
 		m->refractive_index = ft_atod(value);
 	else if (ft_strncmp(s, "normal_var", 10) == 0)
 		update_vector(&(m->n_var), (value));
-	else if (ft_strncmp(s, "reflection", 10) == 0)
-	{
-		if (!(tmp = (double *)malloc(4 * sizeof(double))))
-			error(0);
-		get_doubles_from_line(tmp, value, 4);
-		m->ambient = tmp[0];
-		m->diffuse = tmp[1];
-		m->specular = tmp[2];
-		m->shininess = tmp[3];
-		free(tmp);
-	}
+	set_values_material_2(m, s, value);
 }
 
 static void	add_material(t_scene *scene, int fd)

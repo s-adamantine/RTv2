@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:52:14 by nmanzini          #+#    #+#             */
-/*   Updated: 2018/06/25 16:29:26 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:38:23 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,4 +137,3 @@ t_3v		**read_obj_file(char *path, int verbose)
 	faces[fac_num] = NULL;
 	return (faces);
 }
-

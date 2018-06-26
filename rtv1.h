@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:29:16 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:40:39 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define MAX_S_VALUE 50000
 # define DEG 57.2958
-# define THREADS 4 
+# define THREADS 4
 # define LIMIT_CORR 100
 
 # define MENU_WIDTH 500
@@ -258,7 +258,6 @@ typedef struct	s_event
 	t_menu		menu;
 	t_scene		scene;
 	t_source	*src;
-	int			mouse_hold;
 	int			x_0;
 	int			y_0;
 	int			t_select;
@@ -309,7 +308,6 @@ void			init_image(void *mlx, int width_scr, int height_scr,
 		t_img *img);
 void			anti_aliasing(t_event *event);
 int				drag_scene(int x, int y, t_event *event);
-int				mouse_click(int button, int x, int y, t_event *event);
 int				toggle_button(int button, int x, int y, t_event *event);
 void			set_drag_angle(t_event *event, int x, int y);
 void			set_move(t_event *event, int move);
@@ -356,7 +354,6 @@ void			create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 t_material		filter_it(t_material m, int id);
 void			save_image(t_event *event);
 void			read_image(t_event *event);
-t_material		filter_it(t_object o, int id);
 void			save_image_file(t_event *event);
 void			read_image_file(t_event *event);
 int				file_exists(char *name);

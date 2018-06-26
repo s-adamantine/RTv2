@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 10:27:55 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/26 11:39:35 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	change_grain(t_event *event, int sharper)
 		yes = 0;
 	if (yes && sharper && (event->scene).grain >= 2 &&
 			(event->scene).anti_a == 1)
-		(event->scene).grain /= 2;	
+		(event->scene).grain /= 2;
 	else if (yes && sharper && (event->scene).anti_a *
 			2 <= (event->scene).max_anti_a)
 		(event->scene).anti_a *= 2;
@@ -37,6 +37,29 @@ static void	change_grain(t_event *event, int sharper)
 	turn_on_lights(event);
 	mlx_put_image_to_window(event->mlx, event->win,
 		(event->img).img_ptr, 0, 0);
+}
+
+static void	key_pressed_2(int key, t_event *event)
+{
+	if (key == COMMA || key == DOT)
+		change_grain(event, (key == COMMA));
+	else if (key == KEY_C || key == KEY_O || key == KEY_L || key == KEY_G)
+	{
+		event->t_select = key;
+		change_menu(event);
+	}
+	else if (key == KEY_Q && event->t_select == KEY_L)
+	{
+		turn_on_lights(event);
+		change_menu(event);
+	}
+//	else if (event->t_select == KEY_L && (key == MINUS || key == PLUS))
+//		change_light(event, (key == PLUS));
+	else if (key == KEY_Q && event->t_select == KEY_C)
+	{
+		change_camera(event);
+		change_menu(event);
+	}
 }
 
 int			key_pressed(int key, t_event *event)
@@ -57,27 +80,7 @@ int			key_pressed(int key, t_event *event)
 		event->id_select = (key == KEY_0) ? KEY_0 : KEY_NUM_VALUE(key);
 		change_menu(event);
 	}
-	if (key == COMMA || key == DOT)
-		change_grain(event, (key == COMMA));
-	else if (key == KEY_C || key == KEY_O || key == KEY_L || key == KEY_G)
-	{
-		event->t_select = key;
-		change_menu(event);
-	}
-	else if (key == KEY_Q && event->t_select == KEY_L)
-	{
-		turn_on_lights(event);
-		change_menu(event);
-	}
-//	else if (event->t_select == KEY_L && (key == MINUS || key == PLUS))
-//		change_light(event, (key == PLUS));
-	else if (key == KEY_Q && event->t_select == KEY_C)
-	{
-		change_camera(event);
-		change_menu(event);
-	}
-//	else if (event->t_select == KEY_O)
-//		control_object(event, 0, key, ft_init_3v(0.0, 0.0, 0.0));
+	key_pressed_2(key, event);
 	return (1);
 }
 
@@ -85,11 +88,6 @@ int			key_hold(int key, t_event *event)
 {
 	if (key == KEY_W || key == KEY_S || key == KEY_A || key == KEY_D)
 	{
-//		if (key == KEY_W || key == KEY_S)
-//			set_move(event, (key == KEY_W ? -1 : 1));
-//		else
-//			set_move(event, (key == KEY_A ? -2 : 2));
-//		raytracer(event, &(event->scene), 0);
 		mlx_put_image_to_window(event->mlx, event->win,
 		(event->img).img_ptr, 0, 0);
 	}

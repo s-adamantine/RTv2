@@ -6,7 +6,7 @@
 #    By: nicola <nicola@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/26 10:27:32 by sadamant         ###   ########.fr        #
+#    Updated: 2018/06/26 11:36:19 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -50,7 +50,6 @@ SRCS = 	rtv1.c\
 		tools_limits.c\
 		tools_thread.c\
 		event_key.c\
-		event_mouse.c\
 		control_light.c\
 		control_light_2.c\
 		control_camera.c\

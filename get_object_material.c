@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:27:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:24:01 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:39:21 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static t_3v	get_angle(t_object o, t_3v p)
 	return (k);
 }
 
-static void		wavy_it(t_material *m, t_3v angle, int type)
+static void	wavy_it(t_material *m, t_3v angle, int type)
 {
 	if (!type)
 		m->wave_value = 1 - fabs(cos(angle.v[0] * ((double)m->freq / 200.0)))

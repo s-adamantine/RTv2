@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 07:29:10 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:30:34 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,8 @@ static void		get_value(t_scene scene, t_pixel *p)
 		return ;
 	obj = pi->vis_obj;
 	color = (pi->obj_m).color;
-	p->c_per_src[0] = ft_init_3v((color.v)[0] * (pi->obj_m).ambient * scene.ambient,
-			(color.v)[1] * (pi->obj_m).ambient * scene.ambient,
+	p->c_per_src[0] = ft_init_3v((color.v)[0] * (pi->obj_m).ambient
+			* scene.ambient, (color.v)[1] * (pi->obj_m).ambient * scene.ambient,
 			(color.v)[2] * (pi->obj_m).ambient * scene.ambient);
 }
 
@@ -61,6 +61,7 @@ static void		setup_pixel(t_pixel *p, t_scene scene, int i, int j)
 			/ 2.0);
 	(p->coor).v[2] = (double)(scene.height / 2.0 - (double)i
 			/ scene.max_anti_a);
+	get_value(scene, p);
 }
 
 /*
@@ -88,7 +89,6 @@ void			*set_t_values(void *arg)
 			{
 				p = &((e->scene.cam)->p_array[j + i * e->scene.width * factor]);
 				setup_pixel(p, e->scene, i, j);
-				get_value(e->scene, p);
 			}
 			j += e->scene.step_size;
 		}

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 13:11:07 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 10:27:55 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int			key_pressed(int key, t_event *event)
 	if (key == ESC)
 		exit(0);
 	if (key == KEY_S)
-		save_image(event);
-	if (key == KEY_W) //change to something else
-		read_image(event);
+		save_image_file(event);
+	if (key == KEY_W)
+		read_image_file(event);
 	if (key == KEY_I)
 	{
 		event->instructions = (event->instructions) ? 0 : 1;

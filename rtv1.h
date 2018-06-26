@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 09:35:59 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 10:27:11 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -352,7 +352,9 @@ void			get_int_from_line(int *v, char *line, int size);
 void			update_vector_xyz(t_3v *vector, char *line);
 void			create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 t_material		filter_it(t_object o, int id);
-void			save_image(t_event *event);
-void			read_image(t_event *event);
+void			save_image_file(t_event *event);
+void			read_image_file(t_event *event);
+int				file_exists(char *name);
+int				file_exists_save(char *name);
 
 #endif

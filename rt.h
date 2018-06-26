@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:46:13 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 12:33:44 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@
 # define LIGHT_HEIGHT 120
 # define AMOUNT_INSTRUCTIONS 7
 # define AMOUNT_INFO 8
+# define IMG_FOLDER "./images/"
 
 # include "libft.h"
 

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 11:51:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 09:43:14 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 10:47:21 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,9 @@ static void	init_def_material(t_material *m, int id)
 	m->shininess = 0;
 	m->transparent = 0.0;
 	m->refractive_index = 1.0;
-	m->wavy = 0;
+	m->amp = 0;
+	m->wave_value = 1.0;
+	m->freq = 20;
 }
 
 void		set_values_material(t_material *m, char *s, char *value)
@@ -36,8 +38,10 @@ void		set_values_material(t_material *m, char *s, char *value)
 		update_vector(&(m->color), value);
 	else if (ft_strncmp(s, "beer", 4) == 0)
 		update_vector(&(m->beer), value);
-	else if (ft_strncmp(s, "wavy", 4) == 0)
-		m->wavy = ft_atoi(value);
+	else if (ft_strncmp(s, "amp", 3) == 0)
+		m->amp = ft_atod(value);
+	else if (ft_strncmp(s, "freq", 4) == 0)
+		m->freq = ft_atoi(value);
 	else if (ft_strncmp(s, "transparent", 11) == 0)
 		m->transparent = ft_atod(value);
 	else if (ft_strncmp(s, "refraction", 10) == 0)

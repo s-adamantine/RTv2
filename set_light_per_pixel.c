@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/02/20 15:42:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 19:35:29 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 10:29:15 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 	influence = get_influence(p, i);
 	if ((pi->vis_obj)->type % 5 && ft_3v_dot_product(pi->dir, pi->normal) > 0)
 		influence *= (pi->obj_m).transparent;
-	in.diff = in.diff * (l.intensity).diff;
+	in.diff = in.diff * (l.intensity).diff * (pi->obj_m).wave_value;
 	in.spec = in.spec * (l.intensity).spec;
 	check_values(&in, o, l);
 	in.diff *= (influence * (1 - in.spec));

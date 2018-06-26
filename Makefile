@@ -6,7 +6,7 @@
 #    By: nicola <nicola@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/25 19:04:32 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/26 10:27:32 by sadamant         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,8 @@ SRCS = 	rtv1.c\
 		refraction.c\
 		get_mesh_obj.c\
 		filter_it.c\
-		write_file.c
+		get_image_file.c\
+		get_file_existence.c
 
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/

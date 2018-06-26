@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_scene_new.c                                    :+:      :+:    :+:   */
+/*   set_scene.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
+/*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 13:23:51 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:52:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	init_def_scene(t_scene *scene)
 {
@@ -27,6 +27,7 @@ static void	init_def_scene(t_scene *scene)
 	scene->height = 800;
 	scene->wait = 0.5;
 	scene->refl = 2;
+	scene->filter = 0;
 	scene->cam_set = 0;
 	scene->ambient = 0.5;
 	scene->grain = 1;
@@ -55,8 +56,7 @@ void		set_scene(int fd, t_scene *scene)
 		else if (ft_strncmp(line, "light {", 7) == 0)
 			add_light(scene, fd);
 		else if (ft_strncmp(line, "object {", 8) == 0)
-			set_object(&(scene->objects), scene,
-					scene->amount_obj, fd);
+			set_object(scene, scene->amount_obj, fd, NULL);
 		free(line);
 	}
 	if (gnl < 0)

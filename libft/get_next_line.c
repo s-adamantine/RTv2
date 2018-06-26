@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 13:39:05 by mpauw             #+#    #+#             */
-/*   Updated: 2017/11/27 16:38:07 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/25 13:05:53 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ static t_buff	*get_buff(int fd)
 	return (buff);
 }
 
-static int		write_to_line(t_buff *buff, char **line, size_t *to_alloc, size_t *read_so_far)
+static int		write_to_line(t_buff *buff, char **line, size_t *to_alloc,
+		size_t *read_so_far)
 {
 	size_t	len_line;
 	char	cur_c;
@@ -60,7 +61,8 @@ static int		write_to_line(t_buff *buff, char **line, size_t *to_alloc, size_t *r
 	return (2);
 }
 
-static int		read_file(t_buff *buff, char **line, size_t to_alloc, size_t *read_so_far)
+static int		read_file(t_buff *buff, char **line, size_t to_alloc,
+		size_t *read_so_far)
 {
 	int	status;
 	int	read_r;
@@ -100,5 +102,5 @@ int				get_next_line(const int fd, char **line)
 		read_so_far++;
 	if (read_so_far == BUFF_SIZE + 2)
 		return (0);
-	return (read_file(buff, line, to_alloc, &read_so_far));	
+	return (read_file(buff, line, to_alloc, &read_so_far));
 }

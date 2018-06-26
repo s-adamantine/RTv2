@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:52:50 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 14:26:27 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:50:32 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static int	within_planes(t_object *p1, t_object *p2, t_3v point)
 {
@@ -36,7 +36,7 @@ static int	within_planes(t_object *p1, t_object *p2, t_3v point)
 	return (1);
 }
 
-double	within_limits(t_object *obj, t_3v point, double b)
+double		within_limits(t_object *obj, t_3v point, double b)
 {
 	int	c;
 

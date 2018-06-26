@@ -6,32 +6,23 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 13:23:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/18 14:47:31 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:47:40 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
-static void	set_group_object(t_list *lst, int group_id, t_object *obj_to_set)
+static void	set_group_object(t_object *obj_to_set)
 {
-	t_list		*tmp_obj;
-	t_object	*obj;
-
-	tmp_obj = lst;
-	while (tmp_obj && tmp_obj->content)
-	{
-		obj = (t_object *)tmp_obj->content;
-		if (obj->group_id == group_id && obj->is_group_main)
-		{
-			obj_to_set->group_origin = obj->group_origin;
-			obj_to_set->group_rotation = obj->group_rotation;
-		}
-		tmp_obj = tmp_obj->next;
-	}
+	obj_to_set->origin = ft_3v_scalar(obj_to_set->origin, obj_to_set->size);
+	if (obj_to_set->type == 2 || obj_to_set->type == 1)
+		obj_to_set->radius = obj_to_set->radius * obj_to_set->size;
 	obj_to_set->rotation = ft_3v_add(obj_to_set->rotation,
 			obj_to_set->group_rotation);
-	obj_to_set->origin = rotate_v(obj_to_set->origin, obj_to_set->group_rotation);
-	obj_to_set->origin = ft_3v_add(obj_to_set->origin, obj_to_set->group_origin);
+	obj_to_set->origin = rotate_v(obj_to_set->origin,
+			obj_to_set->group_rotation);
+	obj_to_set->origin = ft_3v_add(obj_to_set->origin,
+			obj_to_set->group_origin);
 }
 
 static void	set_limit_object(t_list *lst, int lim_id_1, int lim_id_2,
@@ -72,7 +63,9 @@ void		set_finish(t_scene *scene)
 			set_limit_object(scene->objects, obj->lim_by_1,
 					obj->lim_by_2, obj);
 		if (obj->group_id > 0)
-			set_group_object(scene->objects, obj->group_id, obj);
+			set_group_object(obj);
+		if (obj->type == 6)
+			create_mesh(&(scene->objects), obj, scene);
 		tmp_obj = tmp_obj->next;
 	}
 }

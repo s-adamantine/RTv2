@@ -1,0 +1,75 @@
+render {
+		{name, {Teeny Triangle}}
+		{dimensions, {600 600}}
+		{ambient, {1}}
+}
+
+camera {
+		{origin, {2.0 2.0 1.0}}
+		{rotation, {0 -30.0 45.0}}
+}
+
+light {
+		{origin, {10.0 10.0 10}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {10 10}}
+}
+
+triangle in unitary positive point ( ex 1,0,0).
+spheres in the same points.
+camera in the positive sector looking at the center
+
+object {
+		{type, {triangle}}
+		{color, {0.0 0.46 1.0}}
+		{reflection, {0.1 0.7 0.1 10}}
+		{origin, {1 0 0}}
+        {origin_2, {0 1 0}}
+        {origin_3, {0 0 1}}
+}
+
+*object {
+		{type, {cylinder}}
+		{origin, {0 0 0}}
+		{rotation, {0 0.0 0}}
+		{color, {1 0 0}}
+		{radius, {0.05}}
+		{reflection, {0.1 0.15 0.1 10}}
+}
+*object {
+		{type, {cylinder}}
+		{origin, {0 0 0}}
+		{rotation, {90 0 0}}
+		{color, {0 1 0}}
+		{radius, {0.05}}
+		{reflection, {0.1 0.15 0.1 10}}
+}
+*object {
+		{type, {cylinder}}
+		{origin, {0 0 0}}
+		{rotation, {0 90 0}}
+		{color, {0 0 1}}
+		{radius, {0.05}}
+		{reflection, {0.1 0.15 0.1 10}}
+}
+
+*object {
+		{type, {sphere}}
+		{origin, {1 0 0}}
+		{radius, {0.1}}
+		{color, {1 1 1}}
+}
+
+*object {
+		{type, {sphere}}
+		{origin, {0 1 0}}
+		{radius, {0.1}}
+		{color, {1 1 1}}
+}
+
+*object {
+		{type, {sphere}}
+		{origin, {0 0 1}}
+		{radius, {0.1}}
+		{color, {1 1 1}}
+}

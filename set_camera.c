@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:43:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/07 17:49:21 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:47:17 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static t_cam	init_def_cam(t_scene *scene)
 {
@@ -19,6 +19,7 @@ static t_cam	init_def_cam(t_scene *scene)
 	cam.id = scene->cam_set;
 	cam.grain = scene->grain;
 	cam.init = 0;
+	cam.selected = 0;
 	cam.origin = ft_init_3v(700, 0, 0);
 	cam.rotation = ft_zero_3v();
 	(scene->cam_set)++;
@@ -33,7 +34,7 @@ static void		set_values_camera(t_cam *cam, char *s, char *value)
 		update_vector(&(cam->rotation), value);
 }
 
-static void 	add_as_light(t_scene *scene, t_cam cam)
+static void		add_as_light(t_scene *scene, t_cam cam)
 {
 	t_source	light;
 	t_intensity	i;

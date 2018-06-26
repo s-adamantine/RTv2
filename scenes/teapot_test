@@ -1,0 +1,61 @@
+render {
+		{name, {Teeny Teapot}}
+		{dimensions, {512 512}}
+		{ambient, {2}}
+		{grain, {8}}
+}
+
+camera {
+		{origin, {5 3 4}}
+		{rotation, {0 -29.0 -30}}
+}
+
+light {
+		{origin, {5 5 5}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {2 1}}
+}
+
+light {
+		{origin, {5.0 -5.0 5.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {2 1}}
+}
+
+object {
+		{type, {mesh}}
+		{path, {./scenes/objs/teapot.obj}}
+		{reflection, {0.1 0.3 0.2 10}}
+		{color, {0.8 0.5 0.5}}
+}
+
+// bottom floor
+
+object {
+		{type, {plane}}
+		{origin, {0.0 -2 0.0}}
+		{rotation, {0 0.0 0.0}}
+		{color, {0.5 0.5 0.5}}
+		{reflection, {0.1 0.4 0.6 20}}
+}
+
+// left wall
+
+object {
+		{type, {plane}}
+		{origin, {0.0 -5.0 0.0}}
+		{rotation, {90.0 0.0 0.0}}
+		{color, {0.5 0.5 0.5}}
+		{reflection, {0.1 0.4 0.6 20}}
+}
+
+// front wall
+
+object {
+		{type, {plane}}
+		{origin, {-5.0 -5.0 0.0}}
+		{rotation, {90.0 0.0 90.0}}
+		{color, {0.5 0.5 0.5}}
+		{reflection, {0.1 0.4 0.6 20}}
+}
+

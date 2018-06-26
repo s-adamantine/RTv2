@@ -6,15 +6,15 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 14:09:05 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/20 16:27:33 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 12:58:55 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 /*
- * Determines whether a source should be turned off or on.
- */
+** Determines whether a source should be turned off or on.
+*/
 
 static int	turn_off_or_on(t_scene *scene, int id)
 {
@@ -54,7 +54,7 @@ static void	add_color(t_pixel *p, int id, t_event *event, t_3v *t)
 		{
 			if ((event->src)->max_intensity > 1.0)
 				(p->c_per_src)[id] = ft_3v_scalar((p->c_per_src)[id],
-						1 / (event->src)->max_intensity);
+						1.0 / (event->src)->max_intensity);
 			p->color = ft_3v_add((p->c_per_src)[id], p->color);
 			p->color = ft_3v_scalar(p->color, (event->src)->int_factor);
 		}
@@ -63,9 +63,9 @@ static void	add_color(t_pixel *p, int id, t_event *event, t_3v *t)
 }
 
 /*
- * Change the color of a pixel by adding the color value of the light. Change
- * in image by calling fill_square (grainy effect).
- */
+** Change the color of a pixel by adding the color value of the light. Change
+** in image by calling fill_square (grainy effect).
+*/
 
 static void	change_color(t_event *event, int id, int vert, int hor)
 {
@@ -91,7 +91,7 @@ static void	change_color(t_event *event, int id, int vert, int hor)
 		}
 		i += event->scene.step_size;
 	}
-	t = ft_3v_scalar(t, 1 / ((event->scene).anti_a * (event->scene).anti_a));
+	t = ft_3v_scalar(t, 1.0 / ((event->scene).anti_a * (event->scene).anti_a));
 	fill_square(&(event->img), hor + (event->scene).width * vert,
 			(event->scene).step_size / (event->scene).max_anti_a, get_color(t));
 }
@@ -109,7 +109,7 @@ static void	*switch_one(void *event)
 	i = ((scene.height / THREADS) * scene.thread_id);
 	grain_step = (scene.step_size > scene.max_anti_a) ? scene.step_size /
 		scene.max_anti_a : 1;
-	while (i < (scene.height / THREADS)  * (scene.thread_id + 1))
+	while (i < (scene.height / THREADS) * (scene.thread_id + 1))
 	{
 		j = 0;
 		while (j < scene.width)
@@ -123,8 +123,8 @@ static void	*switch_one(void *event)
 }
 
 /*
- * Turn on light or multiple lights.
- */
+** Turn on light or multiple lights.
+*/
 
 void		turn_on_lights(t_event *event)
 {

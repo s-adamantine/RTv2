@@ -99,6 +99,8 @@ SRC = ft_atoi.c\
 	  ft_3v_scalar_p.c\
 	  ft_rotate_3v.c\
 	  ft_init_3v.c\
+	  ft_clamp.c\
+	  ft_swap_double.c\
 	  ft_zero_3v.c
 POINTO = $(SRC:%.c=%.o)
 NAME = libft.a

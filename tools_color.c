@@ -6,15 +6,15 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:15:10 by mpauw             #+#    #+#             */
-/*   Updated: 2018/05/09 14:15:12 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:50:27 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 /*
- * Get an int value for color based on a color vector.
- */
+** Get an int value for color based on a color vector.
+*/
 
 int	get_color(t_3v c)
 {

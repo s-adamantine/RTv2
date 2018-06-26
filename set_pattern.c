@@ -6,39 +6,41 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/08 16:21:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/15 11:47:05 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:52:09 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	init_def_pattern(t_pattern *p, int id)
 {
 	p->id = id;
 	p->type = 0;
-	p->size = 1;
+	p->size = 0.05;
 	p->distance = 2;
 	p->os_1 = 0;
 	p->os_2 = 0;
 	p->amount_points = 25;
 }
 
-static void		set_values_pattern(t_pattern *p, char *s, char *value)
+static void	set_values_pattern(t_pattern *p, char *s, char *value)
 {
 	if (ft_strncmp(s, "type", 4) == 0)
 		p->type = ft_atoi(value);
 	else if (ft_strncmp(s, "size", 4) == 0)
 		p->size = ft_atod(value);
 	else if (ft_strncmp(s, "distance", 8) == 0)
-		p->distance = ft_atoi(value);
+		p->distance = ft_atod(value);
 	else if (ft_strncmp(s, "amount_points", 13) == 0)
 		p->amount_points = ft_atoi(value);
 	else if (ft_strncmp(s, "offset_1", 8) == 0)
-		p->os_1 = ft_atoi(value);
+		p->os_1 = ft_atod(value);
 	else if (ft_strncmp(s, "offset_2", 8) == 0)
-		p->os_2 = ft_atoi(value);
+		p->os_2 = ft_atod(value);
 	if (p->distance <= 0)
 		p->distance = 2;
+	free(s);
+	free(value);
 }
 
 static void	add_pattern(t_scene *scene, int fd)
@@ -60,8 +62,6 @@ static void	add_pattern(t_scene *scene, int fd)
 			error(0);
 		set_values_pattern(&p, s, value);
 		free(line);
-		free(s);
-		free(value);
 	}
 	if (gnl < 0)
 		error(0);

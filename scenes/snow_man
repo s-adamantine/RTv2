@@ -1,0 +1,90 @@
+render {
+		{name, {Snow Man Party}}
+		{dimensions, {1600 1200}}
+		{ambient, {2}}
+		{reflection, {0}}
+}
+camera {
+		{origin, {1000.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+camera {
+		{origin, {1000.0 -400.0 0.0}}
+		{rotation, {0.0 0.0 330.0}}
+}
+camera {
+		{origin, {-1000.0 0.0 0.0}}
+		{rotation, {0.0 0.0 180.0}}
+}
+camera {
+		{origin, {900.0 40.0 100.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+light {
+		{origin, {1000.0 100.0 200.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {800 1}}
+}
+light {
+		{origin, {745.0 145.0 300.0}}
+		{color, {0.4 0.7 1.0}}
+		{intensity, {1200 0}}
+}
+light {
+		{origin, {600.0 -150.0 600.0}}
+		{color, {0.4 0.7 1.0}}
+		{intensity, {1200 0}}
+}
+
+object {
+		{type, {composite}}
+		{path, {./scenes/objs/snow_man}}
+		{origin, {300.0 -200.0 -200.0}}
+		{rotation, {0.0 0.0 20.0}}
+}
+object {
+		{type, {composite}}
+		{path, {./scenes/objs/snow_man}}
+		{origin, {400.0 50.0 -200.0}}
+		{rotation, {0.0 0.0 -10.0}}
+		{size, {0.7}}
+}
+object {
+		{type, {composite}}
+		{path, {./scenes/objs/snow_man}}
+		{origin, {600.0 100.0 -200.0}}
+		{rotation, {0.0 0.0 -30.0}}
+		{size, {0.4}}
+}
+object {
+		{type, {plane}}
+		{origin, {0.0 0.0 -200.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{material, {7}}
+}
+object {
+		{type, {plane}}
+		{origin, {-1000.0 0.0 0.0}}
+		{rotation, {0.0 90.0 0.0}}
+		{color, {0.92 0.81 0.52}}
+		{reflection, {0.4 0.0 0.0 0}}
+}
+object {
+		{type, {sphere}}
+		{origin, {745.0 145.0 300.0}}
+		{rotation, {20, 180, 30}}
+		{radius, {100}}
+		{pattern, {3}}
+		{material, {1}}
+		{sec_material, {3}}
+}
+object {
+		{type, {sphere}}
+		{origin, {600.0 -150.0 600.0}}
+		{rotation, {0, 15, 30}}
+		{radius, {120}}
+		{transparent, {0.9}}
+		{pattern, {1}}
+		{material, {3}}
+		{sec_material, {4}}
+}

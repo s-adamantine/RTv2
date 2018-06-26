@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 14:11:11 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/19 14:11:26 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:50:42 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void	create_threads(t_event *event, void *(*f)(void*))
 {

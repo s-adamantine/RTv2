@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 19:36:15 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 09:35:59 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,8 +118,10 @@ typedef struct	s_material
 {
 	int			id;
 	int			pattern;
+	int			wavy;
 	t_3v		color;
 	t_3v		beer;
+	t_3v		n_var;
 	double		diffuse;
 	double		ambient;
 	double		specular;

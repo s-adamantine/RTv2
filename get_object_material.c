@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:27:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 19:34:56 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 09:51:09 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,29 @@ static t_3v	get_angle(t_object o, t_3v p)
 	return (k);
 }
 
+static void		wavy_it(t_material *m, double wavy, t_3v angle)
+{
+	m->wave = fabs(angle.v[2]) / (double)wavy;
+}
+
 t_material	get_object_material(t_object o, t_3v p, t_scene scene)
 {
-	t_3v	dif;
-	t_3v	angle;
+	t_3v		dif;
+	t_3v		angle;
+	t_material	m;
 
 	dif = ft_3v_subtract(p, o.origin);
 	dif = rotate_v_inv(dif, o.rotation);
 	angle = get_angle(o, dif);
 	if ((o.pattern).type == 1)
-		return (polka_dot_it(o, angle, dif));
+		m = polka_dot_it(o, angle, dif);
 	else if ((o.pattern).type == 2)
-		return (stripe_it(o, angle, dif));
-	if (scene.filter > 0)
-		return (filter_it(o, scene.filter));
-	return (o.m);
+		m = stripe_it(o, angle, dif);
+	else if (scene.filter > 0)
+		m = filter_it(o, scene.filter);
+	else
+		m = o.m;
+	if (m.wavy > 0)
+		wavy_it(&m, m.wavy, angle);
+	return (m);
 }

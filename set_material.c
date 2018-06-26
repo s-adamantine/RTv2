@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 11:51:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 07:29:16 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 09:43:14 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static void	init_def_material(t_material *m, int id)
 {
 	m->color = ft_init_3v(1.0, 1.0, 0.0);
 	m->beer = ft_init_3v(1.0, 1.0, 1.0);
+	m->n_var = ft_init_3v(1.0, 1.0, 1.0);
 	m->id = id;
 	m->pattern = 0;
 	m->diffuse = 0.2;
@@ -24,6 +25,7 @@ static void	init_def_material(t_material *m, int id)
 	m->shininess = 0;
 	m->transparent = 0.0;
 	m->refractive_index = 1.0;
+	m->wavy = 0;
 }
 
 void		set_values_material(t_material *m, char *s, char *value)
@@ -34,10 +36,14 @@ void		set_values_material(t_material *m, char *s, char *value)
 		update_vector(&(m->color), value);
 	else if (ft_strncmp(s, "beer", 4) == 0)
 		update_vector(&(m->beer), value);
+	else if (ft_strncmp(s, "wavy", 4) == 0)
+		m->wavy = ft_atoi(value);
 	else if (ft_strncmp(s, "transparent", 11) == 0)
 		m->transparent = ft_atod(value);
 	else if (ft_strncmp(s, "refraction", 10) == 0)
 		m->refractive_index = ft_atod(value);
+	else if (ft_strncmp(s, "normal_var", 10) == 0)
+		update_vector(&(m->n_var), (value));
 	else if (ft_strncmp(s, "reflection", 10) == 0)
 	{
 		if (!(tmp = (double *)malloc(4 * sizeof(double))))

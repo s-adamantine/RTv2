@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:15:23 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 18:54:56 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 09:43:27 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void	get_random_vector(double min, double max, t_3v *v)
 	i = 0;
 	while (i < 3)
 	{
-		v->v[i] *= (min + (max - min) * rand());
+		v->v[i] *= (min + (max - min) * ((double)rand() / (double)RAND_MAX));
 		i++;
 	}
 }
@@ -52,7 +52,7 @@ t_3v		get_normal(t_object *obj, t_3v point)
 	if (obj->type == 5)
 		norm_t = ft_cross_product(ft_3v_subtract(obj->origin_2, obj->origin),
 				ft_3v_subtract(obj->origin_3, obj->origin));
-	get_random_vector(1.0, 1.0, &norm_t);
+	get_random_vector((obj->m).n_var.v[0], (obj->m).n_var.v[1], &norm_t);
 	size = ft_get_3v_size(norm_t);
 	if (size == 0 && obj->type != 3)
 		error(5);

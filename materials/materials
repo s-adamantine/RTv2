@@ -34,3 +34,18 @@ material {
 		{transparent, {0.0}}
 		{reflection, {0.05 0.25 0.2 20}}
 }
+material {
+		{description, {snow}}
+		{id, {7}}
+		{reflection, {0.05 0.25 0.05 20}}
+		{color, {1.0 1.0 1.0}}
+		{wavy, {2}}
+}
+material {
+		{description, {wavy}}
+		{id, {8}}
+		{reflection, {0.05 0.25 0.05 20}}
+		{normal_var, {0.8, 1.2, 1.0}}
+		{color, {1.0 1.0 1.0}}
+		{wavy, {2}}
+}

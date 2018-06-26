@@ -1,11 +1,11 @@
 render {
-		{name, {Snow Man}}
+		{name, {Snow Man Party}}
 		{dimensions, {1600 1200}}
-		{ambient, {1}}
+		{ambient, {2}}
 		{reflection, {0}}
 }
 camera {
-		{origin, {200.0 0.0 0.0}}
+		{origin, {1000.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
 camera {
@@ -21,32 +21,71 @@ camera {
 		{rotation, {0.0 0.0 0.0}}
 }
 light {
-		{origin, {2000.0 100.0 200.0}}
+		{origin, {1000.0 100.0 200.0}}
 		{color, {1.0 1.0 1.0}}
-		{intensity, {4000 1}}
+		{intensity, {800 1}}
+}
+light {
+		{origin, {745.0 145.0 300.0}}
+		{color, {0.4 0.7 1.0}}
+		{intensity, {1200 0}}
+}
+light {
+		{origin, {600.0 -150.0 600.0}}
+		{color, {0.4 0.7 1.0}}
+		{intensity, {1200 0}}
 }
 
 object {
-		{type, {sphere}}
-		{origin, {0.0 0.0 100.0}}
+		{type, {composite}}
+		{path, {./scenes/objs/snow_man}}
+		{origin, {300.0 -200.0 -200.0}}
+		{rotation, {0.0 0.0 20.0}}
+}
+object {
+		{type, {composite}}
+		{path, {./scenes/objs/snow_man}}
+		{origin, {400.0 50.0 -200.0}}
+		{rotation, {0.0 0.0 -10.0}}
+		{size, {0.7}}
+}
+object {
+		{type, {composite}}
+		{path, {./scenes/objs/snow_man}}
+		{origin, {600.0 100.0 -200.0}}
+		{rotation, {0.0 0.0 -30.0}}
+		{size, {0.4}}
+}
+object {
+		{type, {plane}}
+		{origin, {0.0 0.0 -200.0}}
 		{color, {1.0 1.0 1.0}}
-		{transparent, {0.0}}
+		{rotation, {0.0 0.0 0.0}}
+		{reflection, {0.1 0.2 0.1 0}}
+}
+object {
+		{type, {plane}}
+		{origin, {-1000.0 0.0 0.0}}
+		{rotation, {0.0 90.0 0.0}}
+		{color, {0.92 0.81 0.52}}
+		{reflection, {0.4 0.0 0.0 0}}
+}
+object {
+		{type, {sphere}}
+		{origin, {745.0 145.0 300.0}}
+		{rotation, {20, 180, 30}}
 		{radius, {100}}
-		{reflection, {0.05 0.25 0.05 20}}
+		{pattern, {3}}
+		{material, {1}}
+		{sec_material, {3}}
 }
 object {
 		{type, {sphere}}
-		{origin, {0.0 0.0 255.0}}
-		{color, {1.0 1.0 1.0}}
-		{transparent, {0.0}}
-		{radius, {89}}
-		{reflection, {0.05 0.25 0.05 20}}
-}
-object {
-		{type, {sphere}}
-		{origin, {0.0 0.0 385.0}}
-		{color, {1.0 1.0 1.0}}
-		{transparent, {0.0}}
-		{radius, {70}}
-		{reflection, {0.05 0.25 0.05 20}}
+		{origin, {600.0 -150.0 600.0}}
+		{rotation, {0, 15, 30}}
+		{radius, {120}}
+		{transparent, {0.9}}
+		{pattern, {1}}
+		{material, {3}}
+		{sec_material, {4}}
 }

@@ -20,5 +20,108 @@ object {
 		{color, {1.0 1.0 1.0}}
 		{transparent, {0.0}}
 		{radius, {70}}
-		{reflection, {0.05 0.25 0.05 20}}
+		{reflection, {0.0 0.25 0.05 20}}
+}
+object {
+		{type, {sphere}}
+		{origin, {64.0 -20.0 400.0}}
+		{color, {0.0 0.0 0.0}}
+		{transparent, {0.0}}
+		{radius, {5}}
+		{reflection, {0.0 0.25 0.05 20}}
+}
+object {
+		{type, {sphere}}
+		{origin, {64.0 20.0 400.0}}
+		{color, {0.0 0.0 0.0}}
+		{transparent, {0.0}}
+		{radius, {5}}
+		{reflection, {0.0 0.25 0.05 20}}
+}
+object {
+		{type, {sphere}}
+		{origin, {89.0 0.0 255.0}}
+		{color, {0.0 0.0 0.0}}
+		{transparent, {0.0}}
+		{radius, {5}}
+		{reflection, {0.0 0.25 0.05 20}}
+}
+object {
+		{type, {sphere}}
+		{origin, {86.0 0.0 275.0}}
+		{color, {0.0 0.0 0.0}}
+		{transparent, {0.0}}
+		{radius, {5}}
+		{reflection, {0.0 0.25 0.05 20}}
+}
+object {
+		{type, {sphere}}
+		{origin, {86.0 0.0 235.0}}
+		{color, {0.0 0.0 0.0}}
+		{transparent, {0.0}}
+		{radius, {5}}
+		{reflection, {0.0 0.25 0.05 20}}
+}
+object {
+		{type, {cone}}
+		{origin, {105.0 0.0 395.0}}
+		{color, {0.13 0.54 0.92}}
+		{rotation, {0.0 90.0 0.0}}
+		{limited_by_1, {1}}
+		{limited_by_2, {2}}
+		{transparent, {0.0}}
+		{radius, {0.2}}
+		{reflection, {0.0 0.25 0.05 20}}
+}
+object {
+		{type, {cylinder}}
+		{origin, {0.0 0.0 205.0}}
+		{color, {0.04 0.14 0.21}}
+		{rotation, {45.0 0.0 0.0}}
+		{limited_by_1, {3}}
+		{limited_by_2, {4}}
+		{transparent, {0.0}}
+		{radius, {4}}
+		{reflection, {0.0 0.25 0.05 20}}
+}
+object {
+		{type, {cylinder}}
+		{origin, {0.0 0.0 205.0}}
+		{color, {0.04 0.14 0.21}}
+		{rotation, {-45.0 0.0 0.0}}
+		{limited_by_1, {3}}
+		{limited_by_2, {5}}
+		{transparent, {0.0}}
+		{radius, {4}}
+		{reflection, {0.0 0.25 0.05 20}}
+}
+object {
+		{limit_id, {1}}
+		{visible, {0}}
+		{origin, {105.0 0.0 0.0}}
+		{rotation, {0.0 90.0 0.0}}
+}
+object {
+		{limit_id, {2}}
+		{visible, {0}}
+		{origin, {60.0 0.0 0.0}}
+		{rotation, {0.0 90.0 0.0}}
+}
+object {
+		{limit_id, {3}}
+		{visible, {0}}
+		{origin, {0.0 0.0 0.0}}
+		{rotation, {90.0 0.0 0.0}}
+}
+object {
+		{limit_id, {4}}
+		{visible, {0}}
+		{origin, {0.0 -120.0 350.0}}
+		{rotation, {45.0 0.0 0.0}}
+}
+object {
+		{limit_id, {5}}
+		{visible, {0}}
+		{origin, {0.0 120.0 350.0}}
+		{rotation, {-45.0 0.0 0.0}}
 }

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:22:15 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 15:58:25 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 07:29:14 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void		init_def_object(t_object *obj, int id, t_scene *scene,
 {
 	if (parent)
 		parent->is_group_main = 1;
+	change_material(scene, obj, 0, 0);
 	obj->group_id = (parent) ? parent->group_id : 0;
 	obj->group_rotation = (parent) ? parent->rotation : ft_zero_3v();
 	obj->group_origin = (parent) ? parent->origin : ft_zero_3v();
@@ -38,7 +39,6 @@ void		init_def_object(t_object *obj, int id, t_scene *scene,
 	obj->limit_id = 0;
 	obj->visible = 1;
 	obj->path = NULL;
-	change_material(scene, obj, 0, 0);
 	scene->amount_obj++;
 }
 

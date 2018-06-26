@@ -22,8 +22,8 @@ static void	set_values_render_3(t_scene *scene, char *s, char *value)
 		scene->wait = ft_atod(value);
 	else if (ft_strncmp(s, "reflection", 10) == 0)
 	{
-		if (ft_atoi(value) > 3)
-			scene->refl = 3;
+		if (ft_atoi(value) > 2)
+			scene->refl = 2;
 		else
 			scene->refl = ft_atoi(value);
 	}

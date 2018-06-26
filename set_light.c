@@ -55,6 +55,8 @@ void			add_light(t_scene *scene, int fd)
 	char		*s;
 	char		*value;
 
+	if (scene->amount_light > 9)
+		return ;
 	light = init_light(scene);
 	while (get_next_line(fd, &line) == 1)
 	{

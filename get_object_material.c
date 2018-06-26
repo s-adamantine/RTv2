@@ -12,10 +12,10 @@
 
 #include "rtv1.h"
 
-static t_3v	get_angle(t_object o, t_3v p)
+static t_3v		get_angle(t_object o, t_3v p)
 {
-	t_3v	k;
-	t_3v	rot_axis;
+	t_3v		k;
+	t_3v		rot_axis;
 
 	if (o.type == 0)
 		return (p);
@@ -39,10 +39,10 @@ static t_3v	get_angle(t_object o, t_3v p)
 
 static void		wavy_it(t_material *m, double wavy, t_3v angle)
 {
-	m->wave = fabs(angle.v[2]) / (double)wavy;
+	m->wavy = fabs(angle.v[2]) / (double)wavy;
 }
 
-t_material	get_object_material(t_object o, t_3v p, t_scene scene)
+t_material		get_object_material(t_object o, t_3v p, t_scene scene)
 {
 	t_3v		dif;
 	t_3v		angle;

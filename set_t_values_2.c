@@ -91,7 +91,7 @@ static void		refrect_or_reflect(t_pixel *p, t_scene scene, t_3v dir,
 {
 	t_3v		n_dir;
 
-	if (((pi->vis_obj)->m).transparent > 0.001)
+	if (((pi->vis_obj)->m).transparent > 0.001 && p->amount_p < 6)
 		refraction(pi, &dir, p, scene);
 	if ((((pi->vis_obj)->m).specular > 0.001 && p->amount_refl < scene.refl))
 	{

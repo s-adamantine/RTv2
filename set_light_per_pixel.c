@@ -16,13 +16,14 @@
 ** Make sure color values don't exceed 1.
 */
 
-static void		check_values(t_intensity *in, t_3v o, t_source l)
+static void		check_values(t_intensity *in, t_3v o, t_source l, t_p_info *pi)
 {
 	if (in->spec > 1)
 		in->spec = 1;
-	if ((o.v)[0] > 1 || (o.v)[1] > 1 || (o.v)[2] > 1
-			|| (o.v)[0] < 0 || (o.v)[1] < 0
-			|| (o.v)[2] < 0 || ((l.tmp_color).v)[0] > 1
+	if (((o.v)[0] * pi->beer.v[0]) > 1 || ((o.v)[1] * pi->beer.v[1]) > 1
+			|| ((o.v)[2] * pi->beer.v[2]) > 1
+			|| ((o.v)[0] * pi->beer.v[0]) < 0 || ((o.v)[1] * pi->beer.v[1]) < 0
+			|| ((o.v)[2] * pi->beer.v[2]) < 0 || ((l.tmp_color).v)[0] > 1
 			|| ((l.tmp_color).v)[1] > 1 || ((l.tmp_color).v)[2] > 1
 			|| ((l.tmp_color).v)[0] < 0 || ((l.tmp_color).v)[1] < 0
 			|| ((l.tmp_color).v)[2] < 0)
@@ -84,7 +85,7 @@ static double	set_light_value(t_intensity in, t_pixel *p,
 		influence *= (pi->obj_m).transparent;
 	in.diff = in.diff * (l.intensity).diff;
 	in.spec = in.spec * (l.intensity).spec;
-	check_values(&in, o, l);
+	check_values(&in, o, l, pi);
 	in.diff *= (influence * (1 - in.spec));
 	in.spec *= influence;
 	(c->v)[0] += in.diff * ((l.tmp_color).v)[0] * ((o.v)[0] * pi->beer.v[0]);

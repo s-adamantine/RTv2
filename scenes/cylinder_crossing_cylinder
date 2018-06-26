@@ -37,6 +37,7 @@ object {
 		{color, {0.3 0.2 0.5}}
 		{transparent, {0.9}}
 		{radius, {125}}
+		{refraction, {0.8}}
 		{reflection, {0.0 0.15 0.0 10}}
 }
 object {

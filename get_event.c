@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:35:35 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:49:48 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 14:44:26 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ t_event		get_event(t_scene scene)
 	t_event	event;
 
 	event.mlx = mlx_init();
+	event.sub_menu = 0;
 	event.win = mlx_new_window(event.mlx, scene.width,
 			scene.height, scene.name);
 	event.menu_win = mlx_new_window(event.mlx, MENU_WIDTH, MENU_HEIGHT, "Menu");

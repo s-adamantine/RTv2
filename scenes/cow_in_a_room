@@ -39,13 +39,14 @@ object {
 		{path, {./scenes/objs/cow.obj}}
 		{reflection, {0.1 0.3 0.2 10}}
 		{color, {0.8 0.5 0.5}}
+		{rotation, {0.0 0.0 90.0}}
 }
 
 // bottom floor
 
 object {
 		{type, {plane}}
-		{origin, {0.0 0.0 -2.9}}
+		{origin, {0.0 0.0 -3.0}}
 		{rotation, {0 0.0 0.0}}
 		{color, {0.5 0.9 0.5}}
 		{reflection, {0.1 0.4 0.6 20}}

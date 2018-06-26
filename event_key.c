@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 13:24:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 15:00:15 by mpauw            ###   ########.fr       */
 /*   Updated: 2018/06/26 11:49:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -42,27 +42,35 @@ static void	change_grain(t_event *event, int sharper)
 
 static void	key_pressed_2(int key, t_event *event)
 {
-
 	if (key == COMMA || key == DOT)
 		change_grain(event, (key == COMMA));
 	else if (key == KEY_C || key == KEY_O || key == KEY_L || key == KEY_G)
 	{
 		event->t_select = key;
+		event->sub_menu = 0;
 		change_menu(event);
 	}
 	else if (key == KEY_Q && event->t_select == KEY_L)
 	{
 		turn_on_lights(event);
+		event->sub_menu = 0;
+		change_menu(event);
+	}
+	else if (key == SQ_BR_L || key == SQ_BR_R)
+	{
+		event->sub_menu += (key == SQ_BR_L && event->sub_menu > 0) ? -1 : 1;
 		change_menu(event);
 	}
 	else if (event->t_select == KEY_L && (key == MINUS || key == PLUS))
 	{
 		change_light(event, (key == PLUS));
+		event->sub_menu = 0;
 		change_menu(event);
 	}
 	else if (key == KEY_Q && event->t_select == KEY_C)
 	{
 		change_camera(event);
+		event->sub_menu = 0;
 		change_menu(event);
 	}
 	else

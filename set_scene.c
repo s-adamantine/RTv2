@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:52:44 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 14:18:36 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static void	init_def_scene(t_scene *scene)
 	scene->ambient = 0.5;
 	scene->grain = 1;
 	scene->anti_a = 1;
-	scene->max_anti_a = 2;
+	scene->max_anti_a = MAX_ANTI_A;
 	scene->step_size = scene->grain > 1 ? scene->grain :
 		scene->anti_a;
 	scene->source_id = 0;
@@ -51,7 +51,8 @@ void		set_scene(int fd, t_scene *scene)
 	{
 		if (ft_strncmp(line, "render {", 8) == 0)
 			set_render(scene, fd);
-		else if (ft_strncmp(line, "camera {", 8) == 0)
+		else if (ft_strncmp(line, "camera {", 8) == 0 && scene->cam_set
+				< MAX_CAM)
 			set_camera(scene, fd);
 		else if (ft_strncmp(line, "light {", 7) == 0)
 			add_light(scene, fd);
@@ -66,5 +67,4 @@ void		set_scene(int fd, t_scene *scene)
 	if (!(scene->grain))
 		scene->grain = (scene->amount_obj && scene->amount_light) ?
 			scene->amount_obj * scene->amount_light : 1;
-	scene->step_size = scene->grain * scene->max_anti_a;
 }

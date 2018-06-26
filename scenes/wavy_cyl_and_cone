@@ -8,6 +8,18 @@ camera {
 		{origin, {500.0 0.0 0.0}}
 		{rotation, {0.0 0.0 0.0}}
 }
+camera {
+		{origin, {500.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+camera {
+		{origin, {500.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+camera {
+		{origin, {500.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
 light {
 		{origin, {500.0 0.0 0.0}}
 		{color, {1.0 1.0 1.0}}

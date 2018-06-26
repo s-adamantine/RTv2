@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:52:14 by nmanzini          #+#    #+#             */
-/*   Updated: 2018/06/26 11:50:01 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 16:13:21 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,8 @@ static int	fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices)
 		ver_order[2] <= f_i[1] && ver_order[2] >= 0)
 	{
 		f_i[0] += 1;
-		faces[*f_i] = (t_3v *)malloc(3 * sizeof(t_3v));
+		if (!(faces[*f_i] = (t_3v *)malloc(3 * sizeof(t_3v))))
+			error(1);
 		faces[*f_i][0] = vertices[ver_order[0] - 1];
 		faces[*f_i][1] = vertices[ver_order[1] - 1];
 		faces[*f_i][2] = vertices[ver_order[2] - 1];
@@ -65,9 +66,7 @@ static int	fill_f_v_obj_file(char *path, t_3v *vertices, t_3v **faces,
 	while (get_next_line(fd, &line) > 0)
 	{
 		if (*line == 'v' && line[1] == ' ')
-		{
 			update_vector_xyz(&(vertices[++v_i]), &(line[2]));
-		}
 		else if (*line == 'f' && line[1] == ' ')
 			fill_triangle(line, faces, f_i, vertices);
 		free(line);
@@ -129,11 +128,14 @@ t_3v		**read_obj_file(char *path, int verbose)
 		ft_putendl(path);
 		exit(0);
 	}
-	vertices = (t_3v *)malloc((ver_num) * sizeof(t_3v));
-	faces = (t_3v **)malloc((fac_num + 1) * sizeof(t_3v*));
+	if (!(vertices = (t_3v *)malloc((ver_num) * sizeof(t_3v))))
+		error(1);
+	if (!(faces = (t_3v **)malloc((fac_num + 1) * sizeof(t_3v*))))
+		error(1);
 	fill_f_v_obj_file(path, vertices, faces, fac_num);
 	if (verbose)
 		;
 	faces[fac_num] = NULL;
+	free(vertices);
 	return (faces);
 }

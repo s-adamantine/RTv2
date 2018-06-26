@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 13:23:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 13:41:50 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 16:09:28 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,19 @@ void		set_finish(t_scene *scene)
 	t_object	*obj;
 
 	tmp_obj = scene->objects;
+	if (scene->cam_set > 1)
+		scene->max_anti_a = 1;
 	while (tmp_obj && tmp_obj->content)
 	{
 		obj = (t_object *)tmp_obj->content;
 		if (obj->lim_by_1 > 0 && obj->lim_by_2 > 0)
 			set_limit_object(scene->objects, obj->lim_by_1,
 					obj->lim_by_2, obj);
-		if (obj->group_id > 0)
-			set_group_object(obj);
 		if (obj->type == 6)
 			create_mesh(&(scene->objects), obj, scene);
+		else if (obj->group_id > 0)
+			set_group_object(obj);
 		tmp_obj = tmp_obj->next;
 	}
+	scene->step_size = scene->grain * scene->max_anti_a;
 }

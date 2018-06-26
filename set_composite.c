@@ -6,18 +6,19 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 13:57:38 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:47:31 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 15:47:59 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rt.h"
 
-static void	set_composite(int fd, t_scene *scene, t_object *obj)
+static void	set_composite(int fd, t_scene *scene, t_object *obj, int id)
 {
 	char		*line;
 	int			gnl;
-	static int	id = 1;
 
+	if ((fd = open(obj->path, O_RDONLY)) == -1)
+		error(0);
 	obj->group_id = id;
 	id++;
 	while ((gnl = get_next_line(fd, &line)) == 1)
@@ -31,13 +32,23 @@ static void	set_composite(int fd, t_scene *scene, t_object *obj)
 	free(line);
 }
 
-void		check_for_composite(t_scene *scene, t_object *obj)
+int			check_for_composite(t_scene *scene, t_object *obj)
 {
-	int	fd;
+	int			fd;
+	static int	id = 1;
 
-	if (obj->type != 7 || !obj->path)
-		return ;
-	if ((fd = open(obj->path, O_RDONLY)) == -1)
-		error(0);
-	set_composite(fd, scene, obj);
+	if (obj->type == 7 && obj->path)
+	{
+		if ((fd = open(obj->path, O_RDONLY)) == -1)
+			error(0);
+		set_composite(fd, scene, obj, id);
+		id++;
+	}
+	else if (obj->type == 6)
+	{
+		fd = id;
+		id++;
+		return (fd);
+	}
+	return (0);
 }

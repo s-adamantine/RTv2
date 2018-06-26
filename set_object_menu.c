@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 13:39:34 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:51:58 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 15:25:51 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,14 @@ static void	add_info(t_object *obj, t_event *event, int x, int y)
 	int		j;
 	char	*value;
 
-	i = 0;
+	i = -1;
 	j = 1;
 	mlx_string_put(event->mlx, event->menu_win, x + SUB_MARGIN,
 			y + SUB_MARGIN, TEXT_D, (event->menu).types[obj->type]);
-	while (i < AMOUNT_INFO)
+	while (++i < AMOUNT_INFO)
 	{
-		if ((i == 1 && obj->type == 1) || (i == 2 && obj->type == 0) || i > 5)
+		if ((i == 1 && obj->type == 1) || (i == 2 && obj->type == 0)
+				|| (i > 2 && (obj->type == 7 || obj->type == 6)) || i > 5)
 		{
 			i++;
 			continue ;
@@ -56,7 +57,6 @@ static void	add_info(t_object *obj, t_event *event, int x, int y)
 		mlx_string_put(event->mlx, event->menu_win, x + INFO_MARGIN,
 				y + SUB_MARGIN + j * MENU_LINE, TEXT_D, value);
 		free(value);
-		i++;
 		j++;
 	}
 }
@@ -66,16 +66,24 @@ void		set_object_menu(t_event *event)
 	t_list		*lst;
 	t_object	*obj;
 	int			i;
+	int			j;
 
 	lst = (event->scene).objects;
 	i = 0;
+	j = 0;
 	while (lst && lst->content)
 	{
 		obj = (t_object *)lst->content;
-		add_info(obj, event, MARGIN, TOP_BAR + MARGIN + i * OBJ_HEIGHT);
-		i++;
-		if (TOP_BAR + MARGIN + i * OBJ_HEIGHT > MENU_HEIGHT)
-			break ;
+		if (j - event->sub_menu * AMOUNT_SUB >= 0 &&
+				j - event->sub_menu * AMOUNT_SUB < AMOUNT_SUB)
+		{
+			if (obj->group_id == 0 || obj->is_group_main)
+			{
+				add_info(obj, event, MARGIN, TOP_BAR + MARGIN + i * OBJ_HEIGHT);
+				i++;
+				j++;
+			}
+		}
 		lst = lst->next;
 	}
 }

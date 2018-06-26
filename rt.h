@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 12:57:03 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 15:37:47 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,12 +33,20 @@
 # define SUB_MARGIN 10
 # define INFO_MARGIN 150
 # define MENU_LINE 20
-# define OBJ_HEIGHT 140
+# define OBJ_HEIGHT 160
 # define CAM_HEIGHT 80
 # define LIGHT_HEIGHT 120
 # define AMOUNT_INSTRUCTIONS 7
 # define AMOUNT_INFO 8
 # define IMG_FOLDER "./images/"
+# define AMOUNT_SUB 5
+
+# define MAX_CAM 3
+# define MAX_GRAIN 4
+# define MAX_REFL 2
+# define MAX_ANTI_A 2
+# define MAX_PIXELS 1024000
+# define MAX_AMBIENT 5
 
 # include "libft.h"
 
@@ -46,13 +54,9 @@
 # include "keys.h"
 # include "mlx_constants.h"
 
-# include <stdlib.h>
-# include <math.h>
-# include <unistd.h>
 # include <fcntl.h>
 # include <sys/stat.h>
 # include <stdio.h>
-# include <errno.h>
 # include <pthread.h>
 # include <time.h>
 
@@ -260,13 +264,12 @@ typedef struct	s_event
 	t_menu		menu;
 	t_scene		scene;
 	t_source	*src;
-	int			x_0;
-	int			y_0;
 	int			t_select;
 	int			id_select;
 	int			instructions;
 	int			redraw;
 	int			execute;
+	int			sub_menu;
 }				t_event;
 
 void			error(int err);
@@ -349,7 +352,7 @@ void			change_material(t_scene *scene, t_object *obj, int value,
 void			set_object_type(char *s, t_object *obj);
 double			get_nearest_intersection(double a, double b, double d, int alt);
 void			set_var(int *var, int amount_p, int cam_id, int thread_id);
-void			check_for_composite(t_scene *scene, t_object *obj);
+int				check_for_composite(t_scene *scene, t_object *obj);
 t_3v			**read_obj_file(char *path, int verbose);
 void			get_int_from_line(int *v, char *line, int size);
 void			update_vector_xyz(t_3v *vector, char *line);

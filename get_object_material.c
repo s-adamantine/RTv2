@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:27:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 09:51:09 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:04:50 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static t_3v	get_angle(t_object o, t_3v p)
 
 static void		wavy_it(t_material *m, double wavy, t_3v angle)
 {
-	m->wave = fabs(angle.v[2]) / (double)wavy;
+	m->wavy = fabs(angle.v[2]) / (double)wavy;
 }
 
 t_material	get_object_material(t_object o, t_3v p, t_scene scene)

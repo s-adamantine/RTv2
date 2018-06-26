@@ -38,10 +38,10 @@ static t_img	init_bitmap_image(t_event *event, int w, int h)
 ** number in the header
 ** protect against inputting the name of a folder
 ** protect against accessing a tampered image file
-** protect against saving the name of a folder
+** make a new directory if the directory doesn't exist
 */
 
-void			read_image_file(t_event *event)
+void				read_image_file(t_event *event)
 {
 	FILE	*fp;
 	char	*line;
@@ -69,7 +69,18 @@ void			read_image_file(t_event *event)
 	init_loop(event);
 }
 
-void			save_image_file(t_event *event)
+static char			*parse_save_image_input(char *name)
+{
+	char	*path;
+
+	if (ft_strchr(name, '/'))
+		s_error("Invalid file name.");
+	mkdir(IMG_FOLDER, ACCESSPERMS);
+	path = ft_strcat_alloc(IMG_FOLDER, name);
+	return (path);
+}
+
+void				save_image_file(t_event *event)
 {
 	FILE	*fp;
 	char	*name;
@@ -80,15 +91,12 @@ void			save_image_file(t_event *event)
 	i = 0;
 	ft_putstr("Saving scene.\nWhat name should I save it to? ");
 	get_next_line(0, &name);
-	if (ft_strchr(name, '/'))
-		s_error("Invalid file name.");
-	path = ft_strcat_alloc("./images/", name);
+	path = parse_save_image_input(name);
 	if (!file_exists_save(path))
 	{
 		fp = fopen(path, "w");
 		data = (int *)event->img.img_arr;
-		fprintf(fp, "width: %d height: %d\n", event->img.width,
-			event->img.height);
+		fprintf(fp, "w: %d h: %d\n", event->img.width, event->img.height);
 		while (i < (event->img.width * event->img.height))
 			fprintf(fp, "%08d ", data[i++]);
 		fclose(fp);

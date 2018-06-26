@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 10:27:11 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/26 11:03:43 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # define MAX_S_VALUE 50000
 # define DEG 57.2958
-# define THREADS 4 
+# define THREADS 4
 # define LIMIT_CORR 100
 
 # define MENU_WIDTH 500
@@ -38,6 +38,7 @@
 # define LIGHT_HEIGHT 120
 # define AMOUNT_INSTRUCTIONS 7
 # define AMOUNT_INFO 8
+# define IMG_FOLDER "./images/"
 
 # include "libft.h"
 

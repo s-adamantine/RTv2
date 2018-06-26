@@ -21,10 +21,16 @@ static void		put_error(const char *s)
 
 int				file_exists(char *name)
 {
-	int		fd;
+	int			fd;
+	struct stat	statbuf;
 
 	fd = open(name, O_RDONLY);
 	close(fd);
+	stat(name, &statbuf);
+	if (stat(name, &statbuf) != 0)
+		return (0);
+	if (S_ISDIR(statbuf.st_mode))
+		s_error("You're trying to read a directory.");
 	if (fd > 0)
 		return (1);
 	return (0);

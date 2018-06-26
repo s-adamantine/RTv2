@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 15:55:21 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 13:00:07 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 13:03:30 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static char	*get_value(t_source *src, int i)
 {
@@ -21,7 +21,7 @@ static char	*get_value(t_source *src, int i)
 	if (i == 4)
 		return (get_vector_string(src->color, 2));
 	if (i == 6)
-		return (ft_itoa(((int)(src->intensity).diff)));
+		return (ft_itoa(((int)(src->intensity).diff) * src->int_factor));
 	if (i == 7)
 		return (ft_itoa(((int)(src->intensity).spec)));
 	return (ft_itoa(src->id));
@@ -49,7 +49,7 @@ static void	add_info(t_source *src, t_event *event, int x, int y)
 	color = get_text_color(src, event);
 	while (i < AMOUNT_INFO)
 	{
-		if (i == 1 || i == 2 || i == 5)
+		if (i == 2 || i == 3 || i == 5)
 		{
 			i++;
 			continue ;

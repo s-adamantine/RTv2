@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:24:11 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 10:14:34 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:50:30 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 /*
 ** Fill a square in the image with one color, so we can make the program

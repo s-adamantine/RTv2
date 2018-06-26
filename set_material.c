@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/07 11:51:29 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 09:43:14 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:52:25 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	init_def_material(t_material *m, int id)
 {
@@ -25,26 +25,16 @@ static void	init_def_material(t_material *m, int id)
 	m->shininess = 0;
 	m->transparent = 0.0;
 	m->refractive_index = 1.0;
-	m->wavy = 0;
+	m->amp = 0;
+	m->wave_value = 1.0;
+	m->freq = 20;
 }
 
-void		set_values_material(t_material *m, char *s, char *value)
+static void	set_values_material_2(t_material *m, char *s, char *value)
 {
 	double	*tmp;
 
-	if (ft_strncmp(s, "color", 5) == 0)
-		update_vector(&(m->color), value);
-	else if (ft_strncmp(s, "beer", 4) == 0)
-		update_vector(&(m->beer), value);
-	else if (ft_strncmp(s, "wavy", 4) == 0)
-		m->wavy = ft_atoi(value);
-	else if (ft_strncmp(s, "transparent", 11) == 0)
-		m->transparent = ft_atod(value);
-	else if (ft_strncmp(s, "refraction", 10) == 0)
-		m->refractive_index = ft_atod(value);
-	else if (ft_strncmp(s, "normal_var", 10) == 0)
-		update_vector(&(m->n_var), (value));
-	else if (ft_strncmp(s, "reflection", 10) == 0)
+	if (ft_strncmp(s, "reflection", 10) == 0)
 	{
 		if (!(tmp = (double *)malloc(4 * sizeof(double))))
 			error(0);
@@ -55,6 +45,25 @@ void		set_values_material(t_material *m, char *s, char *value)
 		m->shininess = tmp[3];
 		free(tmp);
 	}
+}
+
+void		set_values_material(t_material *m, char *s, char *value)
+{
+	if (ft_strncmp(s, "color", 5) == 0)
+		update_vector(&(m->color), value);
+	else if (ft_strncmp(s, "beer", 4) == 0)
+		update_vector(&(m->beer), value);
+	else if (ft_strncmp(s, "amp", 3) == 0)
+		m->amp = ft_atod(value);
+	else if (ft_strncmp(s, "freq", 4) == 0)
+		m->freq = ft_atoi(value);
+	else if (ft_strncmp(s, "transparent", 11) == 0)
+		m->transparent = ft_atod(value);
+	else if (ft_strncmp(s, "refraction", 10) == 0)
+		m->refractive_index = ft_atod(value);
+	else if (ft_strncmp(s, "normal_var", 10) == 0)
+		update_vector(&(m->n_var), (value));
+	set_values_material_2(m, s, value);
 }
 
 static void	add_material(t_scene *scene, int fd)

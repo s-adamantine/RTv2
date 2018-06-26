@@ -6,11 +6,11 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 14:46:08 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:52:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void	init_def_scene(t_scene *scene)
 {

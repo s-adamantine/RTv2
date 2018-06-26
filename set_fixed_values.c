@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/03/21 13:49:54 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 12:52:43 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:47:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 void		set_var(int *var, int amount_p, int cam_id, int thread_id)
 {

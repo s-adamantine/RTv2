@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:19:43 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 12:58:54 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:50:08 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 double			get_nearest_intersection(double a, double b, double d, int alt)
 {

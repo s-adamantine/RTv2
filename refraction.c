@@ -6,11 +6,11 @@
 /*   By: jroguszk <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 11:37:43 by jroguszk          #+#    #+#             */
-/*   Updated: 2018/06/25 19:34:31 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:51:19 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static void		beer(t_p_info *pi)
 {

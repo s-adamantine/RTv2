@@ -1,0 +1,22 @@
+render {
+		{name, {Wavy Cone}}
+		{dimensions, {1000 720}}
+		{reflection, {1}}
+		{ambient, {0}}
+}
+camera {
+		{origin, {500.0 0.0 0.0}}
+		{rotation, {0.0 0.0 0.0}}
+}
+light {
+		{origin, {500.0 0.0 0.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {800 2}}
+}
+object {
+		{type, {cone}}
+		{origin, {0.0 0.0 0.0}}
+		{rotation, {20.0 0.0 0.0}}
+		{radius, {0.4}}
+		{material, {8}}
+}

@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:24:17 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/21 18:23:58 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:50:24 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static int		take_average(t_event *event, t_scene scene, int vert, int hor)
 {

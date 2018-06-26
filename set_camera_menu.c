@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/22 15:14:20 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 12:58:05 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:47:24 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static char	*get_value(t_cam *cam, int i)
 {

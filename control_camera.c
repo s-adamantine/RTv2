@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:01 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 09:44:09 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:48:53 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 /*
 ** Change the camera. If it has not been initialized: initialize!

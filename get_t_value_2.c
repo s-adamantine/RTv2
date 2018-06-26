@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 11:12:11 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 12:03:38 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:50:11 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 double	get_t_plane(t_fixed_v f, t_3v dir, int alt, t_object *obj)
 {

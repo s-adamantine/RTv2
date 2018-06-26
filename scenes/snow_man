@@ -59,9 +59,8 @@ object {
 object {
 		{type, {plane}}
 		{origin, {0.0 0.0 -200.0}}
-		{color, {1.0 1.0 1.0}}
 		{rotation, {0.0 0.0 0.0}}
-		{reflection, {0.1 0.2 0.1 0}}
+		{material, {7}}
 }
 object {
 		{type, {plane}}

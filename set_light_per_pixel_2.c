@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 11:03:55 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 09:38:46 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 11:48:07 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 double			get_influence_specular(t_pixel *p, int i)
 {

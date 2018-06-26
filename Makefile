@@ -6,13 +6,13 @@
 #    By: nicola <nicola@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/12/06 17:41:17 by mpauw             #+#    #+#              #
-#    Updated: 2018/06/25 19:04:32 by mpauw            ###   ########.fr        #
+#    Updated: 2018/06/26 11:45:34 by mpauw            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = RTv1
-INCLUDES = rtv1.h keys.h mlx_constants.h
-SRCS = 	rtv1.c\
+NAME = RT
+INCLUDES = rt.h keys.h mlx_constants.h
+SRCS = 	rt.c\
 		set_scene.c\
 		set_object.c\
 		set_object_2.c\
@@ -50,7 +50,6 @@ SRCS = 	rtv1.c\
 		tools_limits.c\
 		tools_thread.c\
 		event_key.c\
-		event_mouse.c\
 		control_light.c\
 		control_light_2.c\
 		control_camera.c\
@@ -59,7 +58,8 @@ SRCS = 	rtv1.c\
 		refraction.c\
 		get_mesh_obj.c\
 		filter_it.c\
-		write_file.c
+		get_image_file.c\
+		get_file_existence.c
 
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/

@@ -6,11 +6,11 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:27:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 09:51:09 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 12:33:11 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "rtv1.h"
+#include "rt.h"
 
 static t_3v		get_angle(t_object o, t_3v p)
 {
@@ -19,7 +19,6 @@ static t_3v		get_angle(t_object o, t_3v p)
 
 	if (o.type == 0)
 		return (p);
-	p = rotate_v_inv(p, o.rotation);
 	k.v[0] = o.radius;
 	if (o.type == 1)
 		k.v[1] = M_PI / 2 - acos(p.v[2] / o.radius);
@@ -37,9 +36,17 @@ static t_3v		get_angle(t_object o, t_3v p)
 	return (k);
 }
 
-static void		wavy_it(t_material *m, double wavy, t_3v angle)
+static void	wavy_it(t_material *m, t_3v angle, int type)
 {
+<<<<<<< HEAD
 	m->wavy = fabs(angle.v[2]) / (double)wavy;
+=======
+	if (!type)
+		m->wave_value = 1 - fabs(cos(angle.v[0] * ((double)m->freq / 200.0)))
+			* m->amp;
+	else
+		m->wave_value = 1 - fabs(cos(angle.v[2] * m->freq)) * m->amp;
+>>>>>>> cb77f8d20eb514c58029ef0314e6f86524672e79
 }
 
 t_material		get_object_material(t_object o, t_3v p, t_scene scene)
@@ -55,11 +62,11 @@ t_material		get_object_material(t_object o, t_3v p, t_scene scene)
 		m = polka_dot_it(o, angle, dif);
 	else if ((o.pattern).type == 2)
 		m = stripe_it(o, angle, dif);
-	else if (scene.filter > 0)
-		m = filter_it(o, scene.filter);
 	else
 		m = o.m;
-	if (m.wavy > 0)
-		wavy_it(&m, m.wavy, angle);
+	if (scene.filter > 0)
+		m = filter_it(m, scene.filter);
+	if (m.amp > 0)
+		wavy_it(&m, angle, o.type);
 	return (m);
 }

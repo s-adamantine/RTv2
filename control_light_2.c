@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 14:09:05 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/27 14:16:44 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 14:41:13 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,8 @@ static void	add_color(t_pixel *p, int id, t_event *event, t_3v *t)
 	t_p_info	*pi;
 
 	pi = p->pi_arr[0];
-	if (p->pi_arr[0] != NULL && (p->pi_arr[0])->vis_obj != NULL && (p->pi_arr[0])->has_vis_obj)
+	if (p->pi_arr[0] != NULL && (p->pi_arr[0])->vis_obj != NULL &&
+			(p->pi_arr[0])->has_vis_obj)
 	{
 		if (id == 0)
 		{
@@ -69,8 +70,6 @@ static void	add_color(t_pixel *p, int id, t_event *event, t_3v *t)
 			p->color = ft_3v_scalar(p->color, (event->src)->int_factor);
 		}
 	}
-	else if (id == 0)
-		p->color = ft_zero_3v();
 	*t = ft_3v_add(p->color, *t);
 }
 

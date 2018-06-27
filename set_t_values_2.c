@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 10:15:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/27 13:52:38 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 14:51:26 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,12 +46,6 @@ static void		get_vis_obj(t_pixel *p, t_3v dir, t_scene sc, t_p_info *pi)
 	}
 }
 
-static t_p_info	*pi_no_vis_obj(t_p_info *pi)
-{
-	free(pi);
-	return (NULL);
-}
-
 /*
 ** t_p_info contains information for every object visible at a certain pixel.
 ** This function dynamically allocates memory, because we don't know in advance
@@ -81,7 +75,7 @@ static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene scene, int type)
 	pi->fresnal_specular = 1.0;
 	pi->is_inside = 0;
 	if (!(pi->has_vis_obj))
-		return (pi_no_vis_obj(pi));
+		return (NULL);
 	pi->beer = ft_init_3v(pi->vis_obj->m.beer.v[0],
 		pi->vis_obj->m.beer.v[1], pi->vis_obj->m.beer.v[2]);
 	return (pi);

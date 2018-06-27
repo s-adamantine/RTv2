@@ -1,5 +1,5 @@
 render {
-		{name, {Teeny Teapot}}
+		{name, {Cow}}
 		{dimensions, {512 512}}
 		{ambient, {0}}
 		{grain, {32}}
@@ -31,7 +31,7 @@ object {
 
 // bottom floor
 
-*object {
+object {
 		{type, {plane}}
 		{origin, {0.0 0.0 -2.9}}
 		{rotation, {0 0.0 0.0}}

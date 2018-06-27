@@ -46,6 +46,10 @@ static void	set_values_render_2(t_scene *scene, char *s, char *value)
 			scene->height = 800;
 		else
 			scene->height = (int)(tmp[1]);
+		scene->width /= 4;
+		scene->width *= 4;
+		scene->height /= 4;
+		scene->height *= 4;
 		free(tmp);
 	}
 	set_values_render_3(scene, s, value);

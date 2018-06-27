@@ -1,7 +1,6 @@
 render {
-		{name, {Scene La La Land Large}}
+		{name, {Crossing Cylinders}}
 		{dimensions, {1600 1200}}
-		{grain, {1}}
 }
 camera {
 		{origin, {1500.0 0.0 0.0}}

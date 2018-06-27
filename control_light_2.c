@@ -133,7 +133,7 @@ void		turn_on_lights(t_event *event)
 	event->redraw = 1;
 	(event->scene).source_id = 0;
 	create_threads(event, switch_one);
-	if ((event->scene).grain == 1 && event->t_select == KEY_L && event->execute)
+	if (event->t_select == KEY_L && event->execute)
 	{
 		if (!(turn_off_or_on(&(event->scene), event->id_select)))
 			return ;

@@ -29,15 +29,17 @@ static void	set_values_render_3(t_scene *scene, char *s, char *value)
 
 static void	set_values_render_2(t_scene *scene, char *s, char *value)
 {
-	double	*tmp;
+	int	*tmp;
 
 	if (ft_strncmp(s, "filter", 6) == 0)
 		scene->filter = ft_atoi(value);
 	else if (ft_strncmp(s, "dimensions", 10) == 0)
 	{
-		if (!(tmp = (double *)malloc(2 * sizeof(double))))
+		if (!(tmp = (int *)malloc(2 * sizeof(double))))
 			error(0);
-		get_doubles_from_line(tmp, value, 2);
+		get_int_from_line(tmp, value, 2);
+		if ((int)tmp[0] <= 0 || (int)tmp[1] <= 0)
+			s_error("Dimensions must be greater than 0.");
 		if ((int)tmp[0] > 1280 || (int)tmp[0] < 100)
 			scene->width = 1280;
 		else

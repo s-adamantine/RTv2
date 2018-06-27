@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/27 11:42:50 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 11:56:57 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -363,5 +363,6 @@ void			save_image_file(t_event *event);
 void			read_image_file(t_event *event);
 int				file_exists(char *name);
 int				file_exists_save(char *name);
+void			init_screenshot_loop(t_event *event);
 
 #endif

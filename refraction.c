@@ -36,10 +36,16 @@ static void		fresnal(t_p_info *pi, double *n_value, double cosi,
 	}
 	else
 	{
-		rs = ((n_value[1] * cosi) - (n_value[0] * cost))
-			/ ((n_value[1] * cosi) + (n_value[0] * cost));
-		rp = ((n_value[0] * cosi) - (n_value[1] * cost))
-			/ ((n_value[0] * cosi) + (n_value[1] * cost));
+		if ((n_value[1] * cosi) + (n_value[0] * cost) == 0.0)
+			rs = 1.0;
+		else
+			rs = ((n_value[1] * cosi) - (n_value[0] * cost))
+				/ ((n_value[1] * cosi) + (n_value[0] * cost));
+		if ((n_value[0] * cosi) + (n_value[1] * cost) == 0.0)
+			rp = 1.0;
+		else
+			rp = ((n_value[0] * cosi) - (n_value[1] * cost))
+				/ ((n_value[0] * cosi) + (n_value[1] * cost));
 		pi->fresnal_specular = (rs * rs + rp * rp) / 2;
 		pi->fresnal_transparent = 1 - pi->fresnal_specular;
 	}

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 10:15:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/27 12:09:14 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 13:52:38 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** first if makes sure the fixed values are set for transparency and reflection.
 */
 
-static t_object	*get_vis_obj(t_pixel *p, t_3v dir, t_scene sc, t_p_info *pi)
+static void		get_vis_obj(t_pixel *p, t_3v dir, t_scene sc, t_p_info *pi)
 {
 	double		tmp;
 	int			var[3];
@@ -27,6 +27,7 @@ static t_object	*get_vis_obj(t_pixel *p, t_3v dir, t_scene sc, t_p_info *pi)
 
 	visible_object = NULL;
 	tmp_obj = sc.objects;
+	pi->has_vis_obj = 0;
 	while (tmp_obj && tmp_obj->content)
 	{
 		obj = (t_object *)tmp_obj->content;
@@ -38,11 +39,11 @@ static t_object	*get_vis_obj(t_pixel *p, t_3v dir, t_scene sc, t_p_info *pi)
 		if (tmp > 0.001 && tmp < pi->s_value)
 		{
 			pi->s_value = tmp;
-			visible_object = obj;
+			pi->has_vis_obj = 1;
+			pi->vis_obj = obj;
 		}
 		tmp_obj = tmp_obj->next;
 	}
-	return (visible_object);
 }
 
 static t_p_info	*pi_no_vis_obj(t_p_info *pi)
@@ -74,12 +75,12 @@ static t_p_info	*init_p_info(t_pixel *p, t_3v dir, t_scene scene, int type)
 		error(1);
 	pi = p->pi_arr[p->amount_p];
 	pi->s_value = MAX_S_VALUE;
-	pi->vis_obj = get_vis_obj(p, dir, scene, pi);
+	get_vis_obj(p, dir, scene, pi);
 	pi->type = type;
 	pi->fresnal_transparent = 1.0;
 	pi->fresnal_specular = 1.0;
 	pi->is_inside = 0;
-	if (!(pi->vis_obj))
+	if (!(pi->has_vis_obj))
 		return (pi_no_vis_obj(pi));
 	pi->beer = ft_init_3v(pi->vis_obj->m.beer.v[0],
 		pi->vis_obj->m.beer.v[1], pi->vis_obj->m.beer.v[2]);

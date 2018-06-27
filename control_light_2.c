@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 14:09:05 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/27 12:46:38 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 14:16:44 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,20 @@ static int	turn_off_or_on(t_scene *scene, int id)
 
 static void	add_color(t_pixel *p, int id, t_event *event, t_3v *t)
 {
-	if (p->pi_arr[0] != NULL && (p->pi_arr[0])->vis_obj != NULL)
+	t_3v		color;
+	t_p_info	*pi;
+
+	pi = p->pi_arr[0];
+	if (p->pi_arr[0] != NULL && (p->pi_arr[0])->vis_obj != NULL && (p->pi_arr[0])->has_vis_obj)
 	{
 		if (id == 0)
-			p->color = p->c_per_src[0];
+		{
+			color = pi->obj_m.color;
+			p->color = ft_init_3v((color.v)[0] * (pi->obj_m).ambient *
+					event->ambient, (color.v)[1] * (pi->obj_m).ambient *
+					event->ambient, (color.v)[2] * (pi->obj_m).ambient *
+					event->ambient);
+		}
 		else
 		{
 			if ((event->src)->max_intensity > 1.0)
@@ -59,6 +69,8 @@ static void	add_color(t_pixel *p, int id, t_event *event, t_3v *t)
 			p->color = ft_3v_scalar(p->color, (event->src)->int_factor);
 		}
 	}
+	else if (id == 0)
+		p->color = ft_zero_3v();
 	*t = ft_3v_add(p->color, *t);
 }
 
@@ -133,7 +145,7 @@ void		turn_on_lights(t_event *event)
 	event->redraw = 1;
 	(event->scene).source_id = 0;
 	create_threads(event, switch_one);
-	if ((event->scene).grain == 1 && event->t_select == KEY_L && event->execute)
+	if (event->t_select == KEY_L && event->execute)
 	{
 		if (!(turn_off_or_on(&(event->scene), event->id_select)))
 			return ;

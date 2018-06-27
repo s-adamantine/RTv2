@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/27 13:25:30 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 13:47:28 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@
 static void		get_value(t_scene scene, t_pixel *p)
 {
 	t_3v		dir;
-	t_object	*obj;
-	t_3v		color;
 	t_p_info	*pi;
 
 	p->c_per_src[0] = ft_zero_3v();
@@ -32,12 +30,6 @@ static void		get_value(t_scene scene, t_pixel *p)
 	pi = p->pi_arr[0];
 	if (!(pi->vis_obj))
 		return ;
-	obj = pi->vis_obj;
-	color = (pi->obj_m).color;
-	p->c_per_src[0] = ft_init_3v((color.v)[0] * (pi->obj_m).ambient
-			* scene.ambient, (color.v)[1] * (pi->obj_m).ambient * scene.ambient,
-			(color.v)[2] * (pi->obj_m).ambient * scene.ambient);
-	p->color = ft_zero_3v();
 }
 
 /*

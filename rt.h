@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/27 11:56:57 by sadamant         ###   ########.fr       */
+/*   Updated: 2018/06/27 14:16:59 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -187,6 +187,7 @@ typedef struct	s_p_info
 	t_3v		normal;
 	double		s_value;
 	t_object	*vis_obj;
+	int			has_vis_obj;
 	t_material	obj_m;
 	t_3v		point;
 	t_3v		dir;
@@ -269,6 +270,7 @@ typedef struct	s_event
 	int			redraw;
 	int			execute;
 	int			sub_menu;
+	double		ambient;
 }				t_event;
 
 void			error(int err);

@@ -2,6 +2,7 @@ render {
 		{name, {Scene Plane}}
 		{dimensions, {1000 700}}
 		{ambient, {5}}
+		{grain, {2}}
 }
 camera {
 		{origin, {100.0 0.0 0.0}}
@@ -9,6 +10,11 @@ camera {
 }
 light {
 		{origin, {100.0 0.0 0.0}}
+		{color, {1.0 1.0 1.0}}
+		{intensity, {10 0}}
+}
+light {
+		{origin, {50.0 50.0 0.0}}
 		{color, {1.0 1.0 1.0}}
 		{intensity, {10 0}}
 }

@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:27:04 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 13:40:48 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 11:10:58 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static t_3v		get_angle(t_object o, t_3v p)
 		k.v[1] = M_PI / 2 - acos(p.v[2] / o.radius);
 	else if (o.type == 2)
 		k.v[1] = p.v[2];
-	else
+	else if (cos(o.radius != 0))
 		k.v[1] = p.v[2] / cos(o.radius);
 	rot_axis = ft_zero_3v();
 	rot_axis.v[2] = o.axis_rotation;

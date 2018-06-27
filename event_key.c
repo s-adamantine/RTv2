@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 18:03:35 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 11:33:34 by mpauw            ###   ########.fr       */
 /*   Updated: 2018/06/26 11:49:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -18,8 +18,9 @@ static void	change_grain(t_event *event, int sharper)
 	int	yes;
 
 	yes = 1;
-	if (sharper && (event->scene).anti_a > 1 && (event->scene).anti_a * 2 > (event->scene).max_anti_a)
-		yes = 0;
+	if (sharper && (event->scene).grain == 1 && (event->scene).anti_a *
+			2 > (event->scene).max_anti_a)
+		yes = 0; 
 	if (yes && sharper && (event->scene).grain >= 2 &&
 			(event->scene).anti_a == 1)
 		(event->scene).grain /= 2;
@@ -36,6 +37,8 @@ static void	change_grain(t_event *event, int sharper)
 	create_threads(event, set_t_values);
 	init_light_values((void *)event);
 	turn_on_lights(event);
+	if ((event->scene).anti_a == 0 || (event->scene).grain == 0)
+		s_error("Anti aliasing or grain has a value of 0.\n");
 	mlx_put_image_to_window(event->mlx, event->win,
 		(event->img).img_ptr, 0, 0);
 }

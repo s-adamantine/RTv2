@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/03 08:05:39 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 16:15:33 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 10:51:10 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,6 @@ void		error(int err)
 				lights with the same coordinates as objects.\n", 2);
 	else if (err == 6)
 		ft_putstr_fd("Error: You are trying to divide by zero.\n", 2);
-	else if (err == 6)
-		ft_putstr_fd("Error: Negative value for height.\n", 2);
 	else if (err == 7)
 		ft_putstr_fd("Error: Too many limit objects.\n", 2);
 	exit(1);

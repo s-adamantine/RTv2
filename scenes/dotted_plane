@@ -1,5 +1,5 @@
 render {
-		{name, {Scene Plane}}
+		{name, {Scene Sphere}}
 		{dimensions, {1000 700}}
 		{ambient, {5}}
 		{grain, {2}}

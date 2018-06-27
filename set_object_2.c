@@ -39,17 +39,17 @@ void		change_material(t_scene *scene, t_object *obj, int value, int mat)
 
 static void	set_object_type_2(char *s, t_object *obj)
 {
-	if (ft_strncmp(s, "triangle", 8) == 0)
+	if (ft_strcmp(s, "triangle") == 0)
 	{
 		obj->f = &get_t_triangle;
 		obj->type = 5;
 	}
-	else if (ft_strncmp(s, "mesh", 4) == 0)
+	else if (ft_strcmp(s, "mesh") == 0)
 	{
 		obj->f = &get_t_mesh;
 		obj->type = 6;
 	}
-	else if (ft_strncmp(s, "composite", 9) == 0)
+	else if (ft_strcmp(s, "composite") == 0)
 	{
 		obj->f = &get_t_mesh;
 		obj->type = 7;
@@ -60,22 +60,22 @@ static void	set_object_type_2(char *s, t_object *obj)
 
 void		set_object_type(char *s, t_object *obj)
 {
-	if (ft_strncmp(s, "plane", 5) == 0)
+	if (ft_strcmp(s, "plane") == 0)
 	{
 		obj->f = &get_t_plane;
 		obj->type = 0;
 	}
-	else if (ft_strncmp(s, "sphere", 6) == 0)
+	else if (ft_strcmp(s, "sphere") == 0)
 	{
 		obj->f = &get_t_sphere;
 		obj->type = 1;
 	}
-	else if (ft_strncmp(s, "cylinder", 8) == 0)
+	else if (ft_strcmp(s, "cylinder") == 0)
 	{
 		obj->f = &get_t_cylinder;
 		obj->type = 2;
 	}
-	else if (ft_strncmp(s, "cone", 4) == 0)
+	else if (ft_strcmp(s, "cone") == 0)
 	{
 		obj->f = &get_t_cone;
 		obj->type = 3;

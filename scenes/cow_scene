@@ -1,5 +1,5 @@
 render {
-		{name, {Teeny Teapot}}
+		{name, {Cow}}
 		{dimensions, {512 512}}
 		{ambient, {2}}
 		{grain, {32}}

@@ -42,7 +42,7 @@ static void	change_grain(t_event *event, int sharper)
 
 static void	key_pressed_2(int key, t_event *event)
 {
-	if (key == COMMA || key == DOT)
+	if ((key == COMMA || key == DOT) && event->t_select == KEY_G)
 		change_grain(event, (key == COMMA));
 	else if (key == KEY_C || key == KEY_O || key == KEY_L || key == KEY_G)
 	{

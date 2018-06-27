@@ -2,7 +2,6 @@ render {
 		{name, {Glass Sphere}}
 		{dimensions, {800 600}}
 		{ambient, {4}}
-		{grain, {1000000}}
 		{reflection, {1}}
 }
 camera {

@@ -37,16 +37,14 @@ static void	set_values_render_2(t_scene *scene, char *s, char *value)
 		if (!(tmp = (double *)malloc(2 * sizeof(double))))
 			error(0);
 		get_doubles_from_line(tmp, value, 2);
-		if ((int)tmp[0] * (int)tmp[1] > MAX_PIXELS)
-		{
+		if ((int)tmp[0] > 1280 || (int)tmp[0] < 100)
 			scene->width = 1280;
-			scene->height = 800;
-		}
 		else
-		{
 			scene->width = (int)(tmp[0]);
+		if ((int)tmp[1] > 800 || (int)tmp[1] < 100)
+			scene->height = 800;
+		else
 			scene->height = (int)(tmp[1]);
-		}
 		free(tmp);
 	}
 	set_values_render_3(scene, s, value);

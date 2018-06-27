@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_mesh_obj.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
+/*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/15 14:52:14 by nmanzini          #+#    #+#             */
-/*   Updated: 2018/06/26 16:13:21 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 17:48:30 by nicola           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ static int	fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices)
 	if (ver_order[0] != ver_order[1] &&
 		ver_order[0] != ver_order[2] &&
 		ver_order[1] != ver_order[2] &&
-		ver_order[0] <= f_i[1] && ver_order[0] >= 0 &&
-		ver_order[1] <= f_i[1] && ver_order[1] >= 0 &&
-		ver_order[2] <= f_i[1] && ver_order[2] >= 0)
+		ver_order[0] <= f_i[1] && ver_order[0] > 0 &&
+		ver_order[1] <= f_i[1] && ver_order[1] > 0 &&
+		ver_order[2] <= f_i[1] && ver_order[2] > 0)
 	{
 		f_i[0] += 1;
 		if (!(faces[*f_i] = (t_3v *)malloc(3 * sizeof(t_3v))))
@@ -40,6 +40,7 @@ static int	fill_triangle(char *line, t_3v **faces, int *f_i, t_3v *vertices)
 	{
 		ft_putstr("error in the obj file in line:\n");
 		ft_putendl(line);
+		exit(0);
 	}
 	return (0);
 }
@@ -132,7 +133,7 @@ t_3v		**read_obj_file(char *path, int verbose)
 		error(1);
 	if (!(faces = (t_3v **)malloc((fac_num + 1) * sizeof(t_3v*))))
 		error(1);
-	fill_f_v_obj_file(path, vertices, faces, fac_num);
+	fill_f_v_obj_file(path, vertices, faces, ver_num);
 	if (verbose)
 		;
 	faces[fac_num] = NULL;

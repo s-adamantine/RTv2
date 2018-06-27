@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/18 13:23:19 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/27 11:44:01 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 11:50:55 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,13 @@ static void	error_check_obj(t_scene *scene, t_object *o)
 {
 	if (scene->anti_a <= 0 || scene->grain <= 0 || scene->cam_set <= 0
 			|| scene->step_size <= 0)
-		s_error("A value in the scene has a value smaller or equal to zero.\n");
+		s_error("A value in the scene has a value smaller or equal to zero.");
 	if (o->radius < 0.001 || o->size < 0.001 || o->m.refractive_index <
 			0.001 || o->m2.refractive_index < 0.001) 
-		s_error("Object/material/pattern value invalidly initialized as 0.\n");
+		s_error("Object/material/pattern value invalidly initialized as 0.");
 	if (o->pattern.id > 0 && (o->pattern.size < 0.001
 			|| o->pattern.amount_points <= 0 || o->pattern.distance < 0.001))
-		s_error("Object/material/pattern value invalidly initialized as 0.\n");
+		s_error("Object/material/pattern value invalidly initialized as 0.");
 }
 
 void		set_finish(t_scene *scene)

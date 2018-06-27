@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/30 15:49:09 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/27 11:42:28 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 11:50:42 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,11 @@ static void	set_values_render_3(t_scene *scene, char *s, char *value)
 		scene->ambient = (ft_atod(value) > MAX_AMBIENT) ? MAX_AMBIENT :
 			ft_atod(value);
 	else if (ft_strncmp(s, "grain", 5) == 0)
-		scene->grain = (ft_atoi(value) > MAX_GRAIN) ? ft_power(2, MAX_GRAIN) :
-			ft_power(2, ft_atoi(value));
+	{
+		if (ft_atoi(value) < 0)
+			s_error("The grain size must be larger or equal to zero.");
+		scene->grain = (ft_atoi(value) > MAX_GRAIN) ? ft_power(2, MAX_GRAIN) : ft_power(2, ft_atoi(value));
+	}
 	else if (ft_strncmp(s, "reflection", 10) == 0)
 		scene->refl = (ft_atoi(value) > MAX_REFL) ? MAX_REFL : ft_atoi(value);
 }

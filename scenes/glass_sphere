@@ -3,7 +3,7 @@ render {
 		{dimensions, {800 600}}
 		{ambient, {4}}
 		{reflection, {1}}
-		{grain, {2}}
+		{grain, {-2}}
 }
 camera {
 		{origin, {1200.0 0.0 0.0}}

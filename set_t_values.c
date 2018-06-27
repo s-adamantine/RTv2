@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/08 13:38:46 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 11:53:00 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 13:25:30 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ static void		get_value(t_scene scene, t_pixel *p)
 	p->c_per_src[0] = ft_init_3v((color.v)[0] * (pi->obj_m).ambient
 			* scene.ambient, (color.v)[1] * (pi->obj_m).ambient * scene.ambient,
 			(color.v)[2] * (pi->obj_m).ambient * scene.ambient);
+	p->color = ft_zero_3v();
 }
 
 /*

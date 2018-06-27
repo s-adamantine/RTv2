@@ -357,12 +357,5 @@ void			get_int_from_line(int *v, char *line, int size);
 void			update_vector_xyz(t_3v *vector, char *line);
 void			create_mesh(t_list **objects, t_object *parent, t_scene *scene);
 t_material		filter_it(t_material m, int id);
-void			save_image(t_event *event);
-void			read_image(t_event *event);
-void			save_image_file(t_event *event);
-void			read_image_file(t_event *event);
-int				file_exists(char *name);
-int				file_exists_save(char *name);
-void			init_screenshot_loop(t_event *event);
 
 #endif

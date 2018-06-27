@@ -57,10 +57,7 @@ SRCS = 	rt.c\
 		stripe_it.c\
 		refraction.c\
 		get_mesh_obj.c\
-		filter_it.c\
-		get_image_file.c\
-		get_file_existence.c\
-		set_screenshot_environment.c
+		filter_it.c
 
 OBJ = $(SRCS:%.c=%.o)
 LFTDIR = libft/

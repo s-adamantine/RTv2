@@ -21,7 +21,7 @@ static void	change_grain(t_event *event, int sharper)
 	if ((sharper && (event->scene).grain == 1 && (event->scene).anti_a * 2 >
 				(event->scene).max_anti_a) ||
 			(!sharper && (event->scene).grain >= 32))
-		yes = 0; 
+		yes = 0;
 	if (yes && sharper && (event->scene).grain >= 2 &&
 			(event->scene).anti_a == 1)
 		(event->scene).grain /= 2;
@@ -85,10 +85,6 @@ int			key_pressed(int key, t_event *event)
 {
 	if (key == ESC)
 		exit(0);
-	if (key == KEY_S)
-		save_image_file(event);
-	if (key == KEY_W)
-		read_image_file(event);
 	if (key == KEY_I)
 	{
 		event->instructions = (event->instructions) ? 0 : 1;

@@ -6,7 +6,7 @@
 /*   By: sadamant <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/25 19:29:49 by sadamant          #+#    #+#             */
-/*   Updated: 2018/06/26 11:49:55 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 11:33:03 by sadamant         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void				read_image_file(t_event *event)
 	free(line);
 	fclose(fp);
 	mlx_put_image_to_window(event->mlx, event->win, img.img_ptr, 0, 0);
-	init_loop(event);
+	init_screenshot_loop(event);
 }
 
 static char			*parse_save_image_input(char *name)
@@ -94,7 +94,8 @@ void				save_image_file(t_event *event)
 	path = parse_save_image_input(name);
 	if (!file_exists_save(path))
 	{
-		fp = fopen(path, "w");
+		if (!(fp = fopen(path, "w")))
+			error(1);
 		data = (int *)event->img.img_arr;
 		fprintf(fp, "w: %d h: %d\n", event->img.width, event->img.height);
 		while (i < (event->img.width * event->img.height))

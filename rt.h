@@ -6,7 +6,7 @@
 /*   By: nmanzini <nmanzini@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/05 11:08:02 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 15:37:47 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 11:42:50 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -242,7 +242,6 @@ typedef struct	s_scene
 	int			refl;
 	int			filter;
 	double		ambient;
-	double		wait;
 	t_cam		*cam;
 	t_list		*cameras;
 	t_list		*lights;

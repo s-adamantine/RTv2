@@ -6,7 +6,7 @@
 /*   By: nicola <nicola@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/01/29 16:41:28 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 14:18:36 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 11:43:21 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ static void	init_def_scene(t_scene *scene)
 	scene->amount_light = 0;
 	scene->width = 1080;
 	scene->height = 800;
-	scene->wait = 0.5;
 	scene->refl = 2;
 	scene->filter = 0;
 	scene->cam_set = 0;

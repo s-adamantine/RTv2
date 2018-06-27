@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/06/19 14:09:05 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 12:58:55 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/27 12:46:38 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	turn_off_or_on(t_scene *scene, int id)
 
 static void	add_color(t_pixel *p, int id, t_event *event, t_3v *t)
 {
-	if (p->pi_arr[0] && (p->pi_arr[0])->vis_obj)
+	if (p->pi_arr[0] != NULL && (p->pi_arr[0])->vis_obj != NULL)
 	{
 		if (id == 0)
 			p->color = p->c_per_src[0];

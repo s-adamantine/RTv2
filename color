@@ -1,0 +1,102 @@
+control_light_2.c:	if (p->pi_arr[0] != NULL && (p->pi_arr[0])->vis_obj != NULL)
+control_light_2.c:			p->color = p->c_per_src[0];
+control_light_2.c:				(p->c_per_src)[id] = ft_3v_scalar((p->c_per_src)[id],
+control_light_2.c:			p->color = ft_3v_add((p->c_per_src)[id], p->color);
+control_light_2.c:			p->color = ft_3v_scalar(p->color, (event->src)->int_factor);
+control_light_2.c:	*t = ft_3v_add(p->color, *t);
+refraction.c:		if (p->amount_refl < scene.refl)
+refraction.c:			p->type = 1;
+refraction.c:			p->index_refract = n_value[0];
+refraction.c:		p->type = 2;
+refraction.c:		p->index_refract = n_value[0];
+refraction.c:	n_value[0] = p->index_refract;
+set_light_per_pixel.c:	influence = 1 - (((p->pi_arr[i])->vis_obj)->m).transparent;
+set_light_per_pixel.c:	if ((p->pi_arr[i])->type == 2)
+set_light_per_pixel.c:			if ((p->pi_arr[i - 1])->type % 2 == 0)
+set_light_per_pixel.c:				influence *= ((((p->pi_arr[i - 1])->vis_obj)->m).transparent
+set_light_per_pixel.c:					* p->pi_arr[i - 1]->fresnal_transparent);
+set_light_per_pixel.c:	else if ((p->pi_arr[i])->type == 1)
+set_light_per_pixel.c:			if ((p->pi_arr[i - 1])->type < 2)
+set_light_per_pixel.c:	pi = p->pi_arr[i];
+set_light_per_pixel.c:	c = &(p->c_per_src[l.id]);
+set_light_per_pixel.c:	while (r < p->amount_p)
+set_light_per_pixel.c:		pi = p->pi_arr[r];
+set_light_per_pixel.c:			p->c_per_src[e->src->id] = ft_zero_3v();
+set_light_per_pixel_2.c:	if ((((p->pi_arr[i - 1])->vis_obj)->m).transparent > 0.001
+set_light_per_pixel_2.c:		&& ((p->pi_arr[i - 1])->is_inside == 1 ||
+set_light_per_pixel_2.c:			(((p->pi_arr[i - 1])->vis_obj)->m).specular < 0.001))
+set_light_per_pixel_2.c:		return ((p->pi_arr[i - 1])->fresnal_specular);
+set_light_per_pixel_2.c:	else if ((((p->pi_arr[i - 1])->vis_obj)->m).transparent > 0.001 &&
+set_light_per_pixel_2.c:		(((p->pi_arr[i - 1])->vis_obj)->m).specular > 0.001)
+set_light_per_pixel_2.c:		return ((((p->pi_arr[i - 1])->vis_obj)->m).specular
+set_light_per_pixel_2.c:			* (p->pi_arr[i - 1])->fresnal_specular);
+set_light_per_pixel_2.c:		return ((((p->pi_arr[i - 1])->vis_obj)->m).specular);
+set_object.c:	while (tmp && tmp->content)
+set_object.c:		p = (t_pattern *)tmp->content;
+set_object.c:		if (p->id == id)
+set_object.c:		tmp = tmp->next;
+set_object_2.c:		obj->m = *((t_material *)tmp->content);
+set_object_2.c:		obj->m2 = *((t_material *)tmp->content);
+set_object_2.c:	while (tmp && tmp->content)
+set_object_2.c:		material = (t_material *)tmp->content;
+set_object_2.c:		tmp = tmp->next;
+set_pattern.c:	p->id = id;
+set_pattern.c:	p->type = 0;
+set_pattern.c:	p->size = 0.05;
+set_pattern.c:	p->distance = 2;
+set_pattern.c:	p->os_1 = 0;
+set_pattern.c:	p->os_2 = 0;
+set_pattern.c:	p->amount_points = 25;
+set_pattern.c:		p->type = ft_atoi(value);
+set_pattern.c:		p->size = ft_atod(value);
+set_pattern.c:		p->distance = ft_atod(value);
+set_pattern.c:		p->amount_points = ft_atoi(value);
+set_pattern.c:		p->os_1 = ft_atod(value);
+set_pattern.c:		p->os_2 = ft_atod(value);
+set_pattern.c:	if (p->distance <= 0)
+set_pattern.c:		p->distance = 2;
+set_point_list.c:	ran = p->amount_points * ((double)rand() / (double)RAND_MAX);
+set_point_list.c:	if (!(p->points_arr = (t_3v *)malloc(sizeof(t_3v) * p->amount_points)))
+set_point_list.c:	offset = 2.0 / p->amount_points;
+set_point_list.c:	while (i < p->amount_points)
+set_point_list.c:		(p->points_arr[i]).v[0] = 1;
+set_point_list.c:		(p->points_arr[i]).v[1] = (M_PI / 2) - acos(((i * offset) - 1) +
+set_point_list.c:		tmp = ((i + ran) % p->amount_points) * increment;
+set_point_list.c:		(p->points_arr[i]).v[2] = atan2(sin(tmp), cos(tmp));
+set_t_values.c:	p->c_per_src[0] = ft_zero_3v();
+set_t_values.c:	dir = p->coor;
+set_t_values.c:	p->type = 0;
+set_t_values.c:	p->index_refract = 1.0;
+set_t_values.c:	pi = p->pi_arr[0];
+set_t_values.c:	p->c_per_src[0] = ft_init_3v((color.v)[0] * (pi->obj_m).ambient
+set_t_values.c:	if (!(p->c_per_src = (t_3v *)malloc(sizeof(t_3v)
+set_t_values.c:	if (!(p->pi_arr = (t_p_info **)malloc(sizeof(t_p_info *))))
+set_t_values.c:	p->color = ft_zero_3v();
+set_t_values.c:	p->amount_p = 0;
+set_t_values.c:	p->amount_refl = 0;
+set_t_values.c:	(p->coor).v[0] = -(scene.width / 2);
+set_t_values.c:	(p->coor).v[1] = (double)((double)j / scene.max_anti_a - scene.width
+set_t_values.c:	(p->coor).v[2] = (double)(scene.height / 2.0 - (double)i
+set_t_values_2.c:		set_var(var, p->amount_p, (sc.cam)->id, sc.thread_id);
+set_t_values_2.c:		if (p->amount_p > 0)
+set_t_values_2.c:			set_value_refl((p->pi_arr[p->amount_p - 1])->point, obj, var);
+set_t_values_2.c:		tmp = obj->f(obj->fixed_c[sc.thread_id][(sc.cam)->id][p->amount_p],
+set_t_values_2.c:	if (!(tmp = (t_p_info **)malloc(sizeof(t_p_info *) * (p->amount_p + 1))))
+set_t_values_2.c:	while (++i < p->amount_p)
+set_t_values_2.c:		tmp[i] = p->pi_arr[i];
+set_t_values_2.c:	free(p->pi_arr);
+set_t_values_2.c:	p->pi_arr = tmp;
+set_t_values_2.c:	if (!(p->pi_arr[p->amount_p] = (t_p_info *)malloc(sizeof(t_p_info))))
+set_t_values_2.c:	pi = p->pi_arr[p->amount_p];
+set_t_values_2.c:	if (((pi->vis_obj)->m).transparent > 0.001 && p->amount_p < 6)
+set_t_values_2.c:	if ((((pi->vis_obj)->m).specular > 0.001 && p->amount_refl < scene.refl))
+set_t_values_2.c:		p->type = 1;
+set_t_values_2.c:	pi = init_p_info(p, dir, scene, p->type);
+set_t_values_2.c:	pi_prev = (p->amount_p > 0) ? p->pi_arr[p->amount_p - 1] : NULL;
+set_t_values_2.c:	cam.origin = (p->amount_p > 0) ? pi_prev->point : (scene.cam)->origin;
+set_t_values_2.c:	cam.rotation = (p->amount_p > 0) ? (pi_prev->vis_obj)->rotation :
+set_t_values_2.c:	(p->amount_p)++;
+set_t_values_2.c:	if (p->type == 1)
+set_t_values_2.c:		(p->amount_refl)++;
+set_t_values_2.c:		p->index_refract = ((pi->vis_obj)->m).refractive_index;
+set_t_values_2.c:		p->index_refract = 1.0;

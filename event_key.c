@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/05/09 14:12:24 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/26 15:00:15 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 18:03:35 by mpauw            ###   ########.fr       */
 /*   Updated: 2018/06/26 11:49:16 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
@@ -18,7 +18,7 @@ static void	change_grain(t_event *event, int sharper)
 	int	yes;
 
 	yes = 1;
-	if (sharper && (event->scene).anti_a * 2 > (event->scene).max_anti_a)
+	if (sharper && (event->scene).anti_a > 1 && (event->scene).anti_a * 2 > (event->scene).max_anti_a)
 		yes = 0;
 	if (yes && sharper && (event->scene).grain >= 2 &&
 			(event->scene).anti_a == 1)
@@ -42,7 +42,7 @@ static void	change_grain(t_event *event, int sharper)
 
 static void	key_pressed_2(int key, t_event *event)
 {
-	if ((key == COMMA || key == DOT) && event->t_select == KEY_G)
+	if (event->t_select == KEY_G && (key == COMMA || key == DOT))
 		change_grain(event, (key == COMMA));
 	else if (key == KEY_C || key == KEY_O || key == KEY_L || key == KEY_G)
 	{

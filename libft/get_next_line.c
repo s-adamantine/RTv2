@@ -6,7 +6,7 @@
 /*   By: mpauw <marvin@42.fr>                       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/11/16 13:39:05 by mpauw             #+#    #+#             */
-/*   Updated: 2018/06/25 13:05:53 by mpauw            ###   ########.fr       */
+/*   Updated: 2018/06/26 17:32:33 by mpauw            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int				get_next_line(const int fd, char **line)
 	if (!line || !(*line = ft_strnew(to_alloc + 1)) || !buff)
 		return (-1);
 	read_so_far = 0;
-	while (!buff->buff[read_so_far] && read_so_far < BUFF_SIZE)
+	while (read_so_far < BUFF_SIZE && !buff->buff[read_so_far])
 		read_so_far++;
 	if (read_so_far == BUFF_SIZE + 2)
 		return (0);
